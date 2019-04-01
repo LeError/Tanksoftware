@@ -1,4 +1,4 @@
 package data;
 
-public class readFile {
+public class ReadFile {
 }

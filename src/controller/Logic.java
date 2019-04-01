@@ -1,4 +1,4 @@
 package controller;
 
-public class logic {
+public class Logic {
 }
