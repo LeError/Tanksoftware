@@ -1,5 +1,7 @@
 package util;
 
+import exceptions.OSException;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -10,7 +12,11 @@ public class ReadFile {
 	private final ArrayList<String> LINES = new ArrayList<>();
 	private final ArrayList<String> TOP_LINES = new ArrayList<>();
 
-	public ReadFile(String url) {
+	public ReadFile(String url)
+	throws OSException {
+		if (!isWindows()) {
+			throw new OSException("At the moment only Windows is supported");
+		}
 		FILE = new File(url);
 		try {
 			Scanner scan = new Scanner(FILE);
@@ -44,4 +50,7 @@ public class ReadFile {
 		return line.trim().split(";");
 	}
 
+	private boolean isWindows() {
+		return System.getProperty("os.name").toLowerCase().contains("win");
+	}
 }
