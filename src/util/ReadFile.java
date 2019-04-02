@@ -50,9 +50,8 @@ public class ReadFile {
 		return line.trim().split(";");
 	}
 
-	private boolean isWindows() { //improve later on
-		String OS = System.getProperty("os.name").toLowerCase();
-		if (OS.indexOf("win") >= 0) {
+	private boolean isWindows() {
+		if (System.getProperty("os.name").toLowerCase().contains("win")) {
 			return true;
 		} else {
 			return false;
