@@ -1,4 +1,4 @@
-package data;
+package util;
 
 import java.nio.charset.Charset;
 import java.nio.file.Files;
