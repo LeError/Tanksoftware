@@ -1,6 +1,6 @@
 # Tankstellen Software
 
-In this reposetory is the code for  Baden-Wuerttemberg Cooperative State University (DHBW) Ravensburg project for the lecture *Programmierung II*.
+This repository holds the code for Baden-Wuerttemberg Cooperative State University (DHBW) Ravensburg project for the lecture *Programmierung II*.
 
 tbd desc software
 
