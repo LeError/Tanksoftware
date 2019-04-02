@@ -12,4 +12,11 @@ public class StorageUnit {
 		LOCATION = new Point(x, y);
 	}
 
+	public String getLABEL() {
+		return LABEL;
+	}
+
+	public Point getLOCATION() {
+		return LOCATION;
+	}
 }
