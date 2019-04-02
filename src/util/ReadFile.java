@@ -51,10 +51,6 @@ public class ReadFile {
 	}
 
 	private boolean isWindows() {
-		if (System.getProperty("os.name").toLowerCase().contains("win")) {
-			return true;
-		} else {
-			return false;
-		}
+		return System.getProperty("os.name").toLowerCase().contains("win");
 	}
 }
