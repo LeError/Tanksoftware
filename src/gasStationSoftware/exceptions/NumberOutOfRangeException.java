@@ -1,4 +1,4 @@
-package exceptions;
+package gasStationSoftware.exceptions;
 
 public class NumberOutOfRangeException
 extends Exception {
