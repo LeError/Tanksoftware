@@ -1,6 +1,6 @@
-package util;
+package gasStationSoftware.util;
 
-import exceptions.OSException;
+import gasStationSoftware.exceptions.OSException;
 
 import java.io.File;
 import java.util.ArrayList;

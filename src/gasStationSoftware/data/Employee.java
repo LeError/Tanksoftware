@@ -1,4 +1,4 @@
-package data;
+package gasStationSoftware.data;
 
 import java.util.Date;
 

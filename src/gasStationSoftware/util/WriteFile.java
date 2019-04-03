@@ -1,4 +1,4 @@
-package util;
+package gasStationSoftware.util;
 
 import java.nio.charset.Charset;
 import java.nio.file.Files;

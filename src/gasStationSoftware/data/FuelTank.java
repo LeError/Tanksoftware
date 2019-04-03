@@ -1,6 +1,6 @@
-package data;
+package gasStationSoftware.data;
 
-import exceptions.NumberOutOfRangeException;
+import gasStationSoftware.exceptions.NumberOutOfRangeException;
 
 public class FuelTank {
 
