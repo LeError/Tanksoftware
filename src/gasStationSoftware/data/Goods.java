@@ -10,6 +10,7 @@ extends Items {
 		super(inventoryNumber, label, price, currency);
 		this.storage = storage;
 		this.amount = amount;
+		this.storage.addItem(this);
 	}
 
 	public StorageUnit getStorage() {
