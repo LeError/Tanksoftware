@@ -8,6 +8,7 @@ import java.io.IOException;
 public class Logic {
 
     private final String DATA_FILE_PATH = System.getProperty("user.home") + "\\TANKWare\\";
+    private final String DATA_RECIPE_PATH = DATA_FILE_PATH + "\\recipes";
     private final String[] DATA_FILE_NAMES = {
             "goodsDelivery.txt",
             "goodsOrder.txt",
@@ -24,12 +25,13 @@ public class Logic {
 	}
 
     private void loadDataFiles() {
-        checkDataDir();
+        checkDir(DATA_FILE_PATH);
+        checkDir(DATA_RECIPE_PATH);
 
     }
 
-    private void checkDataDir() {
-        File dataDir = new File(DATA_FILE_PATH);
+    private void checkDir(String dir) {
+        File dataDir = new File(dir);
         if (!dataDir.isDirectory()) {
             dataDir.mkdirs();
         }
