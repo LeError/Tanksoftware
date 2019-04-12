@@ -2,7 +2,10 @@ package gasStationSoftware.util;
 
 import gasStationSoftware.exceptions.OSException;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -53,4 +56,14 @@ public class ReadFile {
 	private boolean isWindows() {
 		return System.getProperty("os.name").toLowerCase().contains("win");
 	}
+
+	public static boolean isEmpty(String path) throws IOException {
+		File file = new File(path);
+		BufferedReader br = new BufferedReader(new FileReader(file));
+		if (br.readLine() == null) {
+			return true;
+		}
+		return false;
+	}
+
 }
