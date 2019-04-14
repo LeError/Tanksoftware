@@ -23,10 +23,7 @@ public class Logic {
     };
 
     private final String[] DATA_FILE_NAMES = {
-            "fuels.json",
-            "goods.json",
-            "fuelInventory.json",
-            "goodsInventory.json",
+            "tankwareData.json",
             "employees.txt"
     };
 
@@ -49,8 +46,8 @@ public class Logic {
             try {
                 createDefaultData(file);
             } catch (IOException e) {
-                e.printStackTrace();
-            } catch (dataFileNotFoundException dataFileNotFoundException) {
+                //TODO
+            } catch (dataFileNotFoundException e) {
                 //TODO
             }
         }
