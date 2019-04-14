@@ -85,7 +85,7 @@ public class Logic {
     private void checkDir(String dir) {
         File dataDir = new File(dir);
         if (!dataDir.isDirectory()) {
-            dataDir.mkdirs();
+            dataDir.mkdirs(); //TODO Add Exception
         }
     }
 
@@ -99,7 +99,7 @@ public class Logic {
         for (String file : DATA_FILE_NAMES) {
             File dataFile = new File(DATA_FILE_PATH + file);
             if (!dataFile.exists()) {
-                dataFile.createNewFile();  //TODO if json load from resources
+                dataFile.createNewFile();  //TODO if json load from resources //TODO Add Exception
             }
         }
     }
