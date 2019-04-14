@@ -26,7 +26,8 @@ https://github.com/LeError/Tanksoftware
 
 ## Built With
 
-* [tbd](https://tbd) - tbd desc
+* [JFoenix](http://www.jfoenix.com/) - JavaFX Material Design
+* [JSONSimple](https://code.google.com/archive/p/json-simple/) - JSON library 
 
 ## Authors
 
