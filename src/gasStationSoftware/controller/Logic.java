@@ -1,6 +1,6 @@
 package gasStationSoftware.controller;
 
-import gasStationSoftware.exceptions.dataFileNotFound;
+import gasStationSoftware.exceptions.dataFileNotFoundException;
 import gasStationSoftware.ui.Window;
 import gasStationSoftware.util.ReadFile;
 import gasStationSoftware.util.WriteFile;
@@ -14,14 +14,20 @@ import java.util.Calendar;
 public class Logic {
 
     private final String DATA_FILE_PATH = System.getProperty("user.home") + "\\TANKWare\\";
-    private final String DATA_RECIPE_PATH = DATA_FILE_PATH + "\\recipes";
+    private final String[] DATA_SUB_PATHS = {
+            DATA_FILE_PATH + "receipts",
+            DATA_FILE_PATH + "fuelOrders",
+            DATA_FILE_PATH + "fuelDeliveries",
+            DATA_FILE_PATH + "goodsOrders",
+            DATA_FILE_PATH + "goodsDeliveries"
+    };
+
     private final String[] DATA_FILE_NAMES = {
-            "goodsDelivery.txt",
-            "goodsOrder.txt",
-            "fuelDelivery.txt",
-            "fuelOrder.txt",
-            "fuelInventory.txt",
-            "goodsInventory.txt",
+            "fuels.json",
+            "goods.json",
+            "fuelInventory.json",
+            "goodsInventory.json",
+            "employees.txt"
     };
 
 	private Window window;
@@ -33,7 +39,7 @@ public class Logic {
 
     private void loadDataFiles() {
         checkDir(DATA_FILE_PATH);
-        checkDir(DATA_RECIPE_PATH);
+        checkDirs(DATA_SUB_PATHS);
         try {
             checkDataFiles();
         } catch (IOException e) {
@@ -44,55 +50,34 @@ public class Logic {
                 createDefaultData(file);
             } catch (IOException e) {
                 e.printStackTrace();
-            } catch (gasStationSoftware.exceptions.dataFileNotFound dataFileNotFound) {
+            } catch (dataFileNotFoundException dataFileNotFoundException) {
                 //TODO
             }
         }
     }
 
-    private void createDefaultData(String fileName) throws IOException, dataFileNotFound {
+    private void createDefaultData(String fileName) throws IOException, dataFileNotFoundException {
         String file = DATA_FILE_PATH + fileName;
-        ArrayList<String> lines = new ArrayList();
         String date = new SimpleDateFormat("dd.MM.yyyy").format(Calendar.getInstance().getTime());
         if (ReadFile.isEmpty(file)) {
             switch (fileName) {
-                case "goodsDelivery.txt":
-                    lines.add("Lieferdatum=" + date);
-                    lines.add("Warennummer;Bezeichnung;Lagereinheit;Menge;Einkaufspreis");
-                    lines.add("000;TANKWare;Lizenz;1;9999.99");
+                case "fuels.json":
                     break;
-                case "goodsOrder.txt":
-                    lines.add("Bestelldatum=" + date);
-                    lines.add("Warennummer;Bestellmenge");
-                    lines.add("000;00");
+                case "goods.json":
                     break;
-                case "fuelDelivery.txt":
-                    lines.add("LIEFERDATUM=" + date);
-                    lines.add("DIESEL=0");
-                    lines.add("DIESEL_PREIS=0.00");
-                    lines.add("LKWDIESEL=0");
-                    lines.add("LKWDIESEL_PREIS=0.00");
-                    lines.add("SUPER=0");
-                    lines.add("SUPER_PREIS=0.00");
-                    lines.add("SUPERE10=0");
-                    lines.add("SUPERE10_PREIS=0.00");
+                case "fuelInventory.json":
+                    break;
+                case "goodsInventory.json":
+                    break;
+                case "employees.txt":
+                    ArrayList<String> lines = new ArrayList();
+                    lines.add("LASTUPDATE=" + date);
+                    lines.add("EMPLOYEENR;FIRSTNAME;LASTNAME;EMPLOYMENTDATE");
+                    lines.add("00000;Rolf;ADMIN;" + date);
                     WriteFile.writeFile(lines, file);
                     break;
-                case "fuelOrder.txt":
-                    lines.add("BESTELLDATUM=" + date);
-                    lines.add("DIESEL=0");
-                    lines.add("LKWDIESEL=0");
-                    lines.add("SUPER=0");
-                    lines.add("SUPERE10=0");
-                    WriteFile.writeFile(lines, file);
-                    break;
-                case "fuelInventory.txt":
-                    break;
-                case "goodsInventory.txt":
-                    break;
-
                 default:
-                    throw new dataFileNotFound();
+                    throw new dataFileNotFoundException();
             }
         }
     }
@@ -104,11 +89,17 @@ public class Logic {
         }
     }
 
+    private void checkDirs(String[] dirs) {
+        for (String dir : dirs) {
+            checkDir(dir);
+        }
+    }
+
     private void checkDataFiles() throws IOException {
         for (String file : DATA_FILE_NAMES) {
             File dataFile = new File(DATA_FILE_PATH + file);
             if (!dataFile.exists()) {
-                dataFile.createNewFile();
+                dataFile.createNewFile();  //TODO if json load from resources
             }
         }
     }
