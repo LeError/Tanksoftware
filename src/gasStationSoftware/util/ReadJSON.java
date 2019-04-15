@@ -24,8 +24,8 @@ public class ReadJSON {
     }
 
     public void read() {
-        try {
-            Object obj = parser.parse(new FileReader(path));
+		try (FileReader fileReader = new FileReader(path)) {
+			Object obj = parser.parse(fileReader);
             jsonObject = (JSONObject) obj;
         } catch (Exception e) {
             //TODO
