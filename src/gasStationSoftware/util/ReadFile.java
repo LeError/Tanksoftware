@@ -21,7 +21,7 @@ public class ReadFile {
 			throw new OSException("At the moment only Windows is supported");
 		}
 		FILE = new File(url);
-		try {
+		try { //TODO change to try(res)
 			Scanner scan = new Scanner(FILE);
 			while(scan.hasNextLine()) {
 				String line = scan.nextLine();
@@ -57,10 +57,13 @@ public class ReadFile {
 		return System.getProperty("os.name").toLowerCase().contains("win");
 	}
 
-	public static boolean isEmpty(String path) throws IOException {
+	public static boolean isEmpty(String path) {
 		File file = new File(path);
-		BufferedReader br = new BufferedReader(new FileReader(file));
-		if (br.readLine() == null) {
+		try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+			if (br.readLine() == null) {
+				return true;
+			}
+		} catch (IOException e) {
 			return true;
 		}
 		return false;
