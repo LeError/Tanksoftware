@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.172-ea"
+            fx:controller="gasStationSoftware.controller.WindowController">
+   <children>
+       <AnchorPane fx:id="menuBar" minHeight="600.0" minWidth="110.0" prefHeight="600.0" prefWidth="110.0"
+                   style="-fx-background-color: #607D8B;">
+         <children>
+             <ImageView fx:id="btnUser" fitHeight="80.0" fitWidth="80.0" layoutX="15.0" layoutY="15.0"
+                        onMousePressed="#handleMenuButtonAction" pickOnBounds="true" preserveRatio="true">
+               <image>
+                   <Image url="@resource/images/icons8-male-user-80.png"/>
+               </image>
+            </ImageView>
+             <Line endX="100.0" layoutY="105.0" startX="10.0" stroke="#bdbdbd"/>
+             <ImageView fx:id="btnSettings" fitHeight="60.0" fitWidth="60.0" layoutX="25.0" layoutY="520.0"
+                        onMousePressed="#handleMenuButtonAction" pickOnBounds="true" preserveRatio="true">
+               <image>
+                   <Image url="@resource/images/icons8-settings-70.png"/>
+               </image>
+            </ImageView>
+             <ImageView fx:id="btnReports" fitHeight="60.0" fitWidth="60.0" layoutX="25.0" layoutY="440.0"
+                        onMousePressed="#handleMenuButtonAction" pickOnBounds="true" preserveRatio="true">
+               <image>
+                   <Image url="@resource/images/icons8-system-report-70.png"/>
+               </image>
+            </ImageView>
+             <ImageView fx:id="btnEmployees" fitHeight="60.0" fitWidth="60.0" layoutX="25.0" layoutY="360.0"
+                        onMousePressed="#handleMenuButtonAction" pickOnBounds="true" preserveRatio="true">
+               <image>
+                   <Image url="@resource/images/icons8-people-70.png"/>
+               </image>
+            </ImageView>
+             <ImageView fx:id="btnTanks" fitHeight="60.0" fitWidth="60.0" layoutX="25.0" layoutY="280.0"
+                        onMousePressed="#handleMenuButtonAction" pickOnBounds="true" preserveRatio="true">
+               <image>
+                   <Image url="@resource/images/icons8-oil-tanker-70.png"/>
+               </image>
+            </ImageView>
+             <ImageView fx:id="btnInventory" fitHeight="60.0" fitWidth="60.0" layoutX="25.0" layoutY="200.0"
+                        onMousePressed="#handleMenuButtonAction" pickOnBounds="true" preserveRatio="true">
+               <image>
+                   <Image url="@resource/images/icons8-warehouse-70.png"/>
+               </image>
+            </ImageView>
+             <ImageView fx:id="btnSelling" fitHeight="60.0" fitWidth="60.0" layoutX="25.0" layoutY="120.0"
+                        onMousePressed="#handleMenuButtonAction" pickOnBounds="true" preserveRatio="true">
+               <image>
+                   <Image url="@resource/images/icons8-shopping-70.png"/>
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+       <AnchorPane fx:id="userPane" layoutX="110.0" minHeight="600.0" minWidth="890.0" prefHeight="600.0"
+                   prefWidth="890.0" style="-fx-background-color: #CFD8DC;" visible="false"/>
+       <AnchorPane fx:id="sellingPane" layoutX="110.0" minHeight="600.0" minWidth="890.0" prefHeight="600.0"
+                   prefWidth="890.0" style="-fx-background-color: #CFD8DC;"/>
+       <AnchorPane fx:id="inventoryPane" layoutX="110.0" minHeight="600.0" minWidth="890.0" prefHeight="600.0"
+                   prefWidth="890.0" style="-fx-background-color: #CFD8DC;" visible="false"/>
+       <AnchorPane fx:id="fuelTankPane" layoutX="110.0" minHeight="600.0" minWidth="890.0" prefHeight="600.0"
+                   prefWidth="890.0" style="-fx-background-color: #CFD8DC;" visible="false"/>
+       <AnchorPane fx:id="employeePane" layoutX="110.0" minHeight="600.0" minWidth="890.0" prefHeight="600.0"
+                   prefWidth="890.0" style="-fx-background-color: #CFD8DC;" visible="false"/>
+       <AnchorPane fx:id="reportPane" layoutX="110.0" minHeight="600.0" minWidth="890.0" prefHeight="600.0"
+                   prefWidth="890.0" style="-fx-background-color: #CFD8DC;" visible="false"/>
+       <AnchorPane fx:id="settingsPane" layoutX="110.0" minHeight="600.0" minWidth="890.0" prefHeight="600.0"
+                   prefWidth="890.0" style="-fx-background-color: #CFD8DC;" visible="false">
+         <children>
+             <Label layoutX="20.0" layoutY="15.0" prefHeight="50.0" prefWidth="300.0" text="Einstellungen"
+                    textFill="#212121">
+               <font>
+                   <Font size="30.0"/>
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
