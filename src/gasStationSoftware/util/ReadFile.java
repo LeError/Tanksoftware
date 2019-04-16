@@ -2,7 +2,10 @@ package gasStationSoftware.util;
 
 import gasStationSoftware.exceptions.OSException;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -18,7 +21,7 @@ public class ReadFile {
 			throw new OSException("At the moment only Windows is supported");
 		}
 		FILE = new File(url);
-		try {
+		try { //TODO change to try(res)
 			Scanner scan = new Scanner(FILE);
 			while(scan.hasNextLine()) {
 				String line = scan.nextLine();
@@ -53,4 +56,17 @@ public class ReadFile {
 	private boolean isWindows() {
 		return System.getProperty("os.name").toLowerCase().contains("win");
 	}
+
+	public static boolean isEmpty(String path) {
+		File file = new File(path);
+		try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+			if (br.readLine() == null) {
+				return true;
+			}
+		} catch (IOException e) {
+			return true;
+		}
+		return false;
+	}
+
 }
