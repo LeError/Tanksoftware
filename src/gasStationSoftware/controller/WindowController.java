@@ -1,4 +1,4 @@
-package gasStationSoftware.ui;
+package gasStationSoftware.controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -10,6 +10,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class WindowController implements Initializable {
+
+    private Logic logic;
 
     @FXML
     private ImageView btnUser, btnSelling, btnInventory, btnTanks, btnEmployees, btnReports, btnSettings;
@@ -49,6 +51,6 @@ public class WindowController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //TODO
+        logic = new Logic(this);
     }
 }
