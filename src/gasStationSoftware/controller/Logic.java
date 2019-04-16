@@ -1,7 +1,6 @@
 package gasStationSoftware.controller;
 
 import gasStationSoftware.exceptions.dataFileNotFoundException;
-import gasStationSoftware.ui.Window;
 import gasStationSoftware.util.ReadFile;
 import gasStationSoftware.util.WriteFile;
 
@@ -27,10 +26,10 @@ public class Logic {
             "employees.txt"
     };
 
-	private Window window;
+    private WindowController windowController;
 
-	public Logic(Window window) {
-		this.window = window;
+    public Logic(WindowController windowController) {
+        this.windowController = windowController;
         loadDataFiles();
 	}
 
