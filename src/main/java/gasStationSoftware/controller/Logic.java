@@ -31,7 +31,7 @@ public class Logic {
     public Logic(WindowController windowController) {
         this.windowController = windowController;
         loadDataFiles();
-	}
+    }
 
     private void loadDataFiles() {
         checkDir(DATA_FILE_PATH);
@@ -45,21 +45,21 @@ public class Logic {
             try {
                 createDefaultData(file);
             } catch (dataFileNotFoundException e) {
-				e.printStackTrace();
+                e.printStackTrace();
             }
         }
     }
 
-	private void createDefaultData(String fileName)
-	throws dataFileNotFoundException {
+    private void createDefaultData(String fileName)
+            throws dataFileNotFoundException {
         String file = DATA_FILE_PATH + fileName;
         if (ReadFile.isEmpty(file)) {
             switch (fileName) {
-			case "tankwareData.json":
+                case "tankwareData.json":
                     break;
                 case "employees.txt":
                     ArrayList<String> lines = new ArrayList();
-					String date = new SimpleDateFormat("dd.MM.yyyy").format(Calendar.getInstance().getTime());
+                    String date = new SimpleDateFormat("dd.MM.yyyy").format(Calendar.getInstance().getTime());
                     lines.add("LASTUPDATE=" + date);
                     lines.add("EMPLOYEENR;FIRSTNAME;LASTNAME;EMPLOYMENTDATE");
                     lines.add("00000;Rolf;ADMIN;" + date);
