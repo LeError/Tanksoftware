@@ -1,4 +1,4 @@
-package gasStationSoftware.data;
+package gasStationSoftware.models;
 
 public class Goods
 extends Items {

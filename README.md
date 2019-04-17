@@ -28,6 +28,7 @@ https://github.com/LeError/Tanksoftware
 
 * [JFoenix](http://www.jfoenix.com/) - JavaFX Material Design
 * [JSONSimple](https://code.google.com/archive/p/json-simple/) - JSON library 
+* [FontAwesomeFX](https://bitbucket.org/Jerady/fontawesomefx/overview) - Icon Font for JavaFX
 
 ## Authors
 

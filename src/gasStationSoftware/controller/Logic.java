@@ -1,7 +1,6 @@
 package gasStationSoftware.controller;
 
 import gasStationSoftware.exceptions.dataFileNotFoundException;
-import gasStationSoftware.ui.Window;
 import gasStationSoftware.util.ReadFile;
 import gasStationSoftware.util.WriteFile;
 
@@ -27,10 +26,10 @@ public class Logic {
             "employees.txt"
     };
 
-	private Window window;
+    private WindowController windowController;
 
-	public Logic(Window window) {
-		this.window = window;
+    public Logic(WindowController windowController) {
+        this.windowController = windowController;
         loadDataFiles();
 	}
 
@@ -45,29 +44,22 @@ public class Logic {
         for (String file : DATA_FILE_NAMES) {
             try {
                 createDefaultData(file);
-            } catch (IOException e) {
-                //TODO
             } catch (dataFileNotFoundException e) {
-                //TODO
+				e.printStackTrace();
             }
         }
     }
 
-    private void createDefaultData(String fileName) throws IOException, dataFileNotFoundException {
+	private void createDefaultData(String fileName)
+	throws dataFileNotFoundException {
         String file = DATA_FILE_PATH + fileName;
-        String date = new SimpleDateFormat("dd.MM.yyyy").format(Calendar.getInstance().getTime());
         if (ReadFile.isEmpty(file)) {
             switch (fileName) {
-                case "fuels.json":
-                    break;
-                case "goods.json":
-                    break;
-                case "fuelInventory.json":
-                    break;
-                case "goodsInventory.json":
+			case "tankwareData.json":
                     break;
                 case "employees.txt":
                     ArrayList<String> lines = new ArrayList();
+					String date = new SimpleDateFormat("dd.MM.yyyy").format(Calendar.getInstance().getTime());
                     lines.add("LASTUPDATE=" + date);
                     lines.add("EMPLOYEENR;FIRSTNAME;LASTNAME;EMPLOYMENTDATE");
                     lines.add("00000;Rolf;ADMIN;" + date);

@@ -23,7 +23,7 @@ public class ReadJSON {
         }
     }
 
-    public void read() {
+	public void read() { //TODO add canRead & canWrite
 		try (FileReader fileReader = new FileReader(path)) {
 			Object obj = parser.parse(fileReader);
             jsonObject = (JSONObject) obj;

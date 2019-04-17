@@ -16,7 +16,7 @@ public class ReadFile {
 	private final ArrayList<String> TOP_LINES = new ArrayList<>();
 
 	public ReadFile(String url)
-	throws OSException {
+	throws OSException { //TODO add canRead & canWrite
 		if (!isWindows()) {
 			throw new OSException("At the moment only Windows is supported");
 		}
