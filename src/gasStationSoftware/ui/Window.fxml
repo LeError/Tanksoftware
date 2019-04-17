@@ -255,6 +255,8 @@
                <JFXComboBox fx:id="cbSettingsTheme" layoutX="140.0" layoutY="145.0" prefHeight="30.0"
                             prefWidth="200.0"/>
                <Label layoutX="65.0" layoutY="150.0" text="Theme:"/>
+               <JFXButton fx:id="btnSettingsEditTheme" layoutX="455.0" layoutY="145.0" prefHeight="30.0"
+                          prefWidth="150.0" style="-fx-background-color: #607D8B;" text="Bearbeiten" textFill="WHITE"/>
                <JFXButton fx:id="btnSettingsCreateTheme" layoutX="615.0" layoutY="145.0" prefHeight="30.0"
                           prefWidth="150.0" style="-fx-background-color: #607D8B;" text="Erstellen" textFill="WHITE"/>
                <Label layoutX="65.0" layoutY="210.0" text="Tankstellen Verwaltung / Setup">
@@ -274,8 +276,6 @@
                <Label layoutX="65.0" layoutY="335.0" prefHeight="20.0" prefWidth="200.0" text="Zapfsäulen Verwaltung:"/>
                <JFXButton fx:id="btnSettingsGasPumps" layoutX="615.0" layoutY="330.0" prefHeight="30.0"
                           prefWidth="150.0" style="-fx-background-color: #607D8B;" text="Öffnen" textFill="WHITE"/>
-               <JFXButton fx:id="btnSettingsEditTheme" layoutX="455.0" layoutY="145.0" prefHeight="30.0"
-                          prefWidth="150.0" style="-fx-background-color: #607D8B;" text="Bearbeiten" textFill="WHITE"/>
                <Label layoutX="65.0" layoutY="385.0" text="Impotieren / Exportieren">
                    <font>
                        <Font name="System Bold" size="15.0"/>
