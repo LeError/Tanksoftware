@@ -21,12 +21,12 @@ public class Window extends Application {
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("Window.fxml"));
         root.setOnMousePressed(event -> {
-            screenOffsetX = event.getSceneX();
-            screenOffsetY = event.getSceneY();
+                screenOffsetX = event.getSceneX();
+                screenOffsetY = event.getSceneY();
         });
         root.setOnMouseDragged(event -> {
-            stage.setX(event.getScreenX() - screenOffsetX);
-            stage.setY(event.getScreenY() - screenOffsetY);
+                stage.setX(event.getScreenX() - screenOffsetX);
+                stage.setY(event.getScreenY() - screenOffsetY);
         });
 
         Scene scene = new Scene(root, 1000, 600);

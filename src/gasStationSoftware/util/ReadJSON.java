@@ -23,9 +23,9 @@ public class ReadJSON {
         }
     }
 
-    public void read() { //TODO add canRead & canWrite
-        try (FileReader fileReader = new FileReader(path)) {
-            Object obj = parser.parse(fileReader);
+	public void read() { //TODO add canRead & canWrite
+		try (FileReader fileReader = new FileReader(path)) {
+			Object obj = parser.parse(fileReader);
             jsonObject = (JSONObject) obj;
         } catch (Exception e) {
             //TODO
