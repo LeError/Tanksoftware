@@ -1,5 +1,7 @@
 package gasStationSoftware.controller;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -14,11 +16,9 @@ public class WindowController implements Initializable {
 
     private Logic logic;
 
-    @FXML
-    private ImageView btnUser, btnSelling, btnInventory, btnTanks, btnEmployees, btnReports, btnSettings;
+	@FXML private ImageView btnUser, btnSelling, btnInventory, btnTanks, btnEmployees, btnReports, btnSettings;
 
-    @FXML
-    private AnchorPane userPane, sellingPane, inventoryPane, fuelTankPane, employeePane, reportPane, settingsPane;
+	@FXML private AnchorPane userPane, sellingPane, inventoryPane, fuelTankPane, employeePane, reportPane, settingsPane;
 
 	@FXML private JFXButton btnSettingsImport, btnSettingsExport, btnSettingsGasPumps, btnSettingsTanks, btnSettingsFuels, btnSettingsCreateTheme, btnSettingsEditTheme, btnSellingCheckOut, btnSellingGoods, btnSellingGasPumps;
 
