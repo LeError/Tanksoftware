@@ -1,58 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
-<?import java.lang.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTreeTableView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TreeTableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Polygon?>
+<?import javafx.scene.text.Font?>
+<?import java.lang.Double?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-            minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.172-ea"
+            minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171"
             fx:controller="gasStationSoftware.controller.WindowController">
    <children>
        <AnchorPane fx:id="menuBar" minHeight="600.0" minWidth="110.0" prefHeight="600.0" prefWidth="110.0"
                    style="-fx-background-color: #607D8B;">
          <children>
              <ImageView fx:id="btnUser" fitHeight="80.0" fitWidth="80.0" layoutX="15.0" layoutY="15.0"
-                        onMousePressed="#handleMenuButtonAction" pickOnBounds="true" preserveRatio="true">
+                        onMousePressed="#handleButtonAction" pickOnBounds="true" preserveRatio="true">
                <image>
                    <Image url="@resource/images/icons8-male-user-80.png"/>
                </image>
             </ImageView>
              <Line endX="100.0" layoutY="105.0" startX="10.0" stroke="#bdbdbd"/>
              <ImageView fx:id="btnSettings" fitHeight="60.0" fitWidth="60.0" layoutX="25.0" layoutY="520.0"
-                        onMousePressed="#handleMenuButtonAction" pickOnBounds="true" preserveRatio="true">
+                        onMousePressed="#handleButtonAction" pickOnBounds="true" preserveRatio="true">
                <image>
                    <Image url="@resource/images/icons8-settings-70.png"/>
                </image>
             </ImageView>
              <ImageView fx:id="btnReports" fitHeight="60.0" fitWidth="60.0" layoutX="25.0" layoutY="440.0"
-                        onMousePressed="#handleMenuButtonAction" pickOnBounds="true" preserveRatio="true">
+                        onMousePressed="#handleButtonAction" pickOnBounds="true" preserveRatio="true">
                <image>
                    <Image url="@resource/images/icons8-system-report-70.png"/>
                </image>
             </ImageView>
              <ImageView fx:id="btnEmployees" fitHeight="60.0" fitWidth="60.0" layoutX="25.0" layoutY="360.0"
-                        onMousePressed="#handleMenuButtonAction" pickOnBounds="true" preserveRatio="true">
+                        onMousePressed="#handleButtonAction" pickOnBounds="true" preserveRatio="true">
                <image>
                    <Image url="@resource/images/icons8-people-70.png"/>
                </image>
             </ImageView>
              <ImageView fx:id="btnTanks" fitHeight="60.0" fitWidth="60.0" layoutX="25.0" layoutY="280.0"
-                        onMousePressed="#handleMenuButtonAction" pickOnBounds="true" preserveRatio="true">
+                        onMousePressed="#handleButtonAction" pickOnBounds="true" preserveRatio="true">
                <image>
                    <Image url="@resource/images/icons8-oil-tanker-70.png"/>
                </image>
             </ImageView>
              <ImageView fx:id="btnInventory" fitHeight="60.0" fitWidth="60.0" layoutX="25.0" layoutY="200.0"
-                        onMousePressed="#handleMenuButtonAction" pickOnBounds="true" preserveRatio="true">
+                        onMousePressed="#handleButtonAction" pickOnBounds="true" preserveRatio="true">
                <image>
                    <Image url="@resource/images/icons8-warehouse-70.png"/>
                </image>
             </ImageView>
              <ImageView fx:id="btnSelling" fitHeight="60.0" fitWidth="60.0" layoutX="25.0" layoutY="120.0"
-                        onMousePressed="#handleMenuButtonAction" pickOnBounds="true" preserveRatio="true">
+                        onMousePressed="#handleButtonAction" pickOnBounds="true" preserveRatio="true">
                <image>
                    <Image url="@resource/images/icons8-shopping-70.png"/>
                </image>
@@ -158,7 +164,7 @@
          </children>
        </AnchorPane>
        <AnchorPane fx:id="sellingPane" layoutX="110.0" minHeight="600.0" minWidth="890.0" prefHeight="600.0"
-                   prefWidth="890.0" style="-fx-background-color: #CFD8DC;" visible="false">
+                   prefWidth="890.0" style="-fx-background-color: #CFD8DC;">
            <children>
                <Label layoutX="65.0" layoutY="30.0" text="Warenausgang">
                    <font>
@@ -214,7 +220,7 @@
            </children>
        </AnchorPane>
        <AnchorPane fx:id="inventoryPane" layoutX="110.0" minHeight="600.0" minWidth="890.0" prefHeight="600.0"
-                   prefWidth="890.0" style="-fx-background-color: #CFD8DC;" visible="false">
+                   prefWidth="890.0" style="-fx-background-color: #CFD8DC;">
            <children>
                <Polygon fill="#607d8a" layoutX="25.0" layoutY="245.0" rotate="90.0" scaleX="0.5" scaleY="0.5"
                         stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-background-color: #607D8B;">
@@ -227,35 +233,28 @@
                        <Double fx:value="-60.0"/>
                    </points>
                </Polygon>
-               <AnchorPane prefHeight="600.0" prefWidth="890.0">
+               <AnchorPane fx:id="inventoryOverviewPane" prefHeight="600.0" prefWidth="890.0">
                    <children>
                        <Label layoutX="65.0" layoutY="30.0" text="Warenmanagement">
                            <font>
                                <Font name="System Bold" size="30.0"/>
                            </font>
                        </Label>
-                       <TableView layoutX="65.0" layoutY="98.0" prefHeight="384.0" prefWidth="761.0">
-                           <columns>
-                               <TableColumn prefWidth="125.0" text="Warennummer"/>
-                               <TableColumn prefWidth="234.0" text="Bezeichnung"/>
-                               <TableColumn prefWidth="126.0" text="Lagereinheit"/>
-                               <TableColumn prefWidth="70.0" text="Menge"/>
-                               <TableColumn prefWidth="117.0" text="Verkaufspreis"/>
-                               <TableColumn prefWidth="88.0" text="Währung"/>
-                           </columns>
-                       </TableView>
-                       <JFXButton fx:id="btnSettingsEditTheme1" layoutX="65.0" layoutY="520.0" prefHeight="30.0"
-                                  prefWidth="150.0" style="-fx-background-color: #607D8B;" text="Bestellen"
-                                  textFill="WHITE"/>
-                       <JFXButton fx:id="btnSettingsEditTheme2" layoutX="240.0" layoutY="520.0" prefHeight="30.0"
-                                  prefWidth="150.0" style="-fx-background-color: #607D8B;" text="Lieferungen"
-                                  textFill="WHITE"/>
+                       <JFXButton fx:id="btnInventoryOrder" layoutX="65.0" layoutY="520.0"
+                                  onMousePressed="#handleButtonAction" prefHeight="30.0" prefWidth="150.0"
+                                  style="-fx-background-color: #607D8B;" text="Bestellen" textFill="WHITE"/>
+                       <JFXButton fx:id="btnInventoryDeliveries" layoutX="240.0" layoutY="520.0"
+                                  onMousePressed="#handleButtonAction" prefHeight="30.0" prefWidth="150.0"
+                                  style="-fx-background-color: #607D8B;" text="Lieferungen" textFill="WHITE"/>
+                       <TreeTableView layoutX="65.0" layoutY="100.0" prefHeight="384.0" prefWidth="761.0"/>
                    </children>
                </AnchorPane>
+               <AnchorPane fx:id="inventoryOrderPane" prefHeight="600.0" prefWidth="890.0"/>
+               <AnchorPane fx:id="inventoryDeliveryPane" prefHeight="600.0" prefWidth="890.0"/>
            </children>
        </AnchorPane>
-       <AnchorPane fx:id="fuelTankPane" layoutX="110.0" minHeight="600.0" minWidth="890.0" prefHeight="600.0"
-                   prefWidth="890.0" style="-fx-background-color: #CFD8DC;" visible="false">
+       <AnchorPane fx:id="fuelPane" layoutX="110.0" minHeight="600.0" minWidth="890.0" prefHeight="600.0"
+                   prefWidth="890.0" style="-fx-background-color: #CFD8DC;">
            <children>
                <Polygon fill="#607d8a" layoutX="25.0" layoutY="320.0" rotate="90.0" scaleX="0.5" scaleY="0.5"
                         stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-background-color: #607D8B;">
@@ -268,45 +267,33 @@
                        <Double fx:value="-60.0"/>
                    </points>
                </Polygon>
-               <AnchorPane prefHeight="600.0" prefWidth="890.0">
+               <AnchorPane fx:id="fuelOverviewPane" prefHeight="600.0" prefWidth="890.0">
                    <children>
                        <Label layoutX="65.0" layoutY="30.0" text="Kraftstoffmanagement">
                            <font>
                                <Font name="System Bold" size="30.0"/>
                            </font>
                        </Label>
-                       <TableView layoutX="65.0" layoutY="98.0" prefHeight="384.0" prefWidth="761.0">
-                           <columns>
-                               <TableColumn prefWidth="125.0" text="Status"/>
-                               <TableColumn prefWidth="117.0" text="Tanknummer"/>
-                               <TableColumn prefWidth="243.0" text="Kraftstoffart"/>
-                               <TableColumn prefWidth="137.0" text="Kapazität"/>
-                               <TableColumn prefWidth="138.0" text="Füllstand"/>
-                           </columns>
-                       </TableView>
-                       <JFXButton fx:id="btnSettingsEditTheme11" layoutX="65.0" layoutY="520.0" prefHeight="30.0"
-                                  prefWidth="150.0" style="-fx-background-color: #607D8B;" text="Bestellen"
-                                  textFill="WHITE"/>
-                       <JFXButton fx:id="btnSettingsEditTheme21" layoutX="240.0" layoutY="520.0" prefHeight="30.0"
-                                  prefWidth="150.0" style="-fx-background-color: #607D8B;" text="Lieferungen"
-                                  textFill="WHITE"/>
+                       <JFXButton fx:id="btnFuelDeliveries" buttonType="RAISED" layoutX="240.0" layoutY="520.0"
+                                  prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B;"
+                                  text="Lieferungen" textFill="WHITE"/>
+                       <JFXButton fx:id="btnFuelOrders" buttonType="RAISED" layoutX="65.0" layoutY="520.0"
+                                  prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B;"
+                                  text="Lieferungen" textFill="WHITE"/>
+                       <TreeTableView layoutX="65.0" layoutY="100.0" prefHeight="384.0" prefWidth="761.0"/>
                    </children>
                </AnchorPane>
+               <AnchorPane fx:id="fuelOrderPane" prefHeight="600.0" prefWidth="890.0"/>
+               <AnchorPane fx:id="fuelDeliveryPane" prefHeight="600.0" prefWidth="890.0"/>
            </children>
        </AnchorPane>
        <AnchorPane fx:id="employeePane" layoutX="110.0" minHeight="600.0" minWidth="890.0" prefHeight="600.0"
                    prefWidth="890.0" style="-fx-background-color: #CFD8DC;" visible="false"/>
        <AnchorPane fx:id="reportPane" layoutX="110.0" minHeight="600.0" minWidth="890.0" prefHeight="600.0"
                    prefWidth="890.0" style="-fx-background-color: #CFD8DC;" visible="false"/>
-       <AnchorPane fx:id="settingsPane" layoutX="110.0" minHeight="600.0" minWidth="890.0" prefHeight="600.0"
-                   prefWidth="890.0" style="-fx-background-color: #CFD8DC;" visible="false">
+       <AnchorPane fx:id="settingsPane" layoutX="110.0" prefHeight="200.0" prefWidth="200.0"
+                   style="-fx-background-color: #CFD8DC;" visible="false">
            <children>
-               <Label layoutX="65.0" layoutY="30.0" prefHeight="50.0" prefWidth="300.0" text="Einstellungen"
-                      textFill="#212121">
-                   <font>
-                       <Font name="System Bold" size="30.0"/>
-                   </font>
-               </Label>
                <Polygon fill="#607d8a" layoutX="25.0" layoutY="560.0" rotate="90.0" scaleX="0.5" scaleY="0.5"
                         stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-background-color: #607D8B;">
                    <points>
@@ -318,48 +305,71 @@
                        <Double fx:value="-60.0"/>
                    </points>
                </Polygon>
-               <Label layoutX="65.0" layoutY="105.0" text="Themes">
-                   <font>
-                       <Font name="System Bold" size="15.0"/>
-                   </font>
-               </Label>
-               <Separator layoutX="65.0" layoutY="130.0" prefWidth="700.0" style="-fx-background-color: #000000;"/>
-               <JFXComboBox fx:id="cbSettingsTheme" layoutX="140.0" layoutY="145.0" prefHeight="30.0"
-                            prefWidth="200.0"/>
-               <Label layoutX="65.0" layoutY="150.0" text="Theme:"/>
-               <JFXButton fx:id="btnSettingsEditTheme" layoutX="455.0" layoutY="145.0" prefHeight="30.0"
-                          prefWidth="150.0" style="-fx-background-color: #607D8B;" text="Bearbeiten" textFill="WHITE"/>
-               <JFXButton fx:id="btnSettingsCreateTheme" layoutX="615.0" layoutY="145.0" prefHeight="30.0"
-                          prefWidth="150.0" style="-fx-background-color: #607D8B;" text="Erstellen" textFill="WHITE"/>
-               <Label layoutX="65.0" layoutY="210.0" text="Tankstellen Verwaltung / Setup">
-                   <font>
-                       <Font name="System Bold" size="15.0"/>
-                   </font>
-               </Label>
-               <Separator layoutX="65.0" layoutY="235.0" prefWidth="700.0" style="-fx-background-color: #000000;"/>
-               <Label layoutX="65.0" layoutY="255.0" prefHeight="20.0" prefWidth="200.0"
-                      text="Kraftstoffarten Verwaltung:"/>
-               <JFXButton fx:id="btnSettingsFuels" layoutX="615.0" layoutY="250.0" prefHeight="30.0" prefWidth="150.0"
-                          style="-fx-background-color: #607D8B;" text="Öffnen" textFill="WHITE"/>
-               <Label layoutX="65.0" layoutY="295.0" prefHeight="20.0" prefWidth="200.0"
-                      text="Kraftstofftank Verwaltung:"/>
-               <JFXButton fx:id="btnSettingsTanks" layoutX="615.0" layoutY="290.0" prefHeight="30.0" prefWidth="150.0"
-                          style="-fx-background-color: #607D8B;" text="Öffnen" textFill="WHITE"/>
-               <Label layoutX="65.0" layoutY="335.0" prefHeight="20.0" prefWidth="200.0" text="Zapfsäulen Verwaltung:"/>
-               <JFXButton fx:id="btnSettingsGasPumps" layoutX="615.0" layoutY="330.0" prefHeight="30.0"
-                          prefWidth="150.0" style="-fx-background-color: #607D8B;" text="Öffnen" textFill="WHITE"/>
-               <Label layoutX="65.0" layoutY="385.0" text="Impotieren / Exportieren">
-                   <font>
-                       <Font name="System Bold" size="15.0"/>
-                   </font>
-               </Label>
-               <Separator layoutX="65.0" layoutY="410.0" prefWidth="700.0" style="-fx-background-color: #000000;"/>
-               <Label layoutX="65.0" layoutY="430.0" prefHeight="20.0" prefWidth="60.0" text="Type:"/>
-               <JFXComboBox fx:id="cbSettingsType" layoutX="140.0" layoutY="425.0" prefHeight="30.0" prefWidth="200.0"/>
-               <JFXButton fx:id="btnSettingsExport" layoutX="615.0" layoutY="425.0" prefHeight="30.0" prefWidth="150.0"
-                          style="-fx-background-color: #607D8B;" text="Exportieren" textFill="WHITE"/>
-               <JFXButton fx:id="btnSettingsImport" layoutX="455.0" layoutY="425.0" prefHeight="30.0" prefWidth="150.0"
-                          style="-fx-background-color: #607D8B;" text="Importieren" textFill="WHITE"/>
+               <AnchorPane fx:id="settingsOverviewPane" minHeight="600.0" minWidth="890.0" prefHeight="600.0"
+                           prefWidth="890.0">
+                   <children>
+                       <Label layoutX="65.0" layoutY="30.0" prefHeight="50.0" prefWidth="300.0" text="Einstellungen"
+                              textFill="#212121">
+                           <font>
+                               <Font name="System Bold" size="30.0"/>
+                           </font>
+                       </Label>
+                       <Label layoutX="65.0" layoutY="105.0" text="Themes">
+                           <font>
+                               <Font name="System Bold" size="15.0"/>
+                           </font>
+                       </Label>
+                       <Separator layoutX="65.0" layoutY="130.0" prefWidth="700.0"
+                                  style="-fx-background-color: #000000;"/>
+                       <JFXComboBox fx:id="cbSettingsTheme" layoutX="140.0" layoutY="145.0" prefHeight="30.0"
+                                    prefWidth="200.0"/>
+                       <Label layoutX="65.0" layoutY="150.0" text="Theme:"/>
+                       <JFXButton fx:id="btnSettingsEditTheme" layoutX="455.0" layoutY="145.0" prefHeight="30.0"
+                                  prefWidth="150.0" style="-fx-background-color: #607D8B;" text="Bearbeiten"
+                                  textFill="WHITE"/>
+                       <JFXButton fx:id="btnSettingsCreateTheme" layoutX="615.0" layoutY="145.0" prefHeight="30.0"
+                                  prefWidth="150.0" style="-fx-background-color: #607D8B;" text="Erstellen"
+                                  textFill="WHITE"/>
+                       <Label layoutX="65.0" layoutY="210.0" text="Tankstellen Verwaltung / Setup">
+                           <font>
+                               <Font name="System Bold" size="15.0"/>
+                           </font>
+                       </Label>
+                       <Separator layoutX="65.0" layoutY="235.0" prefWidth="700.0"
+                                  style="-fx-background-color: #000000;"/>
+                       <Label layoutX="65.0" layoutY="255.0" prefHeight="20.0" prefWidth="200.0"
+                              text="Kraftstoffarten Verwaltung:"/>
+                       <JFXButton fx:id="btnSettingsFuels" layoutX="615.0" layoutY="250.0" prefHeight="30.0"
+                                  prefWidth="150.0" style="-fx-background-color: #607D8B;" text="Öffnen"
+                                  textFill="WHITE"/>
+                       <Label layoutX="65.0" layoutY="295.0" prefHeight="20.0" prefWidth="200.0"
+                              text="Kraftstofftank Verwaltung:"/>
+                       <JFXButton fx:id="btnSettingsTanks" layoutX="615.0" layoutY="290.0" prefHeight="30.0"
+                                  prefWidth="150.0" style="-fx-background-color: #607D8B;" text="Öffnen"
+                                  textFill="WHITE"/>
+                       <Label layoutX="65.0" layoutY="335.0" prefHeight="20.0" prefWidth="200.0"
+                              text="Zapfsäulen Verwaltung:"/>
+                       <JFXButton fx:id="btnSettingsGasPumps" layoutX="615.0" layoutY="330.0" prefHeight="30.0"
+                                  prefWidth="150.0" style="-fx-background-color: #607D8B;" text="Öffnen"
+                                  textFill="WHITE"/>
+                       <Label layoutX="65.0" layoutY="385.0" text="Impotieren / Exportieren">
+                           <font>
+                               <Font name="System Bold" size="15.0"/>
+                           </font>
+                       </Label>
+                       <Separator layoutX="65.0" layoutY="410.0" prefWidth="700.0"
+                                  style="-fx-background-color: #000000;"/>
+                       <Label layoutX="65.0" layoutY="430.0" prefHeight="20.0" prefWidth="60.0" text="Type:"/>
+                       <JFXComboBox fx:id="cbSettingsType" layoutX="140.0" layoutY="425.0" prefHeight="30.0"
+                                    prefWidth="200.0"/>
+                       <JFXButton fx:id="btnSettingsExport" layoutX="615.0" layoutY="425.0" prefHeight="30.0"
+                                  prefWidth="150.0" style="-fx-background-color: #607D8B;" text="Exportieren"
+                                  textFill="WHITE"/>
+                       <JFXButton fx:id="btnSettingsImport" layoutX="455.0" layoutY="425.0" prefHeight="30.0"
+                                  prefWidth="150.0" style="-fx-background-color: #607D8B;" text="Importieren"
+                                  textFill="WHITE"/>
+                   </children>
+               </AnchorPane>
          </children>
       </AnchorPane>
    </children>
