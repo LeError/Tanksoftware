@@ -3,9 +3,12 @@ package gasStationSoftware.controller;
 import gasStationSoftware.exceptions.dataFileNotFoundException;
 import gasStationSoftware.util.ReadFile;
 import gasStationSoftware.util.WriteFile;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -17,12 +20,10 @@ public class Logic {
             DATA_FILE_PATH + "receipts",
             DATA_FILE_PATH + "fuelOrders",
             DATA_FILE_PATH + "fuelDeliveries",
-            DATA_FILE_PATH + "goodsOrders",
-            DATA_FILE_PATH + "goodsDeliveries"
+            DATA_FILE_PATH + "goodsOrders", DATA_FILE_PATH + "goodsDeliveries", DATA_FILE_PATH + "themes"
     };
 
-    private final String[] DATA_FILE_NAMES = {
-            "tankwareData.json",
+    private final String[] DATA_FILE_NAMES = { "inventory.json", "settings.json",
             "employees.txt"
     };
 
@@ -34,20 +35,16 @@ public class Logic {
 	}
 
     private void loadDataFiles() {
-        checkDir(DATA_FILE_PATH);
-        checkDirs(DATA_SUB_PATHS);
         try {
+			checkDir(DATA_FILE_PATH);
+			checkDirs(DATA_SUB_PATHS);
             checkDataFiles();
-        } catch (IOException e) {
-            //TODO
-        }
-        for (String file : DATA_FILE_NAMES) {
-            try {
-                createDefaultData(file);
-            } catch (dataFileNotFoundException e) {
-				e.printStackTrace();
-            }
-        }
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (dataFileNotFoundException e) {
+			e.printStackTrace();
+		}
+
     }
 
 	private void createDefaultData(String fileName)
@@ -84,13 +81,35 @@ public class Logic {
         }
     }
 
-    private void checkDataFiles() throws IOException {
+	private void checkDataFiles()
+	throws IOException, dataFileNotFoundException {
         for (String file : DATA_FILE_NAMES) {
             File dataFile = new File(DATA_FILE_PATH + file);
-            if (!dataFile.exists()) {
-                dataFile.createNewFile();  //TODO if json load from resources //TODO Add Exception
+			if (!dataFile.exists() && !FilenameUtils.getExtension(file).equals("json")) {
+				dataFile.createNewFile();
+			} else if (!dataFile.exists() && FilenameUtils.getExtension(file).equals("json")) {
+				switch (file) {
+				case "inventory.json":
+					writeJSONres("inventoryDefault.json", "inventory.json");
+					break;
+				case "settings.json":
+					writeJSONres("settings.json", "settings.json");
+					break;
+				default:
+					throw new dataFileNotFoundException(file);
+				}
             }
         }
     }
+
+	private void writeJSONres(String source, String file) {
+		InputStream jsonSource = getClass().getClassLoader().getResourceAsStream("\\json\\" + source);
+		File jsonDestination = new File(DATA_FILE_PATH + file);
+		try {
+			FileUtils.copyInputStreamToFile(jsonSource, jsonDestination);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 }
