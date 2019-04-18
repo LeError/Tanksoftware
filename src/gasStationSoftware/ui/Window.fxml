@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTreeTableView?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Polygon?>
-<?import javafx.scene.text.*?>
-<?import java.lang.*?>
+<?import javafx.scene.text.Font?>
+<?import java.lang.Double?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
             minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171"
             fx:controller="gasStationSoftware.controller.WindowController">
@@ -64,8 +67,8 @@
        <AnchorPane fx:id="userPane" layoutX="110.0" minHeight="600.0" minWidth="890.0" prefHeight="600.0"
                    prefWidth="890.0" style="-fx-background-color: #CFD8DC;" visible="false">
          <children>
-             <ImageView fitHeight="150.0" fitWidth="150.0" layoutX="65.0" layoutY="103.0" pickOnBounds="true"
-                        preserveRatio="true">
+             <ImageView fx:id="ivUserProfilePicture" fitHeight="150.0" fitWidth="150.0" layoutX="65.0" layoutY="100.0"
+                        pickOnBounds="true" preserveRatio="true">
                  <image>
                      <Image url="@resource/images/round-account-button-with-user-inside.png"/>
                  </image>
@@ -86,64 +89,73 @@
                      <Font name="System Bold" size="30.0"/>
                  </font>
              </Label>
-             <Label layoutX="241.0" layoutY="145.0" text="DANIEL APPENMAIER">
+             <Label fx:id="lblUserName" layoutX="240.0" layoutY="145.0" maxHeight="35.0" maxWidth="500.0"
+                    minHeight="35.0" minWidth="500.0" prefHeight="35.0" prefWidth="500.0" text="DANIEL APPENMAIER">
                  <font>
                      <Font name="System Bold" size="25.0"/>
                  </font>
              </Label>
-             <Label layoutX="242.0" layoutY="175.0" text="Praktikant">
+             <Label fx:id="lblUserRole" layoutX="240.0" layoutY="175.0" text="Praktikant">
                  <font>
                      <Font size="20.0"/>
                  </font>
              </Label>
-             <Separator layoutX="65.0" layoutY="324.0" minHeight="2.0" prefWidth="700.0"
+             <Separator layoutX="65.0" layoutY="325.0" minHeight="2.0" prefWidth="700.0"
                         style="-fx-background-color: #000000;"/>
-             <Label layoutX="64.0" layoutY="298.0" text="Gesamtumsatz">
+             <Label layoutX="65.0" layoutY="300.0" text="Gesamtumsatz">
                  <font>
                      <Font name="System Bold" size="15.0"/>
                  </font>
              </Label>
-             <Label layoutX="64.0" layoutY="334.0" text="Tag:">
+             <Label layoutX="65.0" layoutY="335.0" text="Tag:">
                  <font>
                      <Font size="15.0"/>
                  </font>
              </Label>
-             <Label layoutX="64.0" layoutY="356.0" text="Monat:">
+             <Label layoutX="65.0" layoutY="360.0" text="Monat:">
                  <font>
                      <Font size="15.0"/>
                  </font>
              </Label>
-             <Label layoutX="64.0" layoutY="378.0" text="Jahr:">
+             <Label layoutX="65.0" layoutY="385.0" text="Jahr:">
                  <font>
                      <Font size="15.0"/>
                  </font>
              </Label>
-             <Label layoutX="134.0" layoutY="334.0" text="0000,00">
+             <Label fx:id="lblUserSumDay" alignment="CENTER_RIGHT" layoutX="520.0" layoutY="335.0" maxHeight="20.0"
+                    maxWidth="200.0" minHeight="20.0" minWidth="200.0" prefHeight="20.0" prefWidth="200.0"
+                    text="0000,00" textAlignment="RIGHT">
                  <font>
                      <Font size="15.0"/>
                  </font>
              </Label>
-             <Label layoutX="134.0" layoutY="357.0" text="0000,00">
+             <Label fx:id="lblUserSumMonth" alignment="CENTER_RIGHT" layoutX="520.0" layoutY="360.0" maxHeight="20.0"
+                    maxWidth="200.0" minHeight="20.0" minWidth="200.0" prefHeight="20.0" prefWidth="200.0"
+                    text="0000,00" textAlignment="RIGHT">
                  <font>
                      <Font size="15.0"/>
                  </font>
              </Label>
-             <Label layoutX="134.0" layoutY="379.0" text="0000,00">
+             <Label fx:id="lblUserSumYear" alignment="CENTER_RIGHT" layoutX="520.0" layoutY="385.0" maxHeight="20.0"
+                    maxWidth="200.0" minHeight="20.0" minWidth="200.0" prefHeight="20.0" prefWidth="200.0"
+                    text="0000,00" textAlignment="RIGHT">
                  <font>
                      <Font size="15.0"/>
                  </font>
              </Label>
-             <Label layoutX="198.0" layoutY="334.0" text="EUR">
+             <Label fx:id="lblUserSumDayCurrency" layoutX="735.0" layoutY="335.0" maxHeight="20.0" maxWidth="30.0"
+                    minHeight="20.0" minWidth="30.0" prefHeight="20.0" prefWidth="30.0" text="EUR">
                  <font>
                      <Font size="15.0"/>
                  </font>
              </Label>
-             <Label layoutX="198.0" layoutY="357.0" text="EUR">
+             <Label fx:id="lblUserSumMonthCurrency" layoutX="735.0" layoutY="360.0" maxHeight="20.0" maxWidth="30.0"
+                    minHeight="20.0" minWidth="30.0" prefHeight="20.0" prefWidth="30.0" text="EUR">
                  <font>
                      <Font size="15.0"/>
                  </font>
              </Label>
-             <Label layoutX="198.0" layoutY="379.0" text="EUR">
+             <Label fx:id="lblUserSumYearCurrency" layoutX="735.0" layoutY="385.0" text="EUR">
                  <font>
                      <Font size="15.0"/>
                  </font>
@@ -151,7 +163,7 @@
          </children>
        </AnchorPane>
        <AnchorPane fx:id="sellingPane" layoutX="110.0" minHeight="600.0" minWidth="890.0" prefHeight="600.0"
-                   prefWidth="890.0" style="-fx-background-color: #CFD8DC;">
+                   prefWidth="890.0" style="-fx-background-color: #CFD8DC;" visible="false">
            <children>
                <Label layoutX="65.0" layoutY="30.0" text="Warenausgang">
                    <font>
@@ -169,37 +181,37 @@
                        <Double fx:value="-60.0"/>
                    </points>
                </Polygon>
-               <JFXTreeTableView layoutX="64.0" layoutY="87.0" prefHeight="368.0" prefWidth="487.0"
-                                 style="-fx-background-color: #CFD8DC;"/>
+               <JFXTreeTableView fx:id="tSellingOrder" layoutX="64.0" layoutY="87.0" prefHeight="368.0"
+                                 prefWidth="487.0" style="-fx-background-color: #CFD8DC;"/>
                <Label layoutX="65.0" layoutY="470.0" text="Gesamtsumme:">
                    <font>
                        <Font name="System Bold" size="20.0"/>
                    </font>
                </Label>
-               <Label layoutX="229.0" layoutY="471.0" text="0000,00">
+               <Label fx:id="lblSellingPrice" layoutX="229.0" layoutY="471.0" text="0000,00">
                    <font>
                        <Font size="20.0"/>
                    </font>
                </Label>
-               <Label layoutX="311.0" layoutY="471.0" text="EUR">
+               <Label fx:id="lblSellingPriceCurrency" layoutX="311.0" layoutY="471.0" text="EUR">
                    <font>
                        <Font size="20.0"/>
                    </font>
                </Label>
-               <JFXButton layoutX="64.0" layoutY="507.0" prefHeight="45.0" prefWidth="487.0"
+               <JFXButton fx:id="btnSellingCheckOut" layoutX="64.0" layoutY="507.0" prefHeight="45.0" prefWidth="487.0"
                           style="-fx-background-color: #607D8B;" text="Bezahlen" textFill="WHITE">
                    <font>
                        <Font name="System Bold" size="20.0"/>
                    </font>
                </JFXButton>
-               <JFXButton layoutX="573.0" layoutY="339.0" prefHeight="213.0" prefWidth="258.0"
+               <JFXButton fx:id="btnSellingGoods" layoutX="573.0" layoutY="339.0" prefHeight="213.0" prefWidth="258.0"
                           style="-fx-background-color: #607D8B;" text="Waren" textFill="WHITE">
                    <font>
                        <Font name="System Bold" size="20.0"/>
                    </font>
                </JFXButton>
-               <JFXButton layoutX="573.0" layoutY="111.0" prefHeight="213.0" prefWidth="258.0"
-                          style="-fx-background-color: #607D8B;" text="Säulen" textFill="WHITE">
+               <JFXButton fx:id="btnSellingGasPumps" layoutX="573.0" layoutY="111.0" prefHeight="213.0"
+                          prefWidth="258.0" style="-fx-background-color: #607D8B;" text="Säulen" textFill="WHITE">
                    <font>
                        <Font name="System Bold" size="20.0"/>
                    </font>
@@ -215,14 +227,67 @@
        <AnchorPane fx:id="reportPane" layoutX="110.0" minHeight="600.0" minWidth="890.0" prefHeight="600.0"
                    prefWidth="890.0" style="-fx-background-color: #CFD8DC;" visible="false"/>
        <AnchorPane fx:id="settingsPane" layoutX="110.0" minHeight="600.0" minWidth="890.0" prefHeight="600.0"
-                   prefWidth="890.0" style="-fx-background-color: #CFD8DC;" visible="false">
+                   prefWidth="890.0" style="-fx-background-color: #CFD8DC;">
            <children>
-               <Label layoutX="20.0" layoutY="15.0" prefHeight="50.0" prefWidth="300.0" text="Einstellungen"
+               <Label layoutX="65.0" layoutY="30.0" prefHeight="50.0" prefWidth="300.0" text="Einstellungen"
                       textFill="#212121">
-               <font>
-                   <Font size="30.0"/>
-               </font>
-            </Label>
+                   <font>
+                       <Font name="System Bold" size="30.0"/>
+                   </font>
+               </Label>
+               <Polygon fill="#607d8a" layoutX="25.0" layoutY="560.0" rotate="90.0" scaleX="0.5" scaleY="0.5"
+                        stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-background-color: #607D8B;">
+                   <points>
+                       <Double fx:value="-50.0"/>
+                       <Double fx:value="40.0"/>
+                       <Double fx:value="50.0"/>
+                       <Double fx:value="40.0"/>
+                       <Double fx:value="0.0"/>
+                       <Double fx:value="-60.0"/>
+                   </points>
+               </Polygon>
+               <Label layoutX="65.0" layoutY="105.0" text="Themes">
+                   <font>
+                       <Font name="System Bold" size="15.0"/>
+                   </font>
+               </Label>
+               <Separator layoutX="65.0" layoutY="130.0" prefWidth="700.0" style="-fx-background-color: #000000;"/>
+               <JFXComboBox fx:id="cbSettingsTheme" layoutX="140.0" layoutY="145.0" prefHeight="30.0"
+                            prefWidth="200.0"/>
+               <Label layoutX="65.0" layoutY="150.0" text="Theme:"/>
+               <JFXButton fx:id="btnSettingsEditTheme" layoutX="455.0" layoutY="145.0" prefHeight="30.0"
+                          prefWidth="150.0" style="-fx-background-color: #607D8B;" text="Bearbeiten" textFill="WHITE"/>
+               <JFXButton fx:id="btnSettingsCreateTheme" layoutX="615.0" layoutY="145.0" prefHeight="30.0"
+                          prefWidth="150.0" style="-fx-background-color: #607D8B;" text="Erstellen" textFill="WHITE"/>
+               <Label layoutX="65.0" layoutY="210.0" text="Tankstellen Verwaltung / Setup">
+                   <font>
+                       <Font name="System Bold" size="15.0"/>
+                   </font>
+               </Label>
+               <Separator layoutX="65.0" layoutY="235.0" prefWidth="700.0" style="-fx-background-color: #000000;"/>
+               <Label layoutX="65.0" layoutY="255.0" prefHeight="20.0" prefWidth="200.0"
+                      text="Kraftstoffarten Verwaltung:"/>
+               <JFXButton fx:id="btnSettingsFuels" layoutX="615.0" layoutY="250.0" prefHeight="30.0" prefWidth="150.0"
+                          style="-fx-background-color: #607D8B;" text="Öffnen" textFill="WHITE"/>
+               <Label layoutX="65.0" layoutY="295.0" prefHeight="20.0" prefWidth="200.0"
+                      text="Kraftstofftank Verwaltung:"/>
+               <JFXButton fx:id="btnSettingsTanks" layoutX="615.0" layoutY="290.0" prefHeight="30.0" prefWidth="150.0"
+                          style="-fx-background-color: #607D8B;" text="Öffnen" textFill="WHITE"/>
+               <Label layoutX="65.0" layoutY="335.0" prefHeight="20.0" prefWidth="200.0" text="Zapfsäulen Verwaltung:"/>
+               <JFXButton fx:id="btnSettingsGasPumps" layoutX="615.0" layoutY="330.0" prefHeight="30.0"
+                          prefWidth="150.0" style="-fx-background-color: #607D8B;" text="Öffnen" textFill="WHITE"/>
+               <Label layoutX="65.0" layoutY="385.0" text="Impotieren / Exportieren">
+                   <font>
+                       <Font name="System Bold" size="15.0"/>
+                   </font>
+               </Label>
+               <Separator layoutX="65.0" layoutY="410.0" prefWidth="700.0" style="-fx-background-color: #000000;"/>
+               <Label layoutX="65.0" layoutY="430.0" prefHeight="20.0" prefWidth="60.0" text="Type:"/>
+               <JFXComboBox fx:id="cbSettingsType" layoutX="140.0" layoutY="425.0" prefHeight="30.0" prefWidth="200.0"/>
+               <JFXButton fx:id="btnSettingsExport" layoutX="615.0" layoutY="425.0" prefHeight="30.0" prefWidth="150.0"
+                          style="-fx-background-color: #607D8B;" text="Exportieren" textFill="WHITE"/>
+               <JFXButton fx:id="btnSettingsImport" layoutX="455.0" layoutY="425.0" prefHeight="30.0" prefWidth="150.0"
+                          style="-fx-background-color: #607D8B;" text="Importieren" textFill="WHITE"/>
          </children>
       </AnchorPane>
    </children>
