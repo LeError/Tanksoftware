@@ -16,11 +16,9 @@ public class WindowController implements Initializable {
 
     private Logic logic;
 
-    @FXML
-    private ImageView btnUser, btnSelling, btnInventory, btnTanks, btnEmployees, btnReports, btnSettings;
+	@FXML private ImageView btnUser, btnSelling, btnInventory, btnTanks, btnEmployees, btnReports, btnSettings;
 
-    @FXML
-    private AnchorPane userPane, sellingPane, inventoryPane, fuelTankPane, employeePane, reportPane, settingsPane;
+	@FXML private AnchorPane userPane, sellingPane, inventoryPane, fuelTankPane, employeePane, reportPane, settingsPane;
 
 	@FXML private JFXButton btnSettingsImport, btnSettingsExport, btnSettingsGasPumps, btnSettingsTanks, btnSettingsFuels, btnSettingsCreateTheme, btnSettingsEditTheme, btnSellingCheckOut, btnSellingGoods, btnSellingGasPumps;
 
