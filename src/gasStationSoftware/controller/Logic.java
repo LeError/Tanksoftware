@@ -90,10 +90,10 @@ public class Logic {
 			} else if (!dataFile.exists() && FilenameUtils.getExtension(file).equals("json")) {
 				switch (file) {
 				case "inventory.json":
-					writeJSONres("inventoryDefault.json", "inventory.json");
+					writeJSONResources("inventoryDefault.json", "inventory.json");
 					break;
 				case "settings.json":
-					writeJSONres("settings.json", "settings.json");
+					writeJSONResources("settings.json", "settings.json");
 					break;
 				default:
 					throw new dataFileNotFoundException(file);
@@ -102,7 +102,7 @@ public class Logic {
         }
     }
 
-	private void writeJSONres(String source, String file) {
+	private void writeJSONResources(String source, String file) {
 		InputStream jsonSource = getClass().getClassLoader().getResourceAsStream("\\json\\" + source);
 		File jsonDestination = new File(DATA_FILE_PATH + file);
 		try {
