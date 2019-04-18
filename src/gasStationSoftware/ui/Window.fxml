@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import java.lang.Double?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-            minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171"
+            minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.172-ea"
             fx:controller="gasStationSoftware.controller.WindowController">
    <children>
        <AnchorPane fx:id="menuBar" minHeight="600.0" minWidth="110.0" prefHeight="600.0" prefWidth="110.0"
@@ -227,7 +227,7 @@
        <AnchorPane fx:id="reportPane" layoutX="110.0" minHeight="600.0" minWidth="890.0" prefHeight="600.0"
                    prefWidth="890.0" style="-fx-background-color: #CFD8DC;" visible="false"/>
        <AnchorPane fx:id="settingsPane" layoutX="110.0" minHeight="600.0" minWidth="890.0" prefHeight="600.0"
-                   prefWidth="890.0" style="-fx-background-color: #CFD8DC;">
+                   prefWidth="890.0" style="-fx-background-color: #CFD8DC;" visible="false">
            <children>
                <Label layoutX="65.0" layoutY="30.0" prefHeight="50.0" prefWidth="300.0" text="Einstellungen"
                       textFill="#212121">
