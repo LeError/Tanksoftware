@@ -56,7 +56,7 @@
             </ImageView>
          </children>
       </AnchorPane>
-       <AnchorPane fx:id="userPane" layoutX="110.0" minHeight="600.0" minWidth="890.0" prefHeight="600.0" prefWidth="890.0" style="-fx-background-color: #CFD8DC;" visible="false">
+       <AnchorPane fx:id="userPane" layoutX="110.0" minHeight="600.0" minWidth="890.0" prefHeight="600.0" prefWidth="890.0" style="-fx-background-color: #CFD8DC;">
          <children>
              <ImageView fx:id="ivUserProfilePicture" fitHeight="150.0" fitWidth="150.0" layoutX="65.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true">
                  <image>
@@ -73,68 +73,68 @@
                      <Double fx:value="-60.0" />
                  </points>
              </Polygon>
-             <Label layoutX="65.0" layoutY="30.0" text="Benutzerprofil">
+             <Label layoutX="65.0" layoutY="30.0" text="Benutzerprofil" textFill="#212121">
                  <font>
                      <Font name="System Bold" size="30.0" />
                  </font>
              </Label>
-             <Label fx:id="lblUserName" layoutX="240.0" layoutY="145.0" maxHeight="35.0" maxWidth="500.0" minHeight="35.0" minWidth="500.0" prefHeight="35.0" prefWidth="500.0" text="DANIEL APPENMAIER">
+             <Label fx:id="lblUserName" layoutX="240.0" layoutY="145.0" maxHeight="35.0" maxWidth="500.0" minHeight="35.0" minWidth="500.0" prefHeight="35.0" prefWidth="500.0" text="DANIEL APPENMAIER" textFill="#212121">
                  <font>
                      <Font name="System Bold" size="25.0" />
                  </font>
              </Label>
-             <Label fx:id="lblUserRole" layoutX="240.0" layoutY="175.0" text="Praktikant">
+             <Label fx:id="lblUserRole" layoutX="240.0" layoutY="175.0" text="Praktikant" textFill="#212121">
                  <font>
                      <Font size="20.0" />
                  </font>
              </Label>
-             <Separator layoutX="65.0" layoutY="325.0" minHeight="2.0" prefWidth="700.0" style="-fx-background-color: #000000;" />
-             <Label layoutX="65.0" layoutY="300.0" text="Gesamtumsatz">
+             <Separator layoutX="65.0" layoutY="325.0" minHeight="2.0" prefWidth="700.0" style="-fx-background-color: #212121;" />
+             <Label layoutX="65.0" layoutY="300.0" text="Gesamtumsatz" textFill="#212121">
                  <font>
                      <Font name="System Bold" size="15.0" />
                  </font>
              </Label>
-             <Label layoutX="65.0" layoutY="335.0" text="Tag:">
+             <Label layoutX="65.0" layoutY="335.0" text="Tag:" textFill="#212121">
                  <font>
                      <Font size="15.0" />
                  </font>
              </Label>
-             <Label layoutX="65.0" layoutY="360.0" text="Monat:">
+             <Label layoutX="65.0" layoutY="360.0" text="Monat:" textFill="#212121">
                  <font>
                      <Font size="15.0" />
                  </font>
              </Label>
-             <Label layoutX="65.0" layoutY="385.0" text="Jahr:">
+             <Label layoutX="65.0" layoutY="385.0" text="Jahr:" textFill="#212121">
                  <font>
                      <Font size="15.0" />
                  </font>
              </Label>
-             <Label fx:id="lblUserSumDay" alignment="CENTER_RIGHT" layoutX="520.0" layoutY="335.0" maxHeight="20.0" maxWidth="200.0" minHeight="20.0" minWidth="200.0" prefHeight="20.0" prefWidth="200.0" text="0000,00" textAlignment="RIGHT">
+             <Label fx:id="lblUserSumDay" alignment="CENTER_RIGHT" layoutX="520.0" layoutY="335.0" maxHeight="20.0" maxWidth="200.0" minHeight="20.0" minWidth="200.0" prefHeight="20.0" prefWidth="200.0" text="0000,00" textAlignment="RIGHT" textFill="#212121">
                  <font>
                      <Font size="15.0" />
                  </font>
              </Label>
-             <Label fx:id="lblUserSumMonth" alignment="CENTER_RIGHT" layoutX="520.0" layoutY="360.0" maxHeight="20.0" maxWidth="200.0" minHeight="20.0" minWidth="200.0" prefHeight="20.0" prefWidth="200.0" text="0000,00" textAlignment="RIGHT">
+             <Label fx:id="lblUserSumMonth" alignment="CENTER_RIGHT" layoutX="520.0" layoutY="360.0" maxHeight="20.0" maxWidth="200.0" minHeight="20.0" minWidth="200.0" prefHeight="20.0" prefWidth="200.0" text="0000,00" textAlignment="RIGHT" textFill="#212121">
                  <font>
                      <Font size="15.0" />
                  </font>
              </Label>
-             <Label fx:id="lblUserSumYear" alignment="CENTER_RIGHT" layoutX="520.0" layoutY="385.0" maxHeight="20.0" maxWidth="200.0" minHeight="20.0" minWidth="200.0" prefHeight="20.0" prefWidth="200.0" text="0000,00" textAlignment="RIGHT">
+             <Label fx:id="lblUserSumYear" alignment="CENTER_RIGHT" layoutX="520.0" layoutY="385.0" maxHeight="20.0" maxWidth="200.0" minHeight="20.0" minWidth="200.0" prefHeight="20.0" prefWidth="200.0" text="0000,00" textAlignment="RIGHT" textFill="#212121">
                  <font>
                      <Font size="15.0" />
                  </font>
              </Label>
-             <Label fx:id="lblUserSumDayCurrency" layoutX="735.0" layoutY="335.0" maxHeight="20.0" maxWidth="30.0" minHeight="20.0" minWidth="30.0" prefHeight="20.0" prefWidth="30.0" text="EUR">
+             <Label fx:id="lblUserSumDayCurrency" layoutX="735.0" layoutY="335.0" maxHeight="20.0" maxWidth="30.0" minHeight="20.0" minWidth="30.0" prefHeight="20.0" prefWidth="30.0" text="EUR" textFill="#212121">
                  <font>
                      <Font size="15.0" />
                  </font>
              </Label>
-             <Label fx:id="lblUserSumMonthCurrency" layoutX="735.0" layoutY="360.0" maxHeight="20.0" maxWidth="30.0" minHeight="20.0" minWidth="30.0" prefHeight="20.0" prefWidth="30.0" text="EUR">
+             <Label fx:id="lblUserSumMonthCurrency" layoutX="735.0" layoutY="360.0" maxHeight="20.0" maxWidth="30.0" minHeight="20.0" minWidth="30.0" prefHeight="20.0" prefWidth="30.0" text="EUR" textFill="#212121">
                  <font>
                      <Font size="15.0" />
                  </font>
              </Label>
-             <Label fx:id="lblUserSumYearCurrency" layoutX="735.0" layoutY="385.0" text="EUR">
+             <Label fx:id="lblUserSumYearCurrency" layoutX="735.0" layoutY="385.0" text="EUR" textFill="#212121">
                  <font>
                      <Font size="15.0" />
                  </font>
@@ -143,7 +143,7 @@
        </AnchorPane>
        <AnchorPane fx:id="sellingPane" layoutX="110.0" minHeight="600.0" minWidth="890.0" prefHeight="600.0" prefWidth="890.0" style="-fx-background-color: #CFD8DC;" visible="false">
            <children>
-               <Label layoutX="65.0" layoutY="30.0" text="Warenausgang">
+               <Label layoutX="65.0" layoutY="30.0" text="Warenausgang" textFill="#212121">
                    <font>
                        <Font name="System Bold" size="30.0" />
                    </font>
@@ -159,17 +159,17 @@
                    </points>
                </Polygon>
                <JFXTreeTableView fx:id="tSellingOrder" layoutX="64.0" layoutY="87.0" prefHeight="368.0" prefWidth="487.0" style="-fx-background-color: #CFD8DC;" />
-               <Label layoutX="65.0" layoutY="470.0" text="Gesamtsumme:">
+               <Label layoutX="65.0" layoutY="470.0" text="Gesamtsumme:" textFill="#212121">
                    <font>
                        <Font name="System Bold" size="20.0" />
                    </font>
                </Label>
-               <Label fx:id="lblSellingPrice" layoutX="229.0" layoutY="471.0" text="0000,00">
+               <Label fx:id="lblSellingPrice" layoutX="229.0" layoutY="471.0" text="0000,00" textFill="#212121">
                    <font>
                        <Font size="20.0" />
                    </font>
                </Label>
-               <Label fx:id="lblSellingPriceCurrency" layoutX="311.0" layoutY="471.0" text="EUR">
+               <Label fx:id="lblSellingPriceCurrency" layoutX="311.0" layoutY="471.0" text="EUR" textFill="#212121">
                    <font>
                        <Font size="20.0" />
                    </font>
@@ -205,7 +205,7 @@
                </Polygon>
                <AnchorPane fx:id="inventoryOverviewPane" prefHeight="600.0" prefWidth="890.0">
                    <children>
-                       <Label layoutX="65.0" layoutY="30.0" text="Warenmanagement">
+                       <Label layoutX="65.0" layoutY="30.0" text="Warenmanagement" textFill="#212121">
                            <font>
                                <Font name="System Bold" size="30.0" />
                            </font>
@@ -233,7 +233,7 @@
                </Polygon>
                <AnchorPane fx:id="fuelOverviewPane" prefHeight="600.0" prefWidth="890.0">
                    <children>
-                       <Label layoutX="65.0" layoutY="30.0" text="Kraftstoffmanagement">
+                       <Label layoutX="65.0" layoutY="30.0" text="Kraftstoffmanagement" textFill="#212121">
                            <font>
                                <Font name="System Bold" size="30.0" />
                            </font>
@@ -249,7 +249,7 @@
        </AnchorPane>
        <AnchorPane fx:id="employeePane" layoutX="110.0" minHeight="600.0" minWidth="890.0" prefHeight="600.0" prefWidth="890.0" style="-fx-background-color: #CFD8DC;" visible="false" />
        <AnchorPane fx:id="reportPane" layoutX="110.0" minHeight="600.0" minWidth="890.0" prefHeight="600.0" prefWidth="890.0" style="-fx-background-color: #CFD8DC;" visible="false" />
-       <AnchorPane fx:id="settingsPane" layoutX="110.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #CFD8DC;">
+       <AnchorPane fx:id="settingsPane" layoutX="110.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #CFD8DC;" visible="false">
            <children>
                <Polygon fill="#607d8a" layoutX="25.0" layoutY="560.0" rotate="90.0" scaleX="0.5" scaleY="0.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-background-color: #607D8B;">
                    <points>
