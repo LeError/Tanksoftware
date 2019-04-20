@@ -22,12 +22,12 @@ public class WindowController implements Initializable {
 	@FXML private ImageView btnUser, btnSelling, btnInventory, btnTanks, btnEmployees, btnReports, btnSettings;
 
 	@FXML private AnchorPane userPane;
-	@FXML private AnchorPane sellingPane;
+	@FXML private AnchorPane sellingPane, sellingOverviewPane;
 	@FXML private AnchorPane inventoryPane, inventoryOverviewPane, inventoryOrderPane, inventoryDeliveryPane;
 	@FXML private AnchorPane fuelPane, fuelOverviewPane, fuelOrderPane, fuelDeliveryPane;
-	@FXML private AnchorPane employeePane;
-	@FXML private AnchorPane reportPane;
-	@FXML private AnchorPane settingsPane;
+	@FXML private AnchorPane employeePane, employeeOverviewPane;
+	@FXML private AnchorPane reportPane, reportOverviewPane;
+	@FXML private AnchorPane settingsPane, settingsOverviewPane;
 
 	@FXML private JFXButton btnSellingCheckOut, btnSellingGoods, btnSellingGasPumps;
 	@FXML private JFXButton btnInventoryOrder, btnInventoryDeliveries;
