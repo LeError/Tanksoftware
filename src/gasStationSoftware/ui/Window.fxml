@@ -268,35 +268,35 @@
                                <Font name="System Bold" size="30.0" />
                            </font>
                        </Label>
-                       <Label layoutX="65.0" layoutY="105.0" text="Themes">
+                       <Label layoutX="65.0" layoutY="105.0" text="Themes" textFill="#212121">
                            <font>
                                <Font name="System Bold" size="15.0" />
                            </font>
                        </Label>
-                       <Separator layoutX="65.0" layoutY="130.0" prefWidth="700.0" style="-fx-background-color: #000000;" />
+                       <Separator layoutX="65.0" layoutY="130.0" prefWidth="700.0" style="-fx-background-color: #212121;" />
                        <JFXComboBox fx:id="cbSettingsTheme" layoutX="140.0" layoutY="145.0" prefHeight="30.0" prefWidth="200.0" />
-                       <Label layoutX="65.0" layoutY="150.0" text="Theme:" />
+                       <Label layoutX="65.0" layoutY="150.0" text="Theme:" textFill="#212121" />
                        <JFXButton fx:id="btnSettingsEditTheme" buttonType="RAISED" layoutX="455.0" layoutY="145.0" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Bearbeiten" textFill="WHITE" />
                        <JFXButton fx:id="btnSettingsCreateTheme" buttonType="RAISED" layoutX="615.0" layoutY="145.0" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Erstellen" textFill="WHITE" />
-                       <Label layoutX="65.0" layoutY="210.0" text="Tankstellen Verwaltung / Setup">
+                       <Label layoutX="65.0" layoutY="210.0" text="Tankstellen Verwaltung / Setup" textFill="#212121">
                            <font>
                                <Font name="System Bold" size="15.0" />
                            </font>
                        </Label>
-                       <Separator layoutX="65.0" layoutY="235.0" prefWidth="700.0" style="-fx-background-color: #000000;" />
-                       <Label layoutX="65.0" layoutY="255.0" prefHeight="20.0" prefWidth="200.0" text="Kraftstoffarten Verwaltung:" />
+                       <Separator layoutX="65.0" layoutY="235.0" prefWidth="700.0" style="-fx-background-color: #212121;" />
+                       <Label layoutX="65.0" layoutY="255.0" prefHeight="20.0" prefWidth="200.0" text="Kraftstoffarten Verwaltung:" textFill="#212121" />
                        <JFXButton fx:id="btnSettingsFuels" buttonType="RAISED" layoutX="615.0" layoutY="250.0" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Öffnen" textFill="WHITE" />
-                       <Label layoutX="65.0" layoutY="295.0" prefHeight="20.0" prefWidth="200.0" text="Kraftstofftank Verwaltung:" />
+                       <Label layoutX="65.0" layoutY="295.0" prefHeight="20.0" prefWidth="200.0" text="Kraftstofftank Verwaltung:" textFill="#212121" />
                        <JFXButton fx:id="btnSettingsTanks" buttonType="RAISED" layoutX="615.0" layoutY="290.0" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Öffnen" textFill="WHITE" />
-                       <Label layoutX="65.0" layoutY="335.0" prefHeight="20.0" prefWidth="200.0" text="Zapfsäulen Verwaltung:" />
+                       <Label layoutX="65.0" layoutY="335.0" prefHeight="20.0" prefWidth="200.0" text="Zapfsäulen Verwaltung:" textFill="#212121" />
                        <JFXButton fx:id="btnSettingsGasPumps" buttonType="RAISED" layoutX="615.0" layoutY="330.0" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Öffnen" textFill="WHITE" />
-                       <Label layoutX="65.0" layoutY="385.0" text="Impotieren / Exportieren">
+                       <Label layoutX="65.0" layoutY="385.0" text="Impotieren / Exportieren" textFill="#212121">
                            <font>
                                <Font name="System Bold" size="15.0" />
                            </font>
                        </Label>
-                       <Separator layoutX="65.0" layoutY="410.0" prefWidth="700.0" style="-fx-background-color: #000000;" />
-                       <Label layoutX="65.0" layoutY="430.0" prefHeight="20.0" prefWidth="60.0" text="Type:" />
+                       <Separator layoutX="65.0" layoutY="410.0" prefWidth="700.0" style="-fx-background-color: #212121;" />
+                       <Label layoutX="65.0" layoutY="430.0" prefHeight="20.0" prefWidth="60.0" text="Type:" textFill="#212121" />
                        <JFXComboBox fx:id="cbSettingsType" layoutX="140.0" layoutY="425.0" prefHeight="30.0" prefWidth="200.0" />
                        <JFXButton fx:id="btnSettingsExport" buttonType="RAISED" layoutX="615.0" layoutY="425.0" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Exportieren" textFill="WHITE" />
                        <JFXButton fx:id="btnSettingsImport" buttonType="RAISED" layoutX="455.0" layoutY="425.0" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Importieren" textFill="WHITE" />
