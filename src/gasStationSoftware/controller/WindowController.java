@@ -101,4 +101,8 @@ public class WindowController implements Initializable {
 		cbSettingsType.getItems().setAll((Object[]) CB_SETTINGS_TYPE_OPTIONS);
 		cbSettingsType.setPromptText(CB_SETTINGS_TYPE_PROMT);
 	}
+
+	private void setUser(String firstName, String lastName) {
+    	lblUserName.setText(firstName + " " + lastName);
+	}
 }
