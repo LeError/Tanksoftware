@@ -1,6 +1,6 @@
 package gasStationSoftware.util;
 
-import gasStationSoftware.exceptions.dataFileNotFoundException;
+import gasStationSoftware.exceptions.DataFileNotFoundException;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -14,12 +14,12 @@ public class ReadJSON {
     private File path;
     private JSONObject jsonObject;
 
-    public ReadJSON(String path) throws dataFileNotFoundException {
+    public ReadJSON(String path) throws DataFileNotFoundException {
         this.path = new File(path);
         if (this.path.exists()) {
             read();
         } else {
-            throw new dataFileNotFoundException();
+            throw new DataFileNotFoundException();
         }
     }
 
