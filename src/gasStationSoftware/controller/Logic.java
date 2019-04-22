@@ -1,6 +1,6 @@
 package gasStationSoftware.controller;
 
-import gasStationSoftware.exceptions.dataFileNotFoundException;
+import gasStationSoftware.exceptions.DataFileNotFoundException;
 import gasStationSoftware.util.ReadFile;
 import gasStationSoftware.util.WriteFile;
 import org.apache.commons.io.FileUtils;
@@ -41,14 +41,14 @@ public class Logic {
             checkDataFiles();
 		} catch (IOException e) {
 			e.printStackTrace();
-		} catch (dataFileNotFoundException e) {
+		} catch (DataFileNotFoundException e) {
 			e.printStackTrace();
 		}
 
     }
 
 	private void createDefaultData(String fileName)
-	throws dataFileNotFoundException {
+	throws DataFileNotFoundException {
         String file = DATA_FILE_PATH + fileName;
         if (ReadFile.isEmpty(file)) {
             switch (fileName) {
@@ -63,7 +63,7 @@ public class Logic {
                     WriteFile.writeFile(lines, file);
                     break;
                 default:
-                    throw new dataFileNotFoundException();
+                    throw new DataFileNotFoundException();
             }
         }
     }
@@ -82,7 +82,7 @@ public class Logic {
     }
 
 	private void checkDataFiles()
-	throws IOException, dataFileNotFoundException {
+	throws IOException, DataFileNotFoundException {
         for (String file : DATA_FILE_NAMES) {
             File dataFile = new File(DATA_FILE_PATH + file);
 			if (!dataFile.exists() && !FilenameUtils.getExtension(file).equals("json")) {
@@ -96,7 +96,7 @@ public class Logic {
 					writeJSONResources("settings.json", "settings.json");
 					break;
 				default:
-					throw new dataFileNotFoundException(file);
+					throw new DataFileNotFoundException(file);
 				}
             }
         }
