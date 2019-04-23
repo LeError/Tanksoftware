@@ -255,11 +255,13 @@
        <AnchorPane fx:id="employeePane" layoutX="110.0" minHeight="600.0" minWidth="890.0" prefHeight="600.0" prefWidth="890.0" style="-fx-background-color: #CFD8DC;" visible="false">
          <children>
             <AnchorPane fx:id="employeeOverviewPane" minHeight="600.0" minWidth="890.0" prefHeight="600.0" prefWidth="890.0" style="-fx-background-color: #CFD8DC;" visible="false" />
-         </children></AnchorPane>
+         </children>
+       </AnchorPane>
        <AnchorPane fx:id="reportPane" layoutX="110.0" minHeight="600.0" minWidth="890.0" prefHeight="600.0" prefWidth="890.0" style="-fx-background-color: #CFD8DC;" visible="false">
          <children>
             <AnchorPane fx:id="reportOverviewPane" minHeight="600.0" minWidth="890.0" prefHeight="600.0" prefWidth="890.0" style="-fx-background-color: #CFD8DC;" visible="false" />
-         </children></AnchorPane>
+         </children>
+       </AnchorPane>
        <AnchorPane fx:id="settingsPane" layoutX="110.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #CFD8DC;" visible="false">
            <children>
                <Polygon fill="#607d8a" layoutX="25.0" layoutY="560.0" rotate="90.0" scaleX="0.5" scaleY="0.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-background-color: #607D8B;">
