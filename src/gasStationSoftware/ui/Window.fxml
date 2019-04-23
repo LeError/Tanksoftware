@@ -326,8 +326,6 @@
             <fx:reference source="reportPane"/>
             <fx:reference source="settingsPane"/>
         </ArrayList>
-    </fx:define>
-    <fx:define>
         <ArrayList fx:id="subPanes">
             <fx:reference source="sellingOverviewPane"/>
             <fx:reference source="inventoryOverviewPane"/>
