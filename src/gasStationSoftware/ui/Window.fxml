@@ -153,7 +153,8 @@
                        <Double fx:value="-60.0" />
                    </points>
                </Polygon>
-            <AnchorPane fx:id="sellingOverviewPane" minHeight="600.0" minWidth="890.0" prefHeight="600.0" prefWidth="890.0" style="-fx-background-color: #CFD8DC;">
+               <AnchorPane fx:id="sellingOverviewPane" minHeight="600.0" minWidth="890.0" prefHeight="600.0"
+                           prefWidth="890.0">
                <children>
                   <Label layoutX="65.0" layoutY="30.0" text="Warenausgang" textFill="#212121">
                      <font>
