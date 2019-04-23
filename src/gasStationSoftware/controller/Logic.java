@@ -19,11 +19,11 @@ public class Logic {
     private final String[] DATA_SUB_PATHS = {
             DATA_FILE_PATH + "receipts",
             DATA_FILE_PATH + "fuelOrders",
-            DATA_FILE_PATH + "fuelDeliveries",
-            DATA_FILE_PATH + "goodsOrders", DATA_FILE_PATH + "goodsDeliveries", DATA_FILE_PATH + "themes"
+            DATA_FILE_PATH + "fuelDeliveries", DATA_FILE_PATH + "goodsOrders", DATA_FILE_PATH + "goodsDeliveries",
+	DATA_FILE_PATH + "themes"
     };
 
-    private final String[] DATA_FILE_NAMES = { "inventory.json", "settings.json",
+	private final String[] DATA_FILE_NAMES = { "inventory.json", "settings.json",
             "employees.txt"
     };
 
@@ -52,8 +52,6 @@ public class Logic {
         String file = DATA_FILE_PATH + fileName;
         if (ReadFile.isEmpty(file)) {
             switch (fileName) {
-			case "tankwareData.json":
-                    break;
                 case "employees.txt":
                     ArrayList<String> lines = new ArrayList();
 					String date = new SimpleDateFormat("dd.MM.yyyy").format(Calendar.getInstance().getTime());
@@ -71,7 +69,7 @@ public class Logic {
     private void checkDir(String dir) {
         File dataDir = new File(dir);
         if (!dataDir.isDirectory()) {
-            dataDir.mkdirs(); //TODO Add Exception
+			dataDir.mkdirs();
         }
     }
 

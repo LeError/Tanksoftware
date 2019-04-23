@@ -7,9 +7,9 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-            minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171"
-            fx:controller="gasStationSoftware.controller.WindowController">
+<?import java.util.ArrayList?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gasStationSoftware.controller.WindowController">
    <children>
        <AnchorPane fx:id="menuBar" minHeight="600.0" minWidth="110.0" prefHeight="600.0" prefWidth="110.0" style="-fx-background-color: #607D8B;">
          <children>
@@ -148,7 +148,8 @@
                        <Double fx:value="-60.0" />
                    </points>
                </Polygon>
-            <AnchorPane fx:id="sellingOverviewPane" minHeight="600.0" minWidth="890.0" prefHeight="600.0" prefWidth="890.0" style="-fx-background-color: #CFD8DC;">
+               <AnchorPane fx:id="sellingOverviewPane" minHeight="600.0" minWidth="890.0" prefHeight="600.0"
+                           prefWidth="890.0">
                <children>
                   <Label layoutX="65.0" layoutY="30.0" text="Warenausgang" textFill="#212121">
                      <font>
@@ -301,11 +302,13 @@
        <AnchorPane fx:id="employeePane" layoutX="110.0" minHeight="600.0" minWidth="890.0" prefHeight="600.0" prefWidth="890.0" style="-fx-background-color: #CFD8DC;" visible="false">
          <children>
             <AnchorPane fx:id="employeeOverviewPane" minHeight="600.0" minWidth="890.0" prefHeight="600.0" prefWidth="890.0" style="-fx-background-color: #CFD8DC;" visible="false" />
-         </children></AnchorPane>
+         </children>
+       </AnchorPane>
        <AnchorPane fx:id="reportPane" layoutX="110.0" minHeight="600.0" minWidth="890.0" prefHeight="600.0" prefWidth="890.0" style="-fx-background-color: #CFD8DC;" visible="false">
          <children>
             <AnchorPane fx:id="reportOverviewPane" minHeight="600.0" minWidth="890.0" prefHeight="600.0" prefWidth="890.0" style="-fx-background-color: #CFD8DC;" visible="false" />
-         </children></AnchorPane>
+         </children>
+       </AnchorPane>
        <AnchorPane fx:id="settingsPane" layoutX="110.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #CFD8DC;" visible="false">
            <children>
                <Polygon fill="#607d8a" layoutX="25.0" layoutY="560.0" rotate="90.0" scaleX="0.5" scaleY="0.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-background-color: #607D8B;">
@@ -362,4 +365,28 @@
          </children>
       </AnchorPane>
    </children>
+    <fx:define>
+        <ArrayList fx:id="panes">
+            <fx:reference source="userPane"/>
+            <fx:reference source="sellingPane"/>
+            <fx:reference source="inventoryPane"/>
+            <fx:reference source="fuelPane"/>
+            <fx:reference source="employeePane"/>
+            <fx:reference source="reportPane"/>
+            <fx:reference source="settingsPane"/>
+        </ArrayList>
+        <ArrayList fx:id="subPanes">
+            <fx:reference source="sellingOverviewPane"/>
+            <fx:reference source="inventoryOverviewPane"/>
+            <fx:reference source="inventoryOrderPane"/>
+            <fx:reference source="inventoryDeliveryPane"/>
+            <fx:reference source="fuelOverviewPane"/>
+            <fx:reference source="fuelOrderPane"/>
+            <fx:reference source="fuelDeliveryPane"/>
+            <fx:reference source="employeeOverviewPane"/>
+            <fx:reference source="reportOverviewPane"/>
+            <fx:reference source="settingsOverviewPane"/>
+        </ArrayList>
+    </fx:define>
 </AnchorPane>
+
