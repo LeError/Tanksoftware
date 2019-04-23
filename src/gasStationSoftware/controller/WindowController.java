@@ -59,23 +59,23 @@ public class WindowController implements Initializable {
 			fuelOverviewPane.setVisible(true);
         } else if (event.getTarget() == btnEmployees) {
             employeePane.setVisible(true);
+			employeeOverviewPane.setVisible(true);
         } else if (event.getTarget() == btnReports) {
             reportPane.setVisible(true);
 		} else if (event.getTarget() == btnSettings) {
 			settingsPane.setVisible(true);
 			settingsOverviewPane.setVisible(true);
-		} else if (event.getTarget() == btnInventoryOrder) {
+		} else {
 			hideSubPanes();
-			inventoryOrderPane.setVisible(true);
-		} else if (event.getTarget() == btnInventoryDeliveries) {
-			hideSubPanes();
-			inventoryDeliveryPane.setVisible(true);
-		} else if (event.getTarget() == btnFuelOrders) {
-			hideSubPanes();
-			fuelOrderPane.setVisible(true);
-		} else if (event.getTarget() == btnFuelDeliveries) {
-			hideSubPanes();
-			fuelDeliveryPane.setVisible(true);
+			if (event.getTarget() == btnInventoryOrder) {
+				inventoryOrderPane.setVisible(true);
+			} else if (event.getTarget() == btnInventoryDeliveries) {
+				inventoryDeliveryPane.setVisible(true);
+			} else if (event.getTarget() == btnFuelOrders) {
+				fuelOrderPane.setVisible(true);
+			} else if (event.getTarget() == btnFuelDeliveries) {
+				fuelDeliveryPane.setVisible(true);
+			}
 		}
     }
 
