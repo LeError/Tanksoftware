@@ -9,12 +9,16 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
+import java.awt.*;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class WindowController implements Initializable {
 
     private Logic logic;
+
+	private static Color backgroundMenuBar, contentPaneBackground, icons, dividerMenuBar, fontContent, buttonsBackground, buttonsFont, dividerContent;
 
 	private final static String[] CB_SETTINGS_TYPE_OPTIONS = { "Settings", "Theme", "Inventory" };
 	private final static String CB_SETTINGS_TYPE_PROMT = "Type auswählen";
@@ -38,12 +42,15 @@ public class WindowController implements Initializable {
 
 	@FXML private Label lblUserName, lblUserRole, lblUserSumDay, lblUserSumMonth, lblUserSumYear, lblUserSumDayCurrency, lblUserSumMonthCurrency, lblUserSumYearCurrency, lblSellingPrice, lblSellingPriceCurrency;
 
+	@FXML private ArrayList<AnchorPane> panes, subPanes;
+
     @FXML private void handleButtonAction(MouseEvent event) {
         hidePanes();
         if (event.getTarget() == btnUser) {
             userPane.setVisible(true);
         } else if (event.getTarget() == btnSelling) {
             sellingPane.setVisible(true);
+			sellingOverviewPane.setVisible(true);
         } else if (event.getTarget() == btnInventory) {
             inventoryPane.setVisible(true);
 			inventoryOverviewPane.setVisible(true);
@@ -56,6 +63,7 @@ public class WindowController implements Initializable {
             reportPane.setVisible(true);
 		} else if (event.getTarget() == btnSettings) {
 			settingsPane.setVisible(true);
+			settingsOverviewPane.setVisible(true);
 		} else if (event.getTarget() == btnInventoryOrder) {
 			hideSubPanes();
 			inventoryOrderPane.setVisible(true);
@@ -72,24 +80,16 @@ public class WindowController implements Initializable {
     }
 
     private void hidePanes() {
-        userPane.setVisible(false);
-        sellingPane.setVisible(false);
-        inventoryPane.setVisible(false);
-		fuelPane.setVisible(false);
-        employeePane.setVisible(false);
-        reportPane.setVisible(false);
-        settingsPane.setVisible(false);
+		for (AnchorPane pane : panes) {
+			pane.setVisible(false);
+		}
 		hideSubPanes();
     }
 
 	private void hideSubPanes() {
-		inventoryOverviewPane.setVisible(false);
-		inventoryDeliveryPane.setVisible(false);
-		inventoryOrderPane.setVisible(false);
-
-		fuelOverviewPane.setVisible(false);
-		fuelDeliveryPane.setVisible(false);
-		fuelOrderPane.setVisible(false);
+		for (AnchorPane pane : subPanes) {
+			pane.setVisible(false);
+		}
 	}
 
     @Override public void initialize(URL location, ResourceBundle resources) {
@@ -104,5 +104,21 @@ public class WindowController implements Initializable {
 
 	private void setUser(String firstName, String lastName) {
     	lblUserName.setText(firstName + " " + lastName);
+	}
+
+	public void setTheme(Color backgroundMenuBar, Color contentPaneBackground, Color icons, Color dividerMenuBar,
+	Color fontContent, Color buttonsBackground, Color buttonsFont, Color dividerContent) {
+		this.backgroundMenuBar = backgroundMenuBar;
+		this.contentPaneBackground = contentPaneBackground;
+		this.icons = icons;
+		this.dividerMenuBar = dividerMenuBar;
+		this.fontContent = fontContent;
+		this.buttonsBackground = buttonsBackground;
+		this.buttonsFont = buttonsFont;
+		this.dividerContent = dividerContent;
+	}
+
+	private void applyTheme() {
+
 	}
 }
