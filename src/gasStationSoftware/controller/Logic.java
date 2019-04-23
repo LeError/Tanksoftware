@@ -19,11 +19,15 @@ public class Logic {
     private final String[] DATA_SUB_PATHS = {
             DATA_FILE_PATH + "receipts",
             DATA_FILE_PATH + "fuelOrders",
-            DATA_FILE_PATH + "fuelDeliveries", DATA_FILE_PATH + "goodsOrders", DATA_FILE_PATH + "goodsDeliveries",
-	DATA_FILE_PATH + "themes"
+            DATA_FILE_PATH + "fuelDeliveries",
+            DATA_FILE_PATH + "goodsOrders",
+            DATA_FILE_PATH + "goodsDeliveries",
+	        DATA_FILE_PATH + "themes"
     };
 
-	private final String[] DATA_FILE_NAMES = { "inventory.json", "settings.json",
+	private final String[] DATA_FILE_NAMES = {
+	        "inventory.json",
+            "settings.json",
             "employees.txt"
     };
 
