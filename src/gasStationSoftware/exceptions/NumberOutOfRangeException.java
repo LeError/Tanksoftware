@@ -1,13 +1,13 @@
 package gasStationSoftware.exceptions;
 
 public class NumberOutOfRangeException
-extends Exception {
+        extends Exception {
 
-	public NumberOutOfRangeException() {
-		super();
-	}
+    public NumberOutOfRangeException() {
+        super();
+    }
 
-	public NumberOutOfRangeException(String message) {
-		super(message);
-	}
+    public NumberOutOfRangeException(String message) {
+        super(message);
+    }
 }
