@@ -7,9 +7,9 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
-<?import java.util.ArrayList?>
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gasStationSoftware.controller.WindowController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171"
+            fx:controller="gasStationSoftware.controller.WindowController">
    <children>
        <AnchorPane fx:id="menuBar" minHeight="600.0" minWidth="110.0" prefHeight="600.0" prefWidth="110.0" style="-fx-background-color: #607D8B;">
          <children>
@@ -212,16 +212,16 @@
                        </Label>
                        <JFXButton fx:id="btnInventoryOrder" buttonType="RAISED" layoutX="65.0" layoutY="520.0" onMousePressed="#handleButtonAction" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Bestellen" textFill="WHITE" />
                        <JFXButton fx:id="btnInventoryDeliveries" buttonType="RAISED" layoutX="240.0" layoutY="520.0" onMousePressed="#handleButtonAction" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Lieferungen" textFill="WHITE" />
-                       <TreeTableView layoutX="65.0" layoutY="100.0" prefHeight="384.0" prefWidth="761.0" />
+                       <TreeTableView layoutX="65.0" layoutY="100.0" prefHeight="385.0" prefWidth="760.0"/>
                    </children>
                </AnchorPane>
                <AnchorPane fx:id="inventoryOrderPane" prefHeight="600.0" prefWidth="890.0" visible="false">
                    <children>
-                       <TreeTableView layoutX="57.0" layoutY="100.0" prefHeight="384.0" prefWidth="446.0">
+                       <TreeTableView layoutX="57.0" layoutY="100.0" prefHeight="384.0" prefWidth="630.0">
                            <columns>
-                               <TreeTableColumn prefWidth="218.0" text="Bezeichnung"/>
-                               <TreeTableColumn prefWidth="132.0" text="Menge"/>
-                               <TreeTableColumn prefWidth="95.0" text="Preis"/>
+                               <TreeTableColumn prefWidth="366.0" text="Bezeichnung"/>
+                               <TreeTableColumn prefWidth="147.0" text="Menge"/>
+                               <TreeTableColumn prefWidth="116.0" text="Preis"/>
                            </columns>
                        </TreeTableView>
                        <Label layoutX="65.0" layoutY="30.0" text="Waren bestellen" textFill="#212121">
@@ -229,26 +229,22 @@
                                <Font name="System Bold" size="30.0"/>
                            </font>
                        </Label>
-                       <JFXButton fx:id="btnInventoryDeliveries1" buttonType="RAISED" layoutX="530.0" layoutY="100.0"
-                                  onMousePressed="#handleButtonAction" prefHeight="200.0" prefWidth="324.0"
+                       <JFXButton fx:id="btnInventoryDeliveries2" buttonType="RAISED" layoutX="706.0" layoutY="304.0"
+                                  onMousePressed="#handleButtonAction" prefHeight="181.0" prefWidth="145.0"
                                   style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;"
-                                  text="Lebensmittel" textFill="WHITE"/>
-                       <JFXButton fx:id="btnInventoryDeliveries2" buttonType="RAISED" layoutX="705.0" layoutY="315.0"
-                                  onMousePressed="#handleButtonAction" prefHeight="170.0" prefWidth="145.0"
-                                  style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;"
-                                  text="Sonstiges" textFill="WHITE"/>
-                       <JFXButton fx:id="btnInventoryDeliveries3" buttonType="RAISED" layoutX="530.0" layoutY="315.0"
-                                  onMousePressed="#handleButtonAction" prefHeight="170.0" prefWidth="145.0"
-                                  style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;"
-                                  text="Artikel ab 18" textFill="WHITE"/>
-                       <JFXButton fx:id="btnInventoryDeliveries4" buttonType="RAISED" layoutX="530.0" layoutY="520.0"
+                                  text="Waren hinzufügen" textFill="WHITE"/>
+                       <JFXButton fx:id="btnInventoryDeliveries4" buttonType="RAISED" layoutX="65.0" layoutY="520.0"
                                   onMousePressed="#handleButtonAction" prefHeight="30.0" prefWidth="150.0"
                                   style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;"
                                   text="Abbrechen" textFill="WHITE"/>
-                       <JFXButton fx:id="btnInventoryDeliveries5" buttonType="RAISED" layoutX="705.0" layoutY="520.0"
+                       <JFXButton fx:id="btnInventoryDeliveries5" buttonType="RAISED" layoutX="240.0" layoutY="520.0"
                                   onMousePressed="#handleButtonAction" prefHeight="30.0" prefWidth="150.0"
                                   style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;"
                                   text="Abschicken" textFill="WHITE"/>
+                       <JFXButton fx:id="btnFuelDeliveries2" buttonType="RAISED" layoutX="703.0" layoutY="101.0"
+                                  onMousePressed="#handleButtonAction" prefHeight="181.0" prefWidth="150.0"
+                                  style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;"
+                                  text="Lieferungen" textFill="WHITE"/>
                    </children>
                </AnchorPane>
                <AnchorPane fx:id="inventoryDeliveryPane" prefHeight="600.0" prefWidth="890.0" visible="false" />
@@ -275,7 +271,7 @@
                        </Label>
                        <JFXButton fx:id="btnFuelDeliveries" buttonType="RAISED" layoutX="240.0" layoutY="520.0" onMousePressed="#handleButtonAction" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Lieferungen" textFill="WHITE" />
                        <JFXButton fx:id="btnFuelOrders" buttonType="RAISED" layoutX="65.0" layoutY="520.0" onMousePressed="#handleButtonAction" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Bestellen" textFill="WHITE" />
-                       <TreeTableView layoutX="65.0" layoutY="100.0" prefHeight="384.0" prefWidth="761.0" />
+                       <TreeTableView layoutX="65.0" layoutY="100.0" prefHeight="385.0" prefWidth="760.0"/>
                    </children>
                </AnchorPane>
                <AnchorPane fx:id="fuelOrderPane" prefHeight="600.0" prefWidth="890.0" visible="false">
@@ -285,12 +281,12 @@
                                <Font name="System Bold" size="30.0"/>
                            </font>
                        </Label>
-                       <JFXListView layoutX="95.0" layoutY="100.0" prefHeight="400.0" prefWidth="700.0"/>
-                       <JFXButton fx:id="btnFuelDeliveries1" buttonType="RAISED" layoutX="705.0" layoutY="520.0"
+                       <JFXListView layoutX="65.0" layoutY="100.0" prefHeight="385.0" prefWidth="760.0"/>
+                       <JFXButton fx:id="btnFuelDeliveries1" buttonType="RAISED" layoutX="65.0" layoutY="520.0"
                                   onMousePressed="#handleButtonAction" prefHeight="30.0" prefWidth="150.0"
                                   style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;"
                                   text="Abschicken" textFill="WHITE"/>
-                       <JFXButton fx:id="btnFuelDeliveries11" buttonType="RAISED" layoutX="530.0" layoutY="520.0"
+                       <JFXButton fx:id="btnFuelDeliveries11" buttonType="RAISED" layoutX="240.0" layoutY="520.0"
                                   onMousePressed="#handleButtonAction" prefHeight="30.0" prefWidth="150.0"
                                   style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;"
                                   text="Abbrechen" textFill="WHITE"/>
@@ -389,4 +385,3 @@
         </ArrayList>
     </fx:define>
 </AnchorPane>
-
