@@ -68,12 +68,16 @@ public class WindowController implements Initializable {
 		} else {
 			hideSubPanes();
 			if (event.getTarget() == btnInventoryOrder) {
+                inventoryPane.setVisible(true);
 				inventoryOrderPane.setVisible(true);
 			} else if (event.getTarget() == btnInventoryDeliveries) {
+                inventoryPane.setVisible(true);
 				inventoryDeliveryPane.setVisible(true);
 			} else if (event.getTarget() == btnFuelOrders) {
+                fuelPane.setVisible(true);
 				fuelOrderPane.setVisible(true);
 			} else if (event.getTarget() == btnFuelDeliveries) {
+                fuelPane.setVisible(true);
 				fuelDeliveryPane.setVisible(true);
 			}
 		}
