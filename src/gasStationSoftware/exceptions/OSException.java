@@ -1,13 +1,13 @@
 package gasStationSoftware.exceptions;
 
 public class OSException
-extends Exception {
+        extends Exception {
 
-	public OSException() {
-		super();
-	}
+    public OSException() {
+        super();
+    }
 
-	public OSException(String message) {
-		super(message);
-	}
+    public OSException(String message) {
+        super(message);
+    }
 }
