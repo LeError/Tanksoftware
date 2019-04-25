@@ -7,6 +7,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
+<?import java.util.ArrayList?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
             minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171"
             fx:controller="gasStationSoftware.controller.WindowController">
@@ -224,13 +225,13 @@
                                <TreeTableColumn prefWidth="116.0" text="Preis"/>
                            </columns>
                        </TreeTableView>
-                       <Label layoutX="65.0" layoutY="30.0" text="Waren bestellen" textFill="#212121">
+                       <Label layoutX="65.0" layoutY="30.0" text="Warenkorb" textFill="#212121">
                            <font>
                                <Font name="System Bold" size="30.0"/>
                            </font>
                        </Label>
-                       <JFXButton fx:id="btnInventoryDeliveries2" buttonType="RAISED" layoutX="706.0" layoutY="304.0"
-                                  onMousePressed="#handleButtonAction" prefHeight="181.0" prefWidth="145.0"
+                       <JFXButton fx:id="btnInventoryDeliveries2" buttonType="RAISED" layoutX="705.0" layoutY="100.0"
+                                  onMousePressed="#handleButtonAction" prefHeight="384.0" prefWidth="145.0"
                                   style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;"
                                   text="Waren hinzufügen" textFill="WHITE"/>
                        <JFXButton fx:id="btnInventoryDeliveries4" buttonType="RAISED" layoutX="65.0" layoutY="520.0"
@@ -241,13 +242,29 @@
                                   onMousePressed="#handleButtonAction" prefHeight="30.0" prefWidth="150.0"
                                   style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;"
                                   text="Abschicken" textFill="WHITE"/>
-                       <JFXButton fx:id="btnFuelDeliveries2" buttonType="RAISED" layoutX="703.0" layoutY="101.0"
-                                  onMousePressed="#handleButtonAction" prefHeight="181.0" prefWidth="150.0"
-                                  style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;"
-                                  text="Lieferungen" textFill="WHITE"/>
+                       <JFXListView layoutX="57.0" layoutY="100.0" prefHeight="384.0" prefWidth="630.0"
+                                    visible="false"/>
                    </children>
                </AnchorPane>
-               <AnchorPane fx:id="inventoryDeliveryPane" prefHeight="600.0" prefWidth="890.0" visible="false" />
+               <AnchorPane fx:id="inventoryDeliveryPane" prefHeight="600.0" prefWidth="890.0" visible="false">
+                   <children>
+                       <Label layoutX="65.0" layoutY="30.0" text="Waren-Lieferungen" textFill="#212121">
+                           <font>
+                               <Font name="System Bold" size="30.0"/>
+                           </font>
+                       </Label>
+                       <TreeTableView layoutX="57.0" layoutY="100.0" prefHeight="384.0" prefWidth="630.0"/>
+                       <JFXButton fx:id="btnInventoryDeliveries41" buttonType="RAISED" layoutX="65.0" layoutY="520.0"
+                                  onMousePressed="#handleButtonAction" prefHeight="30.0" prefWidth="150.0"
+                                  style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;"
+                                  text="Abbrechen" textFill="WHITE"/>
+                       <JFXButton fx:id="btnInventoryDeliveries21" buttonType="RAISED" layoutX="705.0" layoutY="100.0"
+                                  onMousePressed="#handleButtonAction" prefHeight="384.0" prefWidth="145.0"
+                                  style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;"
+                                  text="Lieferung&#10;aus Datei&#10;importieren" textAlignment="CENTER"
+                                  textFill="WHITE"/>
+                   </children>
+               </AnchorPane>
            </children>
        </AnchorPane>
        <AnchorPane fx:id="fuelPane" layoutX="110.0" minHeight="600.0" minWidth="890.0" prefHeight="600.0" prefWidth="890.0" style="-fx-background-color: #CFD8DC;" visible="false">
@@ -292,7 +309,25 @@
                                   text="Abbrechen" textFill="WHITE"/>
                    </children>
                </AnchorPane>
-               <AnchorPane fx:id="fuelDeliveryPane" prefHeight="600.0" prefWidth="890.0" visible="false" />
+               <AnchorPane fx:id="fuelDeliveryPane" prefHeight="600.0" prefWidth="890.0" visible="false">
+                   <children>
+                       <Label layoutX="65.0" layoutY="30.0" text="Kraftstoff-Lieferungen" textFill="#212121">
+                           <font>
+                               <Font name="System Bold" size="30.0"/>
+                           </font>
+                       </Label>
+                       <TreeTableView layoutX="57.0" layoutY="100.0" prefHeight="384.0" prefWidth="630.0"/>
+                       <JFXButton fx:id="btnInventoryDeliveries411" buttonType="RAISED" layoutX="65.0" layoutY="520.0"
+                                  onMousePressed="#handleButtonAction" prefHeight="30.0" prefWidth="150.0"
+                                  style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;"
+                                  text="Abbrechen" textFill="WHITE"/>
+                       <JFXButton fx:id="btnInventoryDeliveries211" buttonType="RAISED" layoutX="705.0" layoutY="100.0"
+                                  onMousePressed="#handleButtonAction" prefHeight="384.0" prefWidth="145.0"
+                                  style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;"
+                                  text="Lieferung&#10;aus Datei&#10;importieren" textAlignment="CENTER"
+                                  textFill="WHITE"/>
+                   </children>
+               </AnchorPane>
            </children>
        </AnchorPane>
        <AnchorPane fx:id="employeePane" layoutX="110.0" minHeight="600.0" minWidth="890.0" prefHeight="600.0" prefWidth="890.0" style="-fx-background-color: #CFD8DC;" visible="false">
