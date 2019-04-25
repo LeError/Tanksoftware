@@ -14,7 +14,8 @@ public class ReadJSON {
     private File path;
     private JSONObject jsonObject;
 
-    public ReadJSON(String path) throws DataFileNotFoundException {
+    public ReadJSON(String path)
+    throws DataFileNotFoundException {
         this.path = new File(path);
         if (this.path.exists()) {
             read();
@@ -23,9 +24,9 @@ public class ReadJSON {
         }
     }
 
-	public void read() { //TODO add canRead & canWrite
-		try (FileReader fileReader = new FileReader(path)) {
-			Object obj = parser.parse(fileReader);
+    public void read() { //TODO add canRead & canWrite
+        try (FileReader fileReader = new FileReader(path)) {
+            Object obj = parser.parse(fileReader);
             jsonObject = (JSONObject) obj;
         } catch (Exception e) {
             //TODO

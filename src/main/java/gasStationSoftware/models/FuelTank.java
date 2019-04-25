@@ -9,7 +9,7 @@ public class FuelTank {
     private float level;
 
     public FuelTank(int tankNumber, float capacity, float level)
-            throws NumberOutOfRangeException {
+    throws NumberOutOfRangeException {
         if (level < 0 || level > 1) {
             throw new NumberOutOfRangeException("Only values between 0 and 1 are allowed!");
         }

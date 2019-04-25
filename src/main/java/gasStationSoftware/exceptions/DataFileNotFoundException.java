@@ -1,6 +1,7 @@
 package gasStationSoftware.exceptions;
 
-public class DataFileNotFoundException extends Exception {
+public class DataFileNotFoundException
+extends Exception {
 
     public DataFileNotFoundException() {
         super();

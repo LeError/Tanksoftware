@@ -8,7 +8,8 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-public class Window extends Application {
+public class Window
+extends Application {
 
     private double screenOffsetX = 0;
     private double screenOffsetY = 0;
@@ -17,9 +18,9 @@ public class Window extends Application {
         launch(args);
     }
 
-    @Override
-    public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("Window.fxml"));
+    @Override public void start(Stage stage)
+    throws Exception {
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("Window.fxml"));
         root.setOnMousePressed(event -> {
             screenOffsetX = event.getSceneX();
             screenOffsetY = event.getSceneY();

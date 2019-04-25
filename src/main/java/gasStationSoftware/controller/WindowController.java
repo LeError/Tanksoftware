@@ -14,7 +14,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class WindowController implements Initializable {
+public class WindowController
+implements Initializable {
 
     private Logic logic;
 

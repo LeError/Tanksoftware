@@ -1,7 +1,7 @@
 package gasStationSoftware.models;
 
 public class Fuels
-        extends Items {
+extends Items {
 
     private float amount = 0;
 

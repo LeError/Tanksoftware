@@ -1,7 +1,7 @@
 package gasStationSoftware.models;
 
 public class Goods
-        extends Items {
+extends Items {
 
     private StorageUnit storage;
     private int amount;
