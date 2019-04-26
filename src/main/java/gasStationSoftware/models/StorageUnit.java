@@ -5,17 +5,17 @@ import java.util.ArrayList;
 
 public class StorageUnit {
 
-    private final String LABEL;
+    private String label;
     private final Point LOCATION;
     private ArrayList<Items> items = new ArrayList<>();
 
     public StorageUnit(String label, int x, int y) {
-        LABEL = label;
+        this.label = label;
         LOCATION = new Point(x, y);
     }
 
-    public String getLABEL() {
-        return LABEL;
+    public String getLabel() {
+        return label;
     }
 
     public Point getLOCATION() {
