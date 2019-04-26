@@ -2,6 +2,7 @@ package gasStationSoftware.controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
+import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -22,7 +23,8 @@ implements Initializable {
     private final static String[] CB_SETTINGS_TYPE_OPTIONS = { "Settings", "Theme", "Inventory" };
     private final static String CB_SETTINGS_TYPE_PROMT = "Type auswählen";
     private static Color backgroundMenuBar, contentPaneBackground, icons, dividerMenuBar, fontContent, buttonsBackground, buttonsFont, dividerContent;
-    @FXML private ImageView btnUser, btnSelling, btnInventory, btnTanks, btnEmployees, btnReports, btnSettings;
+    @FXML private ImageView btnUser;
+    @FXML private MaterialDesignIconView btnSelling, btnInventory, btnTanks, btnEmployees, btnReports, btnSettings;
 
     @FXML private AnchorPane userPane;
     @FXML private AnchorPane sellingPane, sellingOverviewPane;
