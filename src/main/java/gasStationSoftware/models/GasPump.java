@@ -2,27 +2,27 @@ package gasStationSoftware.models;
 
 import java.util.ArrayList;
 
-public class GasPumps {
+public class GasPump {
 
     private final int GAS_PUMP_NUMBER;
-    private ArrayList<Fuels> fuels;
+    private ArrayList<Fuel> fuels;
     private ArrayList<FuelTank> tanks;
 
-    public GasPumps(ArrayList<Fuels> fuels, int gasPumpNumber, ArrayList<FuelTank> tanks) {
+    public GasPump(ArrayList<Fuel> fuels, int gasPumpNumber, ArrayList<FuelTank> tanks) {
         this.GAS_PUMP_NUMBER = gasPumpNumber;
         this.fuels = fuels;
         this.tanks = tanks;
     }
 
-    public void addFuel(Fuels fuel) {
+    public void addFuel(Fuel fuel) {
         fuels.add(fuel);
     }
 
-    public void removeFuel(Fuels fuel){
+    public void removeFuel(Fuel fuel){
         fuels.remove(fuel);
     }
 
-    public ArrayList<Fuels> getFuels() {
+    public ArrayList<Fuel> getFuels() {
         return fuels;
     }
 

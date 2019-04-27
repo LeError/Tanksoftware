@@ -1,12 +1,12 @@
 package gasStationSoftware.models;
 
-public abstract class Items {
+public abstract class Item {
 
     private final int INVENTORY_NUMBER;
     private String label, currency;
     private float price;
 
-    public Items(int inventoryNumber, String label, float price, String currency) {
+    public Item(int inventoryNumber, String label, float price, String currency) {
         INVENTORY_NUMBER = inventoryNumber;
         this.label = label;
         this.price = price;
