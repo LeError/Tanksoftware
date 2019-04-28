@@ -7,7 +7,7 @@ public class StorageUnit {
 
     private String label;
     private final Point LOCATION;
-    private ArrayList<Items> items = new ArrayList<>();
+    private ArrayList<Item> items = new ArrayList<>();
 
     public StorageUnit(String label, int x, int y) {
         this.label = label;
@@ -22,15 +22,15 @@ public class StorageUnit {
         return LOCATION;
     }
 
-    public void addItem(Items Item) {
+    public void addItem(Item Item) {
         items.add(Item);
     }
 
-    public void removeItem(Items item) {
+    public void removeItem(Item item) {
         items.remove(item);
     }
 
-    public ArrayList<Items> getItems() {
+    public ArrayList<Item> getItems() {
         return items;
     }
 }
