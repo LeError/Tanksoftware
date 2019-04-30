@@ -15,6 +15,9 @@ import java.util.Calendar;
 
 public class Logic {
 
+    private static Logic logic;
+    private WindowController windowController;
+
     private final String DATA_FILE_PATH = System.getProperty("user.home") + "\\TANKWare\\";
     private final String[] DATA_SUB_PATHS = { DATA_FILE_PATH + "receipts", DATA_FILE_PATH + "fuelOrders",
     DATA_FILE_PATH + "fuelDeliveries", DATA_FILE_PATH + "goodsOrders", DATA_FILE_PATH + "goodsDeliveries",
@@ -22,11 +25,19 @@ public class Logic {
 
     private final String[] DATA_FILE_NAMES = { "inventory.json", "settings.json", "employees.txt" };
 
-    private WindowController windowController;
-
-    public Logic(WindowController windowController) {
-        this.windowController = windowController;
+    private Logic() {
         loadDataFiles();
+    }
+
+    public static Logic getInstance() {
+        if (logic == null) {
+            logic = new Logic();
+        }
+        return logic;
+    }
+
+    public void setWindowController(WindowController windowController) {
+        this.windowController = windowController;
     }
 
     private void loadDataFiles() {
