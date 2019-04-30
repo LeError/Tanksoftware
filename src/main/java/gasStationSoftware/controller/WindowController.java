@@ -98,7 +98,8 @@ implements Initializable {
     }
 
     @Override public void initialize(URL location, ResourceBundle resources) {
-        logic = new Logic(this);
+        logic = Logic.getInstance();
+        logic.setWindowController(this);
         setDefaultContent();
     }
 
