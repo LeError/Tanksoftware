@@ -1,5 +1,6 @@
 package gasStationSoftware.ui;
 
+import gasStationSoftware.controller.Logic;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,6 +17,12 @@ extends Application {
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    @Override public void init()
+    throws Exception {
+        super.init();
+        Logic.getInstance();
     }
 
     @Override public void start(Stage stage)
