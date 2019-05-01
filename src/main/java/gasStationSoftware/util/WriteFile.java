@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class WriteFile {
 
     private final Path FILE;
-    private ArrayList<String> lines;
+    private ArrayList<String> lines = new ArrayList<>();
 
     public WriteFile(String path){
         FILE = Paths.get(path);
