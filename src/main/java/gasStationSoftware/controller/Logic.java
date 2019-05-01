@@ -5,6 +5,7 @@ import gasStationSoftware.util.WriteFile;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -39,9 +40,9 @@ public class Logic {
         try {
             checkDataFiles();
         } catch (IOException e) {
-            e.printStackTrace();
+            displayError("Could not write file to filesystem !", e, true);
         } catch (DataFileNotFoundException e) {
-            e.printStackTrace();
+            displayError("Could not find required data file!", e, true);
         }
     }
 
@@ -103,12 +104,19 @@ public class Logic {
         try {
             FileUtils.copyInputStreamToFile(jsonSource, jsonDestination);
         } catch (IOException e) {
-            e.printStackTrace();
+            displayError("Could not export data file from jar!", e, true);
         }
     }
 
     private static String getDate() {
         return new SimpleDateFormat("dd.MM.yyyy").format(new Date());
+    }
+
+    public static void displayError(String error, Exception e, boolean end) {
+        JOptionPane.showMessageDialog(null, error + "\n" + e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+        if(end){
+            System.exit(-1);
+        }
     }
 
 }
