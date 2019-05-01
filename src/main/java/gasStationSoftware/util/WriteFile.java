@@ -1,5 +1,6 @@
 package gasStationSoftware.util;
 
+import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -7,12 +8,20 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class WriteFile {
-    public static void writeFile(ArrayList<String> data, String url) {
-        try {
-            Path file = Paths.get(url);
-            Files.write(file, data, Charset.forName("UTF-8"));
-        } catch (Exception e) {
-            System.err.println("[FileOut]:\t Can't write file. Something went wrong!");
-        }
+
+    private final Path FILE;
+    private ArrayList<String> lines;
+
+    public WriteFile(String path){
+        FILE = Paths.get(path);
     }
+
+    public void addLine(String line) {
+        lines.add(line);
+    }
+
+    public void write() throws IOException {
+        Files.write(FILE, lines, Charset.forName("UTF-8"));
+    }
+
 }
