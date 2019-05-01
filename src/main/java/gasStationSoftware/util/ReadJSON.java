@@ -20,7 +20,7 @@ public class ReadJSON {
         if (this.path.exists()) {
             read();
         } else {
-            throw new DataFileNotFoundException();
+            throw new DataFileNotFoundException("Error 404 \t Can't find JSON file!");
         }
     }
 
