@@ -99,12 +99,17 @@ implements Initializable {
 
     @Override public void initialize(URL location, ResourceBundle resources) {
         logic = Logic.getInstance(this);
+        logic.loadFiles();
         setDefaultContent();
     }
 
     private void setDefaultContent() {
         cbSettingsType.getItems().setAll((Object[]) CB_SETTINGS_TYPE_OPTIONS);
         cbSettingsType.setPromptText(CB_SETTINGS_TYPE_PROMT);
+    }
+
+    public void setComboboxThemes(String[] themes) {
+        cbSettingsTheme.getItems().setAll((Object[]) themes);
     }
 
     private void setUser(String firstName, String lastName) {

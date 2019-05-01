@@ -1,11 +1,13 @@
 package gasStationSoftware.controller;
 
 import gasStationSoftware.exceptions.DataFileNotFoundException;
+import gasStationSoftware.util.ReadJSON;
 import gasStationSoftware.util.WriteFile;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -112,11 +114,44 @@ public class Logic {
         return new SimpleDateFormat("dd.MM.yyyy").format(new Date());
     }
 
+    public static Color hex2Rgb(String colorStr) {
+        return new Color(
+                Integer.valueOf( colorStr.substring( 1, 3 ), 16 ),
+                Integer.valueOf( colorStr.substring( 3, 5 ), 16 ),
+                Integer.valueOf( colorStr.substring( 5, 7 ), 16 )
+        );
+    }
+
     public static void displayError(String error, Exception e, boolean end) {
         JOptionPane.showMessageDialog(null, error + "\n" + e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
         if(end){
             System.exit(-1);
         }
+    }
+
+    public void loadFiles() {
+        try {
+            loadTheme();
+        } catch (DataFileNotFoundException e) {
+            displayError("Can't load theme save file!", e, true);
+        }
+    }
+
+    private void loadTheme() throws DataFileNotFoundException {
+        ReadJSON read = new ReadJSON(DATA_FILE_PATH + DATA_FILE_NAMES[1]);
+        String theme = read.getItemString("theme");
+        windowController.setComboboxThemes(read.getItemStringArray("themes"));
+        read = new ReadJSON(DATA_SUB_PATHS[5] + theme + ".json");
+        windowController.setTheme(
+                hex2Rgb(read.getItemString("menuBar")),
+                hex2Rgb(read.getItemString("contentPaneBackground")),
+                hex2Rgb(read.getItemString("icons")),
+                hex2Rgb(read.getItemString("dividerMenuBar")),
+                hex2Rgb(read.getItemString("fontContent")),
+                hex2Rgb(read.getItemString("buttonsBackground")),
+                hex2Rgb(read.getItemString("buttonsFont")),
+                hex2Rgb(read.getItemString("dividerContent"))
+        );
     }
 
 }
