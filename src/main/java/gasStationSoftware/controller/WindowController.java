@@ -23,8 +23,8 @@ implements Initializable {
     private final static String[] CB_SETTINGS_TYPE_OPTIONS = { "Settings", "Theme", "Inventory" };
     private final static String CB_SETTINGS_TYPE_PROMT = "Type auswählen";
     private static Color backgroundMenuBar, contentPaneBackground, icons, dividerMenuBar, fontContent, buttonsBackground, buttonsFont, dividerContent;
-    @FXML private ImageView btnUser;
-    @FXML private MaterialDesignIconView btnSelling, btnInventory, btnTanks, btnEmployees, btnReports, btnSettings;
+    @FXML private ImageView btnUserMenuBar;
+    @FXML private MaterialDesignIconView icoSellingMenuBar, icoInventoryMenuBar, icoTanksMenuBar, icoEmployeesMenuBar, icoReportsMenuBar, icoSettingsMenuBar;
 
     @FXML private AnchorPane userPane;
     @FXML private AnchorPane sellingPane, sellingOverviewPane;
@@ -47,23 +47,23 @@ implements Initializable {
 
     @FXML private void handleButtonAction(MouseEvent event) {
         hidePanes();
-        if (event.getTarget() == btnUser) {
+        if (event.getTarget() == btnUserMenuBar) {
             userPane.setVisible(true);
-        } else if (event.getTarget() == btnSelling) {
+        } else if (event.getTarget() == icoSellingMenuBar) {
             sellingPane.setVisible(true);
             sellingOverviewPane.setVisible(true);
-        } else if (event.getTarget() == btnInventory) {
+        } else if (event.getTarget() == icoInventoryMenuBar) {
             inventoryPane.setVisible(true);
             inventoryOverviewPane.setVisible(true);
-        } else if (event.getTarget() == btnTanks) {
+        } else if (event.getTarget() == icoTanksMenuBar) {
             fuelPane.setVisible(true);
             fuelOverviewPane.setVisible(true);
-        } else if (event.getTarget() == btnEmployees) {
+        } else if (event.getTarget() == icoEmployeesMenuBar) {
             employeePane.setVisible(true);
             employeeOverviewPane.setVisible(true);
-        } else if (event.getTarget() == btnReports) {
+        } else if (event.getTarget() == icoReportsMenuBar) {
             reportPane.setVisible(true);
-        } else if (event.getTarget() == btnSettings) {
+        } else if (event.getTarget() == icoSettingsMenuBar) {
             settingsPane.setVisible(true);
             settingsOverviewPane.setVisible(true);
         } else {
@@ -108,8 +108,9 @@ implements Initializable {
         cbSettingsType.setPromptText(CB_SETTINGS_TYPE_PROMT);
     }
 
-    public void setComboboxThemes(String[] themes) {
+    public void setComboboxThemes(String[] themes, String selected) {
         cbSettingsTheme.getItems().setAll((Object[]) themes);
+        cbSettingsTheme.setPromptText(selected);
     }
 
     private void setUser(String firstName, String lastName) {

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXDatePicker?>
@@ -7,6 +8,7 @@
 <?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
 <?import java.lang.Double?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
@@ -20,34 +22,34 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Polygon?>
 <?import javafx.scene.text.Font?>
+
 <?import java.util.ArrayList?>
-<?import javafx.scene.control.ComboBox?>
-<AnchorPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" fx:controller="gasStationSoftware.controller.WindowController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gasStationSoftware.controller.WindowController">
     <children>
-        <AnchorPane fx:id="menuBar" minHeight="600.0" minWidth="110.0" prefHeight="600.0" prefWidth="110.0" style="-fx-background-color: #607D8B;">
+        <AnchorPane fx:id="menuBarPane" minHeight="600.0" minWidth="110.0" prefHeight="600.0" prefWidth="110.0" style="-fx-background-color: #607D8B;">
             <children>
-                <Line endX="100.0" layoutY="105.0" startX="10.0" stroke="#bdbdbd" />
-                <ImageView fx:id="btnUser" fitHeight="80.0" fitWidth="80.0" layoutX="15.0" layoutY="14.0" onMousePressed="#handleButtonAction" pickOnBounds="true" preserveRatio="true">
+                <Line fx:id="dividerMenuBar" endX="100.0" layoutY="105.0" startX="10.0" stroke="#bdbdbd" />
+                <ImageView fx:id="btnUserMenuBar" fitHeight="80.0" fitWidth="80.0" layoutX="15.0" layoutY="14.0" onMousePressed="#handleButtonAction" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@images/res100x100/icons8-male-user-100.png" />
                     </image>
                 </ImageView>
-                <MaterialDesignIconView fx:id="btnSelling" fill="WHITE" glyphName="CART" layoutX="20.0" layoutY="180.0" onMousePressed="#handleButtonAction" size="70" />
-                <MaterialDesignIconView fx:id="btnTanks" fill="WHITE" glyphName="BARREL" layoutX="20.0" layoutY="340.0" onMousePressed="#handleButtonAction" size="70" />
-                <MaterialDesignIconView fx:id="btnSettings" fill="WHITE" glyphName="SETTINGS" layoutX="19.0" layoutY="580.0" onMousePressed="#handleButtonAction" size="70" />
-                <MaterialDesignIconView fx:id="btnInventory" fill="WHITE" glyphName="TABLE" layoutX="20.0" layoutY="260.0" onMousePressed="#handleButtonAction" size="70" />
-                <MaterialDesignIconView fx:id="btnEmployees" fill="WHITE" glyphName="ACCOUNT_MULTIPLE" layoutX="19.0" layoutY="420.0" onMousePressed="#handleButtonAction" size="70" />
-                <MaterialDesignIconView fx:id="btnReports" fill="WHITE" glyphName="CHART_LINE" layoutX="19.0" layoutY="500.0" onMousePressed="#handleButtonAction" size="70" />
+                <MaterialDesignIconView fx:id="icoSellingMenuBar" fill="WHITE" glyphName="CART" layoutX="20.0" layoutY="180.0" onMousePressed="#handleButtonAction" size="70" />
+                <MaterialDesignIconView fx:id="icoTanksMenuBar" fill="WHITE" glyphName="BARREL" layoutX="20.0" layoutY="340.0" onMousePressed="#handleButtonAction" size="70" />
+                <MaterialDesignIconView fx:id="icoSettingsMenuBar" fill="WHITE" glyphName="SETTINGS" layoutX="19.0" layoutY="580.0" onMousePressed="#handleButtonAction" size="70" />
+                <MaterialDesignIconView fx:id="icoInventoryMenuBar" fill="WHITE" glyphName="TABLE" layoutX="20.0" layoutY="260.0" onMousePressed="#handleButtonAction" size="70" />
+                <MaterialDesignIconView fx:id="icoEmployeesMenuBar" fill="WHITE" glyphName="ACCOUNT_MULTIPLE" layoutX="19.0" layoutY="420.0" onMousePressed="#handleButtonAction" size="70" />
+                <MaterialDesignIconView fx:id="icoReportsMenuBar" fill="WHITE" glyphName="CHART_LINE" layoutX="19.0" layoutY="500.0" onMousePressed="#handleButtonAction" size="70" />
             </children>
         </AnchorPane>
-        <AnchorPane fx:id="userPane" layoutX="110.0" minHeight="600.0" minWidth="890.0" prefHeight="600.0" prefWidth="890.0" style="-fx-background-color: #CFD8DC;">
+        <AnchorPane fx:id="userPane" layoutX="110.0" minHeight="600.0" minWidth="890.0" prefHeight="600.0" prefWidth="890.0" style="-fx-background-color: #CFD8DC;" visible="false">
             <children>
-                <ImageView fx:id="ivUserProfilePicture" fitHeight="150.0" fitWidth="150.0" layoutX="65.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="ivUserProfilePictureUser" fitHeight="150.0" fitWidth="150.0" layoutX="65.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@images/res100x100/icons8-male-user-100.png" />
                     </image>
                 </ImageView>
-                <Polygon fill="#607d8a" layoutX="25.0" layoutY="65.0" rotate="90.0" scaleX="0.5" scaleY="0.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-background-color: #607D8B;">
+                <Polygon fx:id="polygonUser" fill="#607d8a" layoutX="25.0" layoutY="65.0" rotate="90.0" scaleX="0.5" scaleY="0.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-background-color: #607D8B;">
                     <points>
                         <Double fx:value="-50.0" />
                         <Double fx:value="40.0" />
@@ -57,68 +59,68 @@
                         <Double fx:value="-60.0" />
                     </points>
                 </Polygon>
-                <Label layoutX="65.0" layoutY="30.0" text="Benutzerprofil" textFill="#212121">
+                <Label fx:id="titleUser" layoutX="65.0" layoutY="30.0" text="Benutzerprofil" textFill="#212121">
                     <font>
                         <Font name="System Bold" size="30.0" />
                     </font>
                 </Label>
-                <Label fx:id="lblUserName" layoutX="240.0" layoutY="145.0" maxHeight="35.0" maxWidth="500.0" minHeight="35.0" minWidth="500.0" prefHeight="35.0" prefWidth="500.0" text="DANIEL APPENMAIER" textFill="#212121">
+                <Label fx:id="lblUserNameUser" layoutX="240.0" layoutY="145.0" maxHeight="35.0" maxWidth="500.0" minHeight="35.0" minWidth="500.0" prefHeight="35.0" prefWidth="500.0" text="DANIEL APPENMAIER" textFill="#212121">
                     <font>
                         <Font name="System Bold" size="25.0" />
                     </font>
                 </Label>
-                <Label fx:id="lblUserRole" layoutX="240.0" layoutY="175.0" text="Praktikant" textFill="#212121">
+                <Label fx:id="lblUserRoleUser" layoutX="240.0" layoutY="175.0" text="Praktikant" textFill="#212121">
                     <font>
                         <Font size="20.0" />
                     </font>
                 </Label>
-                <Separator layoutX="65.0" layoutY="325.0" minHeight="2.0" prefWidth="700.0" style="-fx-background-color: #212121;" />
-                <Label layoutX="65.0" layoutY="300.0" text="Gesamtumsatz" textFill="#212121">
+                <Separator fx:id="dividerUser" layoutX="65.0" layoutY="325.0" minHeight="2.0" prefWidth="700.0" style="-fx-background-color: #212121;" />
+                <Label fx:id="subtitleSalesUser" layoutX="65.0" layoutY="300.0" text="Gesamtumsatz" textFill="#212121">
                     <font>
                         <Font name="System Bold" size="15.0" />
                     </font>
                 </Label>
-                <Label layoutX="65.0" layoutY="335.0" text="Tag:" textFill="#212121">
+                <Label fx:id="lblDailySalesUser" layoutX="65.0" layoutY="335.0" text="Tag:" textFill="#212121">
                     <font>
                         <Font size="15.0" />
                     </font>
                 </Label>
-                <Label layoutX="65.0" layoutY="360.0" text="Monat:" textFill="#212121">
+                <Label fx:id="lblMontlySalesUser" layoutX="65.0" layoutY="360.0" text="Monat:" textFill="#212121">
                     <font>
                         <Font size="15.0" />
                     </font>
                 </Label>
-                <Label layoutX="65.0" layoutY="385.0" text="Jahr:" textFill="#212121">
+                <Label fx:id="lblYearlySalesUser" layoutX="65.0" layoutY="385.0" text="Jahr:" textFill="#212121">
                     <font>
                         <Font size="15.0" />
                     </font>
                 </Label>
-                <Label fx:id="lblUserSumDay" alignment="CENTER_RIGHT" layoutX="520.0" layoutY="335.0" maxHeight="20.0" maxWidth="200.0" minHeight="20.0" minWidth="200.0" prefHeight="20.0" prefWidth="200.0" text="0000,00" textAlignment="RIGHT" textFill="#212121">
+                <Label fx:id="lblSalesSumDailyUser" alignment="CENTER_RIGHT" layoutX="520.0" layoutY="335.0" maxHeight="20.0" maxWidth="200.0" minHeight="20.0" minWidth="200.0" prefHeight="20.0" prefWidth="200.0" text="0000,00" textAlignment="RIGHT" textFill="#212121">
                     <font>
                         <Font size="15.0" />
                     </font>
                 </Label>
-                <Label fx:id="lblUserSumMonth" alignment="CENTER_RIGHT" layoutX="520.0" layoutY="360.0" maxHeight="20.0" maxWidth="200.0" minHeight="20.0" minWidth="200.0" prefHeight="20.0" prefWidth="200.0" text="0000,00" textAlignment="RIGHT" textFill="#212121">
+                <Label fx:id="lblSalesSumMonthlyUser" alignment="CENTER_RIGHT" layoutX="520.0" layoutY="360.0" maxHeight="20.0" maxWidth="200.0" minHeight="20.0" minWidth="200.0" prefHeight="20.0" prefWidth="200.0" text="0000,00" textAlignment="RIGHT" textFill="#212121">
                     <font>
                         <Font size="15.0" />
                     </font>
                 </Label>
-                <Label fx:id="lblUserSumYear" alignment="CENTER_RIGHT" layoutX="520.0" layoutY="385.0" maxHeight="20.0" maxWidth="200.0" minHeight="20.0" minWidth="200.0" prefHeight="20.0" prefWidth="200.0" text="0000,00" textAlignment="RIGHT" textFill="#212121">
+                <Label fx:id="lblSalesSumYearlyUser" alignment="CENTER_RIGHT" layoutX="520.0" layoutY="385.0" maxHeight="20.0" maxWidth="200.0" minHeight="20.0" minWidth="200.0" prefHeight="20.0" prefWidth="200.0" text="0000,00" textAlignment="RIGHT" textFill="#212121">
                     <font>
                         <Font size="15.0" />
                     </font>
                 </Label>
-                <Label fx:id="lblUserSumDayCurrency" layoutX="735.0" layoutY="335.0" maxHeight="20.0" maxWidth="30.0" minHeight="20.0" minWidth="30.0" prefHeight="20.0" prefWidth="30.0" text="EUR" textFill="#212121">
+                <Label fx:id="lblSalesSumDayCurrencyUser" layoutX="735.0" layoutY="335.0" maxHeight="20.0" maxWidth="30.0" minHeight="20.0" minWidth="30.0" prefHeight="20.0" prefWidth="30.0" text="EUR" textFill="#212121">
                     <font>
                         <Font size="15.0" />
                     </font>
                 </Label>
-                <Label fx:id="lblUserSumMonthCurrency" layoutX="735.0" layoutY="360.0" maxHeight="20.0" maxWidth="30.0" minHeight="20.0" minWidth="30.0" prefHeight="20.0" prefWidth="30.0" text="EUR" textFill="#212121">
+                <Label fx:id="lblSalesSumMonthCurrencyUser" layoutX="735.0" layoutY="360.0" maxHeight="20.0" maxWidth="30.0" minHeight="20.0" minWidth="30.0" prefHeight="20.0" prefWidth="30.0" text="EUR" textFill="#212121">
                     <font>
                         <Font size="15.0" />
                     </font>
                 </Label>
-                <Label fx:id="lblUserSumYearCurrency" layoutX="735.0" layoutY="385.0" text="EUR" textFill="#212121">
+                <Label fx:id="lblSalesSumYearCurrencyUser" layoutX="735.0" layoutY="385.0" text="EUR" textFill="#212121">
                     <font>
                         <Font size="15.0" />
                     </font>
@@ -127,7 +129,7 @@
         </AnchorPane>
         <AnchorPane fx:id="sellingPane" layoutX="110.0" minHeight="600.0" minWidth="890.0" prefHeight="600.0" prefWidth="890.0" style="-fx-background-color: #CFD8DC;" visible="false">
             <children>
-                <Polygon fill="#607d8a" layoutX="25.0" layoutY="166.0" rotate="90.0" scaleX="0.5" scaleY="0.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-background-color: #607D8B;">
+                <Polygon fx:id="polygonSales" fill="#607d8a" layoutX="25.0" layoutY="166.0" rotate="90.0" scaleX="0.5" scaleY="0.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-background-color: #607D8B;">
                     <points>
                         <Double fx:value="-50.0" />
                         <Double fx:value="40.0" />
@@ -139,28 +141,28 @@
                 </Polygon>
                 <AnchorPane fx:id="sellingOverviewPane" minHeight="600.0" minWidth="890.0" prefHeight="600.0" prefWidth="890.0">
                     <children>
-                        <Label layoutX="65.0" layoutY="30.0" text="Warenausgang" textFill="#212121">
+                        <Label fx:id="titleSalesOverview" layoutX="65.0" layoutY="30.0" text="Warenausgang" textFill="#212121">
                             <font>
                                 <Font name="System Bold" size="30.0" />
                             </font>
                         </Label>
-                        <JFXTreeTableView fx:id="tSellingOrder" layoutX="64.0" layoutY="87.0" prefHeight="368.0" prefWidth="487.0" style="-fx-background-color: #CFD8DC;" />
-                        <Label layoutX="65.0" layoutY="470.0" text="Gesamtsumme:" textFill="#212121">
+                        <JFXTreeTableView fx:id="tOrderSalesOverview" layoutX="64.0" layoutY="87.0" prefHeight="368.0" prefWidth="487.0" style="-fx-background-color: #CFD8DC;" />
+                        <Label fx:id="lblOrderSumSalesOverview" layoutX="65.0" layoutY="470.0" text="Gesamtsumme:" textFill="#212121">
                             <font>
                                 <Font name="System Bold" size="20.0" />
                             </font>
                         </Label>
-                        <Label fx:id="lblSellingPrice" layoutX="229.0" layoutY="471.0" text="0000,00" textFill="#212121">
+                        <Label fx:id="lblTotalSalesOverview" layoutX="229.0" layoutY="471.0" text="0000,00" textFill="#212121">
                             <font>
                                 <Font size="20.0" />
                             </font>
                         </Label>
-                        <Label fx:id="lblSellingPriceCurrency" layoutX="311.0" layoutY="471.0" text="EUR" textFill="#212121">
+                        <Label fx:id="lblTotalCurrencySalesOverview" layoutX="311.0" layoutY="471.0" text="EUR" textFill="#212121">
                             <font>
                                 <Font size="20.0" />
                             </font>
                         </Label>
-                        <JFXButton fx:id="btnSellingCheckOut" buttonType="RAISED" layoutX="64.0" layoutY="507.0" prefHeight="45.0" prefWidth="487.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Bezahlen" textFill="WHITE">
+                        <JFXButton fx:id="btnCheckOutSalesOverview" buttonType="RAISED" layoutX="64.0" layoutY="507.0" prefHeight="45.0" prefWidth="487.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Bezahlen" textFill="WHITE">
                             <font>
                                 <Font name="System Bold" size="20.0" />
                             </font>
@@ -168,32 +170,32 @@
                                 <Insets />
                             </opaqueInsets>
                             <graphic>
-                                <MaterialDesignIconView fill="WHITE" glyphName="CASH_MULTIPLE" size="30" smooth="false" />
+                                <MaterialDesignIconView fx:id="icoCheckOutSalesOverview" fill="WHITE" glyphName="CASH_MULTIPLE" size="30" smooth="false" />
                             </graphic>
                         </JFXButton>
-                        <JFXButton fx:id="btnSellingGoods" buttonType="RAISED" layoutX="573.0" layoutY="339.0" prefHeight="213.0" prefWidth="258.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Waren" textFill="WHITE">
+                        <JFXButton fx:id="btnGoodsSalesOverview" buttonType="RAISED" layoutX="573.0" layoutY="339.0" prefHeight="213.0" prefWidth="258.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Waren" textFill="WHITE">
                             <font>
                                 <Font name="System Bold" size="20.0" />
                             </font>
                             <graphic>
-                                <MaterialDesignIconView fill="WHITE" glyphName="CART_PLUS" size="30" />
+                                <MaterialDesignIconView fx:id="icoGoodsSalesOverview" fill="WHITE" glyphName="CART_PLUS" size="30" />
                             </graphic>
                         </JFXButton>
-                        <JFXButton fx:id="btnSellingGasPumps" buttonType="RAISED" layoutX="573.0" layoutY="111.0" prefHeight="213.0" prefWidth="258.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Säulen" textFill="WHITE">
+                        <JFXButton fx:id="btnGasPumpsSalesOverview" buttonType="RAISED" layoutX="573.0" layoutY="111.0" prefHeight="213.0" prefWidth="258.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Säulen" textFill="WHITE">
                             <font>
                                 <Font name="System Bold" size="20.0" />
                             </font>
                             <graphic>
-                                <MaterialDesignIconView fill="WHITE" glyphName="CART_PLUS" size="30" />
+                                <MaterialDesignIconView fx:id="icoGasPumpsSalesOverview" fill="WHITE" glyphName="CART_PLUS" size="30" />
                             </graphic>
                         </JFXButton>
                     </children>
                 </AnchorPane>
             </children>
         </AnchorPane>
-        <AnchorPane fx:id="inventoryPane" layoutX="110.0" minHeight="600.0" minWidth="890.0" prefHeight="600.0" prefWidth="890.0" style="-fx-background-color: #CFD8DC;" visible="false">
+        <AnchorPane fx:id="inventoryPane" layoutX="110.0" minHeight="600.0" minWidth="890.0" prefHeight="600.0" prefWidth="890.0" style="-fx-background-color: #CFD8DC;">
             <children>
-                <Polygon fill="#607d8a" layoutX="25.0" layoutY="245.0" rotate="90.0" scaleX="0.5" scaleY="0.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-background-color: #607D8B;">
+                <Polygon fx:id="polygonInventory" fill="#607d8a" layoutX="25.0" layoutY="245.0" rotate="90.0" scaleX="0.5" scaleY="0.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-background-color: #607D8B;">
                     <points>
                         <Double fx:value="-50.0" />
                         <Double fx:value="40.0" />
@@ -203,33 +205,33 @@
                         <Double fx:value="-60.0" />
                     </points>
                 </Polygon>
-                <AnchorPane fx:id="inventoryOverviewPane" prefHeight="600.0" prefWidth="890.0">
+                <AnchorPane fx:id="inventoryOverviewPane" prefHeight="600.0" prefWidth="890.0" visible="false">
                     <children>
-                        <Label layoutX="65.0" layoutY="30.0" text="Warenmanagement" textFill="#212121">
+                        <Label fx:id="titleInventoryOverview" layoutX="65.0" layoutY="30.0" text="Warenmanagement" textFill="#212121">
                             <font>
                                 <Font name="System Bold" size="30.0" />
                             </font>
                         </Label>
-                        <JFXButton fx:id="btnInventoryOrder" buttonType="RAISED" layoutX="65.0" layoutY="520.0" onMousePressed="#handleButtonAction" prefHeight="45.0" prefWidth="250.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Bestellen" textFill="WHITE">
+                        <JFXButton fx:id="btnOrderInventoryOverview" buttonType="RAISED" layoutX="65.0" layoutY="520.0" onMousePressed="#handleButtonAction" prefHeight="45.0" prefWidth="250.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Bestellen" textFill="WHITE">
                             <font>
                                 <Font name="System Bold" size="20.0" />
                             </font>
                             <graphic>
-                                <MaterialDesignIconView fill="WHITE" glyphName="TRUCK_DELIVERY" size="30" smooth="false" />
+                                <MaterialDesignIconView fx:id="icoOrderInventoryOverview" fill="WHITE" glyphName="TRUCK_DELIVERY" size="30" smooth="false" />
                             </graphic>
                         </JFXButton>
-                        <JFXButton fx:id="btnInventoryDeliveries" buttonType="RAISED" layoutX="350.0" layoutY="520.0" onMousePressed="#handleButtonAction" prefHeight="45.0" prefWidth="250.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Lieferung" textFill="WHITE">
+                        <JFXButton fx:id="btnDeliveriesInventoryOverview" buttonType="RAISED" layoutX="350.0" layoutY="520.0" onMousePressed="#handleButtonAction" prefHeight="45.0" prefWidth="250.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Lieferung" textFill="WHITE">
                             <font>
                                 <Font name="System Bold" size="20.0" />
                             </font>
                             <graphic>
-                                <MaterialDesignIconView fill="WHITE" glyphName="PACKAGE_VARIANT" size="30" smooth="false" />
+                                <MaterialDesignIconView fx:id="icoDeliveryInventoryOverview" fill="WHITE" glyphName="PACKAGE_VARIANT" size="30" smooth="false" />
                             </graphic>
                         </JFXButton>
-                        <TreeTableView layoutX="65.0" layoutY="100.0" prefHeight="384.0" prefWidth="761.0" />
+                        <TreeTableView fx:id="tGoodsInventoryOverview" layoutX="65.0" layoutY="100.0" prefHeight="384.0" prefWidth="761.0" />
                     </children>
                 </AnchorPane>
-                <AnchorPane fx:id="inventoryOrderPane" prefHeight="600.0" prefWidth="890.0" visible="false">
+                <AnchorPane fx:id="inventoryOrderPane" prefHeight="600.0" prefWidth="890.0">
                     <children>
                         <TreeTableView layoutX="57.0" layoutY="100.0" prefHeight="384.0" prefWidth="446.0">
                             <columns>
@@ -259,7 +261,7 @@
                         </Label>
                         <TreeTableView layoutX="57.0" layoutY="100.0" prefHeight="384.0" prefWidth="630.0" />
                         <JFXButton fx:id="btnInventoryDeliveries41" buttonType="RAISED" layoutX="65.0" layoutY="520.0" onMousePressed="#handleButtonAction" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Abbrechen" textFill="WHITE" />
-                        <JFXButton fx:id="btnInventoryDeliveries21" buttonType="RAISED" layoutX="705.0" layoutY="100.0" onMousePressed="#handleButtonAction" prefHeight="384.0" prefWidth="145.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Lieferung&#xA;aus Datei&#xA;importieren" textAlignment="CENTER" textFill="WHITE" />
+                        <JFXButton fx:id="btnInventoryDeliveries21" buttonType="RAISED" layoutX="705.0" layoutY="100.0" onMousePressed="#handleButtonAction" prefHeight="384.0" prefWidth="145.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Lieferung&#10;aus Datei&#10;importieren" textAlignment="CENTER" textFill="WHITE" />
                     </children>
                 </AnchorPane>
             </children>
@@ -323,7 +325,7 @@
                         </Label>
                         <TreeTableView layoutX="57.0" layoutY="100.0" prefHeight="384.0" prefWidth="630.0" />
                         <JFXButton fx:id="btnInventoryDeliveries411" buttonType="RAISED" layoutX="65.0" layoutY="520.0" onMousePressed="#handleButtonAction" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Abbrechen" textFill="WHITE" />
-                        <JFXButton fx:id="btnInventoryDeliveries211" buttonType="RAISED" layoutX="705.0" layoutY="100.0" onMousePressed="#handleButtonAction" prefHeight="384.0" prefWidth="145.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Lieferung&#xA;aus Datei&#xA;importieren" textAlignment="CENTER" textFill="WHITE" />
+                        <JFXButton fx:id="btnInventoryDeliveries211" buttonType="RAISED" layoutX="705.0" layoutY="100.0" onMousePressed="#handleButtonAction" prefHeight="384.0" prefWidth="145.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Lieferung&#10;aus Datei&#10;importieren" textAlignment="CENTER" textFill="WHITE" />
                     </children>
                 </AnchorPane>
             </children>
@@ -530,6 +532,28 @@
             <fx:reference source="employeeOverviewPane" />
             <fx:reference source="reportOverviewPane" />
             <fx:reference source="settingsOverviewPane" />
+        </ArrayList>
+        <ArrayList fx:id="buttons">
+            <fx:reference source="btnCheckOutSalesOverview" />
+            <fx:reference source="btnGoodsSalesOverview" />
+            <fx:reference source="btnGasPumpsSalesOverview" />
+            <fx:reference source="btnOrderInventoryOverview" />
+            <fx:reference source="btnDeliveriesInventoryOverview" />
+        </ArrayList>
+        <ArrayList fx:id="icoMenuBar">
+            <fx:reference source="icoSellingMenuBar" />
+            <fx:reference source="icoTanksMenuBar" />
+            <fx:reference source="icoSettingsMenuBar" />
+            <fx:reference source="icoInventoryMenuBar" />
+            <fx:reference source="icoEmployeesMenuBar" />
+            <fx:reference source="icoReportsMenuBar" />
+        </ArrayList>
+        <ArrayList fx:id="btnIcons">
+            <fx:reference source="icoCheckOutSalesOverview" />
+            <fx:reference source="icoGoodsSalesOverview" />
+            <fx:reference source="icoGasPumpsSalesOverview" />
+            <fx:reference source="icoOrderInventoryOverview" />
+            <fx:reference source="icoDeliveryInventoryOverview" />
         </ArrayList>
     </fx:define>
 </AnchorPane>

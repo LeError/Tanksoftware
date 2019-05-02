@@ -140,7 +140,7 @@ public class Logic {
     private void loadTheme() throws DataFileNotFoundException {
         ReadJSON read = new ReadJSON(DATA_FILE_PATH + DATA_FILE_NAMES[1]);
         String theme = read.getItemString("theme");
-        windowController.setComboboxThemes(read.getItemStringArray("themes"));
+        windowController.setComboboxThemes(read.getItemStringArray("themes"), theme);
         read = new ReadJSON(DATA_SUB_PATHS[5] + theme + ".json");
         windowController.setTheme(
                 hex2Rgb(read.getItemString("menuBar")),

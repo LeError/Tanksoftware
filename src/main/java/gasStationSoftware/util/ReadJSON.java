@@ -17,7 +17,7 @@ public class ReadJSON {
     public ReadJSON(String path)
     throws DataFileNotFoundException {
         this.path = new File(path);
-        if (this.path.exists()) {
+        if (this.path.isFile()) {
             read();
         } else {
             throw new DataFileNotFoundException("Error 404 \t Can't find JSON file!");
