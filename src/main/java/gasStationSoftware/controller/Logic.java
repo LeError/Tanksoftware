@@ -2,6 +2,7 @@ package gasStationSoftware.controller;
 
 import gasStationSoftware.exceptions.DataFileNotFoundException;
 import gasStationSoftware.util.ReadJSON;
+import gasStationSoftware.util.Utility;
 import gasStationSoftware.util.WriteFile;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
@@ -78,9 +79,9 @@ public class Logic {
             File dataFile = new File(DATA_FILE_PATH + file);
             if (!dataFile.exists() && !FilenameUtils.getExtension(file).equals("json")) {
                 WriteFile write = new WriteFile(dataFile.toString());
-                write.addLine("LASTUPDATE=" + getDate());
+                write.addLine("LASTUPDATE=" + Utility.getDate());
                 write.addLine("EMPLOYEENR;FIRSTNAME;LASTNAME;EMPLOYMENTDATE");
-                write.addLine("00000;ADMIN;ADMIN;" + getDate());
+                write.addLine("00000;ADMIN;ADMIN;" + Utility.getDate());
                 write.write();
             } else if (!dataFile.exists() && FilenameUtils.getExtension(file).equals("json")) {
                 switch (file) {
@@ -110,18 +111,6 @@ public class Logic {
         }
     }
 
-    private static String getDate() {
-        return new SimpleDateFormat("dd.MM.yyyy").format(new Date());
-    }
-
-    public static Color hex2Rgb(String colorStr) {
-        return new Color(
-                Integer.valueOf( colorStr.substring( 1, 3 ), 16 ),
-                Integer.valueOf( colorStr.substring( 3, 5 ), 16 ),
-                Integer.valueOf( colorStr.substring( 5, 7 ), 16 )
-        );
-    }
-
     public static void displayError(String error, Exception e, boolean end) {
         JOptionPane.showMessageDialog(null, error + "\n" + e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
         if(end){
@@ -143,14 +132,14 @@ public class Logic {
         windowController.setComboboxThemes(read.getItemStringArray("themes"), theme);
         read = new ReadJSON(DATA_SUB_PATHS[5] + theme + ".json");
         windowController.setTheme(
-                hex2Rgb(read.getItemString("menuBar")),
-                hex2Rgb(read.getItemString("contentPaneBackground")),
-                hex2Rgb(read.getItemString("icons")),
-                hex2Rgb(read.getItemString("dividerMenuBar")),
-                hex2Rgb(read.getItemString("fontContent")),
-                hex2Rgb(read.getItemString("buttonsBackground")),
-                hex2Rgb(read.getItemString("buttonsFont")),
-                hex2Rgb(read.getItemString("dividerContent"))
+                Utility.hex2Rgb(read.getItemString("menuBar")),
+                Utility.hex2Rgb(read.getItemString("contentPaneBackground")),
+                Utility.hex2Rgb(read.getItemString("icons")),
+                Utility.hex2Rgb(read.getItemString("dividerMenuBar")),
+                Utility.hex2Rgb(read.getItemString("fontContent")),
+                Utility.hex2Rgb(read.getItemString("buttonsBackground")),
+                Utility.hex2Rgb(read.getItemString("buttonsFont")),
+                Utility.hex2Rgb(read.getItemString("dividerContent"))
         );
     }
 
