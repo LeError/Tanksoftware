@@ -139,6 +139,11 @@ public class Logic {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        try {
+            loadInventory();
+        } catch (DataFileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     private void loadTheme() throws DataFileNotFoundException {
@@ -174,7 +179,7 @@ public class Logic {
     private void loadInventory() throws DataFileNotFoundException {
         ReadJSON read = new ReadJSON(DATA_FILE_PATH + DATA_FILE_NAMES[0]);
         String[] label = read.getItemStringArray("itemLabel");
-        int[] inventoryNumber = read.getItemIntArray("itemInventoryNumber");
+        String[] inventoryNumber = read.getItemStringArray("itemInventoryNumber");
         String[] type = read.getItemStringArray("itemType");
         this.type = new ItemType[inventoryNumber.length];
         for(int i = 0; i < inventoryNumber.length; i++) {
@@ -185,7 +190,7 @@ public class Logic {
                     break;
                 default: invType = InventoryType.Good;
             }
-            this.type[i] = new ItemType(label[i], inventoryNumber[i], invType);
+            this.type[i] = new ItemType(label[i], Integer.parseInt(inventoryNumber[i]), invType);
         }
         for(ItemType iType : this.type) {
             windowController.addRowTFuelsSettingsFuel(iType);
