@@ -1,15 +1,12 @@
 {
-  "tankAmount": 0,
   "tankCapacity": [],
   "tankLevel": [],
   "tankAssignedFuels": [],
 
-  "itemTypeAmount": 0,
   "itemLabel": [],
   "itemInventoryNumber": [],
   "itemType": [],
 
-  "gasPumpAmount": 0,
   "gasPumpAssignedFuels": [],
   "gasPumpAssignedTanks": []
 }
