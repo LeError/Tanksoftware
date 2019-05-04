@@ -3,9 +3,13 @@ package gasStationSoftware.controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
+import gasStationSoftware.models.Employee;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -43,6 +47,8 @@ implements Initializable {
     @FXML private JFXComboBox cbThemeSettingsOverview, cbTypeSettingsOverview;
 
     @FXML private Label lblUserName, lblUserRole, lblUserSumDay, lblUserSumMonth, lblUserSumYear, lblUserSumDayCurrency, lblUserSumMonthCurrency, lblUserSumYearCurrency, lblSellingPrice, lblSellingPriceCurrency;
+
+    @FXML private TableView tEmployeesEmployeeOverview;
 
     @FXML private ArrayList<AnchorPane> panes, subPanes;
 
@@ -101,7 +107,24 @@ implements Initializable {
     @Override public void initialize(URL location, ResourceBundle resources) {
         logic = Logic.getInstance(this);
         logic.loadFiles();
+        addColumnsEmployees();
         setDefaultContent();
+    }
+
+    private void addColumnsEmployees() {
+        TableColumn columnEmployeeNumber = new TableColumn("Angestelter #");
+        columnEmployeeNumber.setCellValueFactory(new PropertyValueFactory<>("EMPLOYEE_NUMBER"));
+        TableColumn columnEmploymentDate = new TableColumn("Einstellungsdatum");
+        columnEmploymentDate.setCellValueFactory(new PropertyValueFactory<>("EMPLOYMENT_DATE_FORMATTED"));
+        TableColumn columnFirstName = new TableColumn("Vorname");
+        columnFirstName.setCellValueFactory(new PropertyValueFactory<>("FIRST_NAME"));
+        TableColumn columnSurname = new TableColumn("Nachname");
+        columnSurname.setCellValueFactory(new PropertyValueFactory<>("SUR_NAME"));
+        tEmployeesEmployeeOverview.getColumns().addAll(columnEmployeeNumber, columnEmploymentDate, columnFirstName, columnSurname);
+    }
+
+    public void addColumnTEmployeesEmployeeOverview(Employee employee){
+        tEmployeesEmployeeOverview.getItems().add(employee);
     }
 
     private void setDefaultContent() {
