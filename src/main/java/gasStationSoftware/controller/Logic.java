@@ -1,6 +1,9 @@
 package gasStationSoftware.controller;
 
 import gasStationSoftware.exceptions.DataFileNotFoundException;
+import gasStationSoftware.exceptions.OSException;
+import gasStationSoftware.models.Employee;
+import gasStationSoftware.util.ReadFile;
 import gasStationSoftware.util.ReadJSON;
 import gasStationSoftware.util.Utility;
 import gasStationSoftware.util.WriteFile;
@@ -10,8 +13,10 @@ import org.apache.commons.io.FilenameUtils;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -36,6 +41,8 @@ public class Logic {
             "themes\\default.json",
             "employees.txt"
     };
+
+    private Employee[] employees;
 
     private Logic() {
         checkDir(DATA_FILE_PATH);
@@ -124,6 +131,13 @@ public class Logic {
         } catch (DataFileNotFoundException e) {
             displayError("Can't load theme save file!", e, true);
         }
+        try {
+            loadEmployees();
+        } catch (OSException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     private void loadTheme() throws DataFileNotFoundException {
@@ -141,6 +155,16 @@ public class Logic {
                 Utility.hex2Rgb(read.getItemString("buttonsFont")),
                 Utility.hex2Rgb(read.getItemString("dividerContent"))
         );
+    }
+
+    private void loadEmployees() throws OSException, ParseException {
+        ReadFile read = new ReadFile(DATA_FILE_PATH + DATA_FILE_NAMES[3]);
+        String[][] lines = read.getLINES();
+        employees = new Employee[lines.length];
+        for(int i = 0; i < employees.length; i++) {
+            Date date = new SimpleDateFormat("dd.MM.yyyy").parse(lines[i][1]);
+            employees[i] = new Employee(Integer.parseInt(lines[i][0]), date, lines[i][0], lines[i][0]);
+        }
     }
 
 }
