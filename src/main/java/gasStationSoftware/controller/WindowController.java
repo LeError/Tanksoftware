@@ -4,6 +4,8 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import gasStationSoftware.models.Employee;
+import gasStationSoftware.models.InventoryType;
+import gasStationSoftware.models.ItemType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -28,32 +30,35 @@ implements Initializable {
     private final static String CB_SETTINGS_TYPE_PROMT = "Type auswählen";
     private static Color backgroundMenuBar, contentPaneBackground, icons, dividerMenuBar, fontContent, buttonsBackground, buttonsFont, dividerContent;
 
-    @FXML private ImageView ivUserMenuBar, ivUserProfilePictureUser;
+    @FXML private AnchorPane menuBarPane;
+    @FXML private ImageView ivUserMenuBar;
     @FXML private MaterialDesignIconView icoSellingMenuBar, icoInventoryMenuBar, icoTanksMenuBar, icoEmployeesMenuBar, icoReportsMenuBar, icoSettingsMenuBar;
 
     @FXML private AnchorPane userPane;
+
     @FXML private AnchorPane sellingPane, sellingOverviewPane;
+
     @FXML private AnchorPane inventoryPane, inventoryOverviewPane, inventoryOrderPane, inventoryDeliveryPane;
+
     @FXML private AnchorPane fuelPane, fuelOverviewPane, fuelOrderPane, fuelDeliveryPane;
-    @FXML private AnchorPane employeePane, employeeOverviewPane;
-    @FXML private AnchorPane reportPane, reportOverviewPane;
-    @FXML private AnchorPane settingsPane, settingsOverviewPane;
 
-    @FXML private JFXButton btnSellingCheckOut, btnSellingGoods, btnSellingGasPumps;
-    @FXML private JFXButton btnInventoryOrder, btnInventoryDeliveries;
-    @FXML private JFXButton btnFuelOrders, btnFuelDeliveries;
-    @FXML private JFXButton btnSettingsImport, btnSettingsExport, btnSettingsGasPumps, btnSettingsTanks, btnSettingsFuels, btnSettingsCreateTheme, btnSettingsEditTheme;
-
-    @FXML private JFXComboBox cbThemeSettingsOverview, cbTypeSettingsOverview;
-
-    @FXML private Label lblUserName, lblUserRole, lblUserSumDay, lblUserSumMonth, lblUserSumYear, lblUserSumDayCurrency, lblUserSumMonthCurrency, lblUserSumYearCurrency, lblSellingPrice, lblSellingPriceCurrency;
-
+    @FXML private AnchorPane employeePane, employeeOverviewPane, employeeCreatePane;
     @FXML private TableView tEmployeesEmployeeOverview;
+
+    @FXML private AnchorPane reportPane, reportOverviewPane;
+
+    @FXML private ImageView ivUserProfilePictureUser;
+
+    @FXML private AnchorPane settingsPane, settingsOverviewPane, settingsFuelPane, settingsTankPane, settingsGasPumpPane;
+    @FXML private JFXButton btnEditThemeSettingsOverview, btnCreateThemeSettingsOverview, btnFuelsSettingsOverview, btnTanksSettingsOverview, btnGasPumpsSettingsOverview, btnExportSettingsOverview, btnImportSettingsOverview, btnNewSettingsView, btnEditSettingsView;
+    @FXML private JFXComboBox cbThemeSettingsOverview, cbTypeSettingsOverview;
+    @FXML private TableView tFuelsSettingsFuel, tTanksSettingsTank, tGasPumpsSettingsGasPump;
 
     @FXML private ArrayList<AnchorPane> panes, subPanes;
 
-    @FXML private void handleButtonAction(MouseEvent event) {
+    @FXML private void handleMenuButtonAction(MouseEvent event) {
         hidePanes();
+        hideSubPanes();
         if (event.getTarget() == ivUserMenuBar) {
             userPane.setVisible(true);
         } else if (event.getTarget() == icoSellingMenuBar) {
@@ -70,24 +75,37 @@ implements Initializable {
             employeeOverviewPane.setVisible(true);
         } else if (event.getTarget() == icoReportsMenuBar) {
             reportPane.setVisible(true);
+            reportOverviewPane.setVisible(true);
         } else if (event.getTarget() == icoSettingsMenuBar) {
             settingsPane.setVisible(true);
             settingsOverviewPane.setVisible(true);
-        } else {
+        }
+    }
+
+    @FXML private void handleUserAction(MouseEvent event) {}
+
+    @FXML private void handleSaleAction(MouseEvent event) {}
+
+    @FXML private void handleAction(MouseEvent event) {}
+
+    @FXML private void handleEmployeeAction(MouseEvent event) {}
+
+    @FXML private void handleReportAction(MouseEvent event) {}
+
+    @FXML private void handleSettingsAction(MouseEvent event) {
+        if (event.getTarget() == btnEditThemeSettingsOverview) {
+        } else if (event.getTarget() == btnCreateThemeSettingsOverview) {
+        } else if (event.getTarget() == btnFuelsSettingsOverview) {
             hideSubPanes();
-            if (event.getTarget() == btnInventoryOrder) {
-                inventoryPane.setVisible(true);
-                inventoryOrderPane.setVisible(true);
-            } else if (event.getTarget() == btnInventoryDeliveries) {
-                inventoryPane.setVisible(true);
-                inventoryDeliveryPane.setVisible(true);
-            } else if (event.getTarget() == btnFuelOrders) {
-                fuelPane.setVisible(true);
-                fuelOrderPane.setVisible(true);
-            } else if (event.getTarget() == btnFuelDeliveries) {
-                fuelPane.setVisible(true);
-                fuelDeliveryPane.setVisible(true);
-            }
+            settingsFuelPane.setVisible(true);
+        } else if (event.getTarget() == btnTanksSettingsOverview) {
+            hideSubPanes();
+            settingsTankPane.setVisible(true);
+        } else if (event.getTarget() == btnGasPumpsSettingsOverview) {
+            hideSubPanes();
+            settingsGasPumpPane.setVisible(true);
+        } else if (event.getTarget() == btnExportSettingsOverview) {
+        } else if (event.getTarget() == btnImportSettingsOverview) {
         }
     }
 
@@ -108,6 +126,7 @@ implements Initializable {
         logic = Logic.getInstance(this);
         logic.loadFiles();
         addColumnsTEmployeesEmployeeOverview();
+        addColumnsTFuelsSettingsFuel();
         setDefaultContent();
     }
 
@@ -127,6 +146,22 @@ implements Initializable {
         tEmployeesEmployeeOverview.getItems().add(employee);
     }
 
+    private void addColumnsTFuelsSettingsFuel() {
+        TableColumn columnInventoryNumber = new TableColumn("Inventar #");
+        columnInventoryNumber.setCellValueFactory(new PropertyValueFactory<>("INVENTORY_NUMBER"));
+        TableColumn columnType = new TableColumn("Typ");
+        columnType.setCellValueFactory(new PropertyValueFactory<>("TYPE"));
+        TableColumn columnLabel = new TableColumn("Bezeichnung");
+        columnLabel.setCellValueFactory(new PropertyValueFactory<>("LABEL"));
+        tFuelsSettingsFuel.getColumns().addAll(columnInventoryNumber, columnType, columnLabel);
+    }
+
+    public void addRowTFuelsSettingsFuel(ItemType type) {
+        if(type.getTYPE().equals(InventoryType.Fuel.getTYPE())) {
+            tFuelsSettingsFuel.getItems().add(type);
+        }
+    }
+
     private void setDefaultContent() {
         cbTypeSettingsOverview.getItems().setAll((Object[]) CB_SETTINGS_TYPE_OPTIONS);
         cbTypeSettingsOverview.setPromptText(CB_SETTINGS_TYPE_PROMT);
@@ -138,7 +173,7 @@ implements Initializable {
     }
 
     private void setUser(String firstName, String lastName) {
-        lblUserName.setText(firstName + " " + lastName);
+        //lblUserName.setText(firstName + " " + lastName);
     }
 
     public void setTheme(Color backgroundMenuBar, Color contentPaneBackground, Color icons, Color dividerMenuBar,

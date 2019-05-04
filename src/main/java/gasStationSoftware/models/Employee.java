@@ -2,7 +2,6 @@ package gasStationSoftware.models;
 
 import gasStationSoftware.util.Utility;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Employee {
