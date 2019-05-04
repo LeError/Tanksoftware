@@ -157,8 +157,8 @@ implements Initializable {
     }
 
     public void addRowTFuelsSettingsFuel(ItemType type) {
-        if(type.getTYPE().equals(InventoryType.Fuel)) {
-            tEmployeesEmployeeOverview.getItems().add(type);
+        if(type.getTYPE().equals(InventoryType.Fuel.getTYPE())) {
+            tFuelsSettingsFuel.getItems().add(type);
         }
     }
 
