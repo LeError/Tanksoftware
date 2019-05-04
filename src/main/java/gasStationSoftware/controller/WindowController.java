@@ -107,11 +107,11 @@ implements Initializable {
     @Override public void initialize(URL location, ResourceBundle resources) {
         logic = Logic.getInstance(this);
         logic.loadFiles();
-        addColumnsEmployees();
+        addColumnsTEmployeesEmployeeOverview();
         setDefaultContent();
     }
 
-    private void addColumnsEmployees() {
+    private void addColumnsTEmployeesEmployeeOverview() {
         TableColumn columnEmployeeNumber = new TableColumn("Angestelter #");
         columnEmployeeNumber.setCellValueFactory(new PropertyValueFactory<>("EMPLOYEE_NUMBER"));
         TableColumn columnEmploymentDate = new TableColumn("Einstellungsdatum");
@@ -123,7 +123,7 @@ implements Initializable {
         tEmployeesEmployeeOverview.getColumns().addAll(columnEmployeeNumber, columnEmploymentDate, columnFirstName, columnSurname);
     }
 
-    public void addColumnTEmployeesEmployeeOverview(Employee employee){
+    public void addRowTEmployeesEmployeeOverview(Employee employee){
         tEmployeesEmployeeOverview.getItems().add(employee);
     }
 

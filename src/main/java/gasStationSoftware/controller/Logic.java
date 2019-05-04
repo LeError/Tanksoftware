@@ -164,7 +164,7 @@ public class Logic {
             employees[i] = new Employee(Integer.parseInt(lines[i][0]), lines[i][1], lines[i][2], date);
         }
         for(Employee employee : employees) {
-            windowController.addColumnTEmployeesEmployeeOverview(employee);
+            windowController.addRowTEmployeesEmployeeOverview(employee);
         }
     }
 
