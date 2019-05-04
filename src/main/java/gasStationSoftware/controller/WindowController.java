@@ -54,8 +54,9 @@ implements Initializable {
 
     @FXML private ArrayList<AnchorPane> panes, subPanes;
 
-    @FXML private void handleButtonAction(MouseEvent event) {
+    @FXML private void handleMenuButtonAction(MouseEvent event) {
         hidePanes();
+        hideSubPanes();
         if (event.getTarget() == ivUserMenuBar) {
             userPane.setVisible(true);
         } else if (event.getTarget() == icoSellingMenuBar) {
@@ -79,11 +80,21 @@ implements Initializable {
         }
     }
 
+    @FXML private void handleUserAction(MouseEvent event) {}
+
+    @FXML private void handleSaleAction(MouseEvent event) {}
+
+    @FXML private void handleAction(MouseEvent event) {}
+
+    @FXML private void handleEmployeeAction(MouseEvent event) {}
+
+    @FXML private void handleReportAction(MouseEvent event) {}
+
     @FXML private void handleSettingsAction(MouseEvent event) {
-        hideSubPanes();
         if (event.getTarget() == btnEditThemeSettingsOverview) {
         } else if (event.getTarget() == btnCreateThemeSettingsOverview) {
         } else if (event.getTarget() == btnFuelsSettingsOverview) {
+            hideSubPanes();
             settingsFuelPane.setVisible(true);
         } else if (event.getTarget() == btnTanksSettingsOverview) {
         } else if (event.getTarget() == btnGasPumpsSettingsOverview) {
