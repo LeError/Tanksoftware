@@ -1,6 +1,7 @@
 package gasStationSoftware.util;
 
 import java.awt.*;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -16,6 +17,12 @@ public class Utility {
 
     public static String getDate() {
         return new SimpleDateFormat("dd.MM.yyyy").format(new Date());
+    }
+
+    public static String getDateForamtted(Date date) {
+        String pattern = "dd.MM.yyyy";
+        DateFormat dateFormatter = new SimpleDateFormat(pattern);
+        return dateFormatter.format(date);
     }
 
 }
