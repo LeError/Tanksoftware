@@ -3,9 +3,13 @@ package gasStationSoftware.controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
+import gasStationSoftware.models.Employee;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -23,7 +27,8 @@ implements Initializable {
     private final static String[] CB_SETTINGS_TYPE_OPTIONS = { "Settings", "Theme", "Inventory" };
     private final static String CB_SETTINGS_TYPE_PROMT = "Type auswählen";
     private static Color backgroundMenuBar, contentPaneBackground, icons, dividerMenuBar, fontContent, buttonsBackground, buttonsFont, dividerContent;
-    @FXML private ImageView btnUserMenuBar;
+
+    @FXML private ImageView ivUserMenuBar, ivUserProfilePictureUser;
     @FXML private MaterialDesignIconView icoSellingMenuBar, icoInventoryMenuBar, icoTanksMenuBar, icoEmployeesMenuBar, icoReportsMenuBar, icoSettingsMenuBar;
 
     @FXML private AnchorPane userPane;
@@ -39,15 +44,17 @@ implements Initializable {
     @FXML private JFXButton btnFuelOrders, btnFuelDeliveries;
     @FXML private JFXButton btnSettingsImport, btnSettingsExport, btnSettingsGasPumps, btnSettingsTanks, btnSettingsFuels, btnSettingsCreateTheme, btnSettingsEditTheme;
 
-    @FXML private JFXComboBox cbSettingsTheme, cbSettingsType;
+    @FXML private JFXComboBox cbThemeSettingsOverview, cbTypeSettingsOverview;
 
     @FXML private Label lblUserName, lblUserRole, lblUserSumDay, lblUserSumMonth, lblUserSumYear, lblUserSumDayCurrency, lblUserSumMonthCurrency, lblUserSumYearCurrency, lblSellingPrice, lblSellingPriceCurrency;
+
+    @FXML private TableView tEmployeesEmployeeOverview;
 
     @FXML private ArrayList<AnchorPane> panes, subPanes;
 
     @FXML private void handleButtonAction(MouseEvent event) {
         hidePanes();
-        if (event.getTarget() == btnUserMenuBar) {
+        if (event.getTarget() == ivUserMenuBar) {
             userPane.setVisible(true);
         } else if (event.getTarget() == icoSellingMenuBar) {
             sellingPane.setVisible(true);
@@ -100,17 +107,34 @@ implements Initializable {
     @Override public void initialize(URL location, ResourceBundle resources) {
         logic = Logic.getInstance(this);
         logic.loadFiles();
+        addColumnsTEmployeesEmployeeOverview();
         setDefaultContent();
     }
 
+    private void addColumnsTEmployeesEmployeeOverview() {
+        TableColumn columnEmployeeNumber = new TableColumn("Angestelter #");
+        columnEmployeeNumber.setCellValueFactory(new PropertyValueFactory<>("EMPLOYEE_NUMBER"));
+        TableColumn columnEmploymentDate = new TableColumn("Einstellungsdatum");
+        columnEmploymentDate.setCellValueFactory(new PropertyValueFactory<>("EMPLOYMENT_DATE_FORMATTED"));
+        TableColumn columnFirstName = new TableColumn("Vorname");
+        columnFirstName.setCellValueFactory(new PropertyValueFactory<>("FIRST_NAME"));
+        TableColumn columnSurname = new TableColumn("Nachname");
+        columnSurname.setCellValueFactory(new PropertyValueFactory<>("SUR_NAME"));
+        tEmployeesEmployeeOverview.getColumns().addAll(columnEmployeeNumber, columnEmploymentDate, columnFirstName, columnSurname);
+    }
+
+    public void addRowTEmployeesEmployeeOverview(Employee employee){
+        tEmployeesEmployeeOverview.getItems().add(employee);
+    }
+
     private void setDefaultContent() {
-        cbSettingsType.getItems().setAll((Object[]) CB_SETTINGS_TYPE_OPTIONS);
-        cbSettingsType.setPromptText(CB_SETTINGS_TYPE_PROMT);
+        cbTypeSettingsOverview.getItems().setAll((Object[]) CB_SETTINGS_TYPE_OPTIONS);
+        cbTypeSettingsOverview.setPromptText(CB_SETTINGS_TYPE_PROMT);
     }
 
     public void setComboboxThemes(String[] themes, String selected) {
-        cbSettingsTheme.getItems().setAll((Object[]) themes);
-        cbSettingsTheme.setPromptText(selected);
+        cbThemeSettingsOverview.getItems().setAll((Object[]) themes);
+        cbThemeSettingsOverview.setPromptText(selected);
     }
 
     private void setUser(String firstName, String lastName) {

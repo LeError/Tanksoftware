@@ -1,16 +1,20 @@
 package gasStationSoftware.controller;
 
 import gasStationSoftware.exceptions.DataFileNotFoundException;
+import gasStationSoftware.exceptions.OSException;
+import gasStationSoftware.models.Employee;
+import gasStationSoftware.util.ReadFile;
 import gasStationSoftware.util.ReadJSON;
+import gasStationSoftware.util.Utility;
 import gasStationSoftware.util.WriteFile;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
 import javax.swing.*;
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -35,6 +39,8 @@ public class Logic {
             "themes\\default.json",
             "employees.txt"
     };
+
+    private Employee[] employees;
 
     private Logic() {
         checkDir(DATA_FILE_PATH);
@@ -78,9 +84,9 @@ public class Logic {
             File dataFile = new File(DATA_FILE_PATH + file);
             if (!dataFile.exists() && !FilenameUtils.getExtension(file).equals("json")) {
                 WriteFile write = new WriteFile(dataFile.toString());
-                write.addLine("LASTUPDATE=" + getDate());
+                write.addLine("LASTUPDATE=" + Utility.getDate());
                 write.addLine("EMPLOYEENR;FIRSTNAME;LASTNAME;EMPLOYMENTDATE");
-                write.addLine("00000;ADMIN;ADMIN;" + getDate());
+                write.addLine("00000;ADMIN;ADMIN;" + Utility.getDate());
                 write.write();
             } else if (!dataFile.exists() && FilenameUtils.getExtension(file).equals("json")) {
                 switch (file) {
@@ -110,18 +116,6 @@ public class Logic {
         }
     }
 
-    private static String getDate() {
-        return new SimpleDateFormat("dd.MM.yyyy").format(new Date());
-    }
-
-    public static Color hex2Rgb(String colorStr) {
-        return new Color(
-                Integer.valueOf( colorStr.substring( 1, 3 ), 16 ),
-                Integer.valueOf( colorStr.substring( 3, 5 ), 16 ),
-                Integer.valueOf( colorStr.substring( 5, 7 ), 16 )
-        );
-    }
-
     public static void displayError(String error, Exception e, boolean end) {
         JOptionPane.showMessageDialog(null, error + "\n" + e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
         if(end){
@@ -135,6 +129,13 @@ public class Logic {
         } catch (DataFileNotFoundException e) {
             displayError("Can't load theme save file!", e, true);
         }
+        try {
+            loadEmployees();
+        } catch (OSException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     private void loadTheme() throws DataFileNotFoundException {
@@ -143,15 +144,28 @@ public class Logic {
         windowController.setComboboxThemes(read.getItemStringArray("themes"), theme);
         read = new ReadJSON(DATA_SUB_PATHS[5] + theme + ".json");
         windowController.setTheme(
-                hex2Rgb(read.getItemString("menuBar")),
-                hex2Rgb(read.getItemString("contentPaneBackground")),
-                hex2Rgb(read.getItemString("icons")),
-                hex2Rgb(read.getItemString("dividerMenuBar")),
-                hex2Rgb(read.getItemString("fontContent")),
-                hex2Rgb(read.getItemString("buttonsBackground")),
-                hex2Rgb(read.getItemString("buttonsFont")),
-                hex2Rgb(read.getItemString("dividerContent"))
+                Utility.hex2Rgb(read.getItemString("menuBar")),
+                Utility.hex2Rgb(read.getItemString("contentPaneBackground")),
+                Utility.hex2Rgb(read.getItemString("icons")),
+                Utility.hex2Rgb(read.getItemString("dividerMenuBar")),
+                Utility.hex2Rgb(read.getItemString("fontContent")),
+                Utility.hex2Rgb(read.getItemString("buttonsBackground")),
+                Utility.hex2Rgb(read.getItemString("buttonsFont")),
+                Utility.hex2Rgb(read.getItemString("dividerContent"))
         );
+    }
+
+    private void loadEmployees() throws OSException, ParseException {
+        ReadFile read = new ReadFile(DATA_FILE_PATH + DATA_FILE_NAMES[3]);
+        String[][] lines = read.getLINES();
+        employees = new Employee[lines.length];
+        for(int i = 0; i < employees.length; i++) {
+            Date date = new SimpleDateFormat("dd.MM.yyyy").parse(lines[i][3]);
+            employees[i] = new Employee(Integer.parseInt(lines[i][0]), lines[i][1], lines[i][2], date);
+        }
+        for(Employee employee : employees) {
+            windowController.addRowTEmployeesEmployeeOverview(employee);
+        }
     }
 
 }
