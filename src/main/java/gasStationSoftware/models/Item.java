@@ -2,27 +2,22 @@ package gasStationSoftware.models;
 
 public abstract class Item {
 
-    private final int INVENTORY_NUMBER;
-    private String label, currency;
+    private final ItemType TYPE;
+    private String currency;
     private float price;
 
-    public Item(int inventoryNumber, String label, float price, String currency) {
-        INVENTORY_NUMBER = inventoryNumber;
-        this.label = label;
+    public Item(ItemType type, float price, String currency) {
+        TYPE = type;
         this.price = price;
         this.currency = currency;
     }
 
     public int getINVENTORY_NUMBER() {
-        return INVENTORY_NUMBER;
+        return TYPE.getINVENTORY_NUMBER();
     }
 
-    public String getLabel() {
-        return label;
-    }
-
-    public void setLabel(String label) {
-        this.label = label;
+    public String getLABEL() {
+        return TYPE.getLABEL();
     }
 
     public String getCurrency() {
@@ -35,5 +30,9 @@ public abstract class Item {
 
     public void setPrice(float price) {
         this.price = price;
+    }
+
+    public String getINVENTORY_TYPE() {
+        return TYPE.getTYPE();
     }
 }

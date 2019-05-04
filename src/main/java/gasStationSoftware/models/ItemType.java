@@ -1,15 +1,15 @@
 package gasStationSoftware.models;
 
-public class FuelType {
+public class ItemType {
 
     private final String LABEL;
     private final int INVENTORY_NUMBER;
     private final InventoryType TYPE;
 
-    public FuelType(String label, int inventoryNumber) {
+    public ItemType(String label, int inventoryNumber, InventoryType iType) {
         LABEL = label;
         INVENTORY_NUMBER = inventoryNumber;
-        TYPE = InventoryType.Fuel;
+        TYPE = iType;
     }
 
     public String getLABEL() {
@@ -20,7 +20,7 @@ public class FuelType {
         return INVENTORY_NUMBER;
     }
 
-    public InventoryType getTYPE() {
-        return TYPE;
+    public String getTYPE() {
+        return TYPE.getTYPE();
     }
 }

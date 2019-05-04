@@ -4,8 +4,8 @@ public class Fuel extends Item {
 
     private float amount;
 
-    public Fuel(int inventoryNumber, String label, float price, String currency, float amount) {
-        super(inventoryNumber, label, price, currency);
+    public Fuel(ItemType type, float price, String currency, float amount) {
+        super(type, price, currency);
         this.amount = amount;
     }
 
