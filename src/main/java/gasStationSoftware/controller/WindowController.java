@@ -2,6 +2,8 @@ package gasStationSoftware.controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import gasStationSoftware.models.Employee;
 import gasStationSoftware.models.InventoryType;
@@ -11,10 +13,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 
 import java.awt.*;
 import java.net.URL;
@@ -29,6 +34,8 @@ implements Initializable {
     private final static String[] CB_SETTINGS_TYPE_OPTIONS = { "Settings", "Theme", "Inventory" };
     private final static String CB_SETTINGS_TYPE_PROMT = "Type auswählen";
     private static Color backgroundMenuBar, contentPaneBackground, icons, dividerMenuBar, fontContent, buttonsBackground, buttonsFont, dividerContent;
+
+    @FXML private StackPane rootPane;
 
     @FXML private AnchorPane menuBarPane;
     @FXML private ImageView ivUserMenuBar;
@@ -49,8 +56,9 @@ implements Initializable {
 
     @FXML private ImageView ivUserProfilePictureUser;
 
-    @FXML private AnchorPane settingsPane, settingsOverviewPane, settingsFuelPane, settingsTankPane, settingsGasPumpPane;
-    @FXML private JFXButton btnEditThemeSettingsOverview, btnCreateThemeSettingsOverview, btnFuelsSettingsOverview, btnTanksSettingsOverview, btnGasPumpsSettingsOverview, btnExportSettingsOverview, btnImportSettingsOverview, btnNewSettingsView, btnEditSettingsView;
+    @FXML private AnchorPane settingsPane, settingsOverviewPane, settingsFuelPane, settingsTankPane, settingsGasPumpPane, settingsGoodPane;
+    @FXML private JFXButton btnEditThemeSettingsOverview, btnCreateThemeSettingsOverview, btnFuelsSettingsOverview, btnTanksSettingsOverview, btnGasPumpsSettingsOverview;
+    @FXML private JFXButton btnGoodsSettingsOverview, btnExportSettingsOverview, btnImportSettingsOverview, btnNewSettingsFuel, btnEditSettingsFuel;
     @FXML private JFXComboBox cbThemeSettingsOverview, cbTypeSettingsOverview;
     @FXML private TableView tFuelsSettingsFuel, tTanksSettingsTank, tGasPumpsSettingsGasPump;
 
@@ -104,8 +112,13 @@ implements Initializable {
         } else if (event.getTarget() == btnGasPumpsSettingsOverview) {
             hideSubPanes();
             settingsGasPumpPane.setVisible(true);
+        } else if (event.getTarget() == btnGoodsSettingsOverview) {
+            hideSubPanes();
+            settingsGoodPane.setVisible(true);
         } else if (event.getTarget() == btnExportSettingsOverview) {
         } else if (event.getTarget() == btnImportSettingsOverview) {
+        } else if (event.getTarget() == btnNewSettingsFuel) {
+            inputDialogFuel();
         }
     }
 
@@ -191,4 +204,15 @@ implements Initializable {
     private void applyTheme() {
 
     }
+
+    @FXML
+    private void inputDialogFuel(){
+        System.out.println(0);
+        JFXDialogLayout dialogContent = new JFXDialogLayout();
+        dialogContent.setHeading(new Text("Eingabe Treibstoff"));
+        dialogContent.setBody(new TextField());
+        JFXDialog dialog = new JFXDialog(rootPane, dialogContent, JFXDialog.DialogTransition.CENTER);
+        dialog.show();
+    }
+
 }
