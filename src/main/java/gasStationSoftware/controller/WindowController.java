@@ -28,23 +28,23 @@ implements Initializable {
     private final static String CB_SETTINGS_TYPE_PROMT = "Type auswählen";
     private static Color backgroundMenuBar, contentPaneBackground, icons, dividerMenuBar, fontContent, buttonsBackground, buttonsFont, dividerContent;
 
-    @FXML private ImageView ivUserMenuBar, ivUserProfilePictureUser;
+    @FXML private ImageView ivUserMenuBar;
     @FXML private MaterialDesignIconView icoSellingMenuBar, icoInventoryMenuBar, icoTanksMenuBar, icoEmployeesMenuBar, icoReportsMenuBar, icoSettingsMenuBar;
 
+    @FXML private AnchorPane menuBarPane;
     @FXML private AnchorPane userPane;
     @FXML private AnchorPane sellingPane, sellingOverviewPane;
     @FXML private AnchorPane inventoryPane, inventoryOverviewPane, inventoryOrderPane, inventoryDeliveryPane;
     @FXML private AnchorPane fuelPane, fuelOverviewPane, fuelOrderPane, fuelDeliveryPane;
-    @FXML private AnchorPane employeePane, employeeOverviewPane;
+    @FXML private AnchorPane employeePane, employeeOverviewPane, employeeCreatePane;
     @FXML private AnchorPane reportPane, reportOverviewPane;
-    @FXML private AnchorPane settingsPane, settingsOverviewPane;
 
-    @FXML private JFXButton btnSellingCheckOut, btnSellingGoods, btnSellingGasPumps;
-    @FXML private JFXButton btnInventoryOrder, btnInventoryDeliveries;
-    @FXML private JFXButton btnFuelOrders, btnFuelDeliveries;
-    @FXML private JFXButton btnSettingsImport, btnSettingsExport, btnSettingsGasPumps, btnSettingsTanks, btnSettingsFuels, btnSettingsCreateTheme, btnSettingsEditTheme;
+    @FXML private ImageView ivUserProfilePictureUser;
 
+    @FXML private AnchorPane settingsPane, settingsOverviewPane, settingsFuelPane;
+    @FXML private JFXButton btnEditThemeSettingsOverview, btnCreateThemeSettingsOverview, btnFuelsSettingsOverview, btnTanksSettingsOverview, btnGasPumpsSettingsOverview, btnExportSettingsOverview, btnImportSettingsOverview, btnNewSettingsView, btnEditSettingsView;
     @FXML private JFXComboBox cbThemeSettingsOverview, cbTypeSettingsOverview;
+    @FXML private TableView tFuelsSettingsFuel;
 
     @FXML private Label lblUserName, lblUserRole, lblUserSumDay, lblUserSumMonth, lblUserSumYear, lblUserSumDayCurrency, lblUserSumMonthCurrency, lblUserSumYearCurrency, lblSellingPrice, lblSellingPriceCurrency;
 
@@ -70,12 +70,13 @@ implements Initializable {
             employeeOverviewPane.setVisible(true);
         } else if (event.getTarget() == icoReportsMenuBar) {
             reportPane.setVisible(true);
+            reportOverviewPane.setVisible(true);
         } else if (event.getTarget() == icoSettingsMenuBar) {
             settingsPane.setVisible(true);
             settingsOverviewPane.setVisible(true);
         } else {
             hideSubPanes();
-            if (event.getTarget() == btnInventoryOrder) {
+            /*if (event.getTarget() == btnInventoryOrder) {
                 inventoryPane.setVisible(true);
                 inventoryOrderPane.setVisible(true);
             } else if (event.getTarget() == btnInventoryDeliveries) {
@@ -87,7 +88,18 @@ implements Initializable {
             } else if (event.getTarget() == btnFuelDeliveries) {
                 fuelPane.setVisible(true);
                 fuelDeliveryPane.setVisible(true);
-            }
+            }*/
+        }
+    }
+
+    @FXML private void handleSettingsAction(MouseEvent event) {
+        if (event.getTarget() == btnEditThemeSettingsOverview) {
+        } else if (event.getTarget() == btnCreateThemeSettingsOverview) {
+        } else if (event.getTarget() == btnFuelsSettingsOverview) {
+        } else if (event.getTarget() == btnTanksSettingsOverview) {
+        } else if (event.getTarget() == btnGasPumpsSettingsOverview) {
+        } else if (event.getTarget() == btnExportSettingsOverview) {
+        } else if (event.getTarget() == btnImportSettingsOverview) {
         }
     }
 
@@ -108,6 +120,7 @@ implements Initializable {
         logic = Logic.getInstance(this);
         logic.loadFiles();
         addColumnsTEmployeesEmployeeOverview();
+        addColumnsTFuelsSettingsFuel();
         setDefaultContent();
     }
 
@@ -121,6 +134,20 @@ implements Initializable {
         TableColumn columnSurname = new TableColumn("Nachname");
         columnSurname.setCellValueFactory(new PropertyValueFactory<>("SUR_NAME"));
         tEmployeesEmployeeOverview.getColumns().addAll(columnEmployeeNumber, columnEmploymentDate, columnFirstName, columnSurname);
+    }
+
+    private void addColumnsTFuelsSettingsFuel() {
+        TableColumn columnInventoryNumber = new TableColumn("Inventar #");
+        columnInventoryNumber.setCellValueFactory(new PropertyValueFactory<>("INVENTORY_NUMBER"));
+        TableColumn columnLabel = new TableColumn("Bezeichnung");
+        columnLabel.setCellValueFactory(new PropertyValueFactory<>("label"));
+        TableColumn columnPriceNumber = new TableColumn("Preis");
+        columnPriceNumber.setCellValueFactory(new PropertyValueFactory<>("price"));
+        TableColumn columnCurrencyNumber = new TableColumn("Währung");
+        columnCurrencyNumber.setCellValueFactory(new PropertyValueFactory<>("currency"));
+        TableColumn columnAmountNumber = new TableColumn("Menge");
+        columnAmountNumber.setCellValueFactory(new PropertyValueFactory<>("amount"));
+        tFuelsSettingsFuel.getColumns().addAll();
     }
 
     public void addRowTEmployeesEmployeeOverview(Employee employee){
