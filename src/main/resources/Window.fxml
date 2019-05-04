@@ -555,6 +555,7 @@
             <fx:reference source="employeeOverviewPane" />
             <fx:reference source="reportOverviewPane" />
             <fx:reference source="settingsOverviewPane" />
+            <fx:reference source="settingsFuelPane" />
         </ArrayList>
         <ArrayList fx:id="buttons">
             <fx:reference source="btnCheckOutSalesOverview" />

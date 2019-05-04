@@ -28,15 +28,21 @@ implements Initializable {
     private final static String CB_SETTINGS_TYPE_PROMT = "Type auswählen";
     private static Color backgroundMenuBar, contentPaneBackground, icons, dividerMenuBar, fontContent, buttonsBackground, buttonsFont, dividerContent;
 
+    @FXML private AnchorPane menuBarPane;
     @FXML private ImageView ivUserMenuBar;
     @FXML private MaterialDesignIconView icoSellingMenuBar, icoInventoryMenuBar, icoTanksMenuBar, icoEmployeesMenuBar, icoReportsMenuBar, icoSettingsMenuBar;
 
-    @FXML private AnchorPane menuBarPane;
     @FXML private AnchorPane userPane;
+
     @FXML private AnchorPane sellingPane, sellingOverviewPane;
+
     @FXML private AnchorPane inventoryPane, inventoryOverviewPane, inventoryOrderPane, inventoryDeliveryPane;
+
     @FXML private AnchorPane fuelPane, fuelOverviewPane, fuelOrderPane, fuelDeliveryPane;
+
     @FXML private AnchorPane employeePane, employeeOverviewPane, employeeCreatePane;
+    @FXML private TableView tEmployeesEmployeeOverview;
+
     @FXML private AnchorPane reportPane, reportOverviewPane;
 
     @FXML private ImageView ivUserProfilePictureUser;
@@ -45,10 +51,6 @@ implements Initializable {
     @FXML private JFXButton btnEditThemeSettingsOverview, btnCreateThemeSettingsOverview, btnFuelsSettingsOverview, btnTanksSettingsOverview, btnGasPumpsSettingsOverview, btnExportSettingsOverview, btnImportSettingsOverview, btnNewSettingsView, btnEditSettingsView;
     @FXML private JFXComboBox cbThemeSettingsOverview, cbTypeSettingsOverview;
     @FXML private TableView tFuelsSettingsFuel;
-
-    @FXML private Label lblUserName, lblUserRole, lblUserSumDay, lblUserSumMonth, lblUserSumYear, lblUserSumDayCurrency, lblUserSumMonthCurrency, lblUserSumYearCurrency, lblSellingPrice, lblSellingPriceCurrency;
-
-    @FXML private TableView tEmployeesEmployeeOverview;
 
     @FXML private ArrayList<AnchorPane> panes, subPanes;
 
@@ -74,28 +76,15 @@ implements Initializable {
         } else if (event.getTarget() == icoSettingsMenuBar) {
             settingsPane.setVisible(true);
             settingsOverviewPane.setVisible(true);
-        } else {
-            hideSubPanes();
-            /*if (event.getTarget() == btnInventoryOrder) {
-                inventoryPane.setVisible(true);
-                inventoryOrderPane.setVisible(true);
-            } else if (event.getTarget() == btnInventoryDeliveries) {
-                inventoryPane.setVisible(true);
-                inventoryDeliveryPane.setVisible(true);
-            } else if (event.getTarget() == btnFuelOrders) {
-                fuelPane.setVisible(true);
-                fuelOrderPane.setVisible(true);
-            } else if (event.getTarget() == btnFuelDeliveries) {
-                fuelPane.setVisible(true);
-                fuelDeliveryPane.setVisible(true);
-            }*/
         }
     }
 
     @FXML private void handleSettingsAction(MouseEvent event) {
+        hideSubPanes();
         if (event.getTarget() == btnEditThemeSettingsOverview) {
         } else if (event.getTarget() == btnCreateThemeSettingsOverview) {
         } else if (event.getTarget() == btnFuelsSettingsOverview) {
+            settingsFuelPane.setVisible(true);
         } else if (event.getTarget() == btnTanksSettingsOverview) {
         } else if (event.getTarget() == btnGasPumpsSettingsOverview) {
         } else if (event.getTarget() == btnExportSettingsOverview) {
@@ -147,7 +136,7 @@ implements Initializable {
         columnCurrencyNumber.setCellValueFactory(new PropertyValueFactory<>("currency"));
         TableColumn columnAmountNumber = new TableColumn("Menge");
         columnAmountNumber.setCellValueFactory(new PropertyValueFactory<>("amount"));
-        tFuelsSettingsFuel.getColumns().addAll();
+        tFuelsSettingsFuel.getColumns().addAll(columnInventoryNumber,columnLabel, columnPriceNumber, columnCurrencyNumber, columnAmountNumber);
     }
 
     public void addRowTEmployeesEmployeeOverview(Employee employee){
@@ -165,7 +154,7 @@ implements Initializable {
     }
 
     private void setUser(String firstName, String lastName) {
-        lblUserName.setText(firstName + " " + lastName);
+        //lblUserName.setText(firstName + " " + lastName);
     }
 
     public void setTheme(Color backgroundMenuBar, Color contentPaneBackground, Color icons, Color dividerMenuBar,
