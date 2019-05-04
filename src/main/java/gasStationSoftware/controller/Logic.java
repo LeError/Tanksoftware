@@ -11,9 +11,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
 import javax.swing.*;
-import java.awt.*;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.ParseException;
@@ -162,8 +160,11 @@ public class Logic {
         String[][] lines = read.getLINES();
         employees = new Employee[lines.length];
         for(int i = 0; i < employees.length; i++) {
-            Date date = new SimpleDateFormat("dd.MM.yyyy").parse(lines[i][1]);
-            employees[i] = new Employee(Integer.parseInt(lines[i][0]), date, lines[i][0], lines[i][0]);
+            Date date = new SimpleDateFormat("dd.MM.yyyy").parse(lines[i][3]);
+            employees[i] = new Employee(Integer.parseInt(lines[i][0]), lines[i][1], lines[i][2], date);
+        }
+        for(Employee employee : employees) {
+            windowController.addColumnTEmployeesEmployeeOverview(employee);
         }
     }
 
