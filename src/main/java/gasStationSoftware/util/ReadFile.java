@@ -21,19 +21,19 @@ public class ReadFile {
             throw new OSException("At the moment only Windows is supported");
         }
         FILE = new File(url);
-        try { //TODO change to try(res)
-            Scanner scan = new Scanner(FILE);
-            while (scan.hasNextLine()) {
-                String line = scan.nextLine();
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(FILE))) {
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
                 if (line.contains(";")) {
                     LINES.add(line);
                 } else {
                     TOP_LINES.add(line);
                 }
             }
-            scan.close();
+            LINES.remove(0);
         } catch (Exception e) {
             System.err.println("[FileIn]:\nCan't read File. Something went wrong!\n" + e.getMessage());
+            e.printStackTrace();
         }
     }
 
