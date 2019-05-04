@@ -3,6 +3,8 @@ package gasStationSoftware.controller;
 import gasStationSoftware.exceptions.DataFileNotFoundException;
 import gasStationSoftware.exceptions.OSException;
 import gasStationSoftware.models.Employee;
+import gasStationSoftware.models.InventoryType;
+import gasStationSoftware.models.ItemType;
 import gasStationSoftware.util.ReadFile;
 import gasStationSoftware.util.ReadJSON;
 import gasStationSoftware.util.Utility;
@@ -41,6 +43,7 @@ public class Logic {
     };
 
     private Employee[] employees;
+    private ItemType[] type;
 
     private Logic() {
         checkDir(DATA_FILE_PATH);
@@ -165,6 +168,27 @@ public class Logic {
         }
         for(Employee employee : employees) {
             windowController.addRowTEmployeesEmployeeOverview(employee);
+        }
+    }
+
+    private void loadInventory() throws DataFileNotFoundException {
+        ReadJSON read = new ReadJSON(DATA_FILE_PATH + DATA_FILE_NAMES[0]);
+        String[] label = read.getItemStringArray("itemLabel");
+        int[] inventoryNumber = read.getItemIntArray("itemInventoryNumber");
+        String[] type = read.getItemStringArray("itemType");
+        this.type = new ItemType[inventoryNumber.length];
+        for(int i = 0; i < inventoryNumber.length; i++) {
+            InventoryType invType = InventoryType.Good;
+            switch(type[i]) {
+                case "FUEL":
+                    invType = InventoryType.Fuel;
+                    break;
+                default: invType = InventoryType.Good;
+            }
+            this.type[i] = new ItemType(label[i], inventoryNumber[i], invType);
+        }
+        for(ItemType iType : this.type) {
+            windowController.addRowTFuelsSettingsFuel(iType);
         }
     }
 
