@@ -4,6 +4,8 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import gasStationSoftware.models.Employee;
+import gasStationSoftware.models.InventoryType;
+import gasStationSoftware.models.ItemType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -47,10 +49,10 @@ implements Initializable {
 
     @FXML private ImageView ivUserProfilePictureUser;
 
-    @FXML private AnchorPane settingsPane, settingsOverviewPane, settingsFuelPane;
+    @FXML private AnchorPane settingsPane, settingsOverviewPane, settingsFuelPane, settingsTankPane, settingsGasPumpPane;
     @FXML private JFXButton btnEditThemeSettingsOverview, btnCreateThemeSettingsOverview, btnFuelsSettingsOverview, btnTanksSettingsOverview, btnGasPumpsSettingsOverview, btnExportSettingsOverview, btnImportSettingsOverview, btnNewSettingsView, btnEditSettingsView;
     @FXML private JFXComboBox cbThemeSettingsOverview, cbTypeSettingsOverview;
-    @FXML private TableView tFuelsSettingsFuel;
+    @FXML private TableView tFuelsSettingsFuel, tTanksSettingsTank, tGasPumpsSettingsGasPump;
 
     @FXML private ArrayList<AnchorPane> panes, subPanes;
 
@@ -97,7 +99,11 @@ implements Initializable {
             hideSubPanes();
             settingsFuelPane.setVisible(true);
         } else if (event.getTarget() == btnTanksSettingsOverview) {
+            hideSubPanes();
+            settingsTankPane.setVisible(true);
         } else if (event.getTarget() == btnGasPumpsSettingsOverview) {
+            hideSubPanes();
+            settingsGasPumpPane.setVisible(true);
         } else if (event.getTarget() == btnExportSettingsOverview) {
         } else if (event.getTarget() == btnImportSettingsOverview) {
         }
@@ -136,22 +142,24 @@ implements Initializable {
         tEmployeesEmployeeOverview.getColumns().addAll(columnEmployeeNumber, columnEmploymentDate, columnFirstName, columnSurname);
     }
 
+    public void addRowTEmployeesEmployeeOverview(Employee employee){
+        tEmployeesEmployeeOverview.getItems().add(employee);
+    }
+
     private void addColumnsTFuelsSettingsFuel() {
         TableColumn columnInventoryNumber = new TableColumn("Inventar #");
         columnInventoryNumber.setCellValueFactory(new PropertyValueFactory<>("INVENTORY_NUMBER"));
+        TableColumn columnType = new TableColumn("Typ");
+        columnType.setCellValueFactory(new PropertyValueFactory<>("TYPE"));
         TableColumn columnLabel = new TableColumn("Bezeichnung");
-        columnLabel.setCellValueFactory(new PropertyValueFactory<>("label"));
-        TableColumn columnPriceNumber = new TableColumn("Preis");
-        columnPriceNumber.setCellValueFactory(new PropertyValueFactory<>("price"));
-        TableColumn columnCurrencyNumber = new TableColumn("Währung");
-        columnCurrencyNumber.setCellValueFactory(new PropertyValueFactory<>("currency"));
-        TableColumn columnAmountNumber = new TableColumn("Menge");
-        columnAmountNumber.setCellValueFactory(new PropertyValueFactory<>("amount"));
-        tFuelsSettingsFuel.getColumns().addAll(columnInventoryNumber,columnLabel, columnPriceNumber, columnCurrencyNumber, columnAmountNumber);
+        columnLabel.setCellValueFactory(new PropertyValueFactory<>("LABEL"));
+        tFuelsSettingsFuel.getColumns().addAll(columnInventoryNumber, columnType, columnLabel);
     }
 
-    public void addRowTEmployeesEmployeeOverview(Employee employee){
-        tEmployeesEmployeeOverview.getItems().add(employee);
+    public void addRowTFuelsSettingsFuel(ItemType type) {
+        if(type.getTYPE().equals(InventoryType.Fuel)) {
+            tEmployeesEmployeeOverview.getItems().add(type);
+        }
     }
 
     private void setDefaultContent() {

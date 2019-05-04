@@ -442,7 +442,7 @@
                         <Double fx:value="-60.0" />
                     </points>
                 </Polygon>
-                <AnchorPane fx:id="settingsOverviewPane" minHeight="600.0" minWidth="890.0" prefHeight="600.0" prefWidth="890.0" visible="false">
+                <AnchorPane fx:id="settingsOverviewPane" minHeight="600.0" minWidth="890.0" prefHeight="600.0" prefWidth="890.0">
                     <children>
                         <Label fx:id="titleSettingsOverview" layoutX="65.0" layoutY="30.0" prefHeight="50.0" prefWidth="300.0" text="Einstellungen" textFill="#212121">
                             <font>
@@ -506,12 +506,12 @@
                         </JFXButton>
                         <JFXButton fx:id="btnImportSettingsOverview" buttonType="RAISED" layoutX="455.0" layoutY="425.0" onMouseClicked="#handleSettingsAction" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Importieren" textFill="WHITE">
                             <graphic>
-                                <MaterialDesignIconView fx:id="icoSttingsSettingsOverview" fill="WHITE" glyphName="IMPORT" size="20" smooth="false" />
+                                <MaterialDesignIconView fx:id="icoImportSettingsOverview" fill="WHITE" glyphName="IMPORT" size="20" smooth="false" />
                             </graphic>
                         </JFXButton>
                     </children>
                 </AnchorPane>
-            <AnchorPane fx:id="settingsFuelPane" minHeight="600.0" minWidth="890.0" prefHeight="600.0" prefWidth="890.0">
+            <AnchorPane fx:id="settingsFuelPane" minHeight="600.0" minWidth="890.0" prefHeight="600.0" prefWidth="890.0" visible="false">
                <children>
                   <Label fx:id="titleSettingsFuel" layoutX="65.0" layoutY="30.0" prefHeight="50.0" prefWidth="300.0" text="Kraftstoffarten" textFill="#212121">
                      <font>
@@ -519,14 +519,54 @@
                      </font>
                   </Label>
                   <TableView fx:id="tFuelsSettingsFuel" layoutX="65.0" layoutY="100.0" prefHeight="400.0" prefWidth="760.0" />
-                  <JFXButton fx:id="btnNewSettingsView" buttonType="RAISED" layoutX="515.0" layoutY="520.0" onMouseClicked="#handleSettingsAction" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Neu" textFill="WHITE">
+                  <JFXButton fx:id="btnNewSettingsFuel" buttonType="RAISED" layoutX="515.0" layoutY="520.0" onMouseClicked="#handleSettingsAction" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Neu" textFill="WHITE">
                      <graphic>
-                        <MaterialDesignIconView fx:id="icoExportSettingsOverview1" fill="WHITE" glyphName="PLUS" size="20" smooth="false" />
+                        <MaterialDesignIconView fx:id="icoNewSettingsFuel" fill="WHITE" glyphName="PLUS" size="20" smooth="false" />
                      </graphic>
                   </JFXButton>
-                  <JFXButton fx:id="btnEditSettingsView" buttonType="RAISED" layoutX="675.0" layoutY="520.0" onMouseClicked="#handleSettingsAction" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Editieren" textFill="WHITE">
+                  <JFXButton fx:id="btnEditSettingsFuel" buttonType="RAISED" layoutX="675.0" layoutY="520.0" onMouseClicked="#handleSettingsAction" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Editieren" textFill="WHITE">
                      <graphic>
-                        <MaterialDesignIconView fx:id="icoSttingsSettingsOverview1" fill="WHITE" glyphName="PENCIL" size="20" smooth="false" />
+                        <MaterialDesignIconView fx:id="icoEditSettingsFuel" fill="WHITE" glyphName="PENCIL" size="20" smooth="false" />
+                     </graphic>
+                  </JFXButton>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="settingsTankPane" minHeight="600.0" minWidth="890.0" prefHeight="600.0" prefWidth="890.0" visible="false">
+               <children>
+                  <Label fx:id="titleSettingsTank" layoutX="65.0" layoutY="30.0" prefHeight="50.0" prefWidth="300.0" text="Tanks" textFill="#212121">
+                     <font>
+                        <Font name="System Bold" size="30.0" />
+                     </font>
+                  </Label>
+                  <TableView fx:id="tTanksSettingsTank" layoutX="65.0" layoutY="100.0" prefHeight="400.0" prefWidth="760.0" />
+                  <JFXButton fx:id="btnNewSettingsTank" buttonType="RAISED" layoutX="515.0" layoutY="520.0" onMouseClicked="#handleSettingsAction" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Neu" textFill="WHITE">
+                     <graphic>
+                        <MaterialDesignIconView fx:id="icoNewSettingsTank" fill="WHITE" glyphName="PLUS" size="20" smooth="false" />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="btnEditSettingsTank" buttonType="RAISED" layoutX="675.0" layoutY="520.0" onMouseClicked="#handleSettingsAction" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Editieren" textFill="WHITE">
+                     <graphic>
+                        <MaterialDesignIconView fx:id="icoEditSettingsTank" fill="WHITE" glyphName="PENCIL" size="20" smooth="false" />
+                     </graphic>
+                  </JFXButton>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="settingsGasPumpPane" minHeight="600.0" minWidth="890.0" prefHeight="600.0" prefWidth="890.0" visible="false">
+               <children>
+                  <Label fx:id="titleSettingsGasPump" layoutX="65.0" layoutY="30.0" prefHeight="50.0" prefWidth="300.0" text="Zapfsäulen" textFill="#212121">
+                     <font>
+                        <Font name="System Bold" size="30.0" />
+                     </font>
+                  </Label>
+                  <TableView fx:id="tGasPumpsSettingsGasPump" layoutX="65.0" layoutY="100.0" prefHeight="400.0" prefWidth="760.0" />
+                  <JFXButton fx:id="btnNewSettingsGasPump" buttonType="RAISED" layoutX="515.0" layoutY="520.0" onMouseClicked="#handleSettingsAction" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Neu" textFill="WHITE">
+                     <graphic>
+                        <MaterialDesignIconView fx:id="icoExportSettingsGasPump" fill="WHITE" glyphName="PLUS" size="20" smooth="false" />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="btnEditSettingsGasPump" buttonType="RAISED" layoutX="675.0" layoutY="520.0" onMouseClicked="#handleSettingsAction" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Editieren" textFill="WHITE">
+                     <graphic>
+                        <MaterialDesignIconView fx:id="icoImportSettingsGasPump" fill="WHITE" glyphName="PENCIL" size="20" smooth="false" />
                      </graphic>
                   </JFXButton>
                </children>
@@ -555,6 +595,9 @@
             <fx:reference source="employeeOverviewPane" />
             <fx:reference source="reportOverviewPane" />
             <fx:reference source="settingsOverviewPane" />
+            <fx:reference source="settingsFuelPane" />
+            <fx:reference source="settingsTankPane" />
+            <fx:reference source="settingsGasPumpPane" />
         </ArrayList>
         <ArrayList fx:id="buttons">
             <fx:reference source="btnCheckOutSalesOverview" />
