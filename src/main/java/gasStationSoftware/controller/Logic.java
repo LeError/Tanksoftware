@@ -214,6 +214,9 @@ public class Logic {
             }
             tanks[i] = new FuelTank(i + 1, tankCapacity[i], tankLevel[i], fuel);
         }
+        for(FuelTank tank : tanks) {
+            windowController.addRowTTanksSettingsTank(tank);
+        }
     }
 
     public int getFreeInvNumber(InventoryType type) {
