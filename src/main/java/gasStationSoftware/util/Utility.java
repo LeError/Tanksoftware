@@ -45,6 +45,18 @@ public class Utility {
         return reArray;
     }
 
+    public static float[] getFloatArray(String[] array) {
+        float[] reArray = new float[array.length];
+        try {
+            for(int i = 0; i < array.length; i++) {
+                reArray[i] = Float.parseFloat(array[i]);
+            }
+        } catch(Exception e) {
+            reArray = null;
+        }
+        return reArray;
+    }
+
     public static ArrayList<ItemType> getInventoryType(ItemType[] iTypes, InventoryType type) {
         ArrayList<ItemType> result = new ArrayList<>();
         for(ItemType iType : iTypes){
