@@ -6,10 +6,10 @@ public class FuelTank {
 
     private final int TANK_NUMBER;
     private final float CAPACITY;
-    private Fuel fuel;
+    private ItemType fuel;
     private float level;
 
-    public FuelTank(int tankNumber, float capacity, float level, Fuel fuel)
+    public FuelTank(int tankNumber, float capacity, float level, ItemType fuel)
     throws NumberOutOfRangeException {
         if (level < 0 || level > 1) {
             throw new NumberOutOfRangeException("Only values between 0 and 1 are allowed!");
@@ -28,11 +28,11 @@ public class FuelTank {
         return CAPACITY;
     }
 
-    public Fuel getFuel() {
+    public ItemType getFuel() {
         return fuel;
     }
 
-    public void setFuel(Fuel fuel) {
+    public void setFuel(ItemType fuel) {
         this.fuel = fuel;
     }
 
