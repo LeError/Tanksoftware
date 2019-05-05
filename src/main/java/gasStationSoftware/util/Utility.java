@@ -45,12 +45,24 @@ public class Utility {
         return reArray;
     }
 
+    public static float[] getFloatArray(String[] array) {
+        float[] reArray = new float[array.length];
+        try {
+            for(int i = 0; i < array.length; i++) {
+                reArray[i] = Float.parseFloat(array[i]);
+            }
+        } catch(Exception e) {
+            reArray = null;
+        }
+        return reArray;
+    }
+
     public static ArrayList<ItemType> getInventoryType(ItemType[] iTypes, InventoryType type) {
         ArrayList<ItemType> result = new ArrayList<>();
         for(ItemType iType : iTypes){
-            if(iType.getTYPE().equals(InventoryType.Fuel.getTYPE()) && type.getTYPE().equals(InventoryType.Fuel.getTYPE())) {
+            if(iType.getTYPE_LABEL().equals(InventoryType.Fuel.getTYPE()) && type.getTYPE().equals(InventoryType.Fuel.getTYPE())) {
                 result.add(iType);
-            } else if(iType.getTYPE().equals(InventoryType.Good.getTYPE()) && type.getTYPE().equals(InventoryType.Good.getTYPE())) {
+            } else if(iType.getTYPE_LABEL().equals(InventoryType.Good.getTYPE()) && type.getTYPE().equals(InventoryType.Good.getTYPE())) {
                 result.add(iType);
             }
         }
