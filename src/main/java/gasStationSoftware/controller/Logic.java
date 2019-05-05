@@ -1,14 +1,14 @@
 package gasStationSoftware.controller;
 
 import gasStationSoftware.exceptions.DataFileNotFoundException;
+import gasStationSoftware.exceptions.NumberOutOfRangeException;
 import gasStationSoftware.exceptions.OSException;
-import gasStationSoftware.models.Employee;
-import gasStationSoftware.models.InventoryType;
-import gasStationSoftware.models.ItemType;
+import gasStationSoftware.models.*;
 import gasStationSoftware.util.*;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
+import javax.rmi.CORBA.Util;
 import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
@@ -43,6 +43,8 @@ public class Logic {
 
     private Employee[] employees;
     private ItemType[] types;
+    private FuelTank[] tanks;
+    private GasPump[] gasPumps;
 
     private Logic() {
         checkDir(DATA_FILE_PATH);
@@ -142,6 +144,8 @@ public class Logic {
             loadInventory();
         } catch (DataFileNotFoundException e) {
             e.printStackTrace();
+        } catch (NumberOutOfRangeException e) {
+            e.printStackTrace();
         }
     }
 
@@ -175,7 +179,7 @@ public class Logic {
         }
     }
 
-    private void loadInventory() throws DataFileNotFoundException {
+    private void loadInventory() throws DataFileNotFoundException, NumberOutOfRangeException {
         ReadJSON read = new ReadJSON(DATA_FILE_PATH + DATA_FILE_NAMES[0]);
         String[] label = read.getItemStringArray("itemLabel");
         String[] inventoryNumber = read.getItemStringArray("itemInventoryNumber");
@@ -194,6 +198,21 @@ public class Logic {
         for(ItemType iType : this.types) {
             windowController.addRowTFuelsSettingsFuel(iType);
             windowController.addRowTGoodsSettingsGood(iType);
+        }
+
+        float[] tankCapacity = Utility.getFloatArray(read.getItemStringArray("tankCapacity"));
+        float[] tankLevel = Utility.getFloatArray(read.getItemStringArray("tankLevel"));
+        int[] tankAssignedFuels = Utility.getIntArray(read.getItemStringArray("tankAssignedFuels"));
+        ArrayList<ItemType> fuels = Utility.getInventoryType(types, InventoryType.Fuel);
+        tanks = new FuelTank[tankAssignedFuels.length];
+        for(int i = 0; i < tankAssignedFuels.length; i++) {
+            ItemType fuel = null;
+            for(ItemType fuelType : fuels){
+                if(tankAssignedFuels[i] == fuelType.getINVENTORY_NUMBER()) {
+                    fuel = fuelType;
+                }
+            }
+            tanks[i] = new FuelTank(i + 1, tankCapacity[i], tankLevel[i], fuel);
         }
     }
 
