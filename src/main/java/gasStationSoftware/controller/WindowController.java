@@ -4,10 +4,12 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
+import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import gasStationSoftware.models.Employee;
 import gasStationSoftware.models.InventoryType;
 import gasStationSoftware.models.ItemType;
+import gasStationSoftware.util.Utility;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -22,6 +24,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -33,7 +36,9 @@ implements Initializable {
 
     private final static String[] CB_SETTINGS_TYPE_OPTIONS = { "Settings", "Theme", "Inventory" };
     private final static String CB_SETTINGS_TYPE_PROMT = "Type auswählen";
+
     private static Color backgroundMenuBar, contentPaneBackground, icons, dividerMenuBar, fontContent, buttonsBackground, buttonsFont, dividerContent;
+    private static String backgroundMenuBarStyle, contentPaneBackgroundStyle, iconsStyle, dividerMenuBarStyle, fontContentStyle, buttonsStyle, dividerContentStyle;
 
     @FXML private StackPane rootPane;
 
@@ -118,7 +123,7 @@ implements Initializable {
         } else if (event.getTarget() == btnExportSettingsOverview) {
         } else if (event.getTarget() == btnImportSettingsOverview) {
         } else if (event.getTarget() == btnNewSettingsFuel) {
-            inputDialogFuel();
+            //TODO inputDialog
         }
     }
 
@@ -219,6 +224,10 @@ implements Initializable {
         this.buttonsBackground = buttonsBackground;
         this.buttonsFont = buttonsFont;
         this.dividerContent = dividerContent;
+        buttonsStyle =  "-jfx-button-type: RAISED;" +
+                        "-fx-background-color: " + Utility.Rgb2Hex(buttonsBackground) + ";" +
+                        "-fx-text-fill: " + Utility.Rgb2Hex(buttonsFont) + ";";
+        iconsStyle = "-fx-fill: " + Utility.Rgb2Hex(icons) + ";";
     }
 
     private void applyTheme() {
@@ -226,17 +235,44 @@ implements Initializable {
     }
 
     @FXML
-    private void inputDialogFuel(){
-        AnchorPane dialogBodyContent = new AnchorPane();
-        dialogBodyContent.setMinSize(300, 100);
-        dialogBodyContent.setPrefSize(300, 200);
-        dialogBodyContent.setMaxSize(300, 200);
-        JFXButton btnSubmit = new JFXButton("Abschicken");
-
+    private void inputDialog(AnchorPane dialogBodyContent, String title, String inputType){
         JFXDialogLayout dialogContent = new JFXDialogLayout();
-        dialogContent.setBody(dialogBodyContent);
         JFXDialog dialog = new JFXDialog(rootPane, dialogContent, JFXDialog.DialogTransition.CENTER);
+
+        JFXButton btnSubmit = new JFXButton("Abschicken");
+        btnSubmit.setStyle(buttonsStyle);
+        MaterialDesignIconView icoSubmit = new MaterialDesignIconView(MaterialDesignIcon.CHECK);
+        icoSubmit.setStyle(iconsStyle);
+        btnSubmit.setGraphic(icoSubmit);
+        btnSubmit.setOnAction(event -> {
+            dialog.close();
+            processInput(dialogBodyContent, inputType);
+        });
+
+        JFXButton btnCancel = new JFXButton("Abbrechen");
+        btnCancel.setStyle(buttonsStyle);
+        MaterialDesignIconView icoCancel = new MaterialDesignIconView(MaterialDesignIcon.CLOSE);
+        icoCancel.setStyle(iconsStyle);
+        btnCancel.setGraphic(icoCancel);
+        btnCancel.setOnAction(event -> dialog.close());
+
+        dialogContent.setHeading(new Label(title));
+        dialogContent.setBody(dialogBodyContent);
+        dialogContent.setActions(btnCancel, btnSubmit);
         dialog.show();
+    }
+
+    private void processInput(AnchorPane input, String inputType) {
+        switch (inputType) {
+            case "FUEL_TYPE":
+                processFuelTypeInput(input);
+                break;
+            default: //TODO raise error
+        }
+    }
+
+    private void processFuelTypeInput(AnchorPane input) {
+
     }
 
 }
