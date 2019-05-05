@@ -4,6 +4,7 @@ import com.jfoenix.controls.*;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import gasStationSoftware.models.Employee;
+import gasStationSoftware.models.FuelTank;
 import gasStationSoftware.models.InventoryType;
 import gasStationSoftware.models.ItemType;
 import gasStationSoftware.util.Utility;
@@ -139,6 +140,7 @@ implements Initializable {
         logic.loadFiles();
         addColumnsTEmployeesEmployeeOverview();
         addColumnsTFuelsSettingsFuel();
+        addColumnsTTanksSettingsTank();
         addColumnsTGoodsSettingsGood();
         setDefaultContent();
     }
@@ -164,17 +166,38 @@ implements Initializable {
     }
 
     public void addRowTFuelsSettingsFuel(ItemType type) {
-        if(type.getTYPE().equals(InventoryType.Fuel.getTYPE())) {
+        if(type.getTYPE_LABEL().equals(InventoryType.Fuel.getTYPE())) {
             tFuelsSettingsFuel.getItems().add(type);
         }
     }
+
+    private void addColumnsTTanksSettingsTank() {
+        TableColumn columnTankNumber = new TableColumn("Tank #");
+        columnTankNumber.setCellValueFactory(new PropertyValueFactory<>("TANK_NUMBER"));
+        TableColumn columnTankCapacity = new TableColumn("Max Tank Kapazität in l");
+        TableColumn columnTankLevel = new TableColumn("Kraftstoff in tank in l");
+        columnTankLevel.setCellValueFactory(new PropertyValueFactory<>("level"));
+        TableColumn columnTankLevelPercentage = new TableColumn("Kraftstoff in tank in %");
+        columnTankLevelPercentage.setCellValueFactory(new PropertyValueFactory<>("levelPercentage"));
+        columnTankCapacity.setCellValueFactory(new PropertyValueFactory<>("CAPACITY"));
+        TableColumn columnTankFuel = new TableColumn("Kraftstoff Type");
+        columnTankFuel.setCellValueFactory(new PropertyValueFactory<>("fuelLabel"));
+        TableColumn columnInvNumber = new TableColumn("Inventar #");
+        columnInvNumber.setCellValueFactory(new PropertyValueFactory<>("invNumber"));
+        tTanksSettingsTank.getColumns().addAll(columnTankNumber, columnTankCapacity, columnTankLevel, columnTankLevelPercentage, columnTankFuel, columnInvNumber);
+    }
+
+    public void addRowTTanksSettingsTank(FuelTank tank){
+        tTanksSettingsTank.getItems().add(tank);
+    }
+
 
     private void addColumnsTGoodsSettingsGood() {
         tGoodsSettingsGood.getColumns().addAll(getColumnsItemType());
     }
 
     public void addRowTGoodsSettingsGood(ItemType type) {
-        if(type.getTYPE().equals(InventoryType.Good.getTYPE())) {
+        if(type.getTYPE_LABEL().equals(InventoryType.Good.getTYPE())) {
             tGoodsSettingsGood.getItems().add(type);
         }
     }
@@ -183,7 +206,7 @@ implements Initializable {
         TableColumn columnInventoryNumber = new TableColumn("Inventar #");
         columnInventoryNumber.setCellValueFactory(new PropertyValueFactory<>("INVENTORY_NUMBER"));
         TableColumn columnType = new TableColumn("Typ");
-        columnType.setCellValueFactory(new PropertyValueFactory<>("TYPE"));
+        columnType.setCellValueFactory(new PropertyValueFactory<>("TYPE_LABEL"));
         TableColumn columnLabel = new TableColumn("Bezeichnung");
         columnLabel.setCellValueFactory(new PropertyValueFactory<>("LABEL"));
         TableColumn[] columns = {
