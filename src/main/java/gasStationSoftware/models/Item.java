@@ -33,6 +33,6 @@ public abstract class Item {
     }
 
     public String getINVENTORY_TYPE() {
-        return TYPE.getTYPE();
+        return TYPE.getTYPE_LABEL();
     }
 }
