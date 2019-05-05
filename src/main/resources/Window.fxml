@@ -25,7 +25,7 @@
 <?import javafx.scene.text.Font?>
 
 <?import java.util.ArrayList?>
-<StackPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gasStationSoftware.controller.WindowController">
+<StackPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gasStationSoftware.controller.WindowController">
     <children>
       <AnchorPane prefHeight="200.0" prefWidth="200.0">
          <children>
@@ -433,7 +433,7 @@
                       </AnchorPane>
                   </children>
               </AnchorPane>
-              <AnchorPane fx:id="settingsPane" layoutX="110.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #CFD8DC;" visible="false">
+              <AnchorPane fx:id="settingsPane" layoutX="110.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #CFD8DC;">
                   <children>
                       <Polygon fx:id="polygonSettings" fill="#607d8a" layoutX="25.0" layoutY="560.0" rotate="90.0" scaleX="0.5" scaleY="0.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-background-color: #607D8B;">
                           <points>
@@ -445,7 +445,7 @@
                               <Double fx:value="-60.0" />
                           </points>
                       </Polygon>
-                      <AnchorPane fx:id="settingsOverviewPane" minHeight="600.0" minWidth="890.0" prefHeight="600.0" prefWidth="890.0">
+                      <AnchorPane fx:id="settingsOverviewPane" minHeight="600.0" minWidth="890.0" prefHeight="600.0" prefWidth="890.0" visible="false">
                           <children>
                               <Label fx:id="titleSettingsOverview" layoutX="65.0" layoutY="30.0" prefHeight="50.0" prefWidth="300.0" text="Einstellungen" textFill="#212121">
                                   <font>
@@ -520,7 +520,7 @@
                               </JFXButton>
                           </children>
                       </AnchorPane>
-                  <AnchorPane fx:id="settingsFuelPane" minHeight="600.0" minWidth="890.0" prefHeight="600.0" prefWidth="890.0" visible="false">
+                  <AnchorPane fx:id="settingsFuelPane" minHeight="600.0" minWidth="890.0" prefHeight="600.0" prefWidth="890.0">
                      <children>
                         <Label fx:id="titleSettingsFuel" layoutX="65.0" layoutY="30.0" prefHeight="50.0" prefWidth="300.0" text="Kraftstoffarten" textFill="#212121">
                            <font>

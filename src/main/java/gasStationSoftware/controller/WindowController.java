@@ -1,9 +1,6 @@
 package gasStationSoftware.controller;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXDialog;
-import com.jfoenix.controls.JFXDialogLayout;
+import com.jfoenix.controls.*;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import gasStationSoftware.models.Employee;
@@ -15,16 +12,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.text.Text;
 
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -123,7 +117,7 @@ implements Initializable {
         } else if (event.getTarget() == btnExportSettingsOverview) {
         } else if (event.getTarget() == btnImportSettingsOverview) {
         } else if (event.getTarget() == btnNewSettingsFuel) {
-            //TODO inputDialog
+            showFuelTypeInputDialog();
         }
     }
 
@@ -232,6 +226,35 @@ implements Initializable {
 
     private void applyTheme() {
 
+    }
+
+    private void showFuelTypeInputDialog() {
+        AnchorPane pane = new AnchorPane();
+        pane.setPrefSize(160, 150);
+
+        JFXTextField txtInventoryNumber = new JFXTextField(logic.getFreeInvNumberFuel(InventoryType.Fuel));
+        txtInventoryNumber.setPrefSize(140,30);
+        txtInventoryNumber.setDisable(true);
+        AnchorPane.setTopAnchor(txtInventoryNumber, 10d);
+        AnchorPane.setRightAnchor(txtInventoryNumber, 5d);
+        AnchorPane.setLeftAnchor(txtInventoryNumber, 5d);
+
+        JFXTextField txtLabel = new JFXTextField();
+        txtLabel.setPromptText("Bezeichner");
+        txtLabel.setPrefSize(140,30);
+        AnchorPane.setTopAnchor(txtLabel, 60d);
+        AnchorPane.setRightAnchor(txtLabel, 5d);
+        AnchorPane.setLeftAnchor(txtLabel, 5d);
+
+        JFXTextField txtType = new JFXTextField(InventoryType.Fuel.getTYPE());
+        txtType.setPrefSize(140,30);
+        txtType.setDisable(true);
+        AnchorPane.setTopAnchor(txtType, 110d);
+        AnchorPane.setRightAnchor(txtType, 5d);
+        AnchorPane.setLeftAnchor(txtType, 5d);
+
+        pane.getChildren().addAll(txtInventoryNumber, txtLabel, txtType);
+        inputDialog(pane, "Erstellen Kraftstofftype", "FUEL_TYPE");
     }
 
     @FXML
