@@ -1,25 +1,22 @@
 package gasStationSoftware.controller;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXDialog;
-import com.jfoenix.controls.JFXDialogLayout;
+import com.jfoenix.controls.*;
+import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import gasStationSoftware.models.Employee;
 import gasStationSoftware.models.InventoryType;
 import gasStationSoftware.models.ItemType;
+import gasStationSoftware.util.Utility;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.text.Text;
 
 import java.awt.*;
 import java.net.URL;
@@ -33,7 +30,9 @@ implements Initializable {
 
     private final static String[] CB_SETTINGS_TYPE_OPTIONS = { "Settings", "Theme", "Inventory" };
     private final static String CB_SETTINGS_TYPE_PROMT = "Type auswählen";
+
     private static Color backgroundMenuBar, contentPaneBackground, icons, dividerMenuBar, fontContent, buttonsBackground, buttonsFont, dividerContent;
+    private static String backgroundMenuBarStyle, contentPaneBackgroundStyle, iconsStyle, dividerMenuBarStyle, fontContentStyle, buttonsStyle, dividerContentStyle;
 
     @FXML private StackPane rootPane;
 
@@ -60,7 +59,7 @@ implements Initializable {
     @FXML private JFXButton btnEditThemeSettingsOverview, btnCreateThemeSettingsOverview, btnFuelsSettingsOverview, btnTanksSettingsOverview, btnGasPumpsSettingsOverview;
     @FXML private JFXButton btnGoodsSettingsOverview, btnExportSettingsOverview, btnImportSettingsOverview, btnNewSettingsFuel, btnEditSettingsFuel;
     @FXML private JFXComboBox cbThemeSettingsOverview, cbTypeSettingsOverview;
-    @FXML private TableView tFuelsSettingsFuel, tTanksSettingsTank, tGasPumpsSettingsGasPump;
+    @FXML private TableView tFuelsSettingsFuel, tTanksSettingsTank, tGasPumpsSettingsGasPump, tGoodsSettingsGood;
 
     @FXML private ArrayList<AnchorPane> panes, subPanes;
 
@@ -118,7 +117,7 @@ implements Initializable {
         } else if (event.getTarget() == btnExportSettingsOverview) {
         } else if (event.getTarget() == btnImportSettingsOverview) {
         } else if (event.getTarget() == btnNewSettingsFuel) {
-            inputDialogFuel();
+            showFuelTypeInputDialog();
         }
     }
 
@@ -140,6 +139,7 @@ implements Initializable {
         logic.loadFiles();
         addColumnsTEmployeesEmployeeOverview();
         addColumnsTFuelsSettingsFuel();
+        addColumnsTGoodsSettingsGood();
         setDefaultContent();
     }
 
@@ -160,19 +160,38 @@ implements Initializable {
     }
 
     private void addColumnsTFuelsSettingsFuel() {
-        TableColumn columnInventoryNumber = new TableColumn("Inventar #");
-        columnInventoryNumber.setCellValueFactory(new PropertyValueFactory<>("INVENTORY_NUMBER"));
-        TableColumn columnType = new TableColumn("Typ");
-        columnType.setCellValueFactory(new PropertyValueFactory<>("TYPE"));
-        TableColumn columnLabel = new TableColumn("Bezeichnung");
-        columnLabel.setCellValueFactory(new PropertyValueFactory<>("LABEL"));
-        tFuelsSettingsFuel.getColumns().addAll(columnInventoryNumber, columnType, columnLabel);
+        tFuelsSettingsFuel.getColumns().addAll(getColumnsItemType());
     }
 
     public void addRowTFuelsSettingsFuel(ItemType type) {
         if(type.getTYPE().equals(InventoryType.Fuel.getTYPE())) {
             tFuelsSettingsFuel.getItems().add(type);
         }
+    }
+
+    private void addColumnsTGoodsSettingsGood() {
+        tGoodsSettingsGood.getColumns().addAll(getColumnsItemType());
+    }
+
+    public void addRowTGoodsSettingsGood(ItemType type) {
+        if(type.getTYPE().equals(InventoryType.Good.getTYPE())) {
+            tGoodsSettingsGood.getItems().add(type);
+        }
+    }
+
+    private TableColumn[] getColumnsItemType() {
+        TableColumn columnInventoryNumber = new TableColumn("Inventar #");
+        columnInventoryNumber.setCellValueFactory(new PropertyValueFactory<>("INVENTORY_NUMBER"));
+        TableColumn columnType = new TableColumn("Typ");
+        columnType.setCellValueFactory(new PropertyValueFactory<>("TYPE"));
+        TableColumn columnLabel = new TableColumn("Bezeichnung");
+        columnLabel.setCellValueFactory(new PropertyValueFactory<>("LABEL"));
+        TableColumn[] columns = {
+                columnInventoryNumber,
+                columnType,
+                columnLabel
+        };
+        return columns;
     }
 
     private void setDefaultContent() {
@@ -199,20 +218,84 @@ implements Initializable {
         this.buttonsBackground = buttonsBackground;
         this.buttonsFont = buttonsFont;
         this.dividerContent = dividerContent;
+        buttonsStyle =  "-jfx-button-type: RAISED;" +
+                        "-fx-background-color: " + Utility.Rgb2Hex(buttonsBackground) + ";" +
+                        "-fx-text-fill: " + Utility.Rgb2Hex(buttonsFont) + ";";
+        iconsStyle = "-fx-fill: " + Utility.Rgb2Hex(icons) + ";";
     }
 
     private void applyTheme() {
 
     }
 
+    private void showFuelTypeInputDialog() {
+        AnchorPane pane = new AnchorPane();
+        pane.setPrefSize(160, 150);
+
+        JFXTextField txtInventoryNumber = new JFXTextField(String.valueOf(logic.getFreeInvNumber(InventoryType.Fuel)));
+        txtInventoryNumber.setPrefSize(140,30);
+        txtInventoryNumber.setDisable(true);
+        AnchorPane.setTopAnchor(txtInventoryNumber, 10d);
+        AnchorPane.setRightAnchor(txtInventoryNumber, 5d);
+        AnchorPane.setLeftAnchor(txtInventoryNumber, 5d);
+
+        JFXTextField txtLabel = new JFXTextField();
+        txtLabel.setPromptText("Bezeichner");
+        txtLabel.setPrefSize(140,30);
+        AnchorPane.setTopAnchor(txtLabel, 60d);
+        AnchorPane.setRightAnchor(txtLabel, 5d);
+        AnchorPane.setLeftAnchor(txtLabel, 5d);
+
+        JFXTextField txtType = new JFXTextField(InventoryType.Fuel.getTYPE());
+        txtType.setPrefSize(140,30);
+        txtType.setDisable(true);
+        AnchorPane.setTopAnchor(txtType, 110d);
+        AnchorPane.setRightAnchor(txtType, 5d);
+        AnchorPane.setLeftAnchor(txtType, 5d);
+
+        pane.getChildren().addAll(txtInventoryNumber, txtLabel, txtType);
+        inputDialog(pane, "Erstellen Kraftstofftype", "FUEL_TYPE");
+    }
+
     @FXML
-    private void inputDialogFuel(){
-        System.out.println(0);
+    private void inputDialog(AnchorPane dialogBodyContent, String title, String inputType){
         JFXDialogLayout dialogContent = new JFXDialogLayout();
-        dialogContent.setHeading(new Text("Eingabe Treibstoff"));
-        dialogContent.setBody(new TextField());
         JFXDialog dialog = new JFXDialog(rootPane, dialogContent, JFXDialog.DialogTransition.CENTER);
+
+        JFXButton btnSubmit = new JFXButton("Abschicken");
+        btnSubmit.setStyle(buttonsStyle);
+        MaterialDesignIconView icoSubmit = new MaterialDesignIconView(MaterialDesignIcon.CHECK);
+        icoSubmit.setStyle(iconsStyle);
+        btnSubmit.setGraphic(icoSubmit);
+        btnSubmit.setOnAction(event -> {
+            dialog.close();
+            processInput(dialogBodyContent, inputType);
+        });
+
+        JFXButton btnCancel = new JFXButton("Abbrechen");
+        btnCancel.setStyle(buttonsStyle);
+        MaterialDesignIconView icoCancel = new MaterialDesignIconView(MaterialDesignIcon.CLOSE);
+        icoCancel.setStyle(iconsStyle);
+        btnCancel.setGraphic(icoCancel);
+        btnCancel.setOnAction(event -> dialog.close());
+
+        dialogContent.setHeading(new Label(title));
+        dialogContent.setBody(dialogBodyContent);
+        dialogContent.setActions(btnCancel, btnSubmit);
         dialog.show();
+    }
+
+    private void processInput(AnchorPane input, String inputType) {
+        switch (inputType) {
+            case "FUEL_TYPE":
+                processFuelTypeInput(input);
+                break;
+            default: //TODO raise error
+        }
+    }
+
+    private void processFuelTypeInput(AnchorPane input) {
+        logic.addFuelType(((JFXTextField) input.getChildren().get(1)).getText());
     }
 
 }

@@ -41,24 +41,8 @@ public class ReadJSON {
         return (String) jsonObject.get(name);
     }
 
-    public int getItemInt(String name) {
-        return (int) jsonObject.get(name);
-    }
-
-    public float getItemFloat(String name) {
-        return (float) jsonObject.get(name);
-    }
-
     public boolean getItemBoolean(String name) {
         return (boolean) jsonObject.get(name);
-    }
-
-    public char[] getItemCharArray(String name) {
-        JSONArray list = (JSONArray) jsonObject.get(name);
-        char[] items = new char[list.size()];
-        for (int i = 0; i < list.size(); i++)
-            items[i] = (char) list.get(i);
-        return items;
     }
 
     public String[] getItemStringArray(String name) {
@@ -66,22 +50,6 @@ public class ReadJSON {
         String[] items = new String[list.size()];
         for (int i = 0; i < list.size(); i++)
             items[i] = (String) list.get(i);
-        return items;
-    }
-
-    public int[] getItemIntArray(String name) {
-        JSONArray list = (JSONArray) jsonObject.get(name);
-        int[] items = new int[list.size()];
-        for (int i = 0; i < list.size(); i++)
-            items[i] = Integer.parseInt((String) list.get(i));
-        return items;
-    }
-
-    public float[] getItemFloatArray(String name) {
-        JSONArray list = (JSONArray) jsonObject.get(name);
-        float[] items = new float[list.size()];
-        for (int i = 0; i < list.size(); i++)
-            items[i] = (float) list.get(i);
         return items;
     }
 

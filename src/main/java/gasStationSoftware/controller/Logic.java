@@ -5,10 +5,7 @@ import gasStationSoftware.exceptions.OSException;
 import gasStationSoftware.models.Employee;
 import gasStationSoftware.models.InventoryType;
 import gasStationSoftware.models.ItemType;
-import gasStationSoftware.util.ReadFile;
-import gasStationSoftware.util.ReadJSON;
-import gasStationSoftware.util.Utility;
-import gasStationSoftware.util.WriteFile;
+import gasStationSoftware.util.*;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
@@ -18,6 +15,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 
 public class Logic {
@@ -43,7 +42,7 @@ public class Logic {
     };
 
     private Employee[] employees;
-    private ItemType[] type;
+    private ItemType[] types;
 
     private Logic() {
         checkDir(DATA_FILE_PATH);
@@ -181,7 +180,7 @@ public class Logic {
         String[] label = read.getItemStringArray("itemLabel");
         String[] inventoryNumber = read.getItemStringArray("itemInventoryNumber");
         String[] type = read.getItemStringArray("itemType");
-        this.type = new ItemType[inventoryNumber.length];
+        this.types = new ItemType[inventoryNumber.length];
         for(int i = 0; i < inventoryNumber.length; i++) {
             InventoryType invType = InventoryType.Good;
             switch(type[i]) {
@@ -190,11 +189,37 @@ public class Logic {
                     break;
                 default: invType = InventoryType.Good;
             }
-            this.type[i] = new ItemType(label[i], Integer.parseInt(inventoryNumber[i]), invType);
+            this.types[i] = new ItemType(label[i], Integer.parseInt(inventoryNumber[i]), invType);
         }
-        for(ItemType iType : this.type) {
+        for(ItemType iType : this.types) {
             windowController.addRowTFuelsSettingsFuel(iType);
+            windowController.addRowTGoodsSettingsGood(iType);
         }
     }
 
+    public int getFreeInvNumber(InventoryType type) {
+        int number = 1;
+        ArrayList<ItemType> types = Utility.getInventoryType(this.types, type);
+        Collections.sort(types, new CompareItemType());
+        for(int i = 0; i < types.size(); i++) {
+            if(number != types.get(i).getINVENTORY_NUMBER()) {
+                number = types.get(i).getINVENTORY_NUMBER() - 1;
+                break;
+            } else {
+                number = types.get(i).getINVENTORY_NUMBER() + 1;
+            }
+        }
+        return number;
+    }
+
+    public void addFuelType(String label){
+        ItemType[] oldTypes = types;
+        types = new ItemType[oldTypes.length];
+        for(int i = 0; i < oldTypes.length; i++) {
+            types[i] = oldTypes[i];
+        }
+        ItemType newItemType = new ItemType(label, getFreeInvNumber(InventoryType.Fuel), InventoryType.Fuel);
+        types[types.length - 1] = newItemType;
+        windowController.addRowTFuelsSettingsFuel(newItemType);
+    }
 }
