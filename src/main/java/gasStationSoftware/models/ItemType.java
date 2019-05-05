@@ -20,7 +20,11 @@ public class ItemType {
         return INVENTORY_NUMBER;
     }
 
-    public String getTYPE() {
+    public InventoryType getTYPE() {
+        return TYPE;
+    }
+
+    public String getTYPE_LABEL() {
         return TYPE.getTYPE();
     }
 }
