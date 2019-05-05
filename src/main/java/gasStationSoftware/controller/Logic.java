@@ -197,18 +197,29 @@ public class Logic {
         }
     }
 
-    public String getFreeInvNumberFuel(InventoryType fuel) {
+    public int getFreeInvNumber(InventoryType type) {
         int number = 1;
-        ArrayList<ItemType> fuels = Utility.getInventoryType(types, InventoryType.Fuel);
-        Collections.sort(fuels, new CompareItemType());
-        for(int i = 0; i < fuels.size(); i++) {
-            if(number != fuels.get(i).getINVENTORY_NUMBER()) {
-                number = fuels.get(i).getINVENTORY_NUMBER() - 1;
+        ArrayList<ItemType> types = Utility.getInventoryType(this.types, type);
+        Collections.sort(types, new CompareItemType());
+        for(int i = 0; i < types.size(); i++) {
+            if(number != types.get(i).getINVENTORY_NUMBER()) {
+                number = types.get(i).getINVENTORY_NUMBER() - 1;
                 break;
             } else {
-                number = fuels.get(i).getINVENTORY_NUMBER() + 1;
+                number = types.get(i).getINVENTORY_NUMBER() + 1;
             }
         }
-        return String.valueOf(number);
+        return number;
+    }
+
+    public void addFuelType(String label){
+        ItemType[] oldTypes = types;
+        types = new ItemType[oldTypes.length];
+        for(int i = 0; i < oldTypes.length; i++) {
+            types[i] = oldTypes[i];
+        }
+        ItemType newItemType = new ItemType(label, getFreeInvNumber(InventoryType.Fuel), InventoryType.Fuel);
+        types[types.length - 1] = newItemType;
+        windowController.addRowTFuelsSettingsFuel(newItemType);
     }
 }

@@ -232,7 +232,7 @@ implements Initializable {
         AnchorPane pane = new AnchorPane();
         pane.setPrefSize(160, 150);
 
-        JFXTextField txtInventoryNumber = new JFXTextField(logic.getFreeInvNumberFuel(InventoryType.Fuel));
+        JFXTextField txtInventoryNumber = new JFXTextField(String.valueOf(logic.getFreeInvNumber(InventoryType.Fuel)));
         txtInventoryNumber.setPrefSize(140,30);
         txtInventoryNumber.setDisable(true);
         AnchorPane.setTopAnchor(txtInventoryNumber, 10d);
@@ -295,7 +295,7 @@ implements Initializable {
     }
 
     private void processFuelTypeInput(AnchorPane input) {
-
+        logic.addFuelType(((JFXTextField) input.getChildren().get(1)).getText());
     }
 
 }
