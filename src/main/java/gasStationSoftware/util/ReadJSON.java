@@ -33,16 +33,8 @@ public class ReadJSON {
         }
     }
 
-    public char getItemChar(String name) {
-        return (char) jsonObject.get(name);
-    }
-
     public String getItemString(String name) {
         return (String) jsonObject.get(name);
-    }
-
-    public boolean getItemBoolean(String name) {
-        return (boolean) jsonObject.get(name);
     }
 
     public String[] getItemStringArray(String name) {
@@ -50,14 +42,6 @@ public class ReadJSON {
         String[] items = new String[list.size()];
         for (int i = 0; i < list.size(); i++)
             items[i] = (String) list.get(i);
-        return items;
-    }
-
-    public boolean[] getItemBooleanArray(String name) {
-        JSONArray list = (JSONArray) jsonObject.get(name);
-        boolean[] items = new boolean[list.size()];
-        for (int i = 0; i < list.size(); i++)
-            items[i] = (boolean) list.get(i);
         return items;
     }
 }
