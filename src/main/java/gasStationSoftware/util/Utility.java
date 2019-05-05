@@ -15,6 +15,10 @@ public class Utility {
         );
     }
 
+    public static String Rgb2Hex(Color color) {
+        return ("#" + Integer.toHexString(color.getRGB()).substring(2));
+    }
+
     public static String getDate() {
         return new SimpleDateFormat("dd.MM.yyyy").format(new Date());
     }
