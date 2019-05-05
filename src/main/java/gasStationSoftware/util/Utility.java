@@ -60,9 +60,9 @@ public class Utility {
     public static ArrayList<ItemType> getInventoryType(ItemType[] iTypes, InventoryType type) {
         ArrayList<ItemType> result = new ArrayList<>();
         for(ItemType iType : iTypes){
-            if(iType.getTYPE().equals(InventoryType.Fuel.getTYPE()) && type.getTYPE().equals(InventoryType.Fuel.getTYPE())) {
+            if(iType.getTYPE_LABEL().equals(InventoryType.Fuel.getTYPE()) && type.getTYPE().equals(InventoryType.Fuel.getTYPE())) {
                 result.add(iType);
-            } else if(iType.getTYPE().equals(InventoryType.Good.getTYPE()) && type.getTYPE().equals(InventoryType.Good.getTYPE())) {
+            } else if(iType.getTYPE_LABEL().equals(InventoryType.Good.getTYPE()) && type.getTYPE().equals(InventoryType.Good.getTYPE())) {
                 result.add(iType);
             }
         }
