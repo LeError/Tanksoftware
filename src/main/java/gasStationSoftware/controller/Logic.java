@@ -194,6 +194,7 @@ public class Logic {
         }
         for(ItemType iType : this.type) {
             windowController.addRowTFuelsSettingsFuel(iType);
+            windowController.addRowTGoodsSettingsGood(iType);
         }
     }
 

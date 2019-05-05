@@ -60,7 +60,7 @@ implements Initializable {
     @FXML private JFXButton btnEditThemeSettingsOverview, btnCreateThemeSettingsOverview, btnFuelsSettingsOverview, btnTanksSettingsOverview, btnGasPumpsSettingsOverview;
     @FXML private JFXButton btnGoodsSettingsOverview, btnExportSettingsOverview, btnImportSettingsOverview, btnNewSettingsFuel, btnEditSettingsFuel;
     @FXML private JFXComboBox cbThemeSettingsOverview, cbTypeSettingsOverview;
-    @FXML private TableView tFuelsSettingsFuel, tTanksSettingsTank, tGasPumpsSettingsGasPump;
+    @FXML private TableView tFuelsSettingsFuel, tTanksSettingsTank, tGasPumpsSettingsGasPump, tGoodsSettingsGood;
 
     @FXML private ArrayList<AnchorPane> panes, subPanes;
 
@@ -140,6 +140,7 @@ implements Initializable {
         logic.loadFiles();
         addColumnsTEmployeesEmployeeOverview();
         addColumnsTFuelsSettingsFuel();
+        addColumnsTGoodsSettingsGood();
         setDefaultContent();
     }
 
@@ -160,19 +161,38 @@ implements Initializable {
     }
 
     private void addColumnsTFuelsSettingsFuel() {
-        TableColumn columnInventoryNumber = new TableColumn("Inventar #");
-        columnInventoryNumber.setCellValueFactory(new PropertyValueFactory<>("INVENTORY_NUMBER"));
-        TableColumn columnType = new TableColumn("Typ");
-        columnType.setCellValueFactory(new PropertyValueFactory<>("TYPE"));
-        TableColumn columnLabel = new TableColumn("Bezeichnung");
-        columnLabel.setCellValueFactory(new PropertyValueFactory<>("LABEL"));
-        tFuelsSettingsFuel.getColumns().addAll(columnInventoryNumber, columnType, columnLabel);
+        tFuelsSettingsFuel.getColumns().addAll(getColumnsItemType());
     }
 
     public void addRowTFuelsSettingsFuel(ItemType type) {
         if(type.getTYPE().equals(InventoryType.Fuel.getTYPE())) {
             tFuelsSettingsFuel.getItems().add(type);
         }
+    }
+
+    private void addColumnsTGoodsSettingsGood() {
+        tGoodsSettingsGood.getColumns().addAll(getColumnsItemType());
+    }
+
+    public void addRowTGoodsSettingsGood(ItemType type) {
+        if(type.getTYPE().equals(InventoryType.Good.getTYPE())) {
+            tGoodsSettingsGood.getItems().add(type);
+        }
+    }
+
+    private TableColumn[] getColumnsItemType() {
+        TableColumn columnInventoryNumber = new TableColumn("Inventar #");
+        columnInventoryNumber.setCellValueFactory(new PropertyValueFactory<>("INVENTORY_NUMBER"));
+        TableColumn columnType = new TableColumn("Typ");
+        columnType.setCellValueFactory(new PropertyValueFactory<>("TYPE"));
+        TableColumn columnLabel = new TableColumn("Bezeichnung");
+        columnLabel.setCellValueFactory(new PropertyValueFactory<>("LABEL"));
+        TableColumn[] columns = {
+                columnInventoryNumber,
+                columnType,
+                columnLabel
+        };
+        return columns;
     }
 
     private void setDefaultContent() {
@@ -207,10 +227,14 @@ implements Initializable {
 
     @FXML
     private void inputDialogFuel(){
-        System.out.println(0);
+        AnchorPane dialogBodyContent = new AnchorPane();
+        dialogBodyContent.setMinSize(300, 100);
+        dialogBodyContent.setPrefSize(300, 200);
+        dialogBodyContent.setMaxSize(300, 200);
+        JFXButton btnSubmit = new JFXButton("Abschicken");
+
         JFXDialogLayout dialogContent = new JFXDialogLayout();
-        dialogContent.setHeading(new Text("Eingabe Treibstoff"));
-        dialogContent.setBody(new TextField());
+        dialogContent.setBody(dialogBodyContent);
         JFXDialog dialog = new JFXDialog(rootPane, dialogContent, JFXDialog.DialogTransition.CENTER);
         dialog.show();
     }
