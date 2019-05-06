@@ -249,7 +249,7 @@ public class Logic {
             this.gasPumps[i] = new GasPump(fuels, i, tanks);
         }
         for (GasPump gasPump : this.gasPumps) {
-            //TODO add row
+            windowController.addRowTGasPumpsSettingsGasPump(gasPump);
         }
     }
 
