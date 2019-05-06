@@ -224,6 +224,33 @@ public class Logic {
         for(FuelTank tank : tanks) {
             windowController.addRowTTanksSettingsTank(tank);
         }
+        ArrayList<String>[] gasPumps = read.getItemStringArrayListArray("gasPumpAssignedTanks");
+        this.gasPumps = new GasPump[gasPumps.length];
+        ArrayList<ItemType> types = Utility.getInventoryType(this.types, InventoryType.Fuel);
+        for (int i = 0; i < gasPumps.length; i++) {
+            ArrayList<FuelTank> tanks = new ArrayList<>();
+            for (int j = 0; j < gasPumps[i].size(); j++) {
+                for (int l = 0; l < this.tanks.length; l++) {
+                    if (this.tanks[l].getTANK_NUMBER() == Integer.parseInt(gasPumps[i].get(j)) &&
+                    !tanks.contains(this.tanks[l])) {
+                        tanks.add(this.tanks[l]);
+                    }
+                }
+            }
+            ArrayList<ItemType> fuelTypes = new ArrayList<>();
+            for (int j = 0; j < tanks.size(); j++) {
+                for (int l = 0; l < types.size(); l++) {
+                    if (types.get(l).getINVENTORY_NUMBER() == tanks.get(j).getFuel().getINVENTORY_NUMBER() &&
+                    !fuelTypes.contains(types.get(l))) {
+                        fuelTypes.add(types.get(l));
+                    }
+                }
+            }
+            this.gasPumps[i] = new GasPump(fuels, i, tanks);
+        }
+        for (GasPump gasPump : this.gasPumps) {
+            //TODO add row
+        }
     }
 
     public int getFreeInvNumber(InventoryType type) {
