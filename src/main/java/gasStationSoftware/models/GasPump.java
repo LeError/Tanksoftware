@@ -41,4 +41,21 @@ public class GasPump {
     public int getGAS_PUMP_NUMBER() {
         return GAS_PUMP_NUMBER;
     }
+
+    public String getAssignedFuels() {
+        String assignedFuels = "";
+        for (ItemType fuel : fuels) {
+            assignedFuels += fuel.getINVENTORY_NUMBER() + " " + fuel.getLABEL() + "; ";
+        }
+        return assignedFuels;
+    }
+
+    public String getAssignedTanks() {
+        String assignedTanks = "";
+        for (FuelTank tank : tanks) {
+            assignedTanks += tank.getTANK_NUMBER() + " " + tank.getFuelLabel() + "; ";
+        }
+        return assignedTanks;
+    }
+
 }
