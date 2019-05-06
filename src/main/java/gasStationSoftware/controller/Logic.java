@@ -3,12 +3,19 @@ package gasStationSoftware.controller;
 import gasStationSoftware.exceptions.DataFileNotFoundException;
 import gasStationSoftware.exceptions.NumberOutOfRangeException;
 import gasStationSoftware.exceptions.OSException;
-import gasStationSoftware.models.*;
-import gasStationSoftware.util.*;
+import gasStationSoftware.models.Employee;
+import gasStationSoftware.models.FuelTank;
+import gasStationSoftware.models.GasPump;
+import gasStationSoftware.models.InventoryType;
+import gasStationSoftware.models.ItemType;
+import gasStationSoftware.util.CompareItemType;
+import gasStationSoftware.util.ReadFile;
+import gasStationSoftware.util.ReadJSON;
+import gasStationSoftware.util.Utility;
+import gasStationSoftware.util.WriteFile;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
-import javax.rmi.CORBA.Util;
 import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
@@ -199,7 +206,7 @@ public class Logic {
             windowController.addRowTFuelsSettingsFuel(iType);
             windowController.addRowTGoodsSettingsGood(iType);
         }
-
+        int[] tankID = Utility.getIntArray(read.getItemStringArray("tankID"));
         float[] tankCapacity = Utility.getFloatArray(read.getItemStringArray("tankCapacity"));
         float[] tankLevel = Utility.getFloatArray(read.getItemStringArray("tankLevel"));
         int[] tankAssignedFuels = Utility.getIntArray(read.getItemStringArray("tankAssignedFuels"));
@@ -212,10 +219,37 @@ public class Logic {
                     fuel = fuelType;
                 }
             }
-            tanks[i] = new FuelTank(i + 1, tankCapacity[i], tankLevel[i], fuel);
+            tanks[i] = new FuelTank(tankID[i], tankCapacity[i], tankLevel[i], fuel);
         }
         for(FuelTank tank : tanks) {
             windowController.addRowTTanksSettingsTank(tank);
+        }
+        ArrayList<String>[] gasPumps = read.getItemStringArrayListArray("gasPumpAssignedTanks");
+        this.gasPumps = new GasPump[gasPumps.length];
+        ArrayList<ItemType> types = Utility.getInventoryType(this.types, InventoryType.Fuel);
+        for (int i = 0; i < gasPumps.length; i++) {
+            ArrayList<FuelTank> tanks = new ArrayList<>();
+            for (int j = 0; j < gasPumps[i].size(); j++) {
+                for (int l = 0; l < this.tanks.length; l++) {
+                    if (this.tanks[l].getTANK_NUMBER() == Integer.parseInt(gasPumps[i].get(j)) &&
+                    !tanks.contains(this.tanks[l])) {
+                        tanks.add(this.tanks[l]);
+                    }
+                }
+            }
+            ArrayList<ItemType> fuelTypes = new ArrayList<>();
+            for (int j = 0; j < tanks.size(); j++) {
+                for (int l = 0; l < types.size(); l++) {
+                    if (types.get(l).getINVENTORY_NUMBER() == tanks.get(j).getFuel().getINVENTORY_NUMBER() &&
+                    !fuelTypes.contains(types.get(l))) {
+                        fuelTypes.add(types.get(l));
+                    }
+                }
+            }
+            this.gasPumps[i] = new GasPump(fuels, i, tanks);
+        }
+        for (GasPump gasPump : this.gasPumps) {
+            //TODO add row
         }
     }
 
@@ -225,22 +259,20 @@ public class Logic {
         Collections.sort(types, new CompareItemType());
         for(int i = 0; i < types.size(); i++) {
             if(number != types.get(i).getINVENTORY_NUMBER()) {
-                number = types.get(i).getINVENTORY_NUMBER() - 1;
                 break;
-            } else {
-                number = types.get(i).getINVENTORY_NUMBER() + 1;
             }
+            number++;
         }
         return number;
     }
 
-    public void addFuelType(String label){
+    public void addItemType(String label, InventoryType type) { //TODO make comp with GOOD
+        ItemType newItemType = new ItemType(label, getFreeInvNumber(type), type);
         ItemType[] oldTypes = types;
-        types = new ItemType[oldTypes.length];
+        types = new ItemType[oldTypes.length + 1];
         for(int i = 0; i < oldTypes.length; i++) {
             types[i] = oldTypes[i];
         }
-        ItemType newItemType = new ItemType(label, getFreeInvNumber(InventoryType.Fuel), InventoryType.Fuel);
         types[types.length - 1] = newItemType;
         windowController.addRowTFuelsSettingsFuel(newItemType);
     }

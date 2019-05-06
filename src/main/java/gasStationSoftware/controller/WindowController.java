@@ -1,6 +1,10 @@
 package gasStationSoftware.controller;
 
-import com.jfoenix.controls.*;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
+import com.jfoenix.controls.JFXTextField;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import gasStationSoftware.models.Employee;
@@ -318,7 +322,7 @@ implements Initializable {
     }
 
     private void processFuelTypeInput(AnchorPane input) {
-        logic.addFuelType(((JFXTextField) input.getChildren().get(1)).getText());
+        logic.addItemType(((JFXTextField) input.getChildren().get(1)).getText(), InventoryType.Fuel);
     }
 
 }

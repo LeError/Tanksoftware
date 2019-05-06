@@ -7,6 +7,7 @@ import org.json.simple.parser.JSONParser;
 
 import java.io.File;
 import java.io.FileReader;
+import java.util.ArrayList;
 
 public class ReadJSON {
 
@@ -42,6 +43,21 @@ public class ReadJSON {
         String[] items = new String[list.size()];
         for (int i = 0; i < list.size(); i++)
             items[i] = (String) list.get(i);
+        return items;
+    }
+
+    public ArrayList<String>[] getItemStringArrayListArray(String name) {
+        JSONArray objectArray = (JSONArray) jsonObject.get(name);
+        ArrayList<String>[] items = new ArrayList[objectArray.size()];
+        for (int i = 0; i < objectArray.size(); i++) {
+            JSONObject jsonObj2 = (JSONObject) objectArray.get(i);
+            JSONArray array = (JSONArray) jsonObj2.get("gasPump");
+            ArrayList<String> itemList = new ArrayList<>();
+            for (int j = 0; j < array.size(); j++) {
+                itemList.add((String) array.get(j));
+            }
+            items[i] = itemList;
+        }
         return items;
     }
 }
