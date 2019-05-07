@@ -9,6 +9,7 @@ import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import gasStationSoftware.models.Employee;
 import gasStationSoftware.models.FuelTank;
+import gasStationSoftware.models.GasPump;
 import gasStationSoftware.models.InventoryType;
 import gasStationSoftware.models.ItemType;
 import gasStationSoftware.util.Utility;
@@ -145,6 +146,7 @@ implements Initializable {
         addColumnsTEmployeesEmployeeOverview();
         addColumnsTFuelsSettingsFuel();
         addColumnsTTanksSettingsTank();
+        addColumnsTGasPumpsSettingsGasPump();
         addColumnsTGoodsSettingsGood();
         setDefaultContent();
     }
@@ -193,6 +195,20 @@ implements Initializable {
 
     public void addRowTTanksSettingsTank(FuelTank tank){
         tTanksSettingsTank.getItems().add(tank);
+    }
+
+    private void addColumnsTGasPumpsSettingsGasPump() {
+        TableColumn columnGasPumpNumber = new TableColumn("Zapfsäule #");
+        columnGasPumpNumber.setCellValueFactory(new PropertyValueFactory<>("GAS_PUMP_NUMBER"));
+        TableColumn columnGasPumpFuel = new TableColumn("Verfügbare Kraftstoffe");
+        columnGasPumpFuel.setCellValueFactory(new PropertyValueFactory<>("assignedFuels"));
+        TableColumn columnGasPumpTank = new TableColumn("Angeschlossene Tanks");
+        columnGasPumpTank.setCellValueFactory(new PropertyValueFactory<>("assignedTanks"));
+        tGasPumpsSettingsGasPump.getColumns().addAll(columnGasPumpNumber, columnGasPumpFuel, columnGasPumpTank);
+    }
+
+    public void addRowTGasPumpsSettingsGasPump(GasPump gasPump) {
+        tGasPumpsSettingsGasPump.getItems().add(gasPump);
     }
 
 
