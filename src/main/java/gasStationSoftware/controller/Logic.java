@@ -188,9 +188,25 @@ public class Logic {
 
     private void loadInventory() throws DataFileNotFoundException, NumberOutOfRangeException {
         ReadJSON read = new ReadJSON(DATA_FILE_PATH + DATA_FILE_NAMES[0]);
-        String[] label = read.getItemStringArray("itemLabel");
-        String[] inventoryNumber = read.getItemStringArray("itemInventoryNumber");
-        String[] type = read.getItemStringArray("itemType");
+
+        createItemTYpeObjects(read.getItemStringArray("itemLabel"), read.getItemStringArray("itemInventoryNumber"), read.getItemStringArray("itemType"));
+        for(ItemType iType : this.types) {
+            windowController.addRowTFuelsSettingsFuel(iType);
+            windowController.addRowTGoodsSettingsGood(iType);
+        }
+
+        createFuelTankObjects(Utility.getIntArray(read.getItemStringArray("tankID")), Utility.getFloatArray(read.getItemStringArray("tankCapacity")), Utility.getFloatArray(read.getItemStringArray("tankLevel")), Utility.getIntArray(read.getItemStringArray("tankAssignedFuels")));
+        for(FuelTank tank : tanks) {
+            windowController.addRowTTanksSettingsTank(tank);
+        }
+
+        createGasPumpObjects(read.getItemStringArrayListArray("gasPumpAssignedTanks"));
+        for (GasPump gasPump : this.gasPumps) {
+            windowController.addRowTGasPumpsSettingsGasPump(gasPump);
+        }
+    }
+
+    private void createItemTYpeObjects(String[] label, String[] inventoryNumber, String[] type) {
         this.types = new ItemType[inventoryNumber.length];
         for(int i = 0; i < inventoryNumber.length; i++) {
             InventoryType invType = InventoryType.Good;
@@ -202,14 +218,9 @@ public class Logic {
             }
             this.types[i] = new ItemType(label[i], Integer.parseInt(inventoryNumber[i]), invType);
         }
-        for(ItemType iType : this.types) {
-            windowController.addRowTFuelsSettingsFuel(iType);
-            windowController.addRowTGoodsSettingsGood(iType);
-        }
-        int[] tankID = Utility.getIntArray(read.getItemStringArray("tankID"));
-        float[] tankCapacity = Utility.getFloatArray(read.getItemStringArray("tankCapacity"));
-        float[] tankLevel = Utility.getFloatArray(read.getItemStringArray("tankLevel"));
-        int[] tankAssignedFuels = Utility.getIntArray(read.getItemStringArray("tankAssignedFuels"));
+    }
+
+    private void createFuelTankObjects(int[] tankID, float[] tankCapacity, float[] tankLevel, int[] tankAssignedFuels) {
         ArrayList<ItemType> fuels = Utility.getInventoryType(types, InventoryType.Fuel);
         tanks = new FuelTank[tankAssignedFuels.length];
         for(int i = 0; i < tankAssignedFuels.length; i++) {
@@ -219,12 +230,15 @@ public class Logic {
                     fuel = fuelType;
                 }
             }
-            tanks[i] = new FuelTank(tankID[i], tankCapacity[i], tankLevel[i], fuel);
+            try {
+                tanks[i] = new FuelTank(tankID[i], tankCapacity[i], tankLevel[i], fuel);
+            } catch (NumberOutOfRangeException e) {
+                e.printStackTrace();
+            }
         }
-        for(FuelTank tank : tanks) {
-            windowController.addRowTTanksSettingsTank(tank);
-        }
-        ArrayList<String>[] gasPumps = read.getItemStringArrayListArray("gasPumpAssignedTanks");
+    }
+
+    private void createGasPumpObjects(ArrayList<String>[] gasPumps ) {
         this.gasPumps = new GasPump[gasPumps.length];
         ArrayList<ItemType> types = Utility.getInventoryType(this.types, InventoryType.Fuel);
         for (int i = 0; i < gasPumps.length; i++) {
@@ -232,24 +246,12 @@ public class Logic {
             for (int j = 0; j < gasPumps[i].size(); j++) {
                 for (int l = 0; l < this.tanks.length; l++) {
                     if (this.tanks[l].getTANK_NUMBER() == Integer.parseInt(gasPumps[i].get(j)) &&
-                    !tanks.contains(this.tanks[l])) {
+                            !tanks.contains(this.tanks[l])) {
                         tanks.add(this.tanks[l]);
                     }
                 }
             }
-            ArrayList<ItemType> fuelTypes = new ArrayList<>();
-            for (int j = 0; j < tanks.size(); j++) {
-                for (int l = 0; l < types.size(); l++) {
-                    if (types.get(l).getINVENTORY_NUMBER() == tanks.get(j).getFuel().getINVENTORY_NUMBER() &&
-                    !fuelTypes.contains(types.get(l))) {
-                        fuelTypes.add(types.get(l));
-                    }
-                }
-            }
-            this.gasPumps[i] = new GasPump(fuels, i, tanks);
-        }
-        for (GasPump gasPump : this.gasPumps) {
-            windowController.addRowTGasPumpsSettingsGasPump(gasPump);
+            this.gasPumps[i] = new GasPump(i, tanks);
         }
     }
 
