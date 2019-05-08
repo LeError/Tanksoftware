@@ -5,13 +5,17 @@ import java.util.ArrayList;
 public class GasPump {
 
     private final int GAS_PUMP_NUMBER;
-    private ArrayList<ItemType> fuels;
+    private ArrayList<ItemType> fuels = new ArrayList<>();
     private ArrayList<FuelTank> tanks;
 
-    public GasPump(ArrayList<ItemType> fuels, int gasPumpNumber, ArrayList<FuelTank> tanks) {
+    public GasPump(int gasPumpNumber, ArrayList<FuelTank> tanks) {
         this.GAS_PUMP_NUMBER = gasPumpNumber;
-        this.fuels = fuels;
         this.tanks = tanks;
+        for(FuelTank tank : tanks) {
+            if(!fuels.contains(tank.getFuel())) {
+                fuels.add(tank.getFuel());
+            }
+        }
     }
 
     public void addFuel(ItemType fuel) {
