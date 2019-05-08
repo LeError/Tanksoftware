@@ -1,0 +1,114 @@
+{
+  "tankCapacity": [
+	"5000.000",
+	"5000.000",
+	"5000.000",
+	"5000.000",
+	"5000.000",
+	"5000.000",
+	"5000.000"
+  ],
+  "tankLevel": [
+	"3456.785",
+	"4821.478",
+	"1624.987",
+	"187.187",
+	"1337.000",
+	"785.375",
+	"4329.873"
+  ],
+  "tankAssignedFuels": [
+	"5",
+	"3",
+	"4",
+	"1",
+	"2",
+	"1",
+	"3"
+  ],
+  "tankID": [
+	"1",
+	"2",
+	"3",
+	"4",
+	"5",
+	"6",
+	"7"
+  ],
+
+  "itemLabel": [
+	"Diesel",
+	"LKW Diesel",
+	"Super",
+	"Super E10",
+	"Super PLUS",
+	"Meckatzer Kristallweizen 0,5l",
+	"Fürst Uranov Vodka 0,5l",
+	"Malboro Zigaretten",
+	"L&M Zigaretten"
+  ],
+  "itemInventoryNumber": [
+	"1",
+	"2",
+	"3",
+	"4",
+	"5",
+	"1",
+	"2",
+	"3",
+	"4"
+  ],
+  "itemType": [
+	"FUEL",
+	"FUEL",
+	"FUEL",
+	"FUEL",
+	"FUEL",
+	"GOOD",
+	"GOOD",
+	"GOOD",
+	"GOOD"
+  ],
+
+  "gasPumpAssignedTanks": [
+	{
+	  "gasPump": [
+	    "2",
+	    "3"
+	  ]
+	},
+	{
+	  "gasPump": [
+	    "6",
+	    "4"
+	  ]
+	},
+	{
+	  "gasPump": [
+	    "2",
+	    "3",
+	    "4",
+	    "5"	
+	  ]
+	},
+	{
+	  "gasPump": [
+	    "2",
+	    "3",
+	    "4",
+	    "5"	
+	  ]
+	},
+	{
+	  "gasPump": [
+	    "1",
+	    "2"
+	  ]
+	},
+	{
+	  "gasPump": [
+	    "1"
+	  ]
+	}
+  ]
+}

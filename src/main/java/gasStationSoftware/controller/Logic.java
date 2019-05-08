@@ -268,7 +268,7 @@ public class Logic {
         return number;
     }
 
-    public void addItemType(String label, InventoryType type) { //TODO make comp with GOOD
+    public void addItemType(String label, InventoryType type) {
         ItemType newItemType = new ItemType(label, getFreeInvNumber(type), type);
         ItemType[] oldTypes = types;
         types = new ItemType[oldTypes.length + 1];
