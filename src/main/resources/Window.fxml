@@ -9,8 +9,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TreeTableColumn?>
-<?import javafx.scene.control.TreeTableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -26,7 +24,7 @@
          <children>
               <AnchorPane fx:id="menuBarPane" maxHeight="600.0" maxWidth="110.0" minHeight="600.0" minWidth="110.0" prefHeight="600.0" prefWidth="110.0" style="-fx-background-color: #607D8B;">
                   <children>
-                      <Line fx:id="dividerMenuBar" endX="100.0" layoutY="105.0" startX="10.0" stroke="#bdbdbd" />
+                      <Line fx:id="lineMenuBar" endX="100.0" layoutY="105.0" startX="10.0" stroke="#bdbdbd" />
                       <ImageView fx:id="ivUserMenuBar" fitHeight="80.0" fitWidth="80.0" layoutX="15.0" layoutY="14.0" onMousePressed="#handleMenuButtonAction" pickOnBounds="true" preserveRatio="true">
                           <image>
                               <Image url="@images/res100x100/icons8-male-user-100.png" />
@@ -144,7 +142,7 @@
                                       <Font name="System Bold" size="30.0" />
                                   </font>
                               </Label>
-                        <TableView layoutX="65.0" layoutY="90.0" prefHeight="370.0" prefWidth="490.0" />
+                        <TableView fx:id="tFuel" layoutX="65.0" layoutY="90.0" prefHeight="370.0" prefWidth="490.0" />
                               <Label fx:id="lblOrderSumSalesOverview" layoutX="65.0" layoutY="470.0" text="Gesamtsumme:" textFill="#212121">
                                   <font>
                                       <Font name="System Bold" size="20.0" />
@@ -220,18 +218,13 @@
                                       <MaterialDesignIconView fx:id="icoDeliveryInventoryOverview" fill="WHITE" glyphName="PACKAGE_VARIANT" size="20" smooth="false" />
                                   </graphic>
                               </JFXButton>
-                              <TreeTableView fx:id="tGoodsInventoryOverview" layoutX="65.0" layoutY="100.0" prefHeight="400.0" prefWidth="760.0" />
+                              <TableView fx:id="tGoodsInventoryOverview" layoutX="65.0" layoutY="100.0" prefHeight="400.0" prefWidth="760.0" />
                           </children>
                       </AnchorPane>
                       <AnchorPane fx:id="inventoryOrderPane" prefHeight="600.0" prefWidth="890.0" visible="false">
                           <children>
-                              <TreeTableView fx:id="tGoodsInventoryOrder" layoutX="65.0" layoutY="100.0" prefHeight="384.0" prefWidth="446.0">
-                                  <columns>
-                                      <TreeTableColumn prefWidth="218.0" text="Bezeichnung" />
-                                      <TreeTableColumn prefWidth="132.0" text="Menge" />
-                                      <TreeTableColumn prefWidth="95.0" text="Preis" />
-                                  </columns>
-                              </TreeTableView>
+                              <TableView fx:id="tGoodsInventoryOrder" layoutX="65.0" layoutY="100.0" prefHeight="384.0" prefWidth="446.0">
+                              </TableView>
                               <Label fx:id="titleInventoryOrder" layoutX="65.0" layoutY="30.0" text="Waren-Bestellen" textFill="#212121">
                                   <font>
                                       <Font name="System Bold" size="30.0" />
@@ -251,7 +244,7 @@
                                       <Font name="System Bold" size="30.0" />
                                   </font>
                               </Label>
-                              <TreeTableView fx:id="tGoodsInventoryDelivery" layoutX="65.0" layoutY="100.0" prefHeight="400.0" prefWidth="760.0" />
+                              <TableView fx:id="tGoodsInventoryDelivery" layoutX="65.0" layoutY="100.0" prefHeight="400.0" prefWidth="760.0" />
                               <JFXButton fx:id="btnCancelInventoryDelivery" buttonType="RAISED" layoutX="515.0" layoutY="520.0" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Abbrechen" textFill="WHITE" />
                               <JFXButton fx:id="btnImportInventoryDelivery" buttonType="RAISED" layoutX="675.0" layoutY="520.0" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Importieren" textAlignment="CENTER" textFill="WHITE" />
                           </children>
@@ -287,7 +280,7 @@
                                       <MaterialDesignIconView fx:id="icoOrdersFuelOverview" fill="WHITE" glyphName="TRUCK_DELIVERY" size="20" smooth="false" />
                                   </graphic>
                               </JFXButton>
-                              <TreeTableView fx:id="tFuelsFuelOverview" layoutX="65.0" layoutY="100.0" prefHeight="400.0" prefWidth="760.0" />
+                              <TableView fx:id="tFuelsFuelOverview" layoutX="65.0" layoutY="100.0" prefHeight="400.0" prefWidth="760.0" />
                           </children>
                       </AnchorPane>
                       <AnchorPane fx:id="fuelOrderPane" prefHeight="600.0" prefWidth="890.0" visible="false">
@@ -299,7 +292,7 @@
                               </Label>
                               <JFXButton fx:id="btnSubmitFuelOrder" buttonType="RAISED" layoutX="675.0" layoutY="520.0" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Abschicken" textFill="WHITE" />
                               <JFXButton fx:id="btnCancelFuelOrder" buttonType="RAISED" layoutX="515.0" layoutY="520.0" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Abbrechen" textFill="WHITE" />
-                        <TreeTableView fx:id="tFuelsFuelOverview1" layoutX="65.0" layoutY="100.0" prefHeight="400.0" prefWidth="760.0" />
+                        <TableView fx:id="tFuelsFuelOrder" layoutX="65.0" layoutY="100.0" prefHeight="400.0" prefWidth="760.0" />
                           </children>
                       </AnchorPane>
                       <AnchorPane fx:id="fuelDeliveryPane" prefHeight="600.0" prefWidth="890.0">
@@ -309,7 +302,7 @@
                                       <Font name="System Bold" size="30.0" />
                                   </font>
                               </Label>
-                              <TreeTableView fx:id="tDeiveriesFuelDeliveries" layoutX="65.0" layoutY="100.0" prefHeight="400.0" prefWidth="760.0" />
+                              <TableView fx:id="tDeiveriesFuelDeliveries" layoutX="65.0" layoutY="100.0" prefHeight="400.0" prefWidth="760.0" />
                               <JFXButton fx:id="btnCancelFuelDeliveries" buttonType="RAISED" layoutX="515.0" layoutY="520.0" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Abbrechen" textFill="WHITE" />
                               <JFXButton fx:id="btnImportFuelDeliveries" buttonType="RAISED" layoutX="675.0" layoutY="520.0" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Importieren&#10;" textAlignment="CENTER" textFill="WHITE" />
                           </children>
