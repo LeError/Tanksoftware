@@ -15,7 +15,7 @@ public class Employee {
         EMPLOYMENT_DATE = employmentDate;
         FIRST_NAME = firstName;
         SUR_NAME = surname;
-        EMPLOYMENT_DATE_FORMATTED = Utility.getDateForamtted(EMPLOYMENT_DATE);
+        EMPLOYMENT_DATE_FORMATTED = Utility.getDateFormatted(EMPLOYMENT_DATE);
     }
 
     public int getEMPLOYEE_NUMBER() {
