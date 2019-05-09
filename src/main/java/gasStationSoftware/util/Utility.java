@@ -27,7 +27,7 @@ public class Utility {
         return new SimpleDateFormat("dd.MM.yyyy").format(new Date());
     }
 
-    public static String getDateForamtted(Date date) {
+    public static String getDateFormatted(Date date) {
         String pattern = "dd.MM.yyyy";
         DateFormat dateFormatter = new SimpleDateFormat(pattern);
         return dateFormatter.format(date);
@@ -57,7 +57,7 @@ public class Utility {
         return reArray;
     }
 
-    public static ArrayList<ItemType> getInventoryType(ItemType[] iTypes, InventoryType type) {
+    public static ArrayList<ItemType> getInventoryType(ArrayList<ItemType> iTypes, InventoryType type) {
         ArrayList<ItemType> result = new ArrayList<>();
         for(ItemType iType : iTypes){
             if(iType.getTYPE_LABEL().equals(InventoryType.Fuel.getTYPE()) && type.getTYPE().equals(InventoryType.Fuel.getTYPE())) {
