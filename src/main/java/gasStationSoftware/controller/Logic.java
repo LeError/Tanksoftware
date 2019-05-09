@@ -8,11 +8,7 @@ import gasStationSoftware.models.FuelTank;
 import gasStationSoftware.models.GasPump;
 import gasStationSoftware.models.InventoryType;
 import gasStationSoftware.models.ItemType;
-import gasStationSoftware.util.CompareModel;
-import gasStationSoftware.util.ReadFile;
-import gasStationSoftware.util.ReadJSON;
-import gasStationSoftware.util.Utility;
-import gasStationSoftware.util.WriteFile;
+import gasStationSoftware.util.*;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
@@ -216,6 +212,7 @@ public class Logic {
             }
             this.types.add(new ItemType(label[i], Integer.parseInt(inventoryNumber[i]), invType));
         }
+        Collections.sort(this.types, new CompareItemType());
     }
 
     private void createFuelTankObjects(int[] tankID, float[] tankCapacity, float[] tankLevel, int[] tankAssignedFuels) {
@@ -233,6 +230,7 @@ public class Logic {
                 e.printStackTrace();
             }
         }
+        Collections.sort(this.tanks, new CompareFuelTank());
     }
 
     private void createGasPumpObjects(ArrayList<String>[] gasPumps ) {
@@ -249,12 +247,13 @@ public class Logic {
             }
             this.gasPumps.add(new GasPump(i, tanks));
         }
+        Collections.sort(this.gasPumps, new CompareGasPump());
     }
 
     public int getFreeInvNumber(InventoryType type) {
         int number = 1;
         ArrayList<ItemType> types = Utility.getInventoryType(this.types, type);
-        Collections.sort(types, new CompareModel());
+        Collections.sort(types, new CompareItemType());
         for(int i = 0; i < types.size(); i++) {
             if(number != types.get(i).getINVENTORY_NUMBER()) {
                 break;
