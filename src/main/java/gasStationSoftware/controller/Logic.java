@@ -8,7 +8,7 @@ import gasStationSoftware.models.FuelTank;
 import gasStationSoftware.models.GasPump;
 import gasStationSoftware.models.InventoryType;
 import gasStationSoftware.models.ItemType;
-import gasStationSoftware.util.CompareItemType;
+import gasStationSoftware.util.CompareModel;
 import gasStationSoftware.util.ReadFile;
 import gasStationSoftware.util.ReadJSON;
 import gasStationSoftware.util.Utility;
@@ -48,10 +48,10 @@ public class Logic {
             "employees.txt"
     };
 
-    private Employee[] employees;
-    private ItemType[] types;
-    private FuelTank[] tanks;
-    private GasPump[] gasPumps;
+    private ArrayList<Employee> employees = new ArrayList<>();
+    private ArrayList<ItemType> types = new ArrayList<>();
+    private ArrayList<FuelTank> tanks = new ArrayList<>();
+    private ArrayList<GasPump> gasPumps = new ArrayList<>();
 
     private Logic() {
         checkDir(DATA_FILE_PATH);
@@ -176,10 +176,9 @@ public class Logic {
     private void loadEmployees() throws OSException, ParseException {
         ReadFile read = new ReadFile(DATA_FILE_PATH + DATA_FILE_NAMES[3]);
         String[][] lines = read.getLINES();
-        employees = new Employee[lines.length];
-        for(int i = 0; i < employees.length; i++) {
+        for(int i = 0; i < lines.length; i++) {
             Date date = new SimpleDateFormat("dd.MM.yyyy").parse(lines[i][3]);
-            employees[i] = new Employee(Integer.parseInt(lines[i][0]), lines[i][1], lines[i][2], date);
+            employees.add(new Employee(Integer.parseInt(lines[i][0]), lines[i][1], lines[i][2], date));
         }
         for(Employee employee : employees) {
             windowController.addRowTEmployeesEmployeeOverview(employee);
@@ -207,7 +206,6 @@ public class Logic {
     }
 
     private void createItemTYpeObjects(String[] label, String[] inventoryNumber, String[] type) {
-        this.types = new ItemType[inventoryNumber.length];
         for(int i = 0; i < inventoryNumber.length; i++) {
             InventoryType invType = InventoryType.Good;
             switch(type[i]) {
@@ -216,13 +214,12 @@ public class Logic {
                     break;
                 default: invType = InventoryType.Good;
             }
-            this.types[i] = new ItemType(label[i], Integer.parseInt(inventoryNumber[i]), invType);
+            this.types.add(new ItemType(label[i], Integer.parseInt(inventoryNumber[i]), invType));
         }
     }
 
     private void createFuelTankObjects(int[] tankID, float[] tankCapacity, float[] tankLevel, int[] tankAssignedFuels) {
         ArrayList<ItemType> fuels = Utility.getInventoryType(types, InventoryType.Fuel);
-        tanks = new FuelTank[tankAssignedFuels.length];
         for(int i = 0; i < tankAssignedFuels.length; i++) {
             ItemType fuel = null;
             for(ItemType fuelType : fuels){
@@ -231,7 +228,7 @@ public class Logic {
                 }
             }
             try {
-                tanks[i] = new FuelTank(tankID[i], tankCapacity[i], tankLevel[i], fuel);
+                tanks.add(new FuelTank(tankID[i], tankCapacity[i], tankLevel[i], fuel));
             } catch (NumberOutOfRangeException e) {
                 e.printStackTrace();
             }
@@ -239,26 +236,25 @@ public class Logic {
     }
 
     private void createGasPumpObjects(ArrayList<String>[] gasPumps ) {
-        this.gasPumps = new GasPump[gasPumps.length];
         ArrayList<ItemType> types = Utility.getInventoryType(this.types, InventoryType.Fuel);
         for (int i = 0; i < gasPumps.length; i++) {
             ArrayList<FuelTank> tanks = new ArrayList<>();
             for (int j = 0; j < gasPumps[i].size(); j++) {
-                for (int l = 0; l < this.tanks.length; l++) {
-                    if (this.tanks[l].getTANK_NUMBER() == Integer.parseInt(gasPumps[i].get(j)) &&
-                            !tanks.contains(this.tanks[l])) {
-                        tanks.add(this.tanks[l]);
+                for (int l = 0; l < this.tanks.size(); l++) {
+                    if (this.tanks.get(l).getTANK_NUMBER() == Integer.parseInt(gasPumps[i].get(j)) &&
+                            !tanks.contains(this.tanks.get(l))) {
+                        tanks.add(this.tanks.get(l));
                     }
                 }
             }
-            this.gasPumps[i] = new GasPump(i, tanks);
+            this.gasPumps.add(new GasPump(i, tanks));
         }
     }
 
     public int getFreeInvNumber(InventoryType type) {
         int number = 1;
         ArrayList<ItemType> types = Utility.getInventoryType(this.types, type);
-        Collections.sort(types, new CompareItemType());
+        Collections.sort(types, new CompareModel());
         for(int i = 0; i < types.size(); i++) {
             if(number != types.get(i).getINVENTORY_NUMBER()) {
                 break;
@@ -270,12 +266,7 @@ public class Logic {
 
     public void addItemType(String label, InventoryType type) {
         ItemType newItemType = new ItemType(label, getFreeInvNumber(type), type);
-        ItemType[] oldTypes = types;
-        types = new ItemType[oldTypes.length + 1];
-        for(int i = 0; i < oldTypes.length; i++) {
-            types[i] = oldTypes[i];
-        }
-        types[types.length - 1] = newItemType;
+        types.add(newItemType);
         windowController.addRowTFuelsSettingsFuel(newItemType);
     }
 }
