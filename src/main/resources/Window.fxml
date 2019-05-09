@@ -3,17 +3,12 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXDatePicker?>
-<?import com.jfoenix.controls.JFXListView?>
-<?import com.jfoenix.controls.JFXTreeTableView?>
 <?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
 <?import java.lang.Double?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TreeTableColumn?>
 <?import javafx.scene.control.TreeTableView?>
 <?import javafx.scene.image.Image?>
@@ -25,7 +20,7 @@
 <?import javafx.scene.text.Font?>
 
 <?import java.util.ArrayList?>
-<StackPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gasStationSoftware.controller.WindowController">
+<StackPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gasStationSoftware.controller.WindowController">
     <children>
       <AnchorPane prefHeight="200.0" prefWidth="200.0">
          <children>
@@ -149,7 +144,7 @@
                                       <Font name="System Bold" size="30.0" />
                                   </font>
                               </Label>
-                              <JFXTreeTableView fx:id="tOrderSalesOverview" layoutX="64.0" layoutY="87.0" prefHeight="368.0" prefWidth="487.0" style="-fx-background-color: #CFD8DC;" />
+                        <TableView layoutX="65.0" layoutY="90.0" prefHeight="370.0" prefWidth="490.0" />
                               <Label fx:id="lblOrderSumSalesOverview" layoutX="65.0" layoutY="470.0" text="Gesamtsumme:" textFill="#212121">
                                   <font>
                                       <Font name="System Bold" size="20.0" />
@@ -165,7 +160,7 @@
                                       <Font size="20.0" />
                                   </font>
                               </Label>
-                              <JFXButton fx:id="btnCheckOutSalesOverview" buttonType="RAISED" layoutX="64.0" layoutY="507.0" prefHeight="45.0" prefWidth="487.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Bezahlen" textFill="WHITE">
+                              <JFXButton fx:id="btnCheckOutSalesOverview" buttonType="RAISED" layoutX="65.0" layoutY="505.0" prefHeight="45.0" prefWidth="490.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Bezahlen" textFill="WHITE">
                                   <font>
                                       <Font name="System Bold" size="20.0" />
                                   </font>
@@ -176,7 +171,7 @@
                                       <MaterialDesignIconView fx:id="icoCheckOutSalesOverview" fill="WHITE" glyphName="CASH_MULTIPLE" size="30" smooth="false" />
                                   </graphic>
                               </JFXButton>
-                              <JFXButton fx:id="btnGoodsSalesOverview" buttonType="RAISED" layoutX="573.0" layoutY="339.0" prefHeight="213.0" prefWidth="258.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Waren" textFill="WHITE">
+                              <JFXButton fx:id="btnGoodsSalesOverview" buttonType="RAISED" layoutX="580.0" layoutY="285.0" prefHeight="175.0" prefWidth="260.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Waren" textFill="WHITE">
                                   <font>
                                       <Font name="System Bold" size="20.0" />
                                   </font>
@@ -184,7 +179,7 @@
                                       <MaterialDesignIconView fx:id="icoGoodsSalesOverview" fill="WHITE" glyphName="CART_PLUS" size="30" />
                                   </graphic>
                               </JFXButton>
-                              <JFXButton fx:id="btnGasPumpsSalesOverview" buttonType="RAISED" layoutX="573.0" layoutY="111.0" prefHeight="213.0" prefWidth="258.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Säulen" textFill="WHITE">
+                              <JFXButton fx:id="btnGasPumpsSalesOverview" buttonType="RAISED" layoutX="580.0" layoutY="90.0" prefHeight="175.0" prefWidth="260.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Säulen" textFill="WHITE">
                                   <font>
                                       <Font name="System Bold" size="20.0" />
                                   </font>
@@ -208,63 +203,57 @@
                               <Double fx:value="-60.0" />
                           </points>
                       </Polygon>
-                      <AnchorPane fx:id="inventoryOverviewPane" prefHeight="600.0" prefWidth="890.0" visible="false">
+                      <AnchorPane fx:id="inventoryOverviewPane" prefHeight="600.0" prefWidth="890.0">
                           <children>
                               <Label fx:id="titleInventoryOverview" layoutX="65.0" layoutY="30.0" text="Warenmanagement" textFill="#212121">
                                   <font>
                                       <Font name="System Bold" size="30.0" />
                                   </font>
                               </Label>
-                              <JFXButton fx:id="btnOrderInventoryOverview" buttonType="RAISED" layoutX="65.0" layoutY="520.0" prefHeight="45.0" prefWidth="250.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Bestellen" textFill="WHITE">
-                                  <font>
-                                      <Font name="System Bold" size="20.0" />
-                                  </font>
+                              <JFXButton fx:id="btnOrderInventoryOverview" buttonType="RAISED" layoutX="515.0" layoutY="520.0" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Bestellen" textFill="WHITE">
                                   <graphic>
-                                      <MaterialDesignIconView fx:id="icoOrderInventoryOverview" fill="WHITE" glyphName="TRUCK_DELIVERY" size="30" smooth="false" />
+                                      <MaterialDesignIconView fx:id="icoOrderInventoryOverview" fill="WHITE" glyphName="TRUCK_DELIVERY" size="20" smooth="false" />
                                   </graphic>
                               </JFXButton>
-                              <JFXButton fx:id="btnDeliveriesInventoryOverview" buttonType="RAISED" layoutX="350.0" layoutY="520.0" prefHeight="45.0" prefWidth="250.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Lieferung" textFill="WHITE">
-                                  <font>
-                                      <Font name="System Bold" size="20.0" />
-                                  </font>
+                              <JFXButton fx:id="btnDeliveriesInventoryOverview" buttonType="RAISED" layoutX="675.0" layoutY="520.0" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Lieferung" textFill="WHITE">
                                   <graphic>
-                                      <MaterialDesignIconView fx:id="icoDeliveryInventoryOverview" fill="WHITE" glyphName="PACKAGE_VARIANT" size="30" smooth="false" />
+                                      <MaterialDesignIconView fx:id="icoDeliveryInventoryOverview" fill="WHITE" glyphName="PACKAGE_VARIANT" size="20" smooth="false" />
                                   </graphic>
                               </JFXButton>
-                              <TreeTableView fx:id="tGoodsInventoryOverview" layoutX="65.0" layoutY="100.0" prefHeight="384.0" prefWidth="761.0" />
+                              <TreeTableView fx:id="tGoodsInventoryOverview" layoutX="65.0" layoutY="100.0" prefHeight="400.0" prefWidth="760.0" />
                           </children>
                       </AnchorPane>
                       <AnchorPane fx:id="inventoryOrderPane" prefHeight="600.0" prefWidth="890.0" visible="false">
                           <children>
-                              <TreeTableView fx:id="tGoodsInventoryOrder" layoutX="57.0" layoutY="100.0" prefHeight="384.0" prefWidth="446.0">
+                              <TreeTableView fx:id="tGoodsInventoryOrder" layoutX="65.0" layoutY="100.0" prefHeight="384.0" prefWidth="446.0">
                                   <columns>
                                       <TreeTableColumn prefWidth="218.0" text="Bezeichnung" />
                                       <TreeTableColumn prefWidth="132.0" text="Menge" />
                                       <TreeTableColumn prefWidth="95.0" text="Preis" />
                                   </columns>
                               </TreeTableView>
-                              <Label fx:id="titleInventoryOrder" layoutX="65.0" layoutY="30.0" text="Waren bestellen" textFill="#212121">
+                              <Label fx:id="titleInventoryOrder" layoutX="65.0" layoutY="30.0" text="Waren-Bestellen" textFill="#212121">
                                   <font>
                                       <Font name="System Bold" size="30.0" />
                                   </font>
                               </Label>
-                              <JFXButton fx:id="btnGroceriesInventoryOrder" buttonType="RAISED" layoutX="530.0" layoutY="100.0" prefHeight="200.0" prefWidth="324.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Lebensmittel" textFill="WHITE" />
-                              <JFXButton fx:id="btnOtherInventoryOrder" buttonType="RAISED" layoutX="705.0" layoutY="315.0" prefHeight="170.0" prefWidth="145.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Sonstiges" textFill="WHITE" />
-                              <JFXButton fx:id="btnAdultInventoryOrder" buttonType="RAISED" layoutX="530.0" layoutY="315.0" prefHeight="170.0" prefWidth="145.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Artikel ab 18" textFill="WHITE" />
-                              <JFXButton fx:id="btnCanelInventoryOrder" buttonType="RAISED" layoutX="530.0" layoutY="520.0" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Abbrechen" textFill="WHITE" />
-                              <JFXButton fx:id="btnSubmitInventoryOrder" buttonType="RAISED" layoutX="705.0" layoutY="520.0" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Abschicken" textFill="WHITE" />
+                              <JFXButton fx:id="btnGroceriesInventoryOrder" buttonType="RAISED" layoutX="530.0" layoutY="100.0" prefHeight="200.0" prefWidth="325.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Lebensmittel" textFill="WHITE" />
+                              <JFXButton fx:id="btnOtherInventoryOrder" buttonType="RAISED" layoutX="702.0" layoutY="315.0" prefHeight="170.0" prefWidth="152.5" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Sonstiges" textFill="WHITE" />
+                              <JFXButton fx:id="btnAdultInventoryOrder" buttonType="RAISED" layoutX="529.0" layoutY="315.0" prefHeight="170.0" prefWidth="152.5" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Artikel ab 18" textFill="WHITE" />
+                              <JFXButton fx:id="btnCanelInventoryOrder" buttonType="RAISED" layoutX="530.0" layoutY="520.0" prefHeight="30.0" prefWidth="152.5" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Abbrechen" textFill="WHITE" />
+                              <JFXButton fx:id="btnSubmitInventoryOrder" buttonType="RAISED" layoutX="702.0" layoutY="520.0" prefHeight="30.0" prefWidth="152.5" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Abschicken" textFill="WHITE" />
                           </children>
                       </AnchorPane>
-                      <AnchorPane fx:id="inventoryDeliveryPane" prefHeight="600.0" prefWidth="890.0">
+                      <AnchorPane fx:id="inventoryDeliveryPane" prefHeight="600.0" prefWidth="890.0" visible="false">
                           <children>
                               <Label fx:id="titleInventoryDelivery" layoutX="65.0" layoutY="30.0" text="Waren-Lieferungen" textFill="#212121">
                                   <font>
                                       <Font name="System Bold" size="30.0" />
                                   </font>
                               </Label>
-                              <TreeTableView fx:id="tGoodsInventoryDelivery" layoutX="57.0" layoutY="100.0" prefHeight="384.0" prefWidth="630.0" />
-                              <JFXButton fx:id="btnCancelInventoryDelivery" buttonType="RAISED" layoutX="65.0" layoutY="520.0" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Abbrechen" textFill="WHITE" />
-                              <JFXButton fx:id="btnImportInventoryDelivery" buttonType="RAISED" layoutX="705.0" layoutY="100.0" prefHeight="384.0" prefWidth="145.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Lieferung&#10;aus Datei&#10;importieren" textAlignment="CENTER" textFill="WHITE" />
+                              <TreeTableView fx:id="tGoodsInventoryDelivery" layoutX="65.0" layoutY="100.0" prefHeight="400.0" prefWidth="760.0" />
+                              <JFXButton fx:id="btnCancelInventoryDelivery" buttonType="RAISED" layoutX="515.0" layoutY="520.0" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Abbrechen" textFill="WHITE" />
+                              <JFXButton fx:id="btnImportInventoryDelivery" buttonType="RAISED" layoutX="675.0" layoutY="520.0" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Importieren" textAlignment="CENTER" textFill="WHITE" />
                           </children>
                       </AnchorPane>
                   </children>
@@ -288,23 +277,17 @@
                                       <Font name="System Bold" size="30.0" />
                                   </font>
                               </Label>
-                              <JFXButton fx:id="btnDeliveriesFuelOverview" buttonType="RAISED" layoutX="350.0" layoutY="520.0" prefHeight="45.0" prefWidth="250.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Lieferungen" textFill="WHITE">
-                                  <font>
-                                      <Font name="System Bold" size="20.0" />
-                                  </font>
+                              <JFXButton fx:id="btnDeliveriesFuelOverview" buttonType="RAISED" layoutX="675.0" layoutY="520.0" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Lieferung" textFill="WHITE">
                                   <graphic>
-                                      <MaterialDesignIconView fx:id="icoDeiveriesFuelOverview" fill="WHITE" glyphName="PACKAGE_VARIANT" size="30" smooth="false" />
+                                      <MaterialDesignIconView fx:id="icoDeiveriesFuelOverview" fill="WHITE" glyphName="PACKAGE_VARIANT" size="20" smooth="false" />
                                   </graphic>
                               </JFXButton>
-                              <JFXButton fx:id="btnOrdersFuelOverview" buttonType="RAISED" layoutX="65.0" layoutY="520.0" prefHeight="45.0" prefWidth="250.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Bestellen" textFill="WHITE">
-                                  <font>
-                                      <Font name="System Bold" size="20.0" />
-                                  </font>
+                              <JFXButton fx:id="btnOrdersFuelOverview" buttonType="RAISED" layoutX="515.0" layoutY="520.0" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Bestellen" textFill="WHITE">
                                   <graphic>
-                                      <MaterialDesignIconView fx:id="icoOrdersFuelOverview" fill="WHITE" glyphName="TRUCK_DELIVERY" size="30" smooth="false" />
+                                      <MaterialDesignIconView fx:id="icoOrdersFuelOverview" fill="WHITE" glyphName="TRUCK_DELIVERY" size="20" smooth="false" />
                                   </graphic>
                               </JFXButton>
-                              <TreeTableView fx:id="tFuelsFuelOverview" layoutX="65.0" layoutY="100.0" prefHeight="384.0" prefWidth="761.0" />
+                              <TreeTableView fx:id="tFuelsFuelOverview" layoutX="65.0" layoutY="100.0" prefHeight="400.0" prefWidth="760.0" />
                           </children>
                       </AnchorPane>
                       <AnchorPane fx:id="fuelOrderPane" prefHeight="600.0" prefWidth="890.0" visible="false">
@@ -314,9 +297,9 @@
                                       <Font name="System Bold" size="30.0" />
                                   </font>
                               </Label>
-                              <JFXListView fx:id="lvOrderFuelOrder" layoutX="95.0" layoutY="100.0" prefHeight="400.0" prefWidth="700.0" />
-                              <JFXButton fx:id="btnSubmitFuelOrder" buttonType="RAISED" layoutX="705.0" layoutY="520.0" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Abschicken" textFill="WHITE" />
-                              <JFXButton fx:id="btnCancelFuelOrder" buttonType="RAISED" layoutX="530.0" layoutY="520.0" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Abbrechen" textFill="WHITE" />
+                              <JFXButton fx:id="btnSubmitFuelOrder" buttonType="RAISED" layoutX="675.0" layoutY="520.0" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Abschicken" textFill="WHITE" />
+                              <JFXButton fx:id="btnCancelFuelOrder" buttonType="RAISED" layoutX="515.0" layoutY="520.0" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Abbrechen" textFill="WHITE" />
+                        <TreeTableView fx:id="tFuelsFuelOverview1" layoutX="65.0" layoutY="100.0" prefHeight="400.0" prefWidth="760.0" />
                           </children>
                       </AnchorPane>
                       <AnchorPane fx:id="fuelDeliveryPane" prefHeight="600.0" prefWidth="890.0">
@@ -326,9 +309,9 @@
                                       <Font name="System Bold" size="30.0" />
                                   </font>
                               </Label>
-                              <TreeTableView fx:id="tDeiveriesFuelDeliveries" layoutX="57.0" layoutY="100.0" prefHeight="384.0" prefWidth="630.0" />
-                              <JFXButton fx:id="btnCancelFuelDeliveries" buttonType="RAISED" layoutX="65.0" layoutY="520.0" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Abbrechen" textFill="WHITE" />
-                              <JFXButton fx:id="btnImportFuelDeliveries" buttonType="RAISED" layoutX="705.0" layoutY="100.0" prefHeight="384.0" prefWidth="145.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Lieferung&#10;aus Datei&#10;importieren" textAlignment="CENTER" textFill="WHITE" />
+                              <TreeTableView fx:id="tDeiveriesFuelDeliveries" layoutX="65.0" layoutY="100.0" prefHeight="400.0" prefWidth="760.0" />
+                              <JFXButton fx:id="btnCancelFuelDeliveries" buttonType="RAISED" layoutX="515.0" layoutY="520.0" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Abbrechen" textFill="WHITE" />
+                              <JFXButton fx:id="btnImportFuelDeliveries" buttonType="RAISED" layoutX="675.0" layoutY="520.0" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Importieren&#10;" textAlignment="CENTER" textFill="WHITE" />
                           </children>
                       </AnchorPane>
                   </children>
@@ -345,55 +328,20 @@
                               <Double fx:value="-60.0" />
                           </points>
                       </Polygon>
-                      <AnchorPane fx:id="employeeOverviewPane" minHeight="600.0" minWidth="890.0" prefHeight="600.0" prefWidth="890.0" style="-fx-background-color: #CFD8DC;">
+                      <AnchorPane fx:id="employeeOverviewPane" minHeight="600.0" minWidth="890.0" prefHeight="600.0" prefWidth="890.0">
                           <children>
-                              <Label fx:id="titleEmployeeOverview" layoutX="53.0" layoutY="33.0" text="Mitarbeitermanagement">
+                              <Label fx:id="titleEmployeeOverview" layoutX="65.0" layoutY="30.0" text="Mitarbeitermanagement">
                                   <font>
                                       <Font size="36.0" />
                                   </font>
                               </Label>
-                              <TableView fx:id="tEmployeesEmployeeOverview" layoutX="53.0" layoutY="115.0" prefHeight="384.0" prefWidth="663.0">
+                              <TableView fx:id="tEmployeesEmployeeOverview" layoutX="65.0" layoutY="100.0" prefHeight="400.0" prefWidth="760.0">
                                   <columnResizePolicy>
                                       <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                   </columnResizePolicy>
                               </TableView>
-                              <JFXButton fx:id="btnDelete" layoutX="756.0" layoutY="151.0" style="-fx-background-color: #F60505;" text="Löschen" textFill="WHITE">
-                                  <font>
-                                      <Font size="18.0" />
-                                  </font>
-                              </JFXButton>
-                              <JFXButton fx:id="btnCreateEmployeeOverview" layoutX="52.0" layoutY="524.0" style="-fx-background-color: #607D8B;" text="Mitarbeiter anlegen" textFill="#f8f8f8">
-                                  <font>
-                                      <Font size="24.0" />
-                                  </font>
-                              </JFXButton>
-                          </children>
-                      </AnchorPane>
-                      <AnchorPane fx:id="employeeCreatePane" layoutX="-1.0" prefHeight="600.0" prefWidth="890.0" visible="false">
-                          <children>
-                              <Label fx:id="titleEmployeeCreate" layoutX="27.0" layoutY="33.0" text="Mitarbeitermanagement">
-                                  <font>
-                                      <Font size="36.0" />
-                                  </font>
-                              </Label>
-                              <Label fx:id="lblFirstnameEmployeeCreate" layoutX="113.0" layoutY="125.0" text="Vorname:" />
-                              <Label fx:id="lblFamilynameEmployeeCreate" layoutX="116.0" layoutY="212.0" text="Nachname:" />
-                              <Label fx:id="lblPositionEmployeeCreate" layoutX="120.0" layoutY="304.0" text="Position:" />
-                              <Label fx:id="lblPictureEmployeeCreate" layoutX="119.0" layoutY="402.0" text="Mitarbeiterbild:" />
-                              <TextField fx:id="txtFirstnameEmployeeCreate" layoutX="113.0" layoutY="152.0" prefHeight="31.0" prefWidth="212.0" />
-                              <TextField fx:id="txtFamilynameEmployeeCreate" layoutX="115.0" layoutY="243.0" prefHeight="31.0" prefWidth="212.0" />
-                              <ComboBox fx:id="cbPositionEmployeeCreate" layoutX="115.0" layoutY="333.0" prefHeight="31.0" prefWidth="212.0" />
-                              <JFXButton fx:id="btnCreateEmployeeCreate" layoutX="68.0" layoutY="519.0" style="-fx-background-color: #607D8B;" text="Mitarbeiter anlegen" textFill="WHITE">
-                                  <font>
-                                      <Font size="24.0" />
-                                  </font>
-                              </JFXButton>
-                              <JFXButton fx:id="btnSelectPictureEmployeeCreate" layoutX="237.0" layoutY="397.0" ripplerFill="BLACK" style="-fx-background-color: #607D8B;" text="Auswählen" textFill="WHITE" />
-                              <JFXButton fx:id="btnCancelEmployeeCreate" cancelButton="true" layoutX="329.0" layoutY="520.0" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: #607D8B;" text="Abbrechen" textFill="WHITE">
-                                  <font>
-                                      <Font size="24.0" />
-                                  </font>
-                              </JFXButton>
+                              <JFXButton fx:id="btnCreateEmployeeOverview" layoutX="515.0" layoutY="520.0" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B;" text="Mitarbeiter anlegen" textFill="#f8f8f8" />
+                        <JFXButton fx:id="btnEditEmployeeOverview" layoutX="675.0" layoutY="520.0" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B;" text="Mitarbeiter anlegen" textFill="#f8f8f8" />
                           </children>
                       </AnchorPane>
                   </children>
@@ -403,32 +351,29 @@
                       <Polygon fx:id="polygonReport" fill="#607d8a" layoutX="31.0" layoutY="410.0" points="-35.0, 91.0, 20.0, 60.0, -35.0, 31.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-background-color: #607D8B;" />
                       <AnchorPane fx:id="reportOverviewPane" minHeight="600.0" minWidth="890.0" prefHeight="600.0" prefWidth="890.0">
                           <children>
-                              <Label fx:id="titleReportOverview" layoutX="51.0" layoutY="34.0" text="Reporting">
+                              <Label fx:id="titleReportOverview" layoutX="65.0" layoutY="30.0" text="Reporting">
                                   <font>
                                       <Font size="36.0" />
                                   </font>
                               </Label>
-                              <TableView fx:id="tReportReportOverview" layoutX="51.0" layoutY="130.0" prefHeight="250.0" prefWidth="732.0">
-                                  <columns>
-                                      <TableColumn prefWidth="75.0" text="C1" />
-                                      <TableColumn prefWidth="75.0" text="C2" />
-                                  </columns>
+                              <TableView fx:id="tReportReportOverview" layoutX="65.0" layoutY="100.0" prefHeight="250.0" prefWidth="732.0">
                                   <columnResizePolicy>
                                       <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                   </columnResizePolicy>
                               </TableView>
-                              <Label fx:id="lblBalanceReportOverview" layoutX="102.0" layoutY="410.0" text="Bilanz">
+                              <Label fx:id="lblBalanceReportOverview" layoutX="65.0" layoutY="375.0" text="Bilanz">
                                   <font>
                                       <Font size="18.0" />
                                   </font>
                               </Label>
-                              <Label fx:id="lblTimespanReportOverview" layoutX="104.0" layoutY="454.0" text="Zeitraum:" />
-                              <Label fx:id="lblSalesReportOverview" layoutX="104.0" layoutY="491.0" text="Verkaufserlöse:" />
-                              <Label fx:id="lblCostsReportOverview" layoutX="104.0" layoutY="511.0" text="Einkaufskosten:" />
-                              <Label fx:id="lblResultReportOverview" layoutX="104.0" layoutY="537.0" text="Differenz:" />
-                              <Line fx:id="dividerReportOverview" endX="649.0" layoutX="195.0" layoutY="437.0" startX="-100.0" />
-                              <Line fx:id="dividerBalanceReportOverview" endX="170.0" layoutX="196.0" layoutY="532.0" startX="-100.0" />
-                              <JFXDatePicker fx:id="dpTimespanReportOverview" layoutX="189.0" layoutY="449.0" />
+                              <Label fx:id="lblTimespanReportOverview" layoutX="85.0" layoutY="425.0" text="Zeitraum:" />
+                              <Label fx:id="lblSalesReportOverview" layoutX="85.0" layoutY="475.0" text="Verkaufserlöse:" />
+                              <Label fx:id="lblCostsReportOverview" layoutX="85.0" layoutY="500.0" text="Einkaufskosten:" />
+                              <Label fx:id="lblResultReportOverview" layoutX="85.0" layoutY="540.0" text="Differenz:" />
+                              <Line fx:id="dividerReportOverview" endX="730.0" layoutX="65.0" layoutY="410.0" />
+                              <Line fx:id="dividerBalanceReportOverview" endX="250.0" layoutX="85.0" layoutY="530.0" />
+                              <JFXDatePicker fx:id="dpTimespanReportOverview" layoutX="150.0" layoutY="425.0" />
+                        <JFXDatePicker fx:id="dpTimespanReportOverview1" layoutX="400.0" layoutY="425.0" />
                           </children>
                       </AnchorPane>
                   </children>
