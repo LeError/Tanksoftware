@@ -1,6 +1,11 @@
 package gasStationSoftware.controller;
 
-import com.jfoenix.controls.*;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
+import com.jfoenix.controls.JFXTextField;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import gasStationSoftware.models.Employee;
@@ -92,7 +97,8 @@ implements Initializable {
     @FXML private AnchorPane settingsPane, settingsOverviewPane, settingsFuelPane, settingsTankPane, settingsGasPumpPane, settingsGoodPane;
     @FXML private Polygon polygonSettings;
     @FXML private JFXButton btnEditThemeSettingsOverview, btnCreateThemeSettingsOverview, btnFuelsSettingsOverview, btnTanksSettingsOverview, btnGasPumpsSettingsOverview;
-    @FXML private JFXButton btnGoodsSettingsOverview, btnExportSettingsOverview, btnImportSettingsOverview, btnNewSettingsFuel, btnEditSettingsFuel;
+    @FXML private JFXButton btnGoodsSettingsOverview, btnExportSettingsOverview, btnImportSettingsOverview, btnNewSettingsFuel, btnEditSettingsFuel, btnNewSettingsTank;
+    @FXML private JFXButton btnEditSettingsTank, btnNewSettingsGasPump, btnEditSettingsGasPump, btnNewSettingsGood, btnEditSettingsGood;
     @FXML private JFXComboBox cbThemeSettingsOverview, cbTypeSettingsOverview;
     @FXML private TableView tFuelsSettingsFuel, tTanksSettingsTank, tGasPumpsSettingsGasPump, tGoodsSettingsGood;
 
@@ -153,6 +159,12 @@ implements Initializable {
         } else if (event.getTarget() == btnImportSettingsOverview) {
         } else if (event.getTarget() == btnNewSettingsFuel) {
             showFuelTypeInputDialog();
+        } else if (event.getTarget() == btnNewSettingsTank) {
+            showFuelTankInputDialog();
+        } else if (event.getTarget() == btnNewSettingsGasPump) {
+
+        } else if (event.getTarget() == btnNewSettingsGood) {
+
         }
     }
 
@@ -301,32 +313,28 @@ implements Initializable {
     }
 
     private void showFuelTypeInputDialog() {
-        AnchorPane pane = new AnchorPane();
-        pane.setPrefSize(160, 150);
+        JFXTextField txtInventoryNumber = getTextfield(140, 30, true, 10d, 5d, 5d);
+        txtInventoryNumber.setText(String.valueOf(logic.getFreeInvNumber(InventoryType.Fuel)));
 
-        JFXTextField txtInventoryNumber = new JFXTextField(String.valueOf(logic.getFreeInvNumber(InventoryType.Fuel)));
-        txtInventoryNumber.setPrefSize(140,30);
-        txtInventoryNumber.setDisable(true);
-        AnchorPane.setTopAnchor(txtInventoryNumber, 10d);
-        AnchorPane.setRightAnchor(txtInventoryNumber, 5d);
-        AnchorPane.setLeftAnchor(txtInventoryNumber, 5d);
-
-        JFXTextField txtLabel = new JFXTextField();
+        JFXTextField txtLabel = getTextfield(140, 30, false, 60d, 5d, 5d);
         txtLabel.setPromptText("Bezeichner");
         txtLabel.setPrefSize(140,30);
-        AnchorPane.setTopAnchor(txtLabel, 60d);
-        AnchorPane.setRightAnchor(txtLabel, 5d);
-        AnchorPane.setLeftAnchor(txtLabel, 5d);
 
-        JFXTextField txtType = new JFXTextField(InventoryType.Fuel.getTYPE());
-        txtType.setPrefSize(140,30);
-        txtType.setDisable(true);
-        AnchorPane.setTopAnchor(txtType, 110d);
-        AnchorPane.setRightAnchor(txtType, 5d);
-        AnchorPane.setLeftAnchor(txtType, 5d);
+        JFXTextField txtType = getTextfield(140, 30, true, 110d, 5d, 5d);
+        txtType.setText(InventoryType.Fuel.getTYPE());
 
+        AnchorPane pane = getAnchorPane(160, 150);
         pane.getChildren().addAll(txtInventoryNumber, txtLabel, txtType);
         inputDialog(pane, "Erstellen Kraftstofftype", "FUEL_TYPE");
+    }
+
+    private void showFuelTankInputDialog() {
+        JFXTextField txtInventoryNumber = getTextfield(140, 30, true, 10d, 5d, 5d);
+        txtInventoryNumber.setText(String.valueOf(logic.getFreeTankNumber()));
+
+        AnchorPane pane = getAnchorPane(160, 150);
+        pane.getChildren().addAll(txtInventoryNumber);
+        inputDialog(pane, "Erstellen Kraftstofftank", "FUEL_TANK");
     }
 
     @FXML
@@ -364,6 +372,23 @@ implements Initializable {
                 break;
             default: //TODO raise error
         }
+    }
+
+    private JFXTextField getTextfield(int prefWidth, int prefHeight, boolean disable, double topAnchor,
+    double rightAnchor, double leftAnchor) {
+        JFXTextField txtField = new JFXTextField();
+        txtField.setPrefSize(prefWidth, prefHeight);
+        txtField.setDisable(disable);
+        AnchorPane.setTopAnchor(txtField, topAnchor);
+        AnchorPane.setRightAnchor(txtField, rightAnchor);
+        AnchorPane.setLeftAnchor(txtField, leftAnchor);
+        return txtField;
+    }
+
+    private AnchorPane getAnchorPane(int prefWidth, int prefHeight) {
+        AnchorPane pane = new AnchorPane();
+        pane.setPrefSize(prefWidth, prefHeight);
+        return pane;
     }
 
     private void processFuelTypeInput(AnchorPane input) {
