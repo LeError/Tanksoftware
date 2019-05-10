@@ -392,6 +392,8 @@ implements Initializable {
             case "ITEM_TYPE":
                 processItemTypeInput(input);
                 break;
+            case "FUEL_TANK":
+                processFuelTankInput(input);
             default: //TODO raise error
         }
     }
@@ -406,6 +408,12 @@ implements Initializable {
                 break;
             default: //TODO raise error
         }
+    }
+
+    private void processFuelTankInput(AnchorPane input) {
+        float capacity = Float.parseFloat(((JFXTextField) input.getChildren().get(1)).getText());
+        float level = Float.parseFloat(((JFXTextField) input.getChildren().get(2)).getText());
+        logic.addFuelTank(capacity, level, ((JFXComboBox<String>) input.getChildren().get(3)).getSelectionModel().getSelectedIndex());
     }
 
     private JFXComboBox<String> getComboBox(ArrayList<String> content, String promptText, int prefWidth, int prefHeight, double topAnchor, double rightAnchor, double leftAnchor) {

@@ -293,6 +293,19 @@ public class Logic {
         saveInventory();
     }
 
+    public void addFuelTank(float capacity, float level, int fuel) {
+        try {
+            ArrayList<ItemType> fuels = Utility.getInventoryType(types, InventoryType.Fuel);
+            FuelTank newFuelTank = new FuelTank(getFreeTankNumber(), capacity, level, fuels.get(fuel));
+            tanks.add(newFuelTank);
+            windowController.addRowTTanksSettingsTank(newFuelTank);
+            saveInventory();
+        } catch (NumberOutOfRangeException e) {
+            e.printStackTrace();
+            System.out.print(3456);
+        }
+    }
+
     private void saveInventory() {
         WriteJSON write = new WriteJSON(DATA_FILE_PATH + DATA_FILE_NAMES[0]);
         write.addItemArray("tankCapacity", getTankCapacity());
