@@ -261,8 +261,20 @@ public class Logic {
         int number = 1;
         ArrayList<ItemType> types = Utility.getInventoryType(this.types, type);
         Collections.sort(types, new CompareItemType());
-        for(int i = 0; i < types.size(); i++) {
-            if(number != types.get(i).getINVENTORY_NUMBER()) {
+        for (ItemType iType : types) {
+            if (number != iType.getINVENTORY_NUMBER()) {
+                break;
+            }
+            number++;
+        }
+        return number;
+    }
+
+    public int getFreeTankNumber() {
+        int number = 1;
+        Collections.sort(tanks, new CompareFuelTank());
+        for (FuelTank tank : tanks) {
+            if (number != tank.getTANK_NUMBER()) {
                 break;
             }
             number++;
