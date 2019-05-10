@@ -337,13 +337,7 @@ implements Initializable {
         JFXTextField txtLevel = getTextfield(140, 30, false, 110d, 5d, 5d);
         txtLevel.setPromptText("Füllstand in l");
 
-        JFXComboBox<String> cbFuels = new JFXComboBox<>();
-        cbFuels.getItems().addAll(logic.getFuel());
-        cbFuels.setPrefSize(140, 30);
-        AnchorPane.setTopAnchor(cbFuels, 160d);
-        AnchorPane.setRightAnchor(cbFuels, 5d);
-        AnchorPane.setLeftAnchor(cbFuels, 5d);
-        cbFuels.setPromptText("Kraftstoff wählen");
+        JFXComboBox<String> cbFuels = getComboBox(logic.getFuel(), "Kraftstoff wählen", 140, 30, 160d, 5d, 5d);
 
         AnchorPane pane = getAnchorPane(160, 200);
         pane.getChildren().addAll(txtInventoryNumber, txtCapacity, txtLevel, cbFuels);
@@ -387,6 +381,21 @@ implements Initializable {
         }
     }
 
+    private void processFuelTypeInput(AnchorPane input) {
+        logic.addItemType(((JFXTextField) input.getChildren().get(1)).getText(), InventoryType.Fuel);
+    }
+
+    private JFXComboBox<String> getComboBox(ArrayList<String> content, String promptText, int prefWidth, int prefHeight, double topAnchor, double rightAnchor, double leftAnchor) {
+        JFXComboBox<String> cb = new JFXComboBox<>();
+        cb.getItems().addAll(content);
+        cb.setPromptText(promptText);
+        cb.setPrefSize(prefWidth, prefHeight);
+        AnchorPane.setTopAnchor(cb, topAnchor);
+        AnchorPane.setRightAnchor(cb, rightAnchor);
+        AnchorPane.setLeftAnchor(cb, leftAnchor);
+        return cb;
+    }
+
     private JFXTextField getTextfield(int prefWidth, int prefHeight, boolean disable, double topAnchor,
     double rightAnchor, double leftAnchor) {
         JFXTextField txtField = new JFXTextField();
@@ -403,9 +412,4 @@ implements Initializable {
         pane.setPrefSize(prefWidth, prefHeight);
         return pane;
     }
-
-    private void processFuelTypeInput(AnchorPane input) {
-        logic.addItemType(((JFXTextField) input.getChildren().get(1)).getText(), InventoryType.Fuel);
-    }
-
 }
