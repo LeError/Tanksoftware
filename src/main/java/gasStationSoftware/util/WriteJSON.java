@@ -37,6 +37,20 @@ public class WriteJSON {
         obj.put(name, list);
     }
 
+    public void addItemArrayListArray(String name, String subName, ArrayList<String>[] items) {
+        JSONArray list = new JSONArray();
+        for (ArrayList<String> entry : items) {
+            JSONObject subObj = new JSONObject();
+            JSONArray subList = new JSONArray();
+            for (String item : entry) {
+                subList.add(item);
+            }
+            subObj.put(subName, subList);
+            list.add(subObj);
+        }
+        obj.put(name, list);
+    }
+
     public void write(boolean overwrite) {
         if (overwrite && path.isFile() || !path.isFile()) {
             try (FileWriter file = new FileWriter(path)) {
