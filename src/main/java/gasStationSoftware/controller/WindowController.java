@@ -318,7 +318,6 @@ implements Initializable {
 
         JFXTextField txtLabel = getTextfield(140, 30, false, 60d, 5d, 5d);
         txtLabel.setPromptText("Bezeichner");
-        txtLabel.setPrefSize(140,30);
 
         JFXTextField txtType = getTextfield(140, 30, true, 110d, 5d, 5d);
         txtType.setText(InventoryType.Fuel.getTYPE());
@@ -332,8 +331,22 @@ implements Initializable {
         JFXTextField txtInventoryNumber = getTextfield(140, 30, true, 10d, 5d, 5d);
         txtInventoryNumber.setText(String.valueOf(logic.getFreeTankNumber()));
 
-        AnchorPane pane = getAnchorPane(160, 150);
-        pane.getChildren().addAll(txtInventoryNumber);
+        JFXTextField txtCapacity = getTextfield(140, 30, false, 60d, 5d, 5d);
+        txtCapacity.setPromptText("Kapazität in l");
+
+        JFXTextField txtLevel = getTextfield(140, 30, false, 110d, 5d, 5d);
+        txtLevel.setPromptText("Füllstand in l");
+
+        JFXComboBox<String> cbFuels = new JFXComboBox<>();
+        cbFuels.getItems().addAll(logic.getFuel());
+        cbFuels.setPrefSize(140, 30);
+        AnchorPane.setTopAnchor(cbFuels, 160d);
+        AnchorPane.setRightAnchor(cbFuels, 5d);
+        AnchorPane.setLeftAnchor(cbFuels, 5d);
+        cbFuels.setPromptText("Kraftstoff wählen");
+
+        AnchorPane pane = getAnchorPane(160, 200);
+        pane.getChildren().addAll(txtInventoryNumber, txtCapacity, txtLevel, cbFuels);
         inputDialog(pane, "Erstellen Kraftstofftank", "FUEL_TANK");
     }
 
