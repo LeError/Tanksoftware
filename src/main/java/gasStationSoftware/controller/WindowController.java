@@ -329,10 +329,10 @@ implements Initializable {
 
         switch(type.getTYPE()) {
             case "FUEL":
-                inputDialog(pane, "Erstellen Kraftstofftype", "FUEL_TYPE");
+                inputDialog(pane, "Erstellen Kraftstofftype", "ITEM_TYPE");
                 break;
             case "GOOD":
-                inputDialog(pane, "Erstellen Produkttype", "GOOD_TYPE");
+                inputDialog(pane, "Erstellen Produkttype", "ITEM_TYPE");
                 break;
             default: //TODO raise error
         }
@@ -389,15 +389,23 @@ implements Initializable {
 
     private void processInput(AnchorPane input, String inputType) {
         switch (inputType) {
-            case "FUEL_TYPE":
-                processFuelTypeInput(input);
+            case "ITEM_TYPE":
+                processItemTypeInput(input);
                 break;
             default: //TODO raise error
         }
     }
 
-    private void processFuelTypeInput(AnchorPane input) {
-        logic.addItemType(((JFXTextField) input.getChildren().get(1)).getText(), InventoryType.Fuel);
+    private void processItemTypeInput(AnchorPane input) {
+        switch (((JFXTextField) input.getChildren().get(2)).getText()){
+            case "FUEL":
+                logic.addItemType(((JFXTextField) input.getChildren().get(1)).getText(), InventoryType.Fuel);
+                break;
+            case "GOOD":
+                logic.addItemType(((JFXTextField) input.getChildren().get(1)).getText(), InventoryType.Good);
+                break;
+            default: //TODO raise error
+        }
     }
 
     private JFXComboBox<String> getComboBox(ArrayList<String> content, String promptText, int prefWidth, int prefHeight, double topAnchor, double rightAnchor, double leftAnchor) {
@@ -411,8 +419,7 @@ implements Initializable {
         return cb;
     }
 
-    private JFXTextField getTextfield(int prefWidth, int prefHeight, boolean disable, double topAnchor,
-    double rightAnchor, double leftAnchor) {
+    private JFXTextField getTextfield(int prefWidth, int prefHeight, boolean disable, double topAnchor, double rightAnchor, double leftAnchor) {
         JFXTextField txtField = new JFXTextField();
         txtField.setPrefSize(prefWidth, prefHeight);
         txtField.setDisable(disable);

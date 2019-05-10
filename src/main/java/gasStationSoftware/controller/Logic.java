@@ -285,7 +285,11 @@ public class Logic {
     public void addItemType(String label, InventoryType type) {
         ItemType newItemType = new ItemType(label, getFreeInvNumber(type), type);
         types.add(newItemType);
-        windowController.addRowTFuelsSettingsFuel(newItemType);
+        if (type == InventoryType.Fuel) {
+            windowController.addRowTFuelsSettingsFuel(newItemType);
+        } else if(type == InventoryType.Good) {
+            windowController.addRowTGoodsSettingsGood(newItemType);
+        }
         saveInventory();
     }
 
