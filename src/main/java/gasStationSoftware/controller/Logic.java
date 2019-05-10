@@ -369,4 +369,13 @@ public class Logic {
         }
         return gasPumpAssignedTanks;
     }
+
+    public ArrayList<String> getFuel() {
+        ArrayList<ItemType> types = Utility.getInventoryType(this.types, InventoryType.Fuel);
+        ArrayList<String> fuel = new ArrayList<>();
+        for (ItemType type : types) {
+            fuel.add(type.getINVENTORY_NUMBER() + ": " + type.getLABEL());
+        }
+        return fuel;
+    }
 }
