@@ -8,7 +8,14 @@ import gasStationSoftware.models.FuelTank;
 import gasStationSoftware.models.GasPump;
 import gasStationSoftware.models.InventoryType;
 import gasStationSoftware.models.ItemType;
-import gasStationSoftware.util.*;
+import gasStationSoftware.util.CompareFuelTank;
+import gasStationSoftware.util.CompareGasPump;
+import gasStationSoftware.util.CompareItemType;
+import gasStationSoftware.util.ReadFile;
+import gasStationSoftware.util.ReadJSON;
+import gasStationSoftware.util.Utility;
+import gasStationSoftware.util.WriteFile;
+import gasStationSoftware.util.WriteJSON;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
@@ -267,5 +274,87 @@ public class Logic {
         ItemType newItemType = new ItemType(label, getFreeInvNumber(type), type);
         types.add(newItemType);
         windowController.addRowTFuelsSettingsFuel(newItemType);
+        saveInventory();
+    }
+
+    private void saveInventory() {
+        WriteJSON write = new WriteJSON(DATA_FILE_PATH + DATA_FILE_NAMES[0]);
+        write.addItemArray("tankCapacity", getTankCapacity());
+        write.addItemArray("tankLevel", getTankLevel());
+        write.addItemArray("tankAssignedFuels", getTankAssignedFuels());
+        write.addItemArray("tankID", getTankID());
+        write.addItemArray("itemLabel", getItemLabel());
+        write.addItemArray("itemInventoryNumber", getItemInventoryNumber());
+        write.addItemArray("itemType", getItemType());
+        write.addItemArrayListArray("gasPumpAssignedTanks", "gasPump", getGasPumpAssignedTanks());
+        write.write(true);
+    }
+
+    private String[] getTankCapacity() {
+        String[] tankCapacity = new String[tanks.size()];
+        for (int i = 0; i < tanks.size(); i++) {
+            tankCapacity[i] = String.valueOf(tanks.get(i).getCAPACITY());
+        }
+        return tankCapacity;
+    }
+
+    private String[] getTankLevel() {
+        String[] tankLevel = new String[tanks.size()];
+        for (int i = 0; i < tanks.size(); i++) {
+            tankLevel[i] = String.valueOf(tanks.get(i).getLevel());
+        }
+        return tankLevel;
+    }
+
+    private String[] getTankAssignedFuels() {
+        String[] tankAssignedFuels = new String[tanks.size()];
+        for (int i = 0; i < tanks.size(); i++) {
+            tankAssignedFuels[i] = String.valueOf(tanks.get(i).getFuel().getINVENTORY_NUMBER());
+        }
+        return tankAssignedFuels;
+    }
+
+    private String[] getTankID() {
+        String[] tankID = new String[tanks.size()];
+        for (int i = 0; i < tanks.size(); i++) {
+            tankID[i] = String.valueOf(tanks.get(i).getTANK_NUMBER());
+        }
+        return tankID;
+    }
+
+    private String[] getItemLabel() {
+        String[] itemLabel = new String[types.size()];
+        for (int i = 0; i < types.size(); i++) {
+            itemLabel[i] = String.valueOf(types.get(i).getLABEL());
+        }
+        return itemLabel;
+    }
+
+    private String[] getItemInventoryNumber() {
+        String[] itemInventoryNumber = new String[types.size()];
+        for (int i = 0; i < types.size(); i++) {
+            itemInventoryNumber[i] = String.valueOf(types.get(i).getINVENTORY_NUMBER());
+        }
+        return itemInventoryNumber;
+    }
+
+    private String[] getItemType() {
+        String[] itemType = new String[types.size()];
+        for (int i = 0; i < types.size(); i++) {
+            itemType[i] = String.valueOf(types.get(i).getTYPE_LABEL());
+        }
+        return itemType;
+    }
+
+    private ArrayList<String>[] getGasPumpAssignedTanks() {
+        ArrayList<String>[] gasPumpAssignedTanks = new ArrayList[gasPumps.size()];
+        for (int i = 0; i < gasPumps.size(); i++) {
+            gasPumpAssignedTanks[i] = new ArrayList<>();
+            ArrayList<FuelTank> tanks = gasPumps.get(i).getTanks();
+            for (int j = 0; j < tanks.size(); j++) {
+                gasPumpAssignedTanks[i].add(String.valueOf(tanks.get(j).getTANK_NUMBER()));
+            }
+        }
+        return gasPumpAssignedTanks;
     }
 }
