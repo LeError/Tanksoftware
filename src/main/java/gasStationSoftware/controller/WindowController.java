@@ -8,6 +8,7 @@ import gasStationSoftware.models.FuelTank;
 import gasStationSoftware.models.GasPump;
 import gasStationSoftware.models.InventoryType;
 import gasStationSoftware.models.ItemType;
+import gasStationSoftware.ui.ItemTypeInputDialog;
 import gasStationSoftware.util.Utility;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -159,13 +160,13 @@ implements Initializable {
         } else if (event.getTarget() == btnExportSettingsOverview) {
         } else if (event.getTarget() == btnImportSettingsOverview) {
         } else if (event.getTarget() == btnNewSettingsFuel) {
-            showItemTypeInputDialog(InventoryType.Fuel);
+            new ItemTypeInputDialog(rootPane, this, InventoryType.Fuel);
         } else if (event.getTarget() == btnNewSettingsTank) {
             showFuelTankInputDialog();
         } else if (event.getTarget() == btnNewSettingsGasPump) {
             showGasPumpInputDialog();
         } else if (event.getTarget() == btnNewSettingsGood) {
-            showItemTypeInputDialog(InventoryType.Good);
+            new ItemTypeInputDialog(rootPane, this, InventoryType.Good);
         }
     }
 
@@ -315,30 +316,6 @@ implements Initializable {
 
     //===[SHOW DIALOGS]==================================================
 
-    private void showItemTypeInputDialog(InventoryType type) {
-        JFXTextField txtInventoryNumber = getTextfield(140, 30, true, 10d, 5d, 5d);
-        txtInventoryNumber.setText(String.valueOf(logic.getFreeInvNumber(type)));
-
-        JFXTextField txtLabel = getTextfield(140, 30, false, 60d, 5d, 5d);
-        txtLabel.setPromptText("Bezeichner");
-
-        JFXTextField txtType = getTextfield(140, 30, true, 110d, 5d, 5d);
-        txtType.setText(type.getTYPE());
-
-        AnchorPane pane = getAnchorPane(160, 150);
-        pane.getChildren().addAll(txtInventoryNumber, txtLabel, txtType);
-
-        switch(type.getTYPE()) {
-            case "FUEL":
-                inputDialog(pane, "Erstellen Kraftstofftype", "ITEM_TYPE");
-                break;
-            case "GOOD":
-                inputDialog(pane, "Erstellen Produkttype", "ITEM_TYPE");
-                break;
-            default: //TODO raise error
-        }
-    }
-
     private void showFuelTankInputDialog() {
         JFXTextField txtInventoryNumber = getTextfield(140, 30, true, 10d, 5d, 5d);
         txtInventoryNumber.setText(String.valueOf(logic.getFreeTankNumber()));
@@ -411,7 +388,7 @@ implements Initializable {
         }
     }
 
-    private void processItemTypeInput(AnchorPane input) {
+    public void processItemTypeInput(AnchorPane input) {
         switch (((JFXTextField) input.getChildren().get(2)).getText()){
             case "FUEL":
                 logic.addItemType(((JFXTextField) input.getChildren().get(1)).getText(), InventoryType.Fuel);
