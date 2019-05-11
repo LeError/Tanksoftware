@@ -16,6 +16,12 @@ import java.util.ArrayList;
 
 public abstract class Dialog {
 
+    protected WindowController windowController;
+
+    protected Dialog(WindowController windowController) {
+        this.windowController = windowController;
+    }
+
     @FXML
     protected void inputDialog(StackPane rootPane, AnchorPane dialogBodyContent, String title){
         JFXDialogLayout dialogContent = new JFXDialogLayout();
