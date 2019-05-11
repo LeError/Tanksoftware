@@ -290,6 +290,18 @@ public class Logic {
         return number;
     }
 
+    private int getFreeGasPumpNumber() {
+        int number = 1;
+        Collections.sort(gasPumps, new CompareGasPump());
+        for (GasPump gasPump : gasPumps) {
+            if (number != gasPump.getGAS_PUMP_NUMBER()) {
+                break;
+            }
+            number++;
+        }
+        return number;
+    }
+
     public void addItemType(String label, InventoryType type) {
         ItemType newItemType = new ItemType(label, getFreeInvNumber(type), type);
         types.add(newItemType);
@@ -312,6 +324,13 @@ public class Logic {
             e.printStackTrace();
             System.out.print(3456);
         }
+    }
+
+    public void addGasPump(ArrayList<FuelTank> tanks) {
+        GasPump newGasPump = new GasPump(getFreeGasPumpNumber(), tanks);
+        gasPumps.add(newGasPump);
+        windowController.addRowTGasPumpsSettingsGasPump(newGasPump);
+        saveInventory();
     }
 
     private void saveInventory() {
@@ -404,11 +423,9 @@ public class Logic {
         return fuel;
     }
 
-    public void addFuelTypeTableRows(TableView table) {
-        ArrayList<ItemType> fuels = Utility.getInventoryType(types, InventoryType.Fuel);
-        for(ItemType fuel : fuels) {
-            System.out.print(fuel.getLABEL());
-            table.getItems().add(fuel);
+    public void addTankTableRows(TableView table) {
+        for(FuelTank tank : tanks) {
+            table.getItems().add(tank);
         }
     }
 }
