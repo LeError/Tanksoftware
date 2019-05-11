@@ -8,6 +8,7 @@ import gasStationSoftware.models.FuelTank;
 import gasStationSoftware.models.GasPump;
 import gasStationSoftware.models.InventoryType;
 import gasStationSoftware.models.ItemType;
+import gasStationSoftware.ui.FuelTankInputDialog;
 import gasStationSoftware.ui.ItemTypeInputDialog;
 import gasStationSoftware.util.Utility;
 import javafx.fxml.FXML;
@@ -162,7 +163,7 @@ implements Initializable {
         } else if (event.getTarget() == btnNewSettingsFuel) {
             new ItemTypeInputDialog(rootPane, this, InventoryType.Fuel);
         } else if (event.getTarget() == btnNewSettingsTank) {
-            showFuelTankInputDialog();
+            new FuelTankInputDialog(rootPane, this);
         } else if (event.getTarget() == btnNewSettingsGasPump) {
             showGasPumpInputDialog();
         } else if (event.getTarget() == btnNewSettingsGood) {
@@ -360,10 +361,8 @@ implements Initializable {
        logic.addItemType(label, type);
     }
 
-    private void processFuelTankInput(AnchorPane input) {
-        float capacity = Float.parseFloat(((JFXTextField) input.getChildren().get(1)).getText());
-        float level = Float.parseFloat(((JFXTextField) input.getChildren().get(2)).getText());
-        logic.addFuelTank(capacity, level, ((JFXComboBox<String>) input.getChildren().get(3)).getSelectionModel().getSelectedIndex());
+    public void processFuelTankInput(float capacity, float level, int index) {
+        logic.addFuelTank(capacity, level, index);
     }
 
     private void processGasTankInput(AnchorPane input) {
