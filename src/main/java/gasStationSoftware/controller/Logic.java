@@ -1,5 +1,8 @@
 package gasStationSoftware.controller;
 
+import com.jfoenix.controls.JFXTreeTableView;
+import com.jfoenix.controls.RecursiveTreeItem;
+import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import gasStationSoftware.exceptions.DataFileNotFoundException;
 import gasStationSoftware.exceptions.NumberOutOfRangeException;
 import gasStationSoftware.exceptions.OSException;
@@ -16,6 +19,11 @@ import gasStationSoftware.util.ReadJSON;
 import gasStationSoftware.util.Utility;
 import gasStationSoftware.util.WriteFile;
 import gasStationSoftware.util.WriteJSON;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.ObservableListBase;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TreeItem;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
@@ -394,5 +402,13 @@ public class Logic {
             fuel.add(type.getINVENTORY_NUMBER() + ": " + type.getLABEL());
         }
         return fuel;
+    }
+
+    public void addFuelTypeTableRows(TableView table) {
+        ArrayList<ItemType> fuels = Utility.getInventoryType(types, InventoryType.Fuel);
+        for(ItemType fuel : fuels) {
+            System.out.print(fuel.getLABEL());
+            table.getItems().add(fuel);
+        }
     }
 }
