@@ -1,7 +1,6 @@
 package gasStationSoftware.controller;
 
 import com.jfoenix.controls.*;
-import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import gasStationSoftware.models.Employee;
 import gasStationSoftware.models.FuelTank;
@@ -333,11 +332,11 @@ implements Initializable {
 
     //===[GETTER]==================================================
 
-    public String getButtonStyle() {
+    public static String getButtonStyle() {
         return buttonsStyle;
     }
 
-    public String getIconStyle() {
+    public static String getIconStyle() {
         return iconsStyle;
     }
 
