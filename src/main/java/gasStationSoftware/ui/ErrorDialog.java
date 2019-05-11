@@ -4,8 +4,6 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXTextArea;
-import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
-import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import gasStationSoftware.controller.WindowController;
 import gasStationSoftware.util.Dialog;
 import javafx.fxml.FXML;
@@ -15,12 +13,12 @@ import javafx.scene.layout.StackPane;
 
 public class ErrorDialog {
 
-    public ErrorDialog(StackPane rootPane, String title, String errorText) {
-        inputDialog(rootPane, title, errorText);
+    public ErrorDialog(StackPane rootPane, String title, Exception e, boolean exit) {
+        inputDialog(rootPane, title, e.getStackTrace().toString(), exit);
     }
 
     @FXML
-    protected void inputDialog(StackPane rootPane, String title, String errorText){
+    protected void inputDialog(StackPane rootPane, String title, String errorText, boolean exit){
         JFXDialogLayout dialogContent = new JFXDialogLayout();
         JFXDialog dialog = new JFXDialog(rootPane, dialogContent, JFXDialog.DialogTransition.CENTER);
 
@@ -35,7 +33,12 @@ public class ErrorDialog {
 
         JFXButton btnCancel = new JFXButton("OK");
         btnCancel.setStyle(WindowController.getButtonStyle());
-        btnCancel.setOnAction(event -> dialog.close());
+        btnCancel.setOnAction(event -> {
+            dialog.close();
+            if(exit) {
+                System.exit(0);
+            }
+        });
 
         AnchorPane dialogBodyContent = Dialog.getAnchorPane(500, 100);
         dialogBodyContent.getChildren().add(txtErrorText);
