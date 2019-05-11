@@ -333,11 +333,11 @@ implements Initializable {
 
     //===[GETTER]==================================================
 
-    public static String getButtonStyle() {
+    public String getButtonStyle() {
         return buttonsStyle;
     }
 
-    public static String getIconStyle() {
+    public String getIconStyle() {
         return iconsStyle;
     }
 
