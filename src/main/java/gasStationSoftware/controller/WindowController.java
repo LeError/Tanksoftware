@@ -394,34 +394,6 @@ implements Initializable {
         inputDialog(pane, "Zapfsäule erstellen", "GAS_PUMP");
     }
 
-    @FXML
-    private void inputDialog(AnchorPane dialogBodyContent, String title, String inputType){
-        JFXDialogLayout dialogContent = new JFXDialogLayout();
-        JFXDialog dialog = new JFXDialog(rootPane, dialogContent, JFXDialog.DialogTransition.CENTER);
-
-        JFXButton btnSubmit = new JFXButton("Abschicken");
-        btnSubmit.setStyle(buttonsStyle);
-        MaterialDesignIconView icoSubmit = new MaterialDesignIconView(MaterialDesignIcon.CHECK);
-        icoSubmit.setStyle(iconsStyle);
-        btnSubmit.setGraphic(icoSubmit);
-        btnSubmit.setOnAction(event -> {
-            dialog.close();
-            processInput(dialogBodyContent, inputType);
-        });
-
-        JFXButton btnCancel = new JFXButton("Abbrechen");
-        btnCancel.setStyle(buttonsStyle);
-        MaterialDesignIconView icoCancel = new MaterialDesignIconView(MaterialDesignIcon.CLOSE);
-        icoCancel.setStyle(iconsStyle);
-        btnCancel.setGraphic(icoCancel);
-        btnCancel.setOnAction(event -> dialog.close());
-
-        dialogContent.setHeading(new Label(title));
-        dialogContent.setBody(dialogBodyContent);
-        dialogContent.setActions(btnCancel, btnSubmit);
-        dialog.show();
-    }
-
     //===[PROCESS INPUT]==================================================
 
     private void processInput(AnchorPane input, String inputType) {
@@ -466,68 +438,18 @@ implements Initializable {
         logic.addGasPump(fuels);
     }
 
-    //===[GET CONTROLS]==================================================
+    //===[GETTER]==================================================
 
-    private JFXComboBox<String> getComboBox(ArrayList<String> content, String promptText, int prefWidth, int prefHeight, double topAnchor, double rightAnchor, double leftAnchor) {
-        JFXComboBox<String> cb = new JFXComboBox<>();
-        cb.getItems().addAll(content);
-        cb.setPromptText(promptText);
-        cb.setPrefSize(prefWidth, prefHeight);
-        AnchorPane.setTopAnchor(cb, topAnchor);
-        AnchorPane.setRightAnchor(cb, rightAnchor);
-        AnchorPane.setLeftAnchor(cb, leftAnchor);
-        return cb;
+    public static String getButtonStyle() {
+        return buttonsStyle;
     }
 
-    private JFXTextField getTextfield(int prefWidth, int prefHeight, boolean disable, double topAnchor, double rightAnchor, double leftAnchor) {
-        JFXTextField txtField = new JFXTextField();
-        txtField.setPrefSize(prefWidth, prefHeight);
-        txtField.setDisable(disable);
-        AnchorPane.setTopAnchor(txtField, topAnchor);
-        AnchorPane.setRightAnchor(txtField, rightAnchor);
-        AnchorPane.setLeftAnchor(txtField, leftAnchor);
-        return txtField;
+    public static String getIconStyle() {
+        return iconsStyle;
     }
 
-    private JFXButton getButton(int prefWidth, int prefHeight, double topAnchor, double leftAnchor) {
-        JFXButton btn = new JFXButton();
-        btn.setPrefSize(prefWidth, prefHeight);
-        btn.setMinSize(prefWidth, prefHeight);
-        btn.setMaxSize(prefWidth, prefHeight);
-        btn.setStyle(buttonsStyle);
-        AnchorPane.setTopAnchor(btn, topAnchor);
-        AnchorPane.setLeftAnchor(btn, leftAnchor);
-        return btn;
+    public StackPane getRootPane() {
+        return rootPane;
     }
 
-    private MaterialDesignIconView getICO(MaterialDesignIcon ico) {
-        MaterialDesignIconView iconView = new MaterialDesignIconView(ico);
-        iconView.setStyle(iconsStyle);
-        return iconView;
-    }
-
-    private TableView getTable(int prefWidth, int prefHeight, double topAnchor, double leftAnchor) {
-        TableView table = new TableView();
-        table.setPrefSize(prefWidth, prefHeight);
-        table.setMinSize(prefWidth, prefHeight);
-        table.setMaxSize(prefWidth, prefHeight);
-        AnchorPane.setTopAnchor(table, topAnchor);
-        AnchorPane.setLeftAnchor(table, leftAnchor);
-        return table;
-    }
-
-    private TableColumn getColumn(String title, String property, double prefWidth, boolean resizeable) {
-        TableColumn column = new TableColumn(title);
-        column.setCellValueFactory(new PropertyValueFactory<>(property));
-        column.setPrefWidth(prefWidth);
-        column.setResizable(resizeable);
-        return column;
-    }
-
-    private AnchorPane getAnchorPane(int prefWidth, int prefHeight) {
-        AnchorPane pane = new AnchorPane();
-        pane.setPrefSize(prefWidth, prefHeight);
-        pane.setMinSize(prefWidth, prefHeight);
-        return pane;
-    }
 }
