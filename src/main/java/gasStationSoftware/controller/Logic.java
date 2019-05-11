@@ -1,8 +1,5 @@
 package gasStationSoftware.controller;
 
-import com.jfoenix.controls.JFXTreeTableView;
-import com.jfoenix.controls.RecursiveTreeItem;
-import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import gasStationSoftware.exceptions.DataFileNotFoundException;
 import gasStationSoftware.exceptions.NumberOutOfRangeException;
 import gasStationSoftware.exceptions.OSException;
@@ -11,19 +8,12 @@ import gasStationSoftware.models.FuelTank;
 import gasStationSoftware.models.GasPump;
 import gasStationSoftware.models.InventoryType;
 import gasStationSoftware.models.ItemType;
-import gasStationSoftware.util.CompareFuelTank;
-import gasStationSoftware.util.CompareGasPump;
-import gasStationSoftware.util.CompareItemType;
 import gasStationSoftware.util.ReadFile;
 import gasStationSoftware.util.ReadJSON;
 import gasStationSoftware.util.Utility;
 import gasStationSoftware.util.WriteFile;
 import gasStationSoftware.util.WriteJSON;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.collections.ObservableListBase;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TreeItem;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
@@ -35,6 +25,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 
 public class Logic {
@@ -199,7 +190,7 @@ public class Logic {
     private void loadInventory() throws DataFileNotFoundException, NumberOutOfRangeException {
         ReadJSON read = new ReadJSON(DATA_FILE_PATH + DATA_FILE_NAMES[0]);
 
-        createItemTYpeObjects(read.getItemStringArray("itemLabel"), read.getItemStringArray("itemInventoryNumber"), read.getItemStringArray("itemType"));
+        createItemTypeObjects(read.getItemStringArray("itemLabel"), read.getItemStringArray("itemInventoryNumber"), read.getItemStringArray("itemType"));
         for(ItemType iType : this.types) {
             windowController.addRowTFuelsSettingsFuel(iType);
             windowController.addRowTGoodsSettingsGood(iType);
@@ -216,7 +207,7 @@ public class Logic {
         }
     }
 
-    private void createItemTYpeObjects(String[] label, String[] inventoryNumber, String[] type) {
+    private void createItemTypeObjects(String[] label, String[] inventoryNumber, String[] type) {
         for(int i = 0; i < inventoryNumber.length; i++) {
             InventoryType invType = InventoryType.Good;
             switch(type[i]) {
@@ -227,7 +218,10 @@ public class Logic {
             }
             this.types.add(new ItemType(label[i], Integer.parseInt(inventoryNumber[i]), invType));
         }
-        Collections.sort(this.types, new CompareItemType());
+        Collections.sort(this.types, Comparator.comparingInt(iType -> iType.getINVENTORY_NUMBER()));
+        for(ItemType iType : this.types){
+            System.out.println(iType.getLABEL());
+        }
     }
 
     private void createFuelTankObjects(int[] tankID, float[] tankCapacity, float[] tankLevel, int[] tankAssignedFuels) {
@@ -245,7 +239,7 @@ public class Logic {
                 e.printStackTrace();
             }
         }
-        Collections.sort(this.tanks, new CompareFuelTank());
+        Collections.sort(this.tanks, Comparator.comparingInt(tank -> tank.getTANK_NUMBER()));
     }
 
     private void createGasPumpObjects(ArrayList<String>[] gasPumps ) {
@@ -262,13 +256,13 @@ public class Logic {
             }
             this.gasPumps.add(new GasPump(i, tanks));
         }
-        Collections.sort(this.gasPumps, new CompareGasPump());
+        Collections.sort(this.gasPumps, Comparator.comparingInt(gasPump -> gasPump.getGAS_PUMP_NUMBER()));
     }
 
     public int getFreeInvNumber(InventoryType type) {
         int number = 1;
         ArrayList<ItemType> types = Utility.getInventoryType(this.types, type);
-        Collections.sort(types, new CompareItemType());
+        Collections.sort(types, Comparator.comparingInt(iType -> iType.getINVENTORY_NUMBER()));
         for (ItemType iType : types) {
             if (number != iType.getINVENTORY_NUMBER()) {
                 break;
@@ -280,7 +274,7 @@ public class Logic {
 
     public int getFreeTankNumber() {
         int number = 1;
-        Collections.sort(tanks, new CompareFuelTank());
+        Collections.sort(tanks, Comparator.comparingInt(tank -> tank.getTANK_NUMBER()));
         for (FuelTank tank : tanks) {
             if (number != tank.getTANK_NUMBER()) {
                 break;
@@ -292,7 +286,7 @@ public class Logic {
 
     private int getFreeGasPumpNumber() {
         int number = 1;
-        Collections.sort(gasPumps, new CompareGasPump());
+        Collections.sort(gasPumps, Comparator.comparingInt(gasPump -> gasPump.getGAS_PUMP_NUMBER()));
         for (GasPump gasPump : gasPumps) {
             if (number != gasPump.getGAS_PUMP_NUMBER()) {
                 break;
