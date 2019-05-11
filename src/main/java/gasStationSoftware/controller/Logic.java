@@ -219,9 +219,6 @@ public class Logic {
             this.types.add(new ItemType(label[i], Integer.parseInt(inventoryNumber[i]), invType));
         }
         Collections.sort(this.types, Comparator.comparingInt(iType -> iType.getINVENTORY_NUMBER()));
-        for(ItemType iType : this.types){
-            System.out.println(iType.getLABEL());
-        }
     }
 
     private void createFuelTankObjects(int[] tankID, float[] tankCapacity, float[] tankLevel, int[] tankAssignedFuels) {
@@ -316,7 +313,6 @@ public class Logic {
             saveInventory();
         } catch (NumberOutOfRangeException e) {
             e.printStackTrace();
-            System.out.print(3456);
         }
     }
 
