@@ -1,11 +1,6 @@
 package gasStationSoftware.controller;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXDatePicker;
-import com.jfoenix.controls.JFXDialog;
-import com.jfoenix.controls.JFXDialogLayout;
-import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.*;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import gasStationSoftware.models.Employee;
@@ -356,7 +351,47 @@ implements Initializable {
     }
 
     private void showGasPumpInputDialog() {
+        JFXTreeTableView tFuelList = new JFXTreeTableView();
+        tFuelList.setPrefSize(200, 300);
+        tFuelList.setMinSize(200, 300);
+        tFuelList.setMaxSize(200, 300);
+        AnchorPane.setTopAnchor(tFuelList, 10d);
+        AnchorPane.setLeftAnchor(tFuelList, 5d);
 
+        MaterialDesignIconView icoSelectFuel = new MaterialDesignIconView(MaterialDesignIcon.CHEVRON_DOUBLE_RIGHT);
+        icoSelectFuel.setStyle(iconsStyle);
+
+        JFXButton btnSelectFuel = new JFXButton();
+        btnSelectFuel.setPrefSize(30, 30);
+        btnSelectFuel.setMinSize(30, 30);
+        btnSelectFuel.setMaxSize(30, 30);
+        btnSelectFuel.setGraphic(icoSelectFuel);
+        btnSelectFuel.setStyle(buttonsStyle);
+        AnchorPane.setTopAnchor(btnSelectFuel, 100d);
+        AnchorPane.setLeftAnchor(btnSelectFuel, 230d);
+
+        MaterialDesignIconView icoDeselectFuel = new MaterialDesignIconView(MaterialDesignIcon.CHEVRON_DOUBLE_LEFT);
+        icoDeselectFuel.setStyle(iconsStyle);
+
+        JFXButton btnDeselectFuel = new JFXButton();
+        btnDeselectFuel.setPrefSize(30, 30);
+        btnDeselectFuel.setMinSize(30, 30);
+        btnDeselectFuel.setMaxSize(30, 30);
+        btnDeselectFuel.setGraphic(icoDeselectFuel);
+        btnDeselectFuel.setStyle(buttonsStyle);
+        AnchorPane.setTopAnchor(btnDeselectFuel, 150d);
+        AnchorPane.setLeftAnchor(btnDeselectFuel, 230d);
+
+        JFXTreeTableView tFuelListSelected = new JFXTreeTableView();
+        tFuelListSelected.setPrefSize(200, 300);
+        tFuelListSelected.setMinSize(200, 300);
+        tFuelListSelected.setMaxSize(200, 300);
+        AnchorPane.setTopAnchor(tFuelListSelected, 10d);
+        AnchorPane.setLeftAnchor(tFuelListSelected, 285d);
+
+        AnchorPane pane =  getAnchorPane(490, 300);
+        pane.getChildren().addAll(tFuelList, btnSelectFuel, btnDeselectFuel, tFuelListSelected);
+        inputDialog(pane, "Zapfsäule erstellen", "GAS_PUMP");
     }
 
     @FXML
@@ -440,6 +475,7 @@ implements Initializable {
     private AnchorPane getAnchorPane(int prefWidth, int prefHeight) {
         AnchorPane pane = new AnchorPane();
         pane.setPrefSize(prefWidth, prefHeight);
+        pane.setMinSize(prefWidth, prefHeight);
         return pane;
     }
 }
