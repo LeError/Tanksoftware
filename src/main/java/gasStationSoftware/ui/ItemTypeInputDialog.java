@@ -10,10 +10,8 @@ import javafx.scene.layout.StackPane;
 
 public class ItemTypeInputDialog extends Dialog {
 
-    private WindowController windowCOntroller;
-
     public ItemTypeInputDialog(StackPane rootPane, WindowController windowController, InventoryType type) {
-        this.windowCOntroller = windowController;
+        super(windowController);
 
         JFXTextField txtInventoryNumber = getTextfield(140, 30, true, 10d, 5d, 5d);
         txtInventoryNumber.setText(String.valueOf(Logic.getInstance().getFreeInvNumber(type)));
@@ -40,7 +38,7 @@ public class ItemTypeInputDialog extends Dialog {
 
     @Override
     protected void processSubmit(AnchorPane pane) {
-        windowCOntroller.processItemTypeInput(pane);
+        windowController.processItemTypeInput(pane);
     }
 
 }
