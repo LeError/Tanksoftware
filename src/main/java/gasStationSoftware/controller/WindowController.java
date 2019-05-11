@@ -351,43 +351,37 @@ implements Initializable {
     }
 
     private void showGasPumpInputDialog() {
-        JFXTreeTableView tFuelList = new JFXTreeTableView();
-        tFuelList.setPrefSize(200, 300);
-        tFuelList.setMinSize(200, 300);
-        tFuelList.setMaxSize(200, 300);
-        AnchorPane.setTopAnchor(tFuelList, 10d);
-        AnchorPane.setLeftAnchor(tFuelList, 5d);
+        TableColumn columnInvNumber = getColumn("INV #", "INVENTORY_NUMBER", 60d, false);
+        TableColumn columnFuel = getColumn("Kraftstoff", "LABEL", 138d, false);
 
-        MaterialDesignIconView icoSelectFuel = new MaterialDesignIconView(MaterialDesignIcon.CHEVRON_DOUBLE_RIGHT);
-        icoSelectFuel.setStyle(iconsStyle);
+        TableView tFuelList = getTable(200, 300, 10d, 5d);
+        tFuelList.getColumns().addAll(columnInvNumber,columnFuel);
+        logic.addFuelTypeTableRows(tFuelList);
 
-        JFXButton btnSelectFuel = new JFXButton();
-        btnSelectFuel.setPrefSize(30, 30);
-        btnSelectFuel.setMinSize(30, 30);
-        btnSelectFuel.setMaxSize(30, 30);
-        btnSelectFuel.setGraphic(icoSelectFuel);
-        btnSelectFuel.setStyle(buttonsStyle);
-        AnchorPane.setTopAnchor(btnSelectFuel, 100d);
-        AnchorPane.setLeftAnchor(btnSelectFuel, 230d);
+        TableColumn columnInvNumberSelected = getColumn("INV #", "INVENTORY_NUMBER", 60d, false);
+        TableColumn columnFuelSelected = getColumn("Kraftstoff", "LABEL", 138d, false);
 
-        MaterialDesignIconView icoDeselectFuel = new MaterialDesignIconView(MaterialDesignIcon.CHEVRON_DOUBLE_LEFT);
-        icoDeselectFuel.setStyle(iconsStyle);
+        TableView tFuelListSelected = getTable(200, 300, 10d, 285d);
+        tFuelListSelected.getColumns().addAll(columnInvNumberSelected,columnFuelSelected);
 
-        JFXButton btnDeselectFuel = new JFXButton();
-        btnDeselectFuel.setPrefSize(30, 30);
-        btnDeselectFuel.setMinSize(30, 30);
-        btnDeselectFuel.setMaxSize(30, 30);
-        btnDeselectFuel.setGraphic(icoDeselectFuel);
-        btnDeselectFuel.setStyle(buttonsStyle);
-        AnchorPane.setTopAnchor(btnDeselectFuel, 150d);
-        AnchorPane.setLeftAnchor(btnDeselectFuel, 230d);
+        JFXButton btnSelectFuel = getButton(30, 30, 100d, 230d);
+        btnSelectFuel.setGraphic(getICO(MaterialDesignIcon.CHEVRON_DOUBLE_RIGHT));
+    btnSelectFuel.setOnAction(
+        event -> {
+            if (tFuelList.getSelectionModel().getSelectedItem() != null) {
+                tFuelListSelected.getItems().add(tFuelList.getSelectionModel().getSelectedItem());
+                tFuelList.getItems().remove(tFuelList.getSelectionModel().getSelectedItem());
+            }
+        });
 
-        JFXTreeTableView tFuelListSelected = new JFXTreeTableView();
-        tFuelListSelected.setPrefSize(200, 300);
-        tFuelListSelected.setMinSize(200, 300);
-        tFuelListSelected.setMaxSize(200, 300);
-        AnchorPane.setTopAnchor(tFuelListSelected, 10d);
-        AnchorPane.setLeftAnchor(tFuelListSelected, 285d);
+        JFXButton btnDeselectFuel = getButton(30, 30, 150d, 230d);
+        btnDeselectFuel.setGraphic(getICO(MaterialDesignIcon.CHEVRON_DOUBLE_LEFT));
+        btnDeselectFuel.setOnAction(event -> {
+            if(tFuelListSelected.getSelectionModel().getSelectedItem() != null) {
+                tFuelList.getItems().add(tFuelListSelected.getSelectionModel().getSelectedItem());
+                tFuelListSelected.getItems().remove(tFuelListSelected.getSelectionModel().getSelectedItem());
+            }
+        });
 
         AnchorPane pane =  getAnchorPane(490, 300);
         pane.getChildren().addAll(tFuelList, btnSelectFuel, btnDeselectFuel, tFuelListSelected);
@@ -470,6 +464,41 @@ implements Initializable {
         AnchorPane.setRightAnchor(txtField, rightAnchor);
         AnchorPane.setLeftAnchor(txtField, leftAnchor);
         return txtField;
+    }
+
+    private JFXButton getButton(int prefWidth, int prefHeight, double topAnchor, double leftAnchor) {
+        JFXButton btn = new JFXButton();
+        btn.setPrefSize(prefWidth, prefHeight);
+        btn.setMinSize(prefWidth, prefHeight);
+        btn.setMaxSize(prefWidth, prefHeight);
+        btn.setStyle(buttonsStyle);
+        AnchorPane.setTopAnchor(btn, topAnchor);
+        AnchorPane.setLeftAnchor(btn, leftAnchor);
+        return btn;
+    }
+
+    private MaterialDesignIconView getICO(MaterialDesignIcon ico) {
+        MaterialDesignIconView iconView = new MaterialDesignIconView(ico);
+        iconView.setStyle(iconsStyle);
+        return iconView;
+    }
+
+    private TableView getTable(int prefWidth, int prefHeight, double topAnchor, double leftAnchor) {
+        TableView table = new TableView();
+        table.setPrefSize(prefWidth, prefHeight);
+        table.setMinSize(prefWidth, prefHeight);
+        table.setMaxSize(prefWidth, prefHeight);
+        AnchorPane.setTopAnchor(table, topAnchor);
+        AnchorPane.setLeftAnchor(table, leftAnchor);
+        return table;
+    }
+
+    private TableColumn getColumn(String title, String property, double prefWidth, boolean resizeable) {
+        TableColumn column = new TableColumn(title);
+        column.setCellValueFactory(new PropertyValueFactory<>(property));
+        column.setPrefWidth(prefWidth);
+        column.setResizable(resizeable);
+        return column;
     }
 
     private AnchorPane getAnchorPane(int prefWidth, int prefHeight) {
