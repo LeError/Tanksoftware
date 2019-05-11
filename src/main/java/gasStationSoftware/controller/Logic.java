@@ -1,5 +1,8 @@
 package gasStationSoftware.controller;
 
+import com.jfoenix.controls.JFXTreeTableView;
+import com.jfoenix.controls.RecursiveTreeItem;
+import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import gasStationSoftware.exceptions.DataFileNotFoundException;
 import gasStationSoftware.exceptions.NumberOutOfRangeException;
 import gasStationSoftware.exceptions.OSException;
@@ -16,6 +19,11 @@ import gasStationSoftware.util.ReadJSON;
 import gasStationSoftware.util.Utility;
 import gasStationSoftware.util.WriteFile;
 import gasStationSoftware.util.WriteJSON;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.ObservableListBase;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TreeItem;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
@@ -282,6 +290,18 @@ public class Logic {
         return number;
     }
 
+    private int getFreeGasPumpNumber() {
+        int number = 1;
+        Collections.sort(gasPumps, new CompareGasPump());
+        for (GasPump gasPump : gasPumps) {
+            if (number != gasPump.getGAS_PUMP_NUMBER()) {
+                break;
+            }
+            number++;
+        }
+        return number;
+    }
+
     public void addItemType(String label, InventoryType type) {
         ItemType newItemType = new ItemType(label, getFreeInvNumber(type), type);
         types.add(newItemType);
@@ -304,6 +324,13 @@ public class Logic {
             e.printStackTrace();
             System.out.print(3456);
         }
+    }
+
+    public void addGasPump(ArrayList<FuelTank> tanks) {
+        GasPump newGasPump = new GasPump(getFreeGasPumpNumber(), tanks);
+        gasPumps.add(newGasPump);
+        windowController.addRowTGasPumpsSettingsGasPump(newGasPump);
+        saveInventory();
     }
 
     private void saveInventory() {
@@ -394,5 +421,11 @@ public class Logic {
             fuel.add(type.getINVENTORY_NUMBER() + ": " + type.getLABEL());
         }
         return fuel;
+    }
+
+    public void addTankTableRows(TableView table) {
+        for(FuelTank tank : tanks) {
+            table.getItems().add(tank);
+        }
     }
 }

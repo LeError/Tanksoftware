@@ -1,11 +1,6 @@
 package gasStationSoftware.controller;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXDatePicker;
-import com.jfoenix.controls.JFXDialog;
-import com.jfoenix.controls.JFXDialogLayout;
-import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.*;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import gasStationSoftware.models.Employee;
@@ -314,6 +309,8 @@ implements Initializable {
 
     }
 
+    //===[SHOW DIALOGS]==================================================
+
     private void showItemTypeInputDialog(InventoryType type) {
         JFXTextField txtInventoryNumber = getTextfield(140, 30, true, 10d, 5d, 5d);
         txtInventoryNumber.setText(String.valueOf(logic.getFreeInvNumber(type)));
@@ -356,7 +353,41 @@ implements Initializable {
     }
 
     private void showGasPumpInputDialog() {
+        TableColumn columnInvNumber = getColumn("TANK #", "TANK_NUMBER", 60d, false);
+        TableColumn columnTank = getColumn("Kraftstoff", "fuelLabel", 138d, false);
 
+        TableView tTankList = getTable(200, 300, 10d, 5d);
+        tTankList.getColumns().addAll(columnInvNumber,columnTank);
+        logic.addTankTableRows(tTankList);
+
+        TableColumn columnInvNumberSelected = getColumn("TANK #", "TANK_NUMBER", 60d, false);
+        TableColumn columnTankSelected = getColumn("Kraftstoff", "fuelLabel", 138d, false);
+
+        TableView tTankListSelected = getTable(200, 300, 10d, 285d);
+        tTankListSelected.getColumns().addAll(columnInvNumberSelected,columnTankSelected);
+
+        JFXButton btnSelectFuel = getButton(30, 30, 100d, 230d);
+        btnSelectFuel.setGraphic(getICO(MaterialDesignIcon.CHEVRON_DOUBLE_RIGHT));
+        btnSelectFuel.setOnAction(
+        event -> {
+            if (tTankList.getSelectionModel().getSelectedItem() != null) {
+                tTankListSelected.getItems().add(tTankList.getSelectionModel().getSelectedItem());
+                tTankList.getItems().remove(tTankList.getSelectionModel().getSelectedItem());
+            }
+        });
+
+        JFXButton btnDeselectFuel = getButton(30, 30, 150d, 230d);
+        btnDeselectFuel.setGraphic(getICO(MaterialDesignIcon.CHEVRON_DOUBLE_LEFT));
+        btnDeselectFuel.setOnAction(event -> {
+            if(tTankListSelected.getSelectionModel().getSelectedItem() != null) {
+                tTankList.getItems().add(tTankListSelected.getSelectionModel().getSelectedItem());
+                tTankListSelected.getItems().remove(tTankListSelected.getSelectionModel().getSelectedItem());
+            }
+        });
+
+        AnchorPane pane =  getAnchorPane(490, 300);
+        pane.getChildren().addAll(tTankList, tTankListSelected, btnSelectFuel, btnDeselectFuel);
+        inputDialog(pane, "Zapfsäule erstellen", "GAS_PUMP");
     }
 
     @FXML
@@ -387,6 +418,8 @@ implements Initializable {
         dialog.show();
     }
 
+    //===[PROCESS INPUT]==================================================
+
     private void processInput(AnchorPane input, String inputType) {
         switch (inputType) {
             case "ITEM_TYPE":
@@ -394,6 +427,10 @@ implements Initializable {
                 break;
             case "FUEL_TANK":
                 processFuelTankInput(input);
+                break;
+            case "GAS_PUMP":
+                processGasTankInput(input);
+                break;
             default: //TODO raise error
         }
     }
@@ -416,6 +453,17 @@ implements Initializable {
         logic.addFuelTank(capacity, level, ((JFXComboBox<String>) input.getChildren().get(3)).getSelectionModel().getSelectedIndex());
     }
 
+    private void processGasTankInput(AnchorPane input) {
+        TableView table = (TableView) input.getChildren().get(1);
+        ArrayList<FuelTank> fuels = new ArrayList<>();
+        for(int i = 0; i < table.getItems().size(); i++) {
+            fuels.add((FuelTank) table.getItems().get(i));
+        }
+        logic.addGasPump(fuels);
+    }
+
+    //===[GET CONTROLS]==================================================
+
     private JFXComboBox<String> getComboBox(ArrayList<String> content, String promptText, int prefWidth, int prefHeight, double topAnchor, double rightAnchor, double leftAnchor) {
         JFXComboBox<String> cb = new JFXComboBox<>();
         cb.getItems().addAll(content);
@@ -437,9 +485,45 @@ implements Initializable {
         return txtField;
     }
 
+    private JFXButton getButton(int prefWidth, int prefHeight, double topAnchor, double leftAnchor) {
+        JFXButton btn = new JFXButton();
+        btn.setPrefSize(prefWidth, prefHeight);
+        btn.setMinSize(prefWidth, prefHeight);
+        btn.setMaxSize(prefWidth, prefHeight);
+        btn.setStyle(buttonsStyle);
+        AnchorPane.setTopAnchor(btn, topAnchor);
+        AnchorPane.setLeftAnchor(btn, leftAnchor);
+        return btn;
+    }
+
+    private MaterialDesignIconView getICO(MaterialDesignIcon ico) {
+        MaterialDesignIconView iconView = new MaterialDesignIconView(ico);
+        iconView.setStyle(iconsStyle);
+        return iconView;
+    }
+
+    private TableView getTable(int prefWidth, int prefHeight, double topAnchor, double leftAnchor) {
+        TableView table = new TableView();
+        table.setPrefSize(prefWidth, prefHeight);
+        table.setMinSize(prefWidth, prefHeight);
+        table.setMaxSize(prefWidth, prefHeight);
+        AnchorPane.setTopAnchor(table, topAnchor);
+        AnchorPane.setLeftAnchor(table, leftAnchor);
+        return table;
+    }
+
+    private TableColumn getColumn(String title, String property, double prefWidth, boolean resizeable) {
+        TableColumn column = new TableColumn(title);
+        column.setCellValueFactory(new PropertyValueFactory<>(property));
+        column.setPrefWidth(prefWidth);
+        column.setResizable(resizeable);
+        return column;
+    }
+
     private AnchorPane getAnchorPane(int prefWidth, int prefHeight) {
         AnchorPane pane = new AnchorPane();
         pane.setPrefSize(prefWidth, prefHeight);
+        pane.setMinSize(prefWidth, prefHeight);
         return pane;
     }
 }

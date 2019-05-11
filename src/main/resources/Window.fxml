@@ -33,7 +33,7 @@
                       <MaterialDesignIconView fx:id="icoSellingMenuBar" fill="WHITE" glyphName="CART" layoutX="20.0" layoutY="180.0" onMousePressed="#handleMenuButtonAction" size="70" />
                       <MaterialDesignIconView fx:id="icoTanksMenuBar" fill="WHITE" glyphName="BARREL" layoutX="20.0" layoutY="340.0" onMousePressed="#handleMenuButtonAction" size="70" />
                       <MaterialDesignIconView fx:id="icoSettingsMenuBar" fill="WHITE" glyphName="SETTINGS" layoutX="19.0" layoutY="580.0" onMousePressed="#handleMenuButtonAction" size="70" />
-                      <MaterialDesignIconView fx:id="icoInventoryMenuBar" fill="WHITE" glyphName="TABLE" layoutX="20.0" layoutY="260.0" onMousePressed="#handleMenuButtonAction" size="70" />
+                      <MaterialDesignIconView fx:id="icoInventoryMenuBar" fill="WHITE" glyphName="PACKAGE_VARIANT" layoutX="20.0" layoutY="260.0" onMousePressed="#handleMenuButtonAction" size="70" />
                       <MaterialDesignIconView fx:id="icoEmployeesMenuBar" fill="WHITE" glyphName="ACCOUNT_MULTIPLE" layoutX="19.0" layoutY="420.0" onMousePressed="#handleMenuButtonAction" size="70" />
                       <MaterialDesignIconView fx:id="icoReportsMenuBar" fill="WHITE" glyphName="CHART_LINE" layoutX="19.0" layoutY="500.0" onMousePressed="#handleMenuButtonAction" size="70" />
                   </children>
