@@ -64,8 +64,8 @@ implements Initializable {
     @FXML private Polygon polygonInventory;
     @FXML private Label titleInventoryOverview, titleInventoryOrder, titleInventoryDelivery;
     @FXML private JFXButton btnOrderInventoryOverview, btnDeliveriesInventoryOverview, btnGroceriesInventoryOrder, btnOtherInventoryOrder, btnAdultInventoryOrder;
-    @FXML private JFXButton btnCanelInventoryOrder, btnSubmitInventoryOrder, btnCancelInventoryDelivery, btnImportInventoryDelivery;
-    @FXML private MaterialDesignIconView icoOrderInventoryOverview, icoDeliveryInventoryOverview;
+    @FXML private JFXButton btnCanelInventoryOrder, btnSubmitInventoryOrder, btnCancelInventoryDelivery, btnImportInventoryDelivery, btnAddFuelOverview;
+    @FXML private MaterialDesignIconView icoOrderInventoryOverview, icoDeliveryInventoryOverview, icoAddFuelOverview;
     @FXML private TableView tGoodsInventoryOverview, tGoodsInventoryOrder, tGoodsInventoryDelivery;
 
 
@@ -129,7 +129,11 @@ implements Initializable {
 
     @FXML private void handleSaleAction(MouseEvent event) {}
 
-    @FXML private void handleAction(MouseEvent event) {}
+    @FXML private void handleInventoryAction(MouseEvent event) {
+        if(event.getTarget() == btnAddFuelOverview) {
+
+        }
+    }
 
     @FXML private void handleEmployeeAction(MouseEvent event) {}
 
