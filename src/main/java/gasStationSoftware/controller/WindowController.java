@@ -316,23 +316,6 @@ implements Initializable {
 
     //===[SHOW DIALOGS]==================================================
 
-    private void showFuelTankInputDialog() {
-        JFXTextField txtInventoryNumber = getTextfield(140, 30, true, 10d, 5d, 5d);
-        txtInventoryNumber.setText(String.valueOf(logic.getFreeTankNumber()));
-
-        JFXTextField txtCapacity = getTextfield(140, 30, false, 60d, 5d, 5d);
-        txtCapacity.setPromptText("Kapazität in l");
-
-        JFXTextField txtLevel = getTextfield(140, 30, false, 110d, 5d, 5d);
-        txtLevel.setPromptText("Füllstand in l");
-
-        JFXComboBox<String> cbFuels = getComboBox(logic.getFuel(), "Kraftstoff wählen", 140, 30, 160d, 5d, 5d);
-
-        AnchorPane pane = getAnchorPane(160, 200);
-        pane.getChildren().addAll(txtInventoryNumber, txtCapacity, txtLevel, cbFuels);
-        inputDialog(pane, "Erstellen Kraftstofftank", "FUEL_TANK");
-    }
-
     private void showGasPumpInputDialog() {
         TableColumn columnInvNumber = getColumn("TANK #", "TANK_NUMBER", 60d, false);
         TableColumn columnTank = getColumn("Kraftstoff", "fuelLabel", 138d, false);
@@ -373,31 +356,8 @@ implements Initializable {
 
     //===[PROCESS INPUT]==================================================
 
-    private void processInput(AnchorPane input, String inputType) {
-        switch (inputType) {
-            case "ITEM_TYPE":
-                processItemTypeInput(input);
-                break;
-            case "FUEL_TANK":
-                processFuelTankInput(input);
-                break;
-            case "GAS_PUMP":
-                processGasTankInput(input);
-                break;
-            default: //TODO raise error
-        }
-    }
-
-    public void processItemTypeInput(AnchorPane input) {
-        switch (((JFXTextField) input.getChildren().get(2)).getText()){
-            case "FUEL":
-                logic.addItemType(((JFXTextField) input.getChildren().get(1)).getText(), InventoryType.Fuel);
-                break;
-            case "GOOD":
-                logic.addItemType(((JFXTextField) input.getChildren().get(1)).getText(), InventoryType.Good);
-                break;
-            default: //TODO raise error
-        }
+    public void processItemTypeInput(String label, InventoryType type) {
+       logic.addItemType(label, type);
     }
 
     private void processFuelTankInput(AnchorPane input) {
