@@ -17,9 +17,13 @@ import java.util.ArrayList;
 public abstract class Dialog {
 
     protected WindowController windowController;
+    protected static String iconsStyle;
+    protected static String buttonsStyle;
 
     protected Dialog(WindowController windowController) {
         this.windowController = windowController;
+        this.iconsStyle = windowController.getIconStyle();
+        this.buttonsStyle = windowController.getButtonStyle();
     }
 
     @FXML
@@ -29,6 +33,8 @@ public abstract class Dialog {
 
         JFXButton btnSubmit = new JFXButton("Abschicken");
         btnSubmit.setGraphic(getICO(MaterialDesignIcon.CHECK));
+        btnSubmit.setStyle(buttonsStyle);
+        btnSubmit.setGraphic(getICO(MaterialDesignIcon.CHECK));
         btnSubmit.setOnAction(event -> {
             dialog.close();
             processSubmit(dialogBodyContent);
@@ -36,11 +42,14 @@ public abstract class Dialog {
 
         JFXButton btnCancel = new JFXButton("Abbrechen");
         btnCancel.setGraphic(getICO(MaterialDesignIcon.CLOSE));
+        btnCancel.setStyle(buttonsStyle);
+        btnCancel.setGraphic(getICO(MaterialDesignIcon.CLOSE));
         btnCancel.setOnAction(event -> dialog.close());
 
         dialogContent.setHeading(new Label(title));
         dialogContent.setBody(dialogBodyContent);
         dialogContent.setActions(btnCancel, btnSubmit);
+        dialog.setMaxSize(dialogBodyContent.getMaxWidth() + 50, dialogBodyContent.getMaxHeight());
         dialog.show();
     }
 
@@ -76,7 +85,7 @@ public abstract class Dialog {
         btn.setPrefSize(prefWidth, prefHeight);
         btn.setMinSize(prefWidth, prefHeight);
         btn.setMaxSize(prefWidth, prefHeight);
-        btn.setStyle(WindowController.getButtonStyle());
+        btn.setStyle(buttonsStyle);
         AnchorPane.setTopAnchor(btn, topAnchor);
         AnchorPane.setLeftAnchor(btn, leftAnchor);
         return btn;
@@ -84,7 +93,7 @@ public abstract class Dialog {
 
     public static MaterialDesignIconView getICO(MaterialDesignIcon ico) {
         MaterialDesignIconView iconView = new MaterialDesignIconView(ico);
-        iconView.setStyle(WindowController.getIconStyle());
+        iconView.setStyle(iconsStyle);
         return iconView;
     }
 

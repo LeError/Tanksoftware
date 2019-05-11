@@ -20,13 +20,13 @@ public class ItemTypeInputDialog extends Dialog {
         JFXTextField txtInventoryNumber = getTextfield(140, 30, true, 10d, 5d, 5d);
         txtInventoryNumber.setText(String.valueOf(Logic.getInstance().getFreeInvNumber(type)));
 
-        JFXTextField txtLabel = getTextfield(140, 30, false, 60d, 5d, 5d);
+        JFXTextField txtLabel = getTextfield(200, 30, false, 60d, 5d, 5d);
         txtLabel.setPromptText("Bezeichner");
 
-        JFXTextField txtType = getTextfield(140, 30, true, 110d, 5d, 5d);
+        JFXTextField txtType = getTextfield(200, 30, true, 110d, 5d, 5d);
         txtType.setText(type.getTYPE());
 
-        AnchorPane pane = getAnchorPane(160, 150);
+        AnchorPane pane = getAnchorPane(210, 150);
         pane.getChildren().addAll(txtInventoryNumber, txtLabel, txtType);
 
         switch(type.getTYPE()) {
