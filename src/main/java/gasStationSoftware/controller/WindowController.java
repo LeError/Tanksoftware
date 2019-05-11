@@ -309,6 +309,8 @@ implements Initializable {
 
     }
 
+    //===[SHOW DIALOGS]==================================================
+
     private void showItemTypeInputDialog(InventoryType type) {
         JFXTextField txtInventoryNumber = getTextfield(140, 30, true, 10d, 5d, 5d);
         txtInventoryNumber.setText(String.valueOf(logic.getFreeInvNumber(type)));
@@ -351,40 +353,40 @@ implements Initializable {
     }
 
     private void showGasPumpInputDialog() {
-        TableColumn columnInvNumber = getColumn("INV #", "INVENTORY_NUMBER", 60d, false);
-        TableColumn columnFuel = getColumn("Kraftstoff", "LABEL", 138d, false);
+        TableColumn columnInvNumber = getColumn("TANK #", "TANK_NUMBER", 60d, false);
+        TableColumn columnTank = getColumn("Kraftstoff", "fuelLabel", 138d, false);
 
-        TableView tFuelList = getTable(200, 300, 10d, 5d);
-        tFuelList.getColumns().addAll(columnInvNumber,columnFuel);
-        logic.addFuelTypeTableRows(tFuelList);
+        TableView tTankList = getTable(200, 300, 10d, 5d);
+        tTankList.getColumns().addAll(columnInvNumber,columnTank);
+        logic.addTankTableRows(tTankList);
 
-        TableColumn columnInvNumberSelected = getColumn("INV #", "INVENTORY_NUMBER", 60d, false);
-        TableColumn columnFuelSelected = getColumn("Kraftstoff", "LABEL", 138d, false);
+        TableColumn columnInvNumberSelected = getColumn("TANK #", "TANK_NUMBER", 60d, false);
+        TableColumn columnTankSelected = getColumn("Kraftstoff", "fuelLabel", 138d, false);
 
-        TableView tFuelListSelected = getTable(200, 300, 10d, 285d);
-        tFuelListSelected.getColumns().addAll(columnInvNumberSelected,columnFuelSelected);
+        TableView tTankListSelected = getTable(200, 300, 10d, 285d);
+        tTankListSelected.getColumns().addAll(columnInvNumberSelected,columnTankSelected);
 
         JFXButton btnSelectFuel = getButton(30, 30, 100d, 230d);
         btnSelectFuel.setGraphic(getICO(MaterialDesignIcon.CHEVRON_DOUBLE_RIGHT));
-    btnSelectFuel.setOnAction(
+        btnSelectFuel.setOnAction(
         event -> {
-            if (tFuelList.getSelectionModel().getSelectedItem() != null) {
-                tFuelListSelected.getItems().add(tFuelList.getSelectionModel().getSelectedItem());
-                tFuelList.getItems().remove(tFuelList.getSelectionModel().getSelectedItem());
+            if (tTankList.getSelectionModel().getSelectedItem() != null) {
+                tTankListSelected.getItems().add(tTankList.getSelectionModel().getSelectedItem());
+                tTankList.getItems().remove(tTankList.getSelectionModel().getSelectedItem());
             }
         });
 
         JFXButton btnDeselectFuel = getButton(30, 30, 150d, 230d);
         btnDeselectFuel.setGraphic(getICO(MaterialDesignIcon.CHEVRON_DOUBLE_LEFT));
         btnDeselectFuel.setOnAction(event -> {
-            if(tFuelListSelected.getSelectionModel().getSelectedItem() != null) {
-                tFuelList.getItems().add(tFuelListSelected.getSelectionModel().getSelectedItem());
-                tFuelListSelected.getItems().remove(tFuelListSelected.getSelectionModel().getSelectedItem());
+            if(tTankListSelected.getSelectionModel().getSelectedItem() != null) {
+                tTankList.getItems().add(tTankListSelected.getSelectionModel().getSelectedItem());
+                tTankListSelected.getItems().remove(tTankListSelected.getSelectionModel().getSelectedItem());
             }
         });
 
         AnchorPane pane =  getAnchorPane(490, 300);
-        pane.getChildren().addAll(tFuelList, btnSelectFuel, btnDeselectFuel, tFuelListSelected);
+        pane.getChildren().addAll(tTankList, tTankListSelected, btnSelectFuel, btnDeselectFuel);
         inputDialog(pane, "Zapfsäule erstellen", "GAS_PUMP");
     }
 
@@ -416,6 +418,8 @@ implements Initializable {
         dialog.show();
     }
 
+    //===[PROCESS INPUT]==================================================
+
     private void processInput(AnchorPane input, String inputType) {
         switch (inputType) {
             case "ITEM_TYPE":
@@ -423,6 +427,10 @@ implements Initializable {
                 break;
             case "FUEL_TANK":
                 processFuelTankInput(input);
+                break;
+            case "GAS_PUMP":
+                processGasTankInput(input);
+                break;
             default: //TODO raise error
         }
     }
@@ -444,6 +452,17 @@ implements Initializable {
         float level = Float.parseFloat(((JFXTextField) input.getChildren().get(2)).getText());
         logic.addFuelTank(capacity, level, ((JFXComboBox<String>) input.getChildren().get(3)).getSelectionModel().getSelectedIndex());
     }
+
+    private void processGasTankInput(AnchorPane input) {
+        TableView table = (TableView) input.getChildren().get(1);
+        ArrayList<FuelTank> fuels = new ArrayList<>();
+        for(int i = 0; i < table.getItems().size(); i++) {
+            fuels.add((FuelTank) table.getItems().get(i));
+        }
+        logic.addGasPump(fuels);
+    }
+
+    //===[GET CONTROLS]==================================================
 
     private JFXComboBox<String> getComboBox(ArrayList<String> content, String promptText, int prefWidth, int prefHeight, double topAnchor, double rightAnchor, double leftAnchor) {
         JFXComboBox<String> cb = new JFXComboBox<>();
