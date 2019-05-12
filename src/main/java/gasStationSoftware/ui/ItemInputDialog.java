@@ -46,7 +46,11 @@ public class ItemInputDialog extends Dialog {
     @Override
     protected void processSubmit(AnchorPane pane) {
         ItemType iType = (ItemType) ((TableView) pane.getChildren().get(1)).getSelectionModel().getSelectedItem();
-        new ItemDetailInputDialog(rootPane, windowController, type, iType);
+        if(type == InventoryType.Fuel) {
+            new ItemDetailInputDialog(rootPane, windowController, iType);
+        } else if(type == InventoryType.Good) {
+
+        }
     }
 
     public JFXTextField getTxtSearch() {

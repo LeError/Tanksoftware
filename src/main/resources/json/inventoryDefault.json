@@ -10,5 +10,7 @@
 
   "gasPumpAssignedTanks": [],
 
-  "items": []
+  "storageUnitLabel":[],
+  "storageUnitX":[],
+  "storageUnitY":[]
 }

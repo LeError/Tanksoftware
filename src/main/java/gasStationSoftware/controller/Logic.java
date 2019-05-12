@@ -51,6 +51,8 @@ public class Logic {
     private ArrayList<FuelTank> tanks = new ArrayList<>();
     private ArrayList<GasPump> gasPumps = new ArrayList<>();
     private ArrayList<StorageUnit> storageUnits = new ArrayList<>();
+    private ArrayList<Fuel> fuels = new ArrayList<>();
+    private ArrayList<Good> goods = new ArrayList<>();
 
     //===[CONSTRUCTOR]==================================================
 
@@ -214,6 +216,11 @@ public class Logic {
         for (GasPump gasPump : this.gasPumps) {
             windowController.addRowTGasPumpsSettingsGasPump(gasPump);
         }
+
+        createStorageUnitObjects(read.getItemStringArray("storageUnitLabel"), Utility.getIntArray(read.getItemStringArray("storageUnitX")), Utility.getIntArray(read.getItemStringArray("storageUnitY")));
+        for(StorageUnit storageUnit : storageUnits) {
+            windowController.addRowTSettingsStorageUnit(storageUnit);
+        }
     }
 
     //===[CREATE OBJECTS FROM JSON]==================================================
@@ -265,6 +272,12 @@ public class Logic {
             this.gasPumps.add(new GasPump(i, tanks));
         }
         Collections.sort(this.gasPumps, Comparator.comparingInt(gasPump -> gasPump.getGAS_PUMP_NUMBER()));
+    }
+
+    private void createStorageUnitObjects(String[] label, int[] x, int[] y) {
+       for(int i = 0; i < label.length; i++) {
+           storageUnits.add(new StorageUnit(label[i], x[i] ,y[i]));
+       }
     }
 
     //===[GET FREE IDS]==================================================
@@ -341,8 +354,26 @@ public class Logic {
     public void addStorageUnit(String label, int x, int y) {
         StorageUnit newStorageUnit = new StorageUnit(label, x, y);
         storageUnits.add(newStorageUnit);
-        windowController.addRowTGoodsSettingsStorageUnit(newStorageUnit);
-        //TODO saveInv for Storage units
+        windowController.addRowTSettingsStorageUnit(newStorageUnit);
+        saveInventory();
+    }
+
+    public void addFuel(ItemType iType, float amount, float price, String currency) {
+        Fuel newFuel = null;
+        for(Fuel fuel : fuels) {
+            if(fuel.getTYPE() == iType) {
+                newFuel = fuel;
+            }
+        }
+
+        if(newFuel == null) {
+            newFuel = new Fuel(iType, price, currency, amount);
+            fuels.add(newFuel);
+            windowController.addRowTFuelsFuelOverview(newFuel);
+        } else {
+
+        }
+
     }
 
     //===[SAVE FILES]==================================================
@@ -357,6 +388,9 @@ public class Logic {
         write.addItemArray("itemInventoryNumber", getItemInventoryNumber());
         write.addItemArray("itemType", getItemType());
         write.addItemArrayListArray("gasPumpAssignedTanks", "gasPump", getGasPumpAssignedTanks());
+        write.addItemArray("storageUnitLabel", getStorageUnitLabel());
+        write.addItemArray("storageUnitX", getStorageUnitX());
+        write.addItemArray("storageUnitY", getStorageUnitY());
         write.write(true);
     }
 
@@ -428,6 +462,30 @@ public class Logic {
             }
         }
         return gasPumpAssignedTanks;
+    }
+
+    private String[] getStorageUnitLabel() {
+        String[] label = new String[storageUnits.size()];
+        for(int i = 0; i < label.length; i++) {
+            label[i] = storageUnits.get(i).getLabel();
+        }
+        return label;
+    }
+
+    private String[] getStorageUnitX() {
+        String[] x = new String[storageUnits.size()];
+        for(int i = 0; i < x.length; i++) {
+            x[i] = String.valueOf(storageUnits.get(i).getX());
+        }
+        return x;
+    }
+
+    private String[] getStorageUnitY() {
+        String[] y = new String[storageUnits.size()];
+        for(int i = 0; i < y.length; i++) {
+            y[i] = String.valueOf(storageUnits.get(i).getY());
+        }
+        return y;
     }
 
     //===[GETTER]==================================================

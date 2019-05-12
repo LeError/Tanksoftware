@@ -16,6 +16,10 @@ public abstract class Item {
         return TYPE.getINVENTORY_NUMBER();
     }
 
+    public ItemType getTYPE() {
+        return TYPE;
+    }
+
     public String getLABEL() {
         return TYPE.getLABEL();
     }
