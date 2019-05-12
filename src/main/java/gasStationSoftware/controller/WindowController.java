@@ -7,9 +7,11 @@ import gasStationSoftware.models.FuelTank;
 import gasStationSoftware.models.GasPump;
 import gasStationSoftware.models.InventoryType;
 import gasStationSoftware.models.ItemType;
+import gasStationSoftware.ui.ItemInputDialog;
 import gasStationSoftware.ui.FuelTankInputDialog;
 import gasStationSoftware.ui.GasPumpInputDialog;
 import gasStationSoftware.ui.ItemTypeInputDialog;
+import gasStationSoftware.util.Dialog;
 import gasStationSoftware.util.Utility;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -101,6 +103,21 @@ implements Initializable {
 
     @FXML private ArrayList<AnchorPane> panes, subPanes;
 
+    //===[INIT]==================================================
+
+    @Override public void initialize(URL location, ResourceBundle resources) {
+        logic = Logic.getInstance(this);
+        logic.loadFiles();
+        addColumnsTEmployeesEmployeeOverview();
+        addColumnsTFuelsSettingsFuel();
+        addColumnsTTanksSettingsTank();
+        addColumnsTGasPumpsSettingsGasPump();
+        addColumnsTGoodsSettingsGood();
+        setDefaultContent();
+    }
+
+    //===[HANDLE EVENT]==================================================
+
     @FXML private void handleMenuButtonAction(MouseEvent event) {
         hidePanes();
         hideSubPanes();
@@ -133,7 +150,7 @@ implements Initializable {
 
     @FXML private void handleInventoryAction(MouseEvent event) {
         if(event.getTarget() == btnAddFuelOverview) {
-
+            new ItemInputDialog(rootPane, this, InventoryType.Fuel);
         }
     }
 
@@ -171,6 +188,8 @@ implements Initializable {
         }
     }
 
+    //===[HIDE PANES]==================================================
+
     private void hidePanes() {
         for (AnchorPane pane : panes) {
             pane.setVisible(false);
@@ -184,86 +203,39 @@ implements Initializable {
         }
     }
 
-    @Override public void initialize(URL location, ResourceBundle resources) {
-        logic = Logic.getInstance(this);
-        logic.loadFiles();
-        addColumnsTEmployeesEmployeeOverview();
-        addColumnsTFuelsSettingsFuel();
-        addColumnsTTanksSettingsTank();
-        addColumnsTGasPumpsSettingsGasPump();
-        addColumnsTGoodsSettingsGood();
-        setDefaultContent();
-    }
+    //===[ADD COLUMNS TO TABLES]==================================================
 
     private void addColumnsTEmployeesEmployeeOverview() {
-        TableColumn columnEmployeeNumber = new TableColumn("Angestelter #");
-        columnEmployeeNumber.setCellValueFactory(new PropertyValueFactory<>("EMPLOYEE_NUMBER"));
-        TableColumn columnEmploymentDate = new TableColumn("Einstellungsdatum");
-        columnEmploymentDate.setCellValueFactory(new PropertyValueFactory<>("EMPLOYMENT_DATE_FORMATTED"));
-        TableColumn columnFirstName = new TableColumn("Vorname");
-        columnFirstName.setCellValueFactory(new PropertyValueFactory<>("FIRST_NAME"));
-        TableColumn columnSurname = new TableColumn("Nachname");
-        columnSurname.setCellValueFactory(new PropertyValueFactory<>("SUR_NAME"));
+        TableColumn columnEmployeeNumber = Dialog.getColumn("Angestelter #", "EMPLOYEE_NUMBER", 80, true);
+        TableColumn columnEmploymentDate = Dialog.getColumn("Einstellungsdatum", "EMPLOYMENT_DATE_FORMATTED", 100, true);
+        TableColumn columnFirstName = Dialog.getColumn("Vorname", "FIRST_NAME", 200, true);
+        TableColumn columnSurname = Dialog.getColumn("Nachname", "SUR_NAME", 200, true);
         tEmployeesEmployeeOverview.getColumns().addAll(columnEmployeeNumber, columnEmploymentDate, columnFirstName, columnSurname);
-    }
-
-    public void addRowTEmployeesEmployeeOverview(Employee employee){
-        tEmployeesEmployeeOverview.getItems().add(employee);
     }
 
     private void addColumnsTFuelsSettingsFuel() {
         tFuelsSettingsFuel.getColumns().addAll(getColumnsItemType());
     }
 
-    public void addRowTFuelsSettingsFuel(ItemType type) {
-        if(type.getTYPE_LABEL().equals(InventoryType.Fuel.getTYPE())) {
-            tFuelsSettingsFuel.getItems().add(type);
-        }
-    }
-
     private void addColumnsTTanksSettingsTank() {
-        TableColumn columnTankNumber = new TableColumn("Tank #");
-        columnTankNumber.setCellValueFactory(new PropertyValueFactory<>("TANK_NUMBER"));
-        TableColumn columnTankCapacity = new TableColumn("Max Tank Kapazität in l");
-        TableColumn columnTankLevel = new TableColumn("Kraftstoff in tank in l");
-        columnTankLevel.setCellValueFactory(new PropertyValueFactory<>("level"));
-        TableColumn columnTankLevelPercentage = new TableColumn("Kraftstoff in tank in %");
-        columnTankLevelPercentage.setCellValueFactory(new PropertyValueFactory<>("levelPercentage"));
-        columnTankCapacity.setCellValueFactory(new PropertyValueFactory<>("CAPACITY"));
-        TableColumn columnTankFuel = new TableColumn("Kraftstoff Type");
-        columnTankFuel.setCellValueFactory(new PropertyValueFactory<>("fuelLabel"));
-        TableColumn columnInvNumber = new TableColumn("Inventar #");
-        columnInvNumber.setCellValueFactory(new PropertyValueFactory<>("invNumber"));
+        TableColumn columnTankNumber = Dialog.getColumn("Tank #", "TANK_NUMBER", 80, true);
+        TableColumn columnTankCapacity = Dialog.getColumn("Max Tank Kapazität in l", "CAPACITY", 200, true);
+        TableColumn columnTankLevel = Dialog.getColumn("Kraftstoff in tank in l", "level", 80, true);
+        TableColumn columnTankLevelPercentage = Dialog.getColumn("Kraftstoff in tank in %", "levelPercentage", 200, true);
+        TableColumn columnTankFuel = Dialog.getColumn("Kraftstoff Type", "fuelLabel", 200, true);
+        TableColumn columnInvNumber = Dialog.getColumn("Inventar #", "invNumber", 200, true);
         tTanksSettingsTank.getColumns().addAll(columnTankNumber, columnTankCapacity, columnTankLevel, columnTankLevelPercentage, columnTankFuel, columnInvNumber);
     }
 
-    public void addRowTTanksSettingsTank(FuelTank tank){
-        tTanksSettingsTank.getItems().add(tank);
-    }
-
     private void addColumnsTGasPumpsSettingsGasPump() {
-        TableColumn columnGasPumpNumber = new TableColumn("Zapfsäule #");
-        columnGasPumpNumber.setCellValueFactory(new PropertyValueFactory<>("GAS_PUMP_NUMBER"));
-        TableColumn columnGasPumpFuel = new TableColumn("Verfügbare Kraftstoffe");
-        columnGasPumpFuel.setCellValueFactory(new PropertyValueFactory<>("assignedFuels"));
-        TableColumn columnGasPumpTank = new TableColumn("Angeschlossene Tanks");
-        columnGasPumpTank.setCellValueFactory(new PropertyValueFactory<>("assignedTanks"));
+        TableColumn columnGasPumpNumber = Dialog.getColumn("Zapfsäule #", "GAS_PUMP_NUMBER", 80, true);
+        TableColumn columnGasPumpFuel = Dialog.getColumn("Verfügbare Kraftstoffe", "assignedFuels", 200, true);
+        TableColumn columnGasPumpTank = Dialog.getColumn("Angeschlossene Tanks", "assignedTanks", 200, true);
         tGasPumpsSettingsGasPump.getColumns().addAll(columnGasPumpNumber, columnGasPumpFuel, columnGasPumpTank);
     }
 
-    public void addRowTGasPumpsSettingsGasPump(GasPump gasPump) {
-        tGasPumpsSettingsGasPump.getItems().add(gasPump);
-    }
-
-
     private void addColumnsTGoodsSettingsGood() {
         tGoodsSettingsGood.getColumns().addAll(getColumnsItemType());
-    }
-
-    public void addRowTGoodsSettingsGood(ItemType type) {
-        if(type.getTYPE_LABEL().equals(InventoryType.Good.getTYPE())) {
-            tGoodsSettingsGood.getItems().add(type);
-        }
     }
 
     private TableColumn[] getColumnsItemType() {
@@ -281,6 +253,34 @@ implements Initializable {
         return columns;
     }
 
+    //===[ADD ROWS TO TABLES]==================================================
+
+    public void addRowTEmployeesEmployeeOverview(Employee employee){
+        tEmployeesEmployeeOverview.getItems().add(employee);
+    }
+
+    public void addRowTFuelsSettingsFuel(ItemType type) {
+        if(type.getTYPE_LABEL().equals(InventoryType.Fuel.getTYPE())) {
+            tFuelsSettingsFuel.getItems().add(type);
+        }
+    }
+
+    public void addRowTTanksSettingsTank(FuelTank tank){
+        tTanksSettingsTank.getItems().add(tank);
+    }
+
+    public void addRowTGasPumpsSettingsGasPump(GasPump gasPump) {
+        tGasPumpsSettingsGasPump.getItems().add(gasPump);
+    }
+
+    public void addRowTGoodsSettingsGood(ItemType type) {
+        if(type.getTYPE_LABEL().equals(InventoryType.Good.getTYPE())) {
+            tGoodsSettingsGood.getItems().add(type);
+        }
+    }
+
+    //===[DEFAULT CONTENT]==================================================
+
     private void setDefaultContent() {
         cbTypeSettingsOverview.getItems().setAll((Object[]) CB_SETTINGS_TYPE_OPTIONS);
         cbTypeSettingsOverview.setPromptText(CB_SETTINGS_TYPE_PROMT);
@@ -288,12 +288,10 @@ implements Initializable {
 
     public void setComboboxThemes(String[] themes, String selected) {
         cbThemeSettingsOverview.getItems().setAll((Object[]) themes);
-        cbThemeSettingsOverview.setPromptText(selected);
+        cbThemeSettingsOverview.getSelectionModel().select(selected);
     }
 
-    private void setUser(String firstName, String lastName) {
-        //lblUserName.setText(firstName + " " + lastName);
-    }
+    //===[THEME]==================================================
 
     public void setTheme(Color backgroundMenuBar, Color contentPaneBackground, Color icons, Color dividerMenuBar,
     Color fontContent, Color buttonsBackground, Color buttonsFont, Color dividerContent) {
@@ -314,7 +312,6 @@ implements Initializable {
     private void applyTheme() {
 
     }
-
 
     //===[PROCESS INPUT]==================================================
 
