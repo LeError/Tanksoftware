@@ -309,6 +309,12 @@ implements Initializable {
         tFuelsFuelOverview.getItems().add(fuel);
     }
 
+    //===[LOGIC CALL]==================================================
+
+    public void addTankTableRows(TableView table) {
+        logic.addTankTableRows(table);
+    }
+
     //===[DEFAULT CONTENT]==================================================
 
     private void setDefaultContent() {
@@ -415,7 +421,8 @@ implements Initializable {
         return logic.getFuel();
     }
 
-    public void addTankTableRows(TableView table) {
-        logic.addTankTableRows(table);
+    public StackPane getRootPane() {
+        return rootPane;
     }
+
 }
