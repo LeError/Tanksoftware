@@ -1,9 +1,9 @@
 package gasStationSoftware.ui;
 
 import com.jfoenix.controls.JFXTextField;
-import gasStationSoftware.controller.Logic;
 import gasStationSoftware.controller.WindowController;
 import gasStationSoftware.models.InventoryType;
+import gasStationSoftware.models.ItemType;
 import gasStationSoftware.util.Dialog;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -14,19 +14,25 @@ public class ItemInputDialog extends Dialog {
 
     private InventoryType type;
 
+    private JFXTextField txtSearch;
+    private TableView tItemList;
+    private StackPane rootPane;
+
     public ItemInputDialog(StackPane rootPane, WindowController windowController, InventoryType type) {
         super(windowController);
         this.type = type;
+        this.rootPane = rootPane;
 
-        JFXTextField txtSearch = getTextfield(290, 30, false, 10, 5, 5);
+        txtSearch = getTextfield(290, 30, false, 10, 5, 5);
         txtSearch.setPromptText("Suche");
 
         TableColumn columnInvNumber = getColumn("INV #", "INVENTORY_NUMBER", 90d, false);
         TableColumn columnLabel = getColumn("Kraftstoff", "LABEL", 198d, false);
 
-        TableView tItemList = getTable(290, 180, 55d, 5d);
+        tItemList = getTable(290, 180, 55d, 5d);
         tItemList.getColumns().addAll(columnInvNumber,columnLabel);
-        Logic.getInstance().addItemTypeTableRows(tItemList, type);
+
+        windowController.createItemTypeData(this, InventoryType.Fuel);
 
         AnchorPane pane = getAnchorPane(300, 240);
         pane.getChildren().addAll(txtSearch, tItemList);
@@ -39,10 +45,15 @@ public class ItemInputDialog extends Dialog {
 
     @Override
     protected void processSubmit(AnchorPane pane) {
-        if(type == InventoryType.Fuel) {
+        ItemType iType = (ItemType) ((TableView) pane.getChildren().get(1)).getSelectionModel().getSelectedItem();
+        new ItemDetailInputDialog(rootPane, windowController, type, iType);
+    }
 
-        } else if(type == InventoryType.Good) {
+    public JFXTextField getTxtSearch() {
+        return txtSearch;
+    }
 
-        }
+    public TableView getTable() {
+        return tItemList;
     }
 }
