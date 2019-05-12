@@ -418,4 +418,11 @@ public class Logic {
             table.getItems().add(tank);
         }
     }
+
+    public void addItemTypeTableRows(TableView table, InventoryType type) {
+        ArrayList<ItemType> types = Utility.getInventoryType(this.types, type);
+        for(ItemType iType : types) {
+            table.getItems().add(iType);
+        }
+    }
 }
