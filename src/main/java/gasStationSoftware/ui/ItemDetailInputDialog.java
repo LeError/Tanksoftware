@@ -18,8 +18,8 @@ public class ItemDetailInputDialog extends Dialog {
         JFXTextField txtItem = getTextfield(200, 30, true, 10d, 5d, 5d);
         txtItem.setText(iType.getLABEL());
 
-        JFXTextField txtAmount = getTextfield(200, 30, false, 60d, 5d, 5d);
-        txtAmount.setPromptText("Anzahl in l");
+        JFXTextField txtAmount = getTextfield(200, 30, true, 60d, 5d, 5d);
+        txtAmount.setText("0");
 
         JFXTextField txtPrice = getTextfield(200, 30, false, 110d, 5d, 5d);
         txtPrice.setPromptText("Preis");
@@ -34,6 +34,9 @@ public class ItemDetailInputDialog extends Dialog {
 
     @Override
     protected void processSubmit(AnchorPane pane) {
-
+        float amount = Float.parseFloat(((JFXTextField) pane.getChildren().get(1)).getText());
+        float price = Float.parseFloat(((JFXTextField) pane.getChildren().get(2)).getText());
+        String currency = ((JFXTextField) pane.getChildren().get(3)).getText();
+        windowController.processFuel(iType, amount, price, currency);
     }
 }
