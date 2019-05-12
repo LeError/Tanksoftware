@@ -384,7 +384,19 @@ implements Initializable {
         return iconsStyle;
     }
 
-    public StackPane getRootPane() {
-        return rootPane;
+    public int getFreeInvNumber(InventoryType type) {
+        return logic.getFreeInvNumber(type);
+    }
+
+    public int getTankNumber() {
+        return logic.getFreeTankNumber();
+    }
+
+    public ArrayList<String> getFuel() {
+        return logic.getFuel();
+    }
+
+    public void addTankTableRows(TableView table) {
+        logic.addTankTableRows(table);
     }
 }

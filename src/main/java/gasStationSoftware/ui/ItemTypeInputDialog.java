@@ -1,7 +1,6 @@
 package gasStationSoftware.ui;
 
 import com.jfoenix.controls.JFXTextField;
-import gasStationSoftware.controller.Logic;
 import gasStationSoftware.controller.WindowController;
 import gasStationSoftware.models.InventoryType;
 import gasStationSoftware.util.Dialog;
@@ -18,7 +17,7 @@ public class ItemTypeInputDialog extends Dialog {
         this.type = type;
 
         JFXTextField txtInventoryNumber = getTextfield(140, 30, true, 10d, 5d, 5d);
-        txtInventoryNumber.setText(String.valueOf(Logic.getInstance().getFreeInvNumber(type)));
+        txtInventoryNumber.setText(String.valueOf(windowController.getFreeInvNumber(type)));
 
         JFXTextField txtLabel = getTextfield(200, 30, false, 60d, 5d, 5d);
         txtLabel.setPromptText("Bezeichner");

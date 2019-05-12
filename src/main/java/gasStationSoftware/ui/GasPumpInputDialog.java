@@ -2,7 +2,6 @@ package gasStationSoftware.ui;
 
 import com.jfoenix.controls.JFXButton;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
-import gasStationSoftware.controller.Logic;
 import gasStationSoftware.controller.WindowController;
 import gasStationSoftware.models.FuelTank;
 import gasStationSoftware.util.Dialog;
@@ -23,7 +22,7 @@ public class GasPumpInputDialog extends Dialog {
 
         TableView tTankList = getTable(200, 300, 10d, 5d);
         tTankList.getColumns().addAll(columnInvNumber,columnTank);
-        Logic.getInstance().addTankTableRows(tTankList);
+        windowController.addTankTableRows(tTankList);
 
         TableColumn columnInvNumberSelected = getColumn("TANK #", "TANK_NUMBER", 60d, false);
         TableColumn columnTankSelected = getColumn("Kraftstoff", "fuelLabel", 138d, false);
