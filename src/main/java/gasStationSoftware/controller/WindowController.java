@@ -112,6 +112,7 @@ implements Initializable {
         addColumnsTGasPumpsSettingsGasPump();
         addColumnsTGoodsSettingsGood();
         addColumnsTGoodsSettingsStorageUnit();
+        addCollumnsTFuelsFuelOverview();
         setDefaultContent();
     }
 
@@ -249,6 +250,16 @@ implements Initializable {
         tGoodsSettingsStorageUnit.getColumns().addAll(columnStorageUnitLabel, columnStorageUnitX, columnStorageUnitY);
     }
 
+    private void addCollumnsTFuelsFuelOverview() {
+        TableColumn columnStorageUnitLabel = Dialog.getColumn("INV #", "INVENTORY_NUMBER", 80, true);
+        TableColumn columnStorageUnitFuel = Dialog.getColumn("Kraftstoff", "LABEL", 100, true);
+        TableColumn columnStorageUnitAmount = Dialog.getColumn("Menge in l", "amount", 100, true);
+        TableColumn columnStorageUnitPrice = Dialog.getColumn("Preis", "price", 100, true);
+        TableColumn columnStorageUnitCurrency = Dialog.getColumn("Währung", "currency", 100, true);
+        TableColumn columnStorageUnitTanks = Dialog.getColumn("In Tanks", "", 100, true);
+        tFuelsFuelOverview.getColumns().addAll(columnStorageUnitLabel, columnStorageUnitFuel, columnStorageUnitAmount, columnStorageUnitPrice, columnStorageUnitCurrency, columnStorageUnitTanks);
+    }
+
     private TableColumn[] getColumnsItemType() {
         TableColumn columnInventoryNumber = new TableColumn("Inventar #");
         columnInventoryNumber.setCellValueFactory(new PropertyValueFactory<>("INVENTORY_NUMBER"));
@@ -292,6 +303,10 @@ implements Initializable {
 
     public void addRowTSettingsStorageUnit(StorageUnit storageUnit) {
         tGoodsSettingsStorageUnit.getItems().add(storageUnit);
+    }
+
+    public void addRowTFuelsFuelOverview(Fuel fuel) {
+        tFuelsFuelOverview.getItems().add(fuel);
     }
 
     //===[DEFAULT CONTENT]==================================================
@@ -344,6 +359,10 @@ implements Initializable {
 
     public void processStorageUnit(String label, int x, int y) {
         logic.addStorageUnit(label, x, y);
+    }
+
+    public void processFuel(ItemType iType, float amount, float price, String currency){
+        logic.addFuel(iType, amount, price, currency);
     }
 
     //===[CREATE SEARCHABLE DATA]==================================================
