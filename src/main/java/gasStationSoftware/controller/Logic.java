@@ -3,11 +3,7 @@ package gasStationSoftware.controller;
 import gasStationSoftware.exceptions.DataFileNotFoundException;
 import gasStationSoftware.exceptions.NumberOutOfRangeException;
 import gasStationSoftware.exceptions.OSException;
-import gasStationSoftware.models.Employee;
-import gasStationSoftware.models.FuelTank;
-import gasStationSoftware.models.GasPump;
-import gasStationSoftware.models.InventoryType;
-import gasStationSoftware.models.ItemType;
+import gasStationSoftware.models.*;
 import gasStationSoftware.util.ReadFile;
 import gasStationSoftware.util.ReadJSON;
 import gasStationSoftware.util.Utility;
@@ -54,6 +50,9 @@ public class Logic {
     private ArrayList<ItemType> types = new ArrayList<>();
     private ArrayList<FuelTank> tanks = new ArrayList<>();
     private ArrayList<GasPump> gasPumps = new ArrayList<>();
+    private ArrayList<StorageUnit> storageUnits = new ArrayList<>();
+
+    //===[CONSTRUCTOR]==================================================
 
     private Logic() {
         checkDir(DATA_FILE_PATH);
@@ -67,6 +66,8 @@ public class Logic {
         }
     }
 
+    //===[INSTANCE GETTER]==================================================
+
     public static Logic getInstance() {
         if (logic == null) {
             logic = new Logic();
@@ -78,6 +79,8 @@ public class Logic {
         Logic.windowController = windowController;
         return getInstance();
     }
+
+    //===[CHECK DIRS AND FILES]==================================================
 
     private void checkDir(String dir) {
         File dataDir = new File(dir);
@@ -119,6 +122,8 @@ public class Logic {
         }
     }
 
+    //===[JSON EXTRACTION]==================================================
+
     private void exportJSONResources(String source, String file) {
         InputStream jsonSource = getClass().getClassLoader().getResourceAsStream("\\json\\" + source);
         File jsonDestination = new File(DATA_FILE_PATH + file);
@@ -129,12 +134,16 @@ public class Logic {
         }
     }
 
-    public static void displayError(String error, Exception e, boolean end) {
+    //===[DISPLAY ERRORS]==================================================
+
+    public static void displayError(String error, Exception e, boolean end) { // TODO change to errorDialog
         JOptionPane.showMessageDialog(null, error + "\n" + e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
         if(end){
             System.exit(-1);
         }
     }
+
+    //===[LOAD SAVE FILES]==================================================
 
     public void loadFiles() {
         try {
@@ -207,6 +216,8 @@ public class Logic {
         }
     }
 
+    //===[CREATE OBJECTS FROM JSON]==================================================
+
     private void createItemTypeObjects(String[] label, String[] inventoryNumber, String[] type) {
         for(int i = 0; i < inventoryNumber.length; i++) {
             InventoryType invType = InventoryType.Good;
@@ -256,6 +267,8 @@ public class Logic {
         Collections.sort(this.gasPumps, Comparator.comparingInt(gasPump -> gasPump.getGAS_PUMP_NUMBER()));
     }
 
+    //===[GET FREE IDS]==================================================
+
     public int getFreeInvNumber(InventoryType type) {
         int number = 1;
         ArrayList<ItemType> types = Utility.getInventoryType(this.types, type);
@@ -293,6 +306,8 @@ public class Logic {
         return number;
     }
 
+    //===[ADD NEW OBJECT]==================================================
+
     public void addItemType(String label, InventoryType type) {
         ItemType newItemType = new ItemType(label, getFreeInvNumber(type), type);
         types.add(newItemType);
@@ -323,6 +338,15 @@ public class Logic {
         saveInventory();
     }
 
+    public void addStorageUnit(String label, int x, int y) {
+        StorageUnit newStorageUnit = new StorageUnit(label, x, y);
+        storageUnits.add(newStorageUnit);
+        windowController.addRowTGoodsSettingsStorageUnit(newStorageUnit);
+        //TODO saveInv for Storage units
+    }
+
+    //===[SAVE FILES]==================================================
+
     private void saveInventory() {
         WriteJSON write = new WriteJSON(DATA_FILE_PATH + DATA_FILE_NAMES[0]);
         write.addItemArray("tankCapacity", getTankCapacity());
@@ -335,6 +359,8 @@ public class Logic {
         write.addItemArrayListArray("gasPumpAssignedTanks", "gasPump", getGasPumpAssignedTanks());
         write.write(true);
     }
+
+    //===[GET STRINGS FOR JSON]==================================================
 
     private String[] getTankCapacity() {
         String[] tankCapacity = new String[tanks.size()];
@@ -404,6 +430,8 @@ public class Logic {
         return gasPumpAssignedTanks;
     }
 
+    //===[GETTER]==================================================
+
     public ArrayList<String> getFuel() {
         ArrayList<ItemType> types = Utility.getInventoryType(this.types, InventoryType.Fuel);
         ArrayList<String> fuel = new ArrayList<>();
@@ -412,6 +440,13 @@ public class Logic {
         }
         return fuel;
     }
+
+    public ArrayList<ItemType> getItemTypes(InventoryType type) {
+        ArrayList<ItemType> types = Utility.getInventoryType(this.types, type);
+        return types;
+    }
+
+    //===[GET ROWS FOR INPUT DIALOGS]==================================================
 
     public void addTankTableRows(TableView table) {
         for(FuelTank tank : tanks) {

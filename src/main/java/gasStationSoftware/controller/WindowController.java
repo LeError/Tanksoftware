@@ -2,15 +2,14 @@ package gasStationSoftware.controller;
 
 import com.jfoenix.controls.*;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
-import gasStationSoftware.models.Employee;
-import gasStationSoftware.models.FuelTank;
-import gasStationSoftware.models.GasPump;
-import gasStationSoftware.models.InventoryType;
-import gasStationSoftware.models.ItemType;
-import gasStationSoftware.ui.FuelTankInputDialog;
-import gasStationSoftware.ui.GasPumpInputDialog;
-import gasStationSoftware.ui.ItemTypeInputDialog;
+import gasStationSoftware.models.*;
+import gasStationSoftware.ui.*;
+import gasStationSoftware.util.Dialog;
 import gasStationSoftware.util.Utility;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -91,15 +90,32 @@ implements Initializable {
     @FXML private JFXDatePicker dpTimespanReportOverview, dpTimespanReportOverview1;
     @FXML private TableView tReportReportOverview;
 
-    @FXML private AnchorPane settingsPane, settingsOverviewPane, settingsFuelPane, settingsTankPane, settingsGasPumpPane, settingsGoodPane;
+    @FXML private AnchorPane settingsPane, settingsOverviewPane, settingsFuelPane, settingsTankPane, settingsGasPumpPane, settingsGoodPane, settingsStorageUnitPane;
     @FXML private Polygon polygonSettings;
     @FXML private JFXButton btnEditThemeSettingsOverview, btnCreateThemeSettingsOverview, btnFuelsSettingsOverview, btnTanksSettingsOverview, btnGasPumpsSettingsOverview;
     @FXML private JFXButton btnGoodsSettingsOverview, btnExportSettingsOverview, btnImportSettingsOverview, btnNewSettingsFuel, btnEditSettingsFuel, btnNewSettingsTank;
-    @FXML private JFXButton btnEditSettingsTank, btnNewSettingsGasPump, btnEditSettingsGasPump, btnNewSettingsGood, btnEditSettingsGood;
+    @FXML private JFXButton btnEditSettingsTank, btnNewSettingsGasPump, btnEditSettingsGasPump, btnNewSettingsGood, btnEditSettingsGood, btnStorageUnitSettingsOverview;
+    @FXML private JFXButton btnNewSettingsStorageUnit, btnEditSettingsStorageUnit;
     @FXML private JFXComboBox cbThemeSettingsOverview, cbTypeSettingsOverview;
-    @FXML private TableView tFuelsSettingsFuel, tTanksSettingsTank, tGasPumpsSettingsGasPump, tGoodsSettingsGood;
+    @FXML private TableView tFuelsSettingsFuel, tTanksSettingsTank, tGasPumpsSettingsGasPump, tGoodsSettingsGood, tGoodsSettingsStorageUnit;
 
     @FXML private ArrayList<AnchorPane> panes, subPanes;
+
+    //===[INIT]==================================================
+
+    @Override public void initialize(URL location, ResourceBundle resources) {
+        logic = Logic.getInstance(this);
+        logic.loadFiles();
+        addColumnsTEmployeesEmployeeOverview();
+        addColumnsTFuelsSettingsFuel();
+        addColumnsTTanksSettingsTank();
+        addColumnsTGasPumpsSettingsGasPump();
+        addColumnsTGoodsSettingsGood();
+        addColumnsTGoodsSettingsStorageUnit();
+        setDefaultContent();
+    }
+
+    //===[HANDLE EVENT]==================================================
 
     @FXML private void handleMenuButtonAction(MouseEvent event) {
         hidePanes();
@@ -133,7 +149,7 @@ implements Initializable {
 
     @FXML private void handleInventoryAction(MouseEvent event) {
         if(event.getTarget() == btnAddFuelOverview) {
-
+            new ItemInputDialog(rootPane, this, InventoryType.Fuel);
         }
     }
 
@@ -158,6 +174,9 @@ implements Initializable {
         } else if (event.getTarget() == btnGoodsSettingsOverview) {
             hideSubPanes();
             settingsGoodPane.setVisible(true);
+        } else if(event.getTarget() == btnStorageUnitSettingsOverview) {
+            hideSubPanes();
+            settingsStorageUnitPane.setVisible(true);
         } else if (event.getTarget() == btnExportSettingsOverview) {
         } else if (event.getTarget() == btnImportSettingsOverview) {
         } else if (event.getTarget() == btnNewSettingsFuel) {
@@ -168,8 +187,12 @@ implements Initializable {
             new GasPumpInputDialog(rootPane, this);
         } else if (event.getTarget() == btnNewSettingsGood) {
             new ItemTypeInputDialog(rootPane, this, InventoryType.Good);
+        } else if (event.getTarget() == btnNewSettingsStorageUnit) {
+            new StorageUnitInputDialog(rootPane, this);
         }
     }
+
+    //===[HIDE PANES]==================================================
 
     private void hidePanes() {
         for (AnchorPane pane : panes) {
@@ -184,86 +207,46 @@ implements Initializable {
         }
     }
 
-    @Override public void initialize(URL location, ResourceBundle resources) {
-        logic = Logic.getInstance(this);
-        logic.loadFiles();
-        addColumnsTEmployeesEmployeeOverview();
-        addColumnsTFuelsSettingsFuel();
-        addColumnsTTanksSettingsTank();
-        addColumnsTGasPumpsSettingsGasPump();
-        addColumnsTGoodsSettingsGood();
-        setDefaultContent();
-    }
+    //===[ADD COLUMNS TO TABLES]==================================================
 
     private void addColumnsTEmployeesEmployeeOverview() {
-        TableColumn columnEmployeeNumber = new TableColumn("Angestelter #");
-        columnEmployeeNumber.setCellValueFactory(new PropertyValueFactory<>("EMPLOYEE_NUMBER"));
-        TableColumn columnEmploymentDate = new TableColumn("Einstellungsdatum");
-        columnEmploymentDate.setCellValueFactory(new PropertyValueFactory<>("EMPLOYMENT_DATE_FORMATTED"));
-        TableColumn columnFirstName = new TableColumn("Vorname");
-        columnFirstName.setCellValueFactory(new PropertyValueFactory<>("FIRST_NAME"));
-        TableColumn columnSurname = new TableColumn("Nachname");
-        columnSurname.setCellValueFactory(new PropertyValueFactory<>("SUR_NAME"));
+        TableColumn columnEmployeeNumber = Dialog.getColumn("Angestelter #", "EMPLOYEE_NUMBER", 80, true);
+        TableColumn columnEmploymentDate = Dialog.getColumn("Einstellungsdatum", "EMPLOYMENT_DATE_FORMATTED", 100, true);
+        TableColumn columnFirstName = Dialog.getColumn("Vorname", "FIRST_NAME", 200, true);
+        TableColumn columnSurname = Dialog.getColumn("Nachname", "SUR_NAME", 200, true);
         tEmployeesEmployeeOverview.getColumns().addAll(columnEmployeeNumber, columnEmploymentDate, columnFirstName, columnSurname);
-    }
-
-    public void addRowTEmployeesEmployeeOverview(Employee employee){
-        tEmployeesEmployeeOverview.getItems().add(employee);
     }
 
     private void addColumnsTFuelsSettingsFuel() {
         tFuelsSettingsFuel.getColumns().addAll(getColumnsItemType());
     }
 
-    public void addRowTFuelsSettingsFuel(ItemType type) {
-        if(type.getTYPE_LABEL().equals(InventoryType.Fuel.getTYPE())) {
-            tFuelsSettingsFuel.getItems().add(type);
-        }
-    }
-
     private void addColumnsTTanksSettingsTank() {
-        TableColumn columnTankNumber = new TableColumn("Tank #");
-        columnTankNumber.setCellValueFactory(new PropertyValueFactory<>("TANK_NUMBER"));
-        TableColumn columnTankCapacity = new TableColumn("Max Tank Kapazität in l");
-        TableColumn columnTankLevel = new TableColumn("Kraftstoff in tank in l");
-        columnTankLevel.setCellValueFactory(new PropertyValueFactory<>("level"));
-        TableColumn columnTankLevelPercentage = new TableColumn("Kraftstoff in tank in %");
-        columnTankLevelPercentage.setCellValueFactory(new PropertyValueFactory<>("levelPercentage"));
-        columnTankCapacity.setCellValueFactory(new PropertyValueFactory<>("CAPACITY"));
-        TableColumn columnTankFuel = new TableColumn("Kraftstoff Type");
-        columnTankFuel.setCellValueFactory(new PropertyValueFactory<>("fuelLabel"));
-        TableColumn columnInvNumber = new TableColumn("Inventar #");
-        columnInvNumber.setCellValueFactory(new PropertyValueFactory<>("invNumber"));
+        TableColumn columnTankNumber = Dialog.getColumn("Tank #", "TANK_NUMBER", 80, true);
+        TableColumn columnTankCapacity = Dialog.getColumn("Max Tank Kapazität in l", "CAPACITY", 200, true);
+        TableColumn columnTankLevel = Dialog.getColumn("Kraftstoff in tank in l", "level", 80, true);
+        TableColumn columnTankLevelPercentage = Dialog.getColumn("Kraftstoff in tank in %", "levelPercentage", 200, true);
+        TableColumn columnTankFuel = Dialog.getColumn("Kraftstoff Type", "fuelLabel", 200, true);
+        TableColumn columnInvNumber = Dialog.getColumn("Inventar #", "invNumber", 200, true);
         tTanksSettingsTank.getColumns().addAll(columnTankNumber, columnTankCapacity, columnTankLevel, columnTankLevelPercentage, columnTankFuel, columnInvNumber);
     }
 
-    public void addRowTTanksSettingsTank(FuelTank tank){
-        tTanksSettingsTank.getItems().add(tank);
-    }
-
     private void addColumnsTGasPumpsSettingsGasPump() {
-        TableColumn columnGasPumpNumber = new TableColumn("Zapfsäule #");
-        columnGasPumpNumber.setCellValueFactory(new PropertyValueFactory<>("GAS_PUMP_NUMBER"));
-        TableColumn columnGasPumpFuel = new TableColumn("Verfügbare Kraftstoffe");
-        columnGasPumpFuel.setCellValueFactory(new PropertyValueFactory<>("assignedFuels"));
-        TableColumn columnGasPumpTank = new TableColumn("Angeschlossene Tanks");
-        columnGasPumpTank.setCellValueFactory(new PropertyValueFactory<>("assignedTanks"));
+        TableColumn columnGasPumpNumber = Dialog.getColumn("Zapfsäule #", "GAS_PUMP_NUMBER", 80, true);
+        TableColumn columnGasPumpFuel = Dialog.getColumn("Verfügbare Kraftstoffe", "assignedFuels", 200, true);
+        TableColumn columnGasPumpTank = Dialog.getColumn("Angeschlossene Tanks", "assignedTanks", 200, true);
         tGasPumpsSettingsGasPump.getColumns().addAll(columnGasPumpNumber, columnGasPumpFuel, columnGasPumpTank);
     }
-
-    public void addRowTGasPumpsSettingsGasPump(GasPump gasPump) {
-        tGasPumpsSettingsGasPump.getItems().add(gasPump);
-    }
-
 
     private void addColumnsTGoodsSettingsGood() {
         tGoodsSettingsGood.getColumns().addAll(getColumnsItemType());
     }
 
-    public void addRowTGoodsSettingsGood(ItemType type) {
-        if(type.getTYPE_LABEL().equals(InventoryType.Good.getTYPE())) {
-            tGoodsSettingsGood.getItems().add(type);
-        }
+    private void addColumnsTGoodsSettingsStorageUnit() {
+        TableColumn columnStorageUnitLabel = Dialog.getColumn("Bezeichner", "label", 200, true);
+        TableColumn columnStorageUnitX = Dialog.getColumn("Platzierung X", "x", 200, true);
+        TableColumn columnStorageUnitY = Dialog.getColumn("Platzierung Y", "y", 200, true);
+        tGoodsSettingsStorageUnit.getColumns().addAll(columnStorageUnitLabel, columnStorageUnitX, columnStorageUnitY);
     }
 
     private TableColumn[] getColumnsItemType() {
@@ -281,6 +264,38 @@ implements Initializable {
         return columns;
     }
 
+    //===[ADD ROWS TO TABLES]==================================================
+
+    public void addRowTEmployeesEmployeeOverview(Employee employee){
+        tEmployeesEmployeeOverview.getItems().add(employee);
+    }
+
+    public void addRowTFuelsSettingsFuel(ItemType type) {
+        if(type.getTYPE_LABEL().equals(InventoryType.Fuel.getTYPE())) {
+            tFuelsSettingsFuel.getItems().add(type);
+        }
+    }
+
+    public void addRowTTanksSettingsTank(FuelTank tank){
+        tTanksSettingsTank.getItems().add(tank);
+    }
+
+    public void addRowTGasPumpsSettingsGasPump(GasPump gasPump) {
+        tGasPumpsSettingsGasPump.getItems().add(gasPump);
+    }
+
+    public void addRowTGoodsSettingsGood(ItemType type) {
+        if(type.getTYPE_LABEL().equals(InventoryType.Good.getTYPE())) {
+            tGoodsSettingsGood.getItems().add(type);
+        }
+    }
+
+    public void addRowTGoodsSettingsStorageUnit(StorageUnit storageUnit) {
+        tGoodsSettingsStorageUnit.getItems().add(storageUnit);
+    }
+
+    //===[DEFAULT CONTENT]==================================================
+
     private void setDefaultContent() {
         cbTypeSettingsOverview.getItems().setAll((Object[]) CB_SETTINGS_TYPE_OPTIONS);
         cbTypeSettingsOverview.setPromptText(CB_SETTINGS_TYPE_PROMT);
@@ -288,12 +303,10 @@ implements Initializable {
 
     public void setComboboxThemes(String[] themes, String selected) {
         cbThemeSettingsOverview.getItems().setAll((Object[]) themes);
-        cbThemeSettingsOverview.setPromptText(selected);
+        cbThemeSettingsOverview.getSelectionModel().select(selected);
     }
 
-    private void setUser(String firstName, String lastName) {
-        //lblUserName.setText(firstName + " " + lastName);
-    }
+    //===[THEME]==================================================
 
     public void setTheme(Color backgroundMenuBar, Color contentPaneBackground, Color icons, Color dividerMenuBar,
     Color fontContent, Color buttonsBackground, Color buttonsFont, Color dividerContent) {
@@ -315,7 +328,6 @@ implements Initializable {
 
     }
 
-
     //===[PROCESS INPUT]==================================================
 
     public void processItemTypeInput(String label, InventoryType type) {
@@ -328,6 +340,38 @@ implements Initializable {
 
     public void processGasTankInput(ArrayList<FuelTank> tanks) {
         logic.addGasPump(tanks);
+    }
+
+    public void processStorageUnit(String label, int x, int y) {
+        logic.addStorageUnit(label, x, y);
+    }
+
+    //===[CREATE SEARCHABLE DATA]==================================================
+
+    public void createItemTypeData(ItemInputDialog itemInputDialog, InventoryType type) {
+        ObservableList<ItemType> observableItemTypeList = FXCollections.observableArrayList();
+        observableItemTypeList.addAll(logic.getItemTypes(type));
+        FilteredList<ItemType> filteredItemType = new FilteredList<>(observableItemTypeList, t -> true);
+
+        itemInputDialog.getTxtSearch().textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredItemType.setPredicate(ItemType -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                String lowerCaseFilter = newValue.toLowerCase();
+                if (ItemType.getLABEL().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (String.valueOf(ItemType.getINVENTORY_NUMBER()).toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                }
+                return false;
+            });
+        });
+
+        SortedList<ItemType> sortedItemType = new SortedList<>(filteredItemType);
+        sortedItemType.comparatorProperty().bind(itemInputDialog.getTable().comparatorProperty());
+
+        itemInputDialog.getTable().setItems(sortedItemType);
     }
 
     //===[GETTER]==================================================
@@ -343,5 +387,4 @@ implements Initializable {
     public StackPane getRootPane() {
         return rootPane;
     }
-
 }

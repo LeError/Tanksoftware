@@ -6,20 +6,28 @@ import java.util.ArrayList;
 public class StorageUnit {
 
     private String label;
-    private final Point LOCATION;
+    private Point location;
     private ArrayList<Item> items = new ArrayList<>();
 
     public StorageUnit(String label, int x, int y) {
         this.label = label;
-        LOCATION = new Point(x, y);
+        location = new Point(x, y);
     }
 
     public String getLabel() {
         return label;
     }
 
-    public Point getLOCATION() {
-        return LOCATION;
+    public Point getLocation() {
+        return location;
+    }
+
+    public int getX() {
+        return location.x;
+    }
+
+    public int getY() {
+        return location.y;
     }
 
     public void addItem(Item Item) {
