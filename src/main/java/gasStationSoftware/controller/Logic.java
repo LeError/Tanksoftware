@@ -4,6 +4,7 @@ import gasStationSoftware.exceptions.DataFileNotFoundException;
 import gasStationSoftware.exceptions.NumberOutOfRangeException;
 import gasStationSoftware.exceptions.OSException;
 import gasStationSoftware.models.*;
+import gasStationSoftware.ui.ErrorDialog;
 import gasStationSoftware.util.ReadFile;
 import gasStationSoftware.util.ReadJSON;
 import gasStationSoftware.util.Utility;
@@ -139,7 +140,7 @@ public class Logic {
     //===[DISPLAY ERRORS]==================================================
 
     public static void displayError(String error, Exception e, boolean end) { // TODO change to errorDialog
-        JOptionPane.showMessageDialog(null, error + "\n" + e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+        new ErrorDialog(windowController.getRootPane(), error, e, end);
         if(end){
             System.exit(-1);
         }
@@ -359,21 +360,21 @@ public class Logic {
     }
 
     public void addFuel(ItemType iType, float amount, float price, String currency) {
-        Fuel newFuel = null;
+        boolean newEntry = true;
         for(Fuel fuel : fuels) {
             if(fuel.getTYPE() == iType) {
-                newFuel = fuel;
+                newEntry = false;
             }
         }
 
-        if(newFuel == null) {
-            newFuel = new Fuel(iType, price, currency, amount);
+        if(newEntry) {
+            Fuel newFuel = new Fuel(iType, price, currency, amount);
             fuels.add(newFuel);
             windowController.addRowTFuelsFuelOverview(newFuel);
         } else {
-
+            displayError("Kraftstoff exsistiert bereits", new Exception("duplicate entry"), false);
         }
-
+        saveInventory();
     }
 
     //===[SAVE FILES]==================================================
