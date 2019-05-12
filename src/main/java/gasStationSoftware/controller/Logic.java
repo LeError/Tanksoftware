@@ -3,11 +3,7 @@ package gasStationSoftware.controller;
 import gasStationSoftware.exceptions.DataFileNotFoundException;
 import gasStationSoftware.exceptions.NumberOutOfRangeException;
 import gasStationSoftware.exceptions.OSException;
-import gasStationSoftware.models.Employee;
-import gasStationSoftware.models.FuelTank;
-import gasStationSoftware.models.GasPump;
-import gasStationSoftware.models.InventoryType;
-import gasStationSoftware.models.ItemType;
+import gasStationSoftware.models.*;
 import gasStationSoftware.util.ReadFile;
 import gasStationSoftware.util.ReadJSON;
 import gasStationSoftware.util.Utility;
@@ -54,6 +50,7 @@ public class Logic {
     private ArrayList<ItemType> types = new ArrayList<>();
     private ArrayList<FuelTank> tanks = new ArrayList<>();
     private ArrayList<GasPump> gasPumps = new ArrayList<>();
+    private ArrayList<StorageUnit> storageUnits = new ArrayList<>();
 
     //===[CONSTRUCTOR]==================================================
 
@@ -339,6 +336,13 @@ public class Logic {
         gasPumps.add(newGasPump);
         windowController.addRowTGasPumpsSettingsGasPump(newGasPump);
         saveInventory();
+    }
+
+    public void addStorageUnit(String label, int x, int y) {
+        StorageUnit newStorageUnit = new StorageUnit(label, x, y);
+        storageUnits.add(newStorageUnit);
+        windowController.addRowTGoodsSettingsStorageUnit(newStorageUnit);
+        //TODO saveInv for Storage units
     }
 
     //===[SAVE FILES]==================================================

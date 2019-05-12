@@ -2,11 +2,7 @@ package gasStationSoftware.controller;
 
 import com.jfoenix.controls.*;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
-import gasStationSoftware.models.Employee;
-import gasStationSoftware.models.FuelTank;
-import gasStationSoftware.models.GasPump;
-import gasStationSoftware.models.InventoryType;
-import gasStationSoftware.models.ItemType;
+import gasStationSoftware.models.*;
 import gasStationSoftware.ui.*;
 import gasStationSoftware.util.Dialog;
 import gasStationSoftware.util.Utility;
@@ -115,6 +111,7 @@ implements Initializable {
         addColumnsTTanksSettingsTank();
         addColumnsTGasPumpsSettingsGasPump();
         addColumnsTGoodsSettingsGood();
+        addColumnsTGoodsSettingsStorageUnit();
         setDefaultContent();
     }
 
@@ -245,6 +242,13 @@ implements Initializable {
         tGoodsSettingsGood.getColumns().addAll(getColumnsItemType());
     }
 
+    private void addColumnsTGoodsSettingsStorageUnit() {
+        TableColumn columnStorageUnitLabel = Dialog.getColumn("Bezeichner", "label", 200, true);
+        TableColumn columnStorageUnitX = Dialog.getColumn("Platzierung X", "x", 200, true);
+        TableColumn columnStorageUnitY = Dialog.getColumn("Platzierung Y", "y", 200, true);
+        tGoodsSettingsStorageUnit.getColumns().addAll(columnStorageUnitLabel, columnStorageUnitX, columnStorageUnitY);
+    }
+
     private TableColumn[] getColumnsItemType() {
         TableColumn columnInventoryNumber = new TableColumn("Inventar #");
         columnInventoryNumber.setCellValueFactory(new PropertyValueFactory<>("INVENTORY_NUMBER"));
@@ -284,6 +288,10 @@ implements Initializable {
         if(type.getTYPE_LABEL().equals(InventoryType.Good.getTYPE())) {
             tGoodsSettingsGood.getItems().add(type);
         }
+    }
+
+    public void addRowTGoodsSettingsStorageUnit(StorageUnit storageUnit) {
+        tGoodsSettingsStorageUnit.getItems().add(storageUnit);
     }
 
     //===[DEFAULT CONTENT]==================================================
@@ -332,6 +340,10 @@ implements Initializable {
 
     public void processGasTankInput(ArrayList<FuelTank> tanks) {
         logic.addGasPump(tanks);
+    }
+
+    public void processStorageUnit(String label, int x, int y) {
+        logic.addStorageUnit(label, x, y);
     }
 
     //===[CREATE SEARCHABLE DATA]==================================================
