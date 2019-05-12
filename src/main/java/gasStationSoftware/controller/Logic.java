@@ -437,18 +437,16 @@ public class Logic {
         return fuel;
     }
 
+    public ArrayList<ItemType> getItemTypes(InventoryType type) {
+        ArrayList<ItemType> types = Utility.getInventoryType(this.types, type);
+        return types;
+    }
+
     //===[GET ROWS FOR INPUT DIALOGS]==================================================
 
     public void addTankTableRows(TableView table) {
         for(FuelTank tank : tanks) {
             table.getItems().add(tank);
-        }
-    }
-
-    public void addItemTypeTableRows(TableView table, InventoryType type) {
-        ArrayList<ItemType> types = Utility.getInventoryType(this.types, type);
-        for(ItemType iType : types) {
-            table.getItems().add(iType);
         }
     }
 }
