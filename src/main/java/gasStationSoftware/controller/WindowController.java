@@ -13,6 +13,10 @@ import gasStationSoftware.ui.GasPumpInputDialog;
 import gasStationSoftware.ui.ItemTypeInputDialog;
 import gasStationSoftware.util.Dialog;
 import gasStationSoftware.util.Utility;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -327,6 +331,34 @@ implements Initializable {
         logic.addGasPump(tanks);
     }
 
+    //===[CREATE SEARCHABLE DATA]==================================================
+
+    public void createItemTypeData(ItemInputDialog itemInputDialog, InventoryType type) {
+        ObservableList<ItemType> observableItemTypeList = FXCollections.observableArrayList();
+        observableItemTypeList.addAll(logic.getItemTypes(type));
+        FilteredList<ItemType> filteredItemType = new FilteredList<>(observableItemTypeList, t -> true);
+
+        itemInputDialog.getTxtSearch().textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredItemType.setPredicate(ItemType -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                String lowerCaseFilter = newValue.toLowerCase();
+                if (ItemType.getLABEL().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (String.valueOf(ItemType.getINVENTORY_NUMBER()).toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                }
+                return false;
+            });
+        });
+
+        SortedList<ItemType> sortedItemType = new SortedList<>(filteredItemType);
+        sortedItemType.comparatorProperty().bind(itemInputDialog.getTable().comparatorProperty());
+
+        itemInputDialog.getTable().setItems(sortedItemType);
+    }
+
     //===[GETTER]==================================================
 
     public static String getButtonStyle() {
@@ -340,5 +372,4 @@ implements Initializable {
     public StackPane getRootPane() {
         return rootPane;
     }
-
 }
