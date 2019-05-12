@@ -7,10 +7,7 @@ import gasStationSoftware.models.FuelTank;
 import gasStationSoftware.models.GasPump;
 import gasStationSoftware.models.InventoryType;
 import gasStationSoftware.models.ItemType;
-import gasStationSoftware.ui.ItemInputDialog;
-import gasStationSoftware.ui.FuelTankInputDialog;
-import gasStationSoftware.ui.GasPumpInputDialog;
-import gasStationSoftware.ui.ItemTypeInputDialog;
+import gasStationSoftware.ui.*;
 import gasStationSoftware.util.Dialog;
 import gasStationSoftware.util.Utility;
 import javafx.collections.FXCollections;
@@ -97,13 +94,14 @@ implements Initializable {
     @FXML private JFXDatePicker dpTimespanReportOverview, dpTimespanReportOverview1;
     @FXML private TableView tReportReportOverview;
 
-    @FXML private AnchorPane settingsPane, settingsOverviewPane, settingsFuelPane, settingsTankPane, settingsGasPumpPane, settingsGoodPane;
+    @FXML private AnchorPane settingsPane, settingsOverviewPane, settingsFuelPane, settingsTankPane, settingsGasPumpPane, settingsGoodPane, settingsStorageUnitPane;
     @FXML private Polygon polygonSettings;
     @FXML private JFXButton btnEditThemeSettingsOverview, btnCreateThemeSettingsOverview, btnFuelsSettingsOverview, btnTanksSettingsOverview, btnGasPumpsSettingsOverview;
     @FXML private JFXButton btnGoodsSettingsOverview, btnExportSettingsOverview, btnImportSettingsOverview, btnNewSettingsFuel, btnEditSettingsFuel, btnNewSettingsTank;
-    @FXML private JFXButton btnEditSettingsTank, btnNewSettingsGasPump, btnEditSettingsGasPump, btnNewSettingsGood, btnEditSettingsGood;
+    @FXML private JFXButton btnEditSettingsTank, btnNewSettingsGasPump, btnEditSettingsGasPump, btnNewSettingsGood, btnEditSettingsGood, btnStorageUnitSettingsOverview;
+    @FXML private JFXButton btnNewSettingsStorageUnit, btnEditSettingsStorageUnit;
     @FXML private JFXComboBox cbThemeSettingsOverview, cbTypeSettingsOverview;
-    @FXML private TableView tFuelsSettingsFuel, tTanksSettingsTank, tGasPumpsSettingsGasPump, tGoodsSettingsGood;
+    @FXML private TableView tFuelsSettingsFuel, tTanksSettingsTank, tGasPumpsSettingsGasPump, tGoodsSettingsGood, tGoodsSettingsStorageUnit;
 
     @FXML private ArrayList<AnchorPane> panes, subPanes;
 
@@ -179,6 +177,9 @@ implements Initializable {
         } else if (event.getTarget() == btnGoodsSettingsOverview) {
             hideSubPanes();
             settingsGoodPane.setVisible(true);
+        } else if(event.getTarget() == btnStorageUnitSettingsOverview) {
+            hideSubPanes();
+            settingsStorageUnitPane.setVisible(true);
         } else if (event.getTarget() == btnExportSettingsOverview) {
         } else if (event.getTarget() == btnImportSettingsOverview) {
         } else if (event.getTarget() == btnNewSettingsFuel) {
@@ -189,6 +190,8 @@ implements Initializable {
             new GasPumpInputDialog(rootPane, this);
         } else if (event.getTarget() == btnNewSettingsGood) {
             new ItemTypeInputDialog(rootPane, this, InventoryType.Good);
+        } else if (event.getTarget() == btnNewSettingsStorageUnit) {
+            new StorageUnitInputDialog(rootPane, this);
         }
     }
 
