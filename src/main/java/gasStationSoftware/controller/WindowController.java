@@ -290,7 +290,7 @@ implements Initializable {
         }
     }
 
-    public void addRowTGoodsSettingsStorageUnit(StorageUnit storageUnit) {
+    public void addRowTSettingsStorageUnit(StorageUnit storageUnit) {
         tGoodsSettingsStorageUnit.getItems().add(storageUnit);
     }
 
