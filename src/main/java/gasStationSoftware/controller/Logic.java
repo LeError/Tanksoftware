@@ -51,6 +51,8 @@ public class Logic {
     private ArrayList<FuelTank> tanks = new ArrayList<>();
     private ArrayList<GasPump> gasPumps = new ArrayList<>();
     private ArrayList<StorageUnit> storageUnits = new ArrayList<>();
+    private ArrayList<Fuel> fuels = new ArrayList<>();
+    private ArrayList<Good> goods = new ArrayList<>();
 
     //===[CONSTRUCTOR]==================================================
 
@@ -354,6 +356,24 @@ public class Logic {
         storageUnits.add(newStorageUnit);
         windowController.addRowTSettingsStorageUnit(newStorageUnit);
         saveInventory();
+    }
+
+    public void addFuel(ItemType iType, float amount, float price, String currency) {
+        Fuel newFuel = null;
+        for(Fuel fuel : fuels) {
+            if(fuel.getTYPE() == iType) {
+                newFuel = fuel;
+            }
+        }
+
+        if(newFuel == null) {
+            newFuel = new Fuel(iType, price, currency, amount);
+            fuels.add(newFuel);
+            windowController.addRowTFuelsFuelOverview(newFuel);
+        } else {
+
+        }
+
     }
 
     //===[SAVE FILES]==================================================
