@@ -11,6 +11,13 @@ public class ItemDetailInputDialog extends Dialog {
 
     public ItemDetailInputDialog(StackPane rootPane, WindowController windowController, InventoryType type, ItemType iType) {
         super(windowController);
+
+        AnchorPane pane = getAnchorPane(300, 200);
+        if(type == InventoryType.Fuel) {
+            inputDialog(rootPane, pane, "Kraftstoff " + iType.getLABEL() + " einbuchen");
+        } else if(type == InventoryType.Fuel) {
+            inputDialog(rootPane, pane, "Produkt " + iType.getLABEL() + " einbuchen");
+        }
     }
 
     @Override
