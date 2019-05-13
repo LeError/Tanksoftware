@@ -3,7 +3,14 @@ package gasStationSoftware.controller;
 import gasStationSoftware.exceptions.DataFileNotFoundException;
 import gasStationSoftware.exceptions.NumberOutOfRangeException;
 import gasStationSoftware.exceptions.OSException;
-import gasStationSoftware.models.*;
+import gasStationSoftware.models.Employee;
+import gasStationSoftware.models.Fuel;
+import gasStationSoftware.models.FuelTank;
+import gasStationSoftware.models.GasPump;
+import gasStationSoftware.models.Good;
+import gasStationSoftware.models.InventoryType;
+import gasStationSoftware.models.ItemType;
+import gasStationSoftware.models.StorageUnit;
 import gasStationSoftware.ui.ErrorDialog;
 import gasStationSoftware.util.ReadFile;
 import gasStationSoftware.util.ReadJSON;
@@ -14,7 +21,6 @@ import javafx.scene.control.TableView;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
-import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -222,13 +228,20 @@ public class Logic {
         for(StorageUnit storageUnit : storageUnits) {
             windowController.addRowTSettingsStorageUnit(storageUnit);
         }
+
+        createFuel(Utility.getIntArray(read.getItemStringArray("fuelType")),
+        Utility.getFloatArray(read.getItemStringArray("fuelPrice")), read.getItemStringArray("fuelCurrency"),
+        Utility.getFloatArray(read.getItemStringArray("fuelAmount")));
+        for (Fuel fuel : fuels) {
+            windowController.addRowTFuelsFuelOverview(fuel);
+        }
     }
 
     //===[CREATE OBJECTS FROM JSON]==================================================
 
     private void createItemTypeObjects(String[] label, String[] inventoryNumber, String[] type) {
         for(int i = 0; i < inventoryNumber.length; i++) {
-            InventoryType invType = InventoryType.Good;
+            InventoryType invType;
             switch(type[i]) {
                 case "FUEL":
                     invType = InventoryType.Fuel;
@@ -279,6 +292,20 @@ public class Logic {
        for(int i = 0; i < label.length; i++) {
            storageUnits.add(new StorageUnit(label[i], x[i] ,y[i]));
        }
+    }
+
+    private void createFuel(int[] invNumber, float[] price, String[] currency, float[] amount) {
+        ArrayList<ItemType> fuelTypes = Utility.getInventoryType(types, InventoryType.Fuel);
+        for (int i = 0; i < invNumber.length; i++) {
+            ItemType fuel = null;
+            for (ItemType fuelType : fuelTypes) {
+                if (invNumber[i] == fuelType.getINVENTORY_NUMBER()) {
+                    fuel = fuelType;
+                    break;
+                }
+            }
+            fuels.add(new Fuel(fuel, price[i], currency[i], amount[i]));
+        }
     }
 
     //===[GET FREE IDS]==================================================
