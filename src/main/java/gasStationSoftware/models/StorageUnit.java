@@ -5,32 +5,40 @@ import java.util.ArrayList;
 
 public class StorageUnit {
 
-    private final String LABEL;
-    private final Point LOCATION;
-    private ArrayList<Items> items = new ArrayList<>();
+    private String label;
+    private Point location;
+    private ArrayList<Item> items = new ArrayList<>();
 
     public StorageUnit(String label, int x, int y) {
-        LABEL = label;
-        LOCATION = new Point(x, y);
+        this.label = label;
+        location = new Point(x, y);
     }
 
-    public String getLABEL() {
-        return LABEL;
+    public String getLabel() {
+        return label;
     }
 
-    public Point getLOCATION() {
-        return LOCATION;
+    public Point getLocation() {
+        return location;
     }
 
-    public void addItem(Items Item) {
+    public int getX() {
+        return location.x;
+    }
+
+    public int getY() {
+        return location.y;
+    }
+
+    public void addItem(Item Item) {
         items.add(Item);
     }
 
-    public void removeItem(Items item) {
+    public void removeItem(Item item) {
         items.remove(item);
     }
 
-    public ArrayList<Items> getItems() {
+    public ArrayList<Item> getItems() {
         return items;
     }
 }

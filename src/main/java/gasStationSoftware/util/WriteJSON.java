@@ -19,21 +19,35 @@ public class WriteJSON {
             this.path.getParentFile().mkdir();
     }
 
-    public void addItem(String name, Object item) {
+    public void addItem(String name, String item) {
         obj.put(name, item);
     }
 
-    public void addItemArray(String name, Object[] items) {
+    public void addItemArray(String name, String[] items) {
         JSONArray list = new JSONArray();
-        for (Object item : items)
+        for (String item : items)
             list.add(item);
         obj.put(name, list);
     }
 
-    public void addItemArrayList(String name, ArrayList<Object> items) {
+    public void addItemArrayList(String name, ArrayList<String> items) {
         JSONArray list = new JSONArray();
-        for (Object item : items)
+        for (String item : items)
             list.add(item);
+        obj.put(name, list);
+    }
+
+    public void addItemArrayListArray(String name, String subName, ArrayList<String>[] items) {
+        JSONArray list = new JSONArray();
+        for (ArrayList<String> entry : items) {
+            JSONObject subObj = new JSONObject();
+            JSONArray subList = new JSONArray();
+            for (String item : entry) {
+                subList.add(item);
+            }
+            subObj.put(subName, subList);
+            list.add(subObj);
+        }
         obj.put(name, list);
     }
 

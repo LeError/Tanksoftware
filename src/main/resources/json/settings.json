@@ -1,6 +1,6 @@
 {
-  "theme": "defaultTheme",
+  "theme": "default",
   "themes": [
-    "defaultTheme"
+    "default"
   ]
 }
