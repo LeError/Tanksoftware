@@ -2,7 +2,7 @@ package gasStationSoftware.models;
 
 public abstract class Item {
 
-    private final ItemType TYPE;
+    protected final ItemType TYPE;
     private String currency;
     private float price;
 

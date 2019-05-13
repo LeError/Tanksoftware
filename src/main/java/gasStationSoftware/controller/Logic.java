@@ -419,6 +419,10 @@ public class Logic {
         write.addItemArray("storageUnitLabel", getStorageUnitLabel());
         write.addItemArray("storageUnitX", getStorageUnitX());
         write.addItemArray("storageUnitY", getStorageUnitY());
+        write.addItemArray("fuelType", getInvNuberFuel());
+        write.addItemArray("fuelPrice", getPriceFuel());
+        write.addItemArray("fuelCurrency", getCurrencyFuel());
+        write.addItemArray("fuelAmount", getAmountFuel());
         write.write(true);
     }
 
@@ -516,6 +520,38 @@ public class Logic {
         return y;
     }
 
+    private String[] getInvNuberFuel() {
+        String[] invNum = new String[fuels.size()];
+        for (int i = 0; i < invNum.length; i++) {
+            invNum[i] = String.valueOf(fuels.get(i).getINVENTORY_NUMBER());
+        }
+        return invNum;
+    }
+
+    private String[] getPriceFuel() {
+        String[] price = new String[fuels.size()];
+        for (int i = 0; i < price.length; i++) {
+            price[i] = String.valueOf(fuels.get(i).getPrice());
+        }
+        return price;
+    }
+
+    private String[] getCurrencyFuel() {
+        String[] currency = new String[fuels.size()];
+        for (int i = 0; i < currency.length; i++) {
+            currency[i] = fuels.get(i).getCurrency();
+        }
+        return currency;
+    }
+
+    private String[] getAmountFuel() {
+        String[] amount = new String[fuels.size()];
+        for (int i = 0; i < amount.length; i++) {
+            amount[i] = String.valueOf(fuels.get(i).getAmount());
+        }
+        return amount;
+    }
+
     //===[GETTER]==================================================
 
     public ArrayList<String> getFuel() {
@@ -530,6 +566,10 @@ public class Logic {
     public ArrayList<ItemType> getItemTypes(InventoryType type) {
         ArrayList<ItemType> types = Utility.getInventoryType(this.types, type);
         return types;
+    }
+
+    public ArrayList<FuelTank> getTanks() {
+        return tanks;
     }
 
     //===[GET ROWS FOR INPUT DIALOGS]==================================================
