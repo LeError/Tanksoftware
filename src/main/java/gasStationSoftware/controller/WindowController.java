@@ -1,9 +1,21 @@
 package gasStationSoftware.controller;
 
-import com.jfoenix.controls.*;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXDatePicker;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
-import gasStationSoftware.models.*;
-import gasStationSoftware.ui.*;
+import gasStationSoftware.models.Employee;
+import gasStationSoftware.models.Fuel;
+import gasStationSoftware.models.FuelTank;
+import gasStationSoftware.models.GasPump;
+import gasStationSoftware.models.InventoryType;
+import gasStationSoftware.models.ItemType;
+import gasStationSoftware.models.StorageUnit;
+import gasStationSoftware.ui.FuelTankInputDialog;
+import gasStationSoftware.ui.GasPumpInputDialog;
+import gasStationSoftware.ui.ItemInputDialog;
+import gasStationSoftware.ui.ItemTypeInputDialog;
+import gasStationSoftware.ui.StorageUnitInputDialog;
 import gasStationSoftware.util.Dialog;
 import gasStationSoftware.util.Utility;
 import javafx.collections.FXCollections;
@@ -112,7 +124,7 @@ implements Initializable {
         addColumnsTGasPumpsSettingsGasPump();
         addColumnsTGoodsSettingsGood();
         addColumnsTGoodsSettingsStorageUnit();
-        addCollumnsTFuelsFuelOverview();
+        addColumnsTFuelsFuelOverview();
         setDefaultContent();
     }
 
@@ -250,13 +262,13 @@ implements Initializable {
         tGoodsSettingsStorageUnit.getColumns().addAll(columnStorageUnitLabel, columnStorageUnitX, columnStorageUnitY);
     }
 
-    private void addCollumnsTFuelsFuelOverview() {
+    private void addColumnsTFuelsFuelOverview() {
         TableColumn columnStorageUnitLabel = Dialog.getColumn("INV #", "INVENTORY_NUMBER", 80, true);
         TableColumn columnStorageUnitFuel = Dialog.getColumn("Kraftstoff", "LABEL", 100, true);
         TableColumn columnStorageUnitAmount = Dialog.getColumn("Menge in l", "amount", 100, true);
         TableColumn columnStorageUnitPrice = Dialog.getColumn("Preis", "price", 100, true);
         TableColumn columnStorageUnitCurrency = Dialog.getColumn("Währung", "currency", 100, true);
-        TableColumn columnStorageUnitTanks = Dialog.getColumn("In Tanks", "", 100, true);
+        TableColumn columnStorageUnitTanks = Dialog.getColumn("In Tanks", "tanks", 100, true);
         tFuelsFuelOverview.getColumns().addAll(columnStorageUnitLabel, columnStorageUnitFuel, columnStorageUnitAmount, columnStorageUnitPrice, columnStorageUnitCurrency, columnStorageUnitTanks);
     }
 
