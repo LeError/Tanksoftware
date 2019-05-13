@@ -12,5 +12,9 @@
 
   "storageUnitLabel":[],
   "storageUnitX":[],
-  "storageUnitY":[]
+  "storageUnitY": [],
+  "fuelType": [],
+  "fuelPrice": [],
+  "fuelCurrency": [],
+  "fuelAmount": []
 }

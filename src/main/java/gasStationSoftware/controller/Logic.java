@@ -3,7 +3,14 @@ package gasStationSoftware.controller;
 import gasStationSoftware.exceptions.DataFileNotFoundException;
 import gasStationSoftware.exceptions.NumberOutOfRangeException;
 import gasStationSoftware.exceptions.OSException;
-import gasStationSoftware.models.*;
+import gasStationSoftware.models.Employee;
+import gasStationSoftware.models.Fuel;
+import gasStationSoftware.models.FuelTank;
+import gasStationSoftware.models.GasPump;
+import gasStationSoftware.models.Good;
+import gasStationSoftware.models.InventoryType;
+import gasStationSoftware.models.ItemType;
+import gasStationSoftware.models.StorageUnit;
 import gasStationSoftware.ui.ErrorDialog;
 import gasStationSoftware.util.ReadFile;
 import gasStationSoftware.util.ReadJSON;
@@ -14,7 +21,6 @@ import javafx.scene.control.TableView;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
-import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -222,13 +228,20 @@ public class Logic {
         for(StorageUnit storageUnit : storageUnits) {
             windowController.addRowTSettingsStorageUnit(storageUnit);
         }
+
+        createFuel(Utility.getIntArray(read.getItemStringArray("fuelType")),
+        Utility.getFloatArray(read.getItemStringArray("fuelPrice")), read.getItemStringArray("fuelCurrency"),
+        Utility.getFloatArray(read.getItemStringArray("fuelAmount")));
+        for (Fuel fuel : fuels) {
+            windowController.addRowTFuelsFuelOverview(fuel);
+        }
     }
 
     //===[CREATE OBJECTS FROM JSON]==================================================
 
     private void createItemTypeObjects(String[] label, String[] inventoryNumber, String[] type) {
         for(int i = 0; i < inventoryNumber.length; i++) {
-            InventoryType invType = InventoryType.Good;
+            InventoryType invType;
             switch(type[i]) {
                 case "FUEL":
                     invType = InventoryType.Fuel;
@@ -279,6 +292,20 @@ public class Logic {
        for(int i = 0; i < label.length; i++) {
            storageUnits.add(new StorageUnit(label[i], x[i] ,y[i]));
        }
+    }
+
+    private void createFuel(int[] invNumber, float[] price, String[] currency, float[] amount) {
+        ArrayList<ItemType> fuelTypes = Utility.getInventoryType(types, InventoryType.Fuel);
+        for (int i = 0; i < invNumber.length; i++) {
+            ItemType fuel = null;
+            for (ItemType fuelType : fuelTypes) {
+                if (invNumber[i] == fuelType.getINVENTORY_NUMBER()) {
+                    fuel = fuelType;
+                    break;
+                }
+            }
+            fuels.add(new Fuel(fuel, price[i], currency[i], amount[i]));
+        }
     }
 
     //===[GET FREE IDS]==================================================
@@ -392,6 +419,10 @@ public class Logic {
         write.addItemArray("storageUnitLabel", getStorageUnitLabel());
         write.addItemArray("storageUnitX", getStorageUnitX());
         write.addItemArray("storageUnitY", getStorageUnitY());
+        write.addItemArray("fuelType", getInvNuberFuel());
+        write.addItemArray("fuelPrice", getPriceFuel());
+        write.addItemArray("fuelCurrency", getCurrencyFuel());
+        write.addItemArray("fuelAmount", getAmountFuel());
         write.write(true);
     }
 
@@ -489,6 +520,38 @@ public class Logic {
         return y;
     }
 
+    private String[] getInvNuberFuel() {
+        String[] invNum = new String[fuels.size()];
+        for (int i = 0; i < invNum.length; i++) {
+            invNum[i] = String.valueOf(fuels.get(i).getINVENTORY_NUMBER());
+        }
+        return invNum;
+    }
+
+    private String[] getPriceFuel() {
+        String[] price = new String[fuels.size()];
+        for (int i = 0; i < price.length; i++) {
+            price[i] = String.valueOf(fuels.get(i).getPrice());
+        }
+        return price;
+    }
+
+    private String[] getCurrencyFuel() {
+        String[] currency = new String[fuels.size()];
+        for (int i = 0; i < currency.length; i++) {
+            currency[i] = fuels.get(i).getCurrency();
+        }
+        return currency;
+    }
+
+    private String[] getAmountFuel() {
+        String[] amount = new String[fuels.size()];
+        for (int i = 0; i < amount.length; i++) {
+            amount[i] = String.valueOf(fuels.get(i).getAmount());
+        }
+        return amount;
+    }
+
     //===[GETTER]==================================================
 
     public ArrayList<String> getFuel() {
@@ -503,6 +566,10 @@ public class Logic {
     public ArrayList<ItemType> getItemTypes(InventoryType type) {
         ArrayList<ItemType> types = Utility.getInventoryType(this.types, type);
         return types;
+    }
+
+    public ArrayList<FuelTank> getTanks() {
+        return tanks;
     }
 
     //===[GET ROWS FOR INPUT DIALOGS]==================================================
