@@ -388,9 +388,9 @@ implements Initializable {
     public void createItemTypeData(ItemInputDialog itemInputDialog, InventoryType type) {
         ObservableList<ItemType> observableItemTypeList = FXCollections.observableArrayList();
         observableItemTypeList.addAll(logic.getItemTypes(type));
-        FilteredList<ItemType> filteredItemType = new FilteredList<>(observableItemTypeList, t -> true);
+        FilteredList<ItemType> filteredItemType = new FilteredList<>(observableItemTypeList, o -> true);
 
-        itemInputDialog.getTxtSearch().textProperty().addListener((observable, oldValue, newValue) -> {
+        itemInputDialog.getTxtSearch().textProperty().addListener((observable, oldValue, newValue) ->
             filteredItemType.setPredicate(ItemType -> {
                 if (newValue == null || newValue.isEmpty()) {
                     return true;
@@ -402,8 +402,7 @@ implements Initializable {
                     return true;
                 }
                 return false;
-            });
-        });
+            }));
 
         SortedList<ItemType> sortedItemType = new SortedList<>(filteredItemType);
         sortedItemType.comparatorProperty().bind(itemInputDialog.getTable().comparatorProperty());
