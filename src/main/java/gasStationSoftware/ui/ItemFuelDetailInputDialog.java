@@ -35,9 +35,6 @@ extends Dialog {
 
     @Override
     protected void processSubmit(AnchorPane pane) {
-        float amount = Float.parseFloat(((JFXTextField) pane.getChildren().get(1)).getText());
-        float price = Float.parseFloat(((JFXTextField) pane.getChildren().get(2)).getText());
-        String currency = ((JFXTextField) pane.getChildren().get(3)).getText();
-        windowController.processFuel(iType, amount, price, currency);
+        windowController.processFuel(pane, iType);
     }
 }

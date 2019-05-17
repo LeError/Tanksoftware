@@ -394,7 +394,10 @@ implements Initializable {
         logic.addStorageUnit(label, x, y);
     }
 
-    public void processFuel(ItemType iType, float amount, float price, String currency){
+    public void processFuel(AnchorPane pane, ItemType iType){
+        float amount = Float.parseFloat(((JFXTextField) pane.getChildren().get(1)).getText());
+        float price = Float.parseFloat(((JFXTextField) pane.getChildren().get(2)).getText());
+        String currency = ((JFXTextField) pane.getChildren().get(3)).getText();
         logic.addFuel(iType, amount, price, currency);
     }
 
