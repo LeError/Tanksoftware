@@ -49,7 +49,7 @@ public class ItemInputDialog extends Dialog {
         if(type == InventoryType.Fuel) {
             new ItemFuelDetailInputDialog(rootPane, windowController, iType);
         } else if(type == InventoryType.Good) {
-
+            new ItemGoodDetailInputDialog(rootPane, windowController, iType);
         }
     }
 
