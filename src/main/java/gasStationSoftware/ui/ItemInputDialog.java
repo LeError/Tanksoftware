@@ -32,7 +32,7 @@ public class ItemInputDialog extends Dialog {
         tItemList = getTable(290, 180, 55d, 5d);
         tItemList.getColumns().addAll(columnInvNumber,columnLabel);
 
-        windowController.createItemTypeData(this, InventoryType.Fuel);
+        windowController.createItemTypeData(this, type);
 
         AnchorPane pane = getAnchorPane(300, 240);
         pane.getChildren().addAll(txtSearch, tItemList);
