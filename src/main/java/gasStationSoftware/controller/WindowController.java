@@ -3,6 +3,7 @@ package gasStationSoftware.controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXTextField;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import gasStationSoftware.models.Employee;
 import gasStationSoftware.models.Fuel;
@@ -76,11 +77,10 @@ implements Initializable {
     @FXML private AnchorPane inventoryPane, inventoryOverviewPane, inventoryOrderPane, inventoryDeliveryPane;
     @FXML private Polygon polygonInventory;
     @FXML private Label titleInventoryOverview, titleInventoryOrder, titleInventoryDelivery;
-    @FXML private JFXButton btnOrderInventoryOverview, btnDeliveriesInventoryOverview, btnGroceriesInventoryOrder, btnOtherInventoryOrder, btnAdultInventoryOrder;
+    @FXML private JFXButton btnOrderInventoryOverview, btnDeliveriesInventoryOverview, btnGroceriesInventoryOrder, btnOtherInventoryOrder, btnAdultInventoryOrder, btnAddGoodOverview;
     @FXML private JFXButton btnCanelInventoryOrder, btnSubmitInventoryOrder, btnCancelInventoryDelivery, btnImportInventoryDelivery;
     @FXML private MaterialDesignIconView icoOrderInventoryOverview, icoDeliveryInventoryOverview, icoAddFuelOverview;
     @FXML private TableView tGoodsInventoryOverview, tGoodsInventoryOrder, tGoodsInventoryDelivery;
-
 
     @FXML private AnchorPane fuelPane, fuelOverviewPane, fuelOrderPane, fuelDeliveryPane;
     @FXML private Polygon polygonFuel;
@@ -161,7 +161,13 @@ implements Initializable {
     @FXML private void handleSaleAction(MouseEvent event) {}
 
     @FXML private void handleInventoryAction(MouseEvent event) {
-        if(event.getTarget() == btnAddFuelOverview) {
+        if (event.getTarget() == btnAddGoodOverview) {
+            new ItemInputDialog(rootPane, this, InventoryType.Good);
+        }
+    }
+
+    @FXML private void handleFuelAction(MouseEvent event) {
+        if (event.getTarget() == btnAddFuelOverview) {
             new ItemInputDialog(rootPane, this, InventoryType.Fuel);
         }
     }
@@ -363,23 +369,38 @@ implements Initializable {
 
     //===[PROCESS INPUT]==================================================
 
-    public void processItemTypeInput(String label, InventoryType type) {
-       logic.addItemType(label, type);
+    public void processItemTypeInput(AnchorPane pane, InventoryType type) {
+        String label = ((JFXTextField) pane.getChildren().get(1)).getText();
+        logic.addItemType(label, type);
     }
 
-    public void processFuelTankInput(float capacity, float level, int index) {
+    public void processFuelTankInput(AnchorPane pane) {
+        float capacity = Float.parseFloat(((JFXTextField) pane.getChildren().get(1)).getText());
+        float level = Float.parseFloat(((JFXTextField) pane.getChildren().get(2)).getText());
+        int index = ((JFXComboBox<String>) pane.getChildren().get(3)).getSelectionModel().getSelectedIndex();
         logic.addFuelTank(capacity, level, index);
     }
 
-    public void processGasTankInput(ArrayList<FuelTank> tanks) {
+    public void processGasPumpInput(AnchorPane pane) {
+        TableView table = (TableView) pane.getChildren().get(1);
+        ArrayList<FuelTank> tanks = new ArrayList<>();
+        for(int i = 0; i < table.getItems().size(); i++) {
+            tanks.add((FuelTank) table.getItems().get(i));
+        }
         logic.addGasPump(tanks);
     }
 
-    public void processStorageUnit(String label, int x, int y) {
+    public void processStorageUnit(AnchorPane pane) {
+        String label = ((JFXTextField) pane.getChildren().get(0)).getText();
+        int x = Integer.parseInt(((JFXTextField) pane.getChildren().get(1)).getText());
+        int y = Integer.parseInt(((JFXTextField) pane.getChildren().get(2)).getText());
         logic.addStorageUnit(label, x, y);
     }
 
-    public void processFuel(ItemType iType, float amount, float price, String currency){
+    public void processFuel(AnchorPane pane, ItemType iType){
+        float amount = Float.parseFloat(((JFXTextField) pane.getChildren().get(1)).getText());
+        float price = Float.parseFloat(((JFXTextField) pane.getChildren().get(2)).getText());
+        String currency = ((JFXTextField) pane.getChildren().get(3)).getText();
         logic.addFuel(iType, amount, price, currency);
     }
 
@@ -390,12 +411,12 @@ implements Initializable {
         observableItemTypeList.addAll(logic.getItemTypes(type));
         FilteredList<ItemType> filteredItemType = new FilteredList<>(observableItemTypeList, o -> true);
 
-        itemInputDialog.getTxtSearch().textProperty().addListener((observable, oldValue, newValue) ->
+        itemInputDialog.getTxtSearch().textProperty().addListener((observable, oldSearchValue, searchValue) ->
             filteredItemType.setPredicate(ItemType -> {
-                if (newValue == null || newValue.isEmpty()) {
+                if (searchValue == null || searchValue.isEmpty()) {
                     return true;
                 }
-                String lowerCaseFilter = newValue.toLowerCase();
+                String lowerCaseFilter = searchValue.toLowerCase();
                 if (ItemType.getLABEL().toLowerCase().contains(lowerCaseFilter)) {
                     return true;
                 } else if (String.valueOf(ItemType.getINVENTORY_NUMBER()).toLowerCase().contains(lowerCaseFilter)) {

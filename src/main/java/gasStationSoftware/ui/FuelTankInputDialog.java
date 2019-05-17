@@ -31,9 +31,6 @@ public class FuelTankInputDialog extends Dialog {
 
     @Override
     protected void processSubmit(AnchorPane pane) {
-        float capacity = Float.parseFloat(((JFXTextField) pane.getChildren().get(1)).getText());
-        float level = Float.parseFloat(((JFXTextField) pane.getChildren().get(2)).getText());
-        int index = ((JFXComboBox<String>) pane.getChildren().get(3)).getSelectionModel().getSelectedIndex();
-        windowController.processFuelTankInput(capacity, level, index);
+        windowController.processFuelTankInput(pane);
     }
 }

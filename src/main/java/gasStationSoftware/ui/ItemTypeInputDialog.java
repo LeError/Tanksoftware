@@ -41,7 +41,7 @@ public class ItemTypeInputDialog extends Dialog {
 
     @Override
     protected void processSubmit(AnchorPane pane) {
-        windowController.processItemTypeInput(((JFXTextField) pane.getChildren().get(1)).getText(), type);
+        windowController.processItemTypeInput(pane, type);
     }
 
 }
