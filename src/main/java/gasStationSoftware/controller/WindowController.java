@@ -3,6 +3,7 @@ package gasStationSoftware.controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXTextField;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import gasStationSoftware.models.Employee;
 import gasStationSoftware.models.Fuel;
@@ -380,7 +381,10 @@ implements Initializable {
         logic.addGasPump(tanks);
     }
 
-    public void processStorageUnit(String label, int x, int y) {
+    public void processStorageUnit(AnchorPane pane) {
+        String label = ((JFXTextField) pane.getChildren().get(0)).getText();
+        int x = Integer.parseInt(((JFXTextField) pane.getChildren().get(1)).getText());
+        int y = Integer.parseInt(((JFXTextField) pane.getChildren().get(2)).getText());
         logic.addStorageUnit(label, x, y);
     }
 
