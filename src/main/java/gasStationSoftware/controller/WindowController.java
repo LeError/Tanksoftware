@@ -76,7 +76,7 @@ implements Initializable {
     @FXML private AnchorPane inventoryPane, inventoryOverviewPane, inventoryOrderPane, inventoryDeliveryPane;
     @FXML private Polygon polygonInventory;
     @FXML private Label titleInventoryOverview, titleInventoryOrder, titleInventoryDelivery;
-    @FXML private JFXButton btnOrderInventoryOverview, btnDeliveriesInventoryOverview, btnGroceriesInventoryOrder, btnOtherInventoryOrder, btnAdultInventoryOrder;
+    @FXML private JFXButton btnOrderInventoryOverview, btnDeliveriesInventoryOverview, btnGroceriesInventoryOrder, btnOtherInventoryOrder, btnAdultInventoryOrder, btnAddGoodOverview;
     @FXML private JFXButton btnCanelInventoryOrder, btnSubmitInventoryOrder, btnCancelInventoryDelivery, btnImportInventoryDelivery;
     @FXML private MaterialDesignIconView icoOrderInventoryOverview, icoDeliveryInventoryOverview, icoAddFuelOverview;
     @FXML private TableView tGoodsInventoryOverview, tGoodsInventoryOrder, tGoodsInventoryDelivery;
@@ -161,7 +161,13 @@ implements Initializable {
     @FXML private void handleSaleAction(MouseEvent event) {}
 
     @FXML private void handleInventoryAction(MouseEvent event) {
-        if(event.getTarget() == btnAddFuelOverview) {
+        if (event.getTarget() == btnAddGoodOverview) {
+            new ItemInputDialog(rootPane, this, InventoryType.Good);
+        }
+    }
+
+    @FXML private void handleFuelAction(MouseEvent event) {
+        if (event.getTarget() == btnAddFuelOverview) {
             new ItemInputDialog(rootPane, this, InventoryType.Fuel);
         }
     }
