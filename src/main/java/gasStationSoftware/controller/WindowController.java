@@ -81,7 +81,6 @@ implements Initializable {
     @FXML private MaterialDesignIconView icoOrderInventoryOverview, icoDeliveryInventoryOverview, icoAddFuelOverview;
     @FXML private TableView tGoodsInventoryOverview, tGoodsInventoryOrder, tGoodsInventoryDelivery;
 
-
     @FXML private AnchorPane fuelPane, fuelOverviewPane, fuelOrderPane, fuelDeliveryPane;
     @FXML private Polygon polygonFuel;
     @FXML private Label titleFuelOverview, titleFuelOrder, titleFuelDeliveries;
@@ -396,12 +395,12 @@ implements Initializable {
         observableItemTypeList.addAll(logic.getItemTypes(type));
         FilteredList<ItemType> filteredItemType = new FilteredList<>(observableItemTypeList, o -> true);
 
-        itemInputDialog.getTxtSearch().textProperty().addListener((observable, oldValue, newValue) ->
+        itemInputDialog.getTxtSearch().textProperty().addListener((observable, oldSearchValue, searchValue) ->
             filteredItemType.setPredicate(ItemType -> {
-                if (newValue == null || newValue.isEmpty()) {
+                if (searchValue == null || searchValue.isEmpty()) {
                     return true;
                 }
-                String lowerCaseFilter = newValue.toLowerCase();
+                String lowerCaseFilter = searchValue.toLowerCase();
                 if (ItemType.getLABEL().toLowerCase().contains(lowerCaseFilter)) {
                     return true;
                 } else if (String.valueOf(ItemType.getINVENTORY_NUMBER()).toLowerCase().contains(lowerCaseFilter)) {
