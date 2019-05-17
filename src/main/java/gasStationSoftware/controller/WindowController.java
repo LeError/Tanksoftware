@@ -369,8 +369,9 @@ implements Initializable {
 
     //===[PROCESS INPUT]==================================================
 
-    public void processItemTypeInput(String label, InventoryType type) {
-       logic.addItemType(label, type);
+    public void processItemTypeInput(AnchorPane pane, InventoryType type) {
+        String label = ((JFXTextField) pane.getChildren().get(1)).getText();
+        logic.addItemType(label, type);
     }
 
     public void processFuelTankInput(float capacity, float level, int index) {
