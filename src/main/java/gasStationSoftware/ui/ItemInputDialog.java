@@ -47,7 +47,7 @@ public class ItemInputDialog extends Dialog {
     protected void processSubmit(AnchorPane pane) {
         ItemType iType = (ItemType) ((TableView) pane.getChildren().get(1)).getSelectionModel().getSelectedItem();
         if(type == InventoryType.Fuel) {
-            new ItemDetailInputDialog(rootPane, windowController, iType);
+            new ItemFuelDetailInputDialog(rootPane, windowController, iType);
         } else if(type == InventoryType.Good) {
 
         }

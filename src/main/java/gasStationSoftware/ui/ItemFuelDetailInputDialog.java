@@ -7,11 +7,12 @@ import gasStationSoftware.util.Dialog;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 
-public class ItemDetailInputDialog extends Dialog {
+public class ItemFuelDetailInputDialog
+extends Dialog {
 
     private ItemType iType;
 
-    public ItemDetailInputDialog(StackPane rootPane, WindowController windowController, ItemType iType) {
+    public ItemFuelDetailInputDialog(StackPane rootPane, WindowController windowController, ItemType iType) {
         super(windowController);
         this.iType = iType;
 
