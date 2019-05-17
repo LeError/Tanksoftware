@@ -27,7 +27,6 @@ public class StorageUnitInputDialog extends Dialog {
 
     @Override
     protected void processSubmit(AnchorPane pane) {
-
         windowController.processStorageUnit(pane);
     }
 }
