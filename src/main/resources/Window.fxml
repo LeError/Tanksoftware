@@ -220,7 +220,7 @@
                               <JFXButton fx:id="btnAddGoodOverview" buttonType="RAISED" layoutX="355.0" layoutY="520.0"
                                          onMousePressed="#handleInventoryAction" prefHeight="30.0" prefWidth="150.0"
                                          style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;"
-                                         text="Kraftstoff anlegen" textFill="WHITE">
+                                         text="Produkt anlegen" textFill="WHITE">
                                   <graphic>
                                       <MaterialDesignIconView fx:id="icoAddGoodOverview" fill="WHITE" glyphName="PLUS"
                                                               size="20" smooth="false"/>
@@ -291,7 +291,7 @@
                               <JFXButton fx:id="btnAddFuelOverview" buttonType="RAISED" layoutX="355.0" layoutY="520.0"
                                          onMousePressed="#handleFuelAction" prefHeight="30.0" prefWidth="150.0"
                                          style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;"
-                                         text="Produkt anlegen" textFill="WHITE">
+                                         text="Kraftstoff anlegen" textFill="WHITE">
                            <graphic>
                               <MaterialDesignIconView fx:id="icoAddFuelOverview" fill="WHITE" glyphName="PLUS" size="20" smooth="false" />
                            </graphic>
