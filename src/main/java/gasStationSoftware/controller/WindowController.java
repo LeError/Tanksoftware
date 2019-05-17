@@ -378,7 +378,12 @@ implements Initializable {
         logic.addFuelTank(capacity, level, index);
     }
 
-    public void processGasTankInput(ArrayList<FuelTank> tanks) {
+    public void processGasPumpInput(AnchorPane pane) {
+        TableView table = (TableView) pane.getChildren().get(1);
+        ArrayList<FuelTank> tanks = new ArrayList<>();
+        for(int i = 0; i < table.getItems().size(); i++) {
+            tanks.add((FuelTank) table.getItems().get(i));
+        }
         logic.addGasPump(tanks);
     }
 
