@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
+import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import gasStationSoftware.models.Employee;
 import gasStationSoftware.models.Fuel;
@@ -126,6 +127,7 @@ implements Initializable {
         addColumnsTGoodsSettingsStorageUnit();
         addColumnsTFuelsFuelOverview();
         setDefaultContent();
+        addExitButton();
     }
 
     //===[HANDLE EVENT]==================================================
@@ -325,6 +327,21 @@ implements Initializable {
 
     public void addRowTFuelsFuelOverview(Fuel fuel) {
         tFuelsFuelOverview.getItems().add(fuel);
+    }
+
+    private void addExitButton() {
+        MaterialDesignIconView icoExit = new MaterialDesignIconView(MaterialDesignIcon.CLOSE);
+        icoExit.setGlyphSize(30);
+
+        JFXButton exit = new JFXButton();
+        exit.setGraphic(icoExit);
+        exit.setPrefSize(40, 40);
+        exit.setOnAction(event -> System.exit(0));
+        AnchorPane.setRightAnchor(exit, 20d);
+        AnchorPane.setTopAnchor(exit, 20d);
+        for(AnchorPane pane : panes) {
+            pane.getChildren().add(exit);
+        }
     }
 
     //===[LOGIC CALL]==================================================
