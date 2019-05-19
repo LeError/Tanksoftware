@@ -339,7 +339,7 @@ implements Initializable {
         exit.setOnAction(event -> System.exit(0));
         AnchorPane.setRightAnchor(exit, 20d);
         AnchorPane.setTopAnchor(exit, 20d);
-        for(AnchorPane pane : panes) {
+        for(AnchorPane pane : subPanes) {
             pane.getChildren().add(exit);
         }
     }
