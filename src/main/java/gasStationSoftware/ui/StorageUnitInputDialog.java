@@ -27,9 +27,6 @@ public class StorageUnitInputDialog extends Dialog {
 
     @Override
     protected void processSubmit(AnchorPane pane) {
-        String label = ((JFXTextField) pane.getChildren().get(0)).getText();
-        int x = Integer.parseInt(((JFXTextField) pane.getChildren().get(1)).getText());
-        int y = Integer.parseInt(((JFXTextField) pane.getChildren().get(2)).getText());
-        windowController.processStorageUnit(label, x, y);
+        windowController.processStorageUnit(pane);
     }
 }

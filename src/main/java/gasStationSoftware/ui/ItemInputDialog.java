@@ -32,7 +32,7 @@ public class ItemInputDialog extends Dialog {
         tItemList = getTable(290, 180, 55d, 5d);
         tItemList.getColumns().addAll(columnInvNumber,columnLabel);
 
-        windowController.createItemTypeData(this, InventoryType.Fuel);
+        windowController.createItemTypeData(this, type);
 
         AnchorPane pane = getAnchorPane(300, 240);
         pane.getChildren().addAll(txtSearch, tItemList);
@@ -47,9 +47,9 @@ public class ItemInputDialog extends Dialog {
     protected void processSubmit(AnchorPane pane) {
         ItemType iType = (ItemType) ((TableView) pane.getChildren().get(1)).getSelectionModel().getSelectedItem();
         if(type == InventoryType.Fuel) {
-            new ItemDetailInputDialog(rootPane, windowController, iType);
+            new ItemFuelDetailInputDialog(rootPane, windowController, iType);
         } else if(type == InventoryType.Good) {
-
+            new ItemGoodDetailInputDialog(rootPane, windowController, iType);
         }
     }
 

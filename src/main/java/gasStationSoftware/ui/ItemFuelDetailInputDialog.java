@@ -7,11 +7,12 @@ import gasStationSoftware.util.Dialog;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 
-public class ItemDetailInputDialog extends Dialog {
+public class ItemFuelDetailInputDialog
+extends Dialog {
 
     private ItemType iType;
 
-    public ItemDetailInputDialog(StackPane rootPane, WindowController windowController, ItemType iType) {
+    public ItemFuelDetailInputDialog(StackPane rootPane, WindowController windowController, ItemType iType) {
         super(windowController);
         this.iType = iType;
 
@@ -34,9 +35,6 @@ public class ItemDetailInputDialog extends Dialog {
 
     @Override
     protected void processSubmit(AnchorPane pane) {
-        float amount = Float.parseFloat(((JFXTextField) pane.getChildren().get(1)).getText());
-        float price = Float.parseFloat(((JFXTextField) pane.getChildren().get(2)).getText());
-        String currency = ((JFXTextField) pane.getChildren().get(3)).getText();
-        windowController.processFuel(iType, amount, price, currency);
+        windowController.processFuel(pane, iType);
     }
 }
