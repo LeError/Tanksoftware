@@ -120,6 +120,7 @@ implements Initializable {
         addColumnsTGoodsSettingsGood();
         addColumnsTGoodsSettingsStorageUnit();
         addColumnsTFuelsFuelOverview();
+        addColumnsTGoodsInventoryOverview();
         setDefaultContent();
         addExitButton();
     }
@@ -265,13 +266,23 @@ implements Initializable {
     }
 
     private void addColumnsTFuelsFuelOverview() {
-        TableColumn columnStorageUnitLabel = Dialog.getColumn("INV #", "INVENTORY_NUMBER", 80, true);
-        TableColumn columnStorageUnitFuel = Dialog.getColumn("Kraftstoff", "LABEL", 100, true);
-        TableColumn columnStorageUnitAmount = Dialog.getColumn("Menge in l", "amount", 100, true);
-        TableColumn columnStorageUnitPrice = Dialog.getColumn("Preis", "price", 100, true);
-        TableColumn columnStorageUnitCurrency = Dialog.getColumn("Währung", "currency", 100, true);
-        TableColumn columnStorageUnitTanks = Dialog.getColumn("In Tanks", "tanks", 100, true);
-        tFuelsFuelOverview.getColumns().addAll(columnStorageUnitLabel, columnStorageUnitFuel, columnStorageUnitAmount, columnStorageUnitPrice, columnStorageUnitCurrency, columnStorageUnitTanks);
+        TableColumn columnFuelInvNumber = Dialog.getColumn("INV #", "INVENTORY_NUMBER", 80, true);
+        TableColumn columnFuelLabel = Dialog.getColumn("Kraftstoff", "LABEL", 100, true);
+        TableColumn columnFuelAmount = Dialog.getColumn("Menge in l", "amount", 100, true);
+        TableColumn columnFuelPrice = Dialog.getColumn("Preis", "price", 100, true);
+        TableColumn columnFuelCurrency = Dialog.getColumn("Währung", "currency", 100, true);
+        TableColumn columnFuelTanks = Dialog.getColumn("In Tanks", "tanks", 100, true);
+        tFuelsFuelOverview.getColumns().addAll(columnFuelInvNumber, columnFuelLabel, columnFuelAmount, columnFuelPrice, columnFuelCurrency, columnFuelTanks);
+    }
+
+    private void addColumnsTGoodsInventoryOverview() {
+        TableColumn columnGoodInvNumber = Dialog.getColumn("INV #", "INVENTORY_NUMBER", 80, true);
+        TableColumn columnGoodLabel = Dialog.getColumn("Produkt", "LABEL", 100, true);
+        TableColumn columnGoodAmount = Dialog.getColumn("Menge", "amount", 100, true);
+        TableColumn columnGoodPrice = Dialog.getColumn("Preis", "price", 100, true);
+        TableColumn columnGoodCurrency = Dialog.getColumn("Währung", "currency", 100, true);
+        TableColumn columnGoodStorageUnit = Dialog.getColumn("Lagereinheit", "storageUnit", 100, true);
+        tGoodsInventoryOverview.getColumns().addAll(columnGoodInvNumber, columnGoodLabel, columnGoodAmount, columnGoodPrice, columnGoodCurrency, columnGoodStorageUnit);
     }
 
     private TableColumn[] getColumnsItemType() {
