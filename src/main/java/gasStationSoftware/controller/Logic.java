@@ -572,6 +572,14 @@ public class Logic {
         return tanks;
     }
 
+    public ArrayList<String> getStorageUnit() {
+        ArrayList<String> storage = new ArrayList<>();
+        for(StorageUnit storageUnit : storageUnits) {
+            storage.add(storageUnit.getLabel() + " (" + storageUnit.getX() + "|" + storageUnit.getY() + ")");
+        }
+        return storage;
+    }
+
     //===[GET ROWS FOR INPUT DIALOGS]==================================================
 
     public void addTankTableRows(TableView table) {
