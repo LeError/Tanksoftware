@@ -20,4 +20,13 @@ extends Item {
     public void setStorage(StorageUnit storage) {
         this.storage = storage;
     }
+
+    public String getStorageUnit() {
+        return (storage.getLabel() + " (" + storage.getX() + "|" + storage.getY() + ")");
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
 }
