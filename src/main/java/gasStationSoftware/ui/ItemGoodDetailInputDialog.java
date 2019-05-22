@@ -37,7 +37,7 @@ extends Dialog {
     }
 
     @Override protected void processSubmit(AnchorPane pane) {
-
+        windowController.processGood(pane, iType);
     }
 
 }
