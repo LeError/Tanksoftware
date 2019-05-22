@@ -421,6 +421,10 @@ implements Initializable {
         logic.addFuel(iType, amount, price, currency);
     }
 
+    public void processGood(AnchorPane pane, ItemType iType) {
+
+    }
+
     //===[CREATE SEARCHABLE DATA]==================================================
 
     public void createItemTypeData(ItemInputDialog itemInputDialog, InventoryType type) {
