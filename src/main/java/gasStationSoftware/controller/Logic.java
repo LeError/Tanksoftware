@@ -21,6 +21,7 @@ import javafx.scene.control.TableView;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
+import javax.rmi.CORBA.Util;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -236,6 +237,15 @@ public class Logic {
         for (Fuel fuel : fuels) {
             windowController.addRowTFuelsFuelOverview(fuel);
         }
+
+        createGood(Utility.getIntArray(read.getItemStringArray("goodType")),
+        Utility.getFloatArray(read.getItemStringArray("goodPrice")),
+        read.getItemStringArray("goodCurrency"),
+        Utility.getIntArray(read.getItemStringArray("goodAmount")),
+        read.getItemStringArray("goodStorageUnit"));
+        for(Good good : goods) {
+            windowController.addRowTGoodsInventoryOverview(good);
+        }
     }
 
     //===[CREATE OBJECTS FROM JSON]==================================================
@@ -306,6 +316,26 @@ public class Logic {
                 }
             }
             fuels.add(new Fuel(fuel, price[i], currency[i], amount[i]));
+        }
+    }
+
+    private void createGood(int[] invNumber, float[] price, String[] currency, int[] amount, String[] storageUnits) {
+        ArrayList<ItemType> goodTypes = Utility.getInventoryType(types, InventoryType.Good);
+        for (int i = 0; i < invNumber.length; i++) {
+            ItemType good = null;
+            for (ItemType goodType : goodTypes) {
+                if (invNumber[i] == goodType.getINVENTORY_NUMBER()) {
+                    good = goodType;
+                    break;
+                }
+            }
+            StorageUnit storage = null;
+            for(int y = 0; y < getStorageUnit().size(); y++) {
+                if(getStorageUnit().get(y).equals(storageUnits[i])) {
+                    storage = this.storageUnits.get(y);
+                }
+            }
+            goods.add(new Good(good, price[i], currency[i], storage, amount[i]));
         }
     }
 
