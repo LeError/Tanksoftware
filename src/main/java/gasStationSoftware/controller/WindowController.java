@@ -6,13 +6,7 @@ import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
-import gasStationSoftware.models.Employee;
-import gasStationSoftware.models.Fuel;
-import gasStationSoftware.models.FuelTank;
-import gasStationSoftware.models.GasPump;
-import gasStationSoftware.models.InventoryType;
-import gasStationSoftware.models.ItemType;
-import gasStationSoftware.models.StorageUnit;
+import gasStationSoftware.models.*;
 import gasStationSoftware.ui.FuelTankInputDialog;
 import gasStationSoftware.ui.GasPumpInputDialog;
 import gasStationSoftware.ui.ItemInputDialog;
@@ -329,6 +323,10 @@ implements Initializable {
         tFuelsFuelOverview.getItems().add(fuel);
     }
 
+    public void addRowTGoodsInventoryOverview(Good good) {
+        tGoodsInventoryOverview.getItems().add(good);
+    }
+
     private void addExitButton() {
         MaterialDesignIconView icoExit = new MaterialDesignIconView(MaterialDesignIcon.CLOSE);
         icoExit.setGlyphSize(30);
@@ -422,7 +420,11 @@ implements Initializable {
     }
 
     public void processGood(AnchorPane pane, ItemType iType) {
-
+        int amount = Integer.parseInt(((JFXTextField) pane.getChildren().get(1)).getText());
+        float price = Float.parseFloat(((JFXTextField) pane.getChildren().get(2)).getText());
+        String currency = ((JFXTextField) pane.getChildren().get(3)).getText();
+        String StorageUnit = (String) ((JFXComboBox) pane.getChildren().get(4)).getSelectionModel().getSelectedItem();
+        logic.addGood(iType, amount, price, currency, StorageUnit);
     }
 
     //===[CREATE SEARCHABLE DATA]==================================================

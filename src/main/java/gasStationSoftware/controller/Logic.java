@@ -24,6 +24,7 @@ import org.apache.commons.io.FilenameUtils;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -398,6 +399,32 @@ public class Logic {
             Fuel newFuel = new Fuel(iType, price, currency, amount);
             fuels.add(newFuel);
             windowController.addRowTFuelsFuelOverview(newFuel);
+        } else {
+            displayError("Kraftstoff exsistiert bereits", new Exception("duplicate entry"), false);
+        }
+        saveInventory();
+    }
+
+    public void addGood(ItemType iType, int amount, float price, String currency, String storageUnit) {
+        boolean newEntry = true;
+        for(Good good : goods) {
+            if(good.getTYPE() == iType) {
+                newEntry = false;
+            }
+        }
+
+        int idxStorage = 0;
+        ArrayList<String> storages = getStorageUnit();
+        for(int i = 0; i < storages.size(); i++) {
+            if(storages.get(i).equals(storageUnit)) {
+                idxStorage = i;
+            }
+        }
+
+        if(newEntry) {
+            Good newGood = new Good(iType, price, currency, storageUnits.get(idxStorage), amount);
+            goods.add(newGood);
+            windowController.addRowTGoodsInventoryOverview(newGood);
         } else {
             displayError("Kraftstoff exsistiert bereits", new Exception("duplicate entry"), false);
         }
