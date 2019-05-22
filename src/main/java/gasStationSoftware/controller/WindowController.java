@@ -474,4 +474,8 @@ implements Initializable {
         return rootPane;
     }
 
+    public ArrayList<String> getStorageUnit() {
+        return logic.getStorageUnit();
+    }
+
 }
