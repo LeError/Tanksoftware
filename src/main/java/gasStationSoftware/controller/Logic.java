@@ -446,10 +446,15 @@ public class Logic {
         write.addItemArray("storageUnitLabel", getStorageUnitLabel());
         write.addItemArray("storageUnitX", getStorageUnitX());
         write.addItemArray("storageUnitY", getStorageUnitY());
-        write.addItemArray("fuelType", getInvNuberFuel());
+        write.addItemArray("fuelType", getInvNumberFuel());
         write.addItemArray("fuelPrice", getPriceFuel());
         write.addItemArray("fuelCurrency", getCurrencyFuel());
         write.addItemArray("fuelAmount", getAmountFuel());
+        write.addItemArray("goodType", getInvNumberGood());
+        write.addItemArray("goodPrice", getPriceGood());
+        write.addItemArray("goodCurrency", getCurrencyGood());
+        write.addItemArray("goodAmount", getAmountGood());
+        write.addItemArray("goodStorageUnit", getStorageUnitGood());
         write.write(true);
     }
 
@@ -547,7 +552,7 @@ public class Logic {
         return y;
     }
 
-    private String[] getInvNuberFuel() {
+    private String[] getInvNumberFuel() {
         String[] invNum = new String[fuels.size()];
         for (int i = 0; i < invNum.length; i++) {
             invNum[i] = String.valueOf(fuels.get(i).getINVENTORY_NUMBER());
@@ -577,6 +582,46 @@ public class Logic {
             amount[i] = String.valueOf(fuels.get(i).getAmount());
         }
         return amount;
+    }
+
+    private String[] getInvNumberGood() {
+        String[] invNum = new String[fuels.size()];
+        for (int i = 0; i < invNum.length; i++) {
+            invNum[i] = String.valueOf(fuels.get(i).getINVENTORY_NUMBER());
+        }
+        return invNum;
+    }
+
+    private String[] getPriceGood() {
+        String[] price = new String[fuels.size()];
+        for (int i = 0; i < price.length; i++) {
+            price[i] = String.valueOf(fuels.get(i).getPrice());
+        }
+        return price;
+    }
+
+    private String[] getCurrencyGood() {
+        String[] currency = new String[fuels.size()];
+        for (int i = 0; i < currency.length; i++) {
+            currency[i] = fuels.get(i).getCurrency();
+        }
+        return currency;
+    }
+
+    private String[] getAmountGood() {
+        String[] amount = new String[fuels.size()];
+        for (int i = 0; i < amount.length; i++) {
+            amount[i] = String.valueOf(fuels.get(i).getAmount());
+        }
+        return amount;
+    }
+
+    private String[] getStorageUnitGood() {
+        String[] storage = new String[fuels.size()];
+        for(int i = 0; i < storage.length; i++) {
+            storage[i] = storageUnits.get(i).getLabel() + " (" + storageUnits.get(i).getX() + "|" + storageUnits.get(i).getY() + ")";
+        }
+        return storage;
     }
 
     //===[GETTER]==================================================
