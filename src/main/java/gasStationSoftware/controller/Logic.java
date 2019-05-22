@@ -21,9 +21,11 @@ import javafx.scene.control.TableView;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
+import javax.rmi.CORBA.Util;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -235,6 +237,15 @@ public class Logic {
         for (Fuel fuel : fuels) {
             windowController.addRowTFuelsFuelOverview(fuel);
         }
+
+        createGood(Utility.getIntArray(read.getItemStringArray("goodType")),
+        Utility.getFloatArray(read.getItemStringArray("goodPrice")),
+        read.getItemStringArray("goodCurrency"),
+        Utility.getIntArray(read.getItemStringArray("goodAmount")),
+        read.getItemStringArray("goodStorageUnit"));
+        for(Good good : goods) {
+            windowController.addRowTGoodsInventoryOverview(good);
+        }
     }
 
     //===[CREATE OBJECTS FROM JSON]==================================================
@@ -305,6 +316,26 @@ public class Logic {
                 }
             }
             fuels.add(new Fuel(fuel, price[i], currency[i], amount[i]));
+        }
+    }
+
+    private void createGood(int[] invNumber, float[] price, String[] currency, int[] amount, String[] storageUnits) {
+        ArrayList<ItemType> goodTypes = Utility.getInventoryType(types, InventoryType.Good);
+        for (int i = 0; i < invNumber.length; i++) {
+            ItemType good = null;
+            for (ItemType goodType : goodTypes) {
+                if (invNumber[i] == goodType.getINVENTORY_NUMBER()) {
+                    good = goodType;
+                    break;
+                }
+            }
+            StorageUnit storage = null;
+            for(int y = 0; y < getStorageUnit().size(); y++) {
+                if(getStorageUnit().get(y).equals(storageUnits[i])) {
+                    storage = this.storageUnits.get(y);
+                }
+            }
+            goods.add(new Good(good, price[i], currency[i], storage, amount[i]));
         }
     }
 
@@ -404,6 +435,32 @@ public class Logic {
         saveInventory();
     }
 
+    public void addGood(ItemType iType, int amount, float price, String currency, String storageUnit) {
+        boolean newEntry = true;
+        for(Good good : goods) {
+            if(good.getTYPE() == iType) {
+                newEntry = false;
+            }
+        }
+
+        int idxStorage = 0;
+        ArrayList<String> storages = getStorageUnit();
+        for(int i = 0; i < storages.size(); i++) {
+            if(storages.get(i).equals(storageUnit)) {
+                idxStorage = i;
+            }
+        }
+
+        if(newEntry) {
+            Good newGood = new Good(iType, price, currency, storageUnits.get(idxStorage), amount);
+            goods.add(newGood);
+            windowController.addRowTGoodsInventoryOverview(newGood);
+        } else {
+            displayError("Kraftstoff exsistiert bereits", new Exception("duplicate entry"), false);
+        }
+        saveInventory();
+    }
+
     //===[SAVE FILES]==================================================
 
     private void saveInventory() {
@@ -419,10 +476,15 @@ public class Logic {
         write.addItemArray("storageUnitLabel", getStorageUnitLabel());
         write.addItemArray("storageUnitX", getStorageUnitX());
         write.addItemArray("storageUnitY", getStorageUnitY());
-        write.addItemArray("fuelType", getInvNuberFuel());
+        write.addItemArray("fuelType", getInvNumberFuel());
         write.addItemArray("fuelPrice", getPriceFuel());
         write.addItemArray("fuelCurrency", getCurrencyFuel());
         write.addItemArray("fuelAmount", getAmountFuel());
+        write.addItemArray("goodType", getInvNumberGood());
+        write.addItemArray("goodPrice", getPriceGood());
+        write.addItemArray("goodCurrency", getCurrencyGood());
+        write.addItemArray("goodAmount", getAmountGood());
+        write.addItemArray("goodStorageUnit", getStorageUnitGood());
         write.write(true);
     }
 
@@ -520,7 +582,7 @@ public class Logic {
         return y;
     }
 
-    private String[] getInvNuberFuel() {
+    private String[] getInvNumberFuel() {
         String[] invNum = new String[fuels.size()];
         for (int i = 0; i < invNum.length; i++) {
             invNum[i] = String.valueOf(fuels.get(i).getINVENTORY_NUMBER());
@@ -552,6 +614,46 @@ public class Logic {
         return amount;
     }
 
+    private String[] getInvNumberGood() {
+        String[] invNum = new String[fuels.size()];
+        for (int i = 0; i < invNum.length; i++) {
+            invNum[i] = String.valueOf(fuels.get(i).getINVENTORY_NUMBER());
+        }
+        return invNum;
+    }
+
+    private String[] getPriceGood() {
+        String[] price = new String[fuels.size()];
+        for (int i = 0; i < price.length; i++) {
+            price[i] = String.valueOf(fuels.get(i).getPrice());
+        }
+        return price;
+    }
+
+    private String[] getCurrencyGood() {
+        String[] currency = new String[fuels.size()];
+        for (int i = 0; i < currency.length; i++) {
+            currency[i] = fuels.get(i).getCurrency();
+        }
+        return currency;
+    }
+
+    private String[] getAmountGood() {
+        String[] amount = new String[fuels.size()];
+        for (int i = 0; i < amount.length; i++) {
+            amount[i] = String.valueOf(fuels.get(i).getAmount());
+        }
+        return amount;
+    }
+
+    private String[] getStorageUnitGood() {
+        String[] storage = new String[fuels.size()];
+        for(int i = 0; i < storage.length; i++) {
+            storage[i] = storageUnits.get(i).getLabel() + " (" + storageUnits.get(i).getX() + "|" + storageUnits.get(i).getY() + ")";
+        }
+        return storage;
+    }
+
     //===[GETTER]==================================================
 
     public ArrayList<String> getFuel() {
@@ -570,6 +672,14 @@ public class Logic {
 
     public ArrayList<FuelTank> getTanks() {
         return tanks;
+    }
+
+    public ArrayList<String> getStorageUnit() {
+        ArrayList<String> storage = new ArrayList<>();
+        for(StorageUnit storageUnit : storageUnits) {
+            storage.add(storageUnit.getLabel() + " (" + storageUnit.getX() + "|" + storageUnit.getY() + ")");
+        }
+        return storage;
     }
 
     //===[GET ROWS FOR INPUT DIALOGS]==================================================

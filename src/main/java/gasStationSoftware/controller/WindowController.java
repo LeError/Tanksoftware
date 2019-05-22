@@ -4,14 +4,9 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
+import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
-import gasStationSoftware.models.Employee;
-import gasStationSoftware.models.Fuel;
-import gasStationSoftware.models.FuelTank;
-import gasStationSoftware.models.GasPump;
-import gasStationSoftware.models.InventoryType;
-import gasStationSoftware.models.ItemType;
-import gasStationSoftware.models.StorageUnit;
+import gasStationSoftware.models.*;
 import gasStationSoftware.ui.FuelTankInputDialog;
 import gasStationSoftware.ui.GasPumpInputDialog;
 import gasStationSoftware.ui.ItemInputDialog;
@@ -125,7 +120,9 @@ implements Initializable {
         addColumnsTGoodsSettingsGood();
         addColumnsTGoodsSettingsStorageUnit();
         addColumnsTFuelsFuelOverview();
+        addColumnsTGoodsInventoryOverview();
         setDefaultContent();
+        addExitButton();
     }
 
     //===[HANDLE EVENT]==================================================
@@ -269,13 +266,23 @@ implements Initializable {
     }
 
     private void addColumnsTFuelsFuelOverview() {
-        TableColumn columnStorageUnitLabel = Dialog.getColumn("INV #", "INVENTORY_NUMBER", 80, true);
-        TableColumn columnStorageUnitFuel = Dialog.getColumn("Kraftstoff", "LABEL", 100, true);
-        TableColumn columnStorageUnitAmount = Dialog.getColumn("Menge in l", "amount", 100, true);
-        TableColumn columnStorageUnitPrice = Dialog.getColumn("Preis", "price", 100, true);
-        TableColumn columnStorageUnitCurrency = Dialog.getColumn("Währung", "currency", 100, true);
-        TableColumn columnStorageUnitTanks = Dialog.getColumn("In Tanks", "tanks", 100, true);
-        tFuelsFuelOverview.getColumns().addAll(columnStorageUnitLabel, columnStorageUnitFuel, columnStorageUnitAmount, columnStorageUnitPrice, columnStorageUnitCurrency, columnStorageUnitTanks);
+        TableColumn columnFuelInvNumber = Dialog.getColumn("INV #", "INVENTORY_NUMBER", 80, true);
+        TableColumn columnFuelLabel = Dialog.getColumn("Kraftstoff", "LABEL", 100, true);
+        TableColumn columnFuelAmount = Dialog.getColumn("Menge in l", "amount", 100, true);
+        TableColumn columnFuelPrice = Dialog.getColumn("Preis", "price", 100, true);
+        TableColumn columnFuelCurrency = Dialog.getColumn("Währung", "currency", 100, true);
+        TableColumn columnFuelTanks = Dialog.getColumn("In Tanks", "tanks", 100, true);
+        tFuelsFuelOverview.getColumns().addAll(columnFuelInvNumber, columnFuelLabel, columnFuelAmount, columnFuelPrice, columnFuelCurrency, columnFuelTanks);
+    }
+
+    private void addColumnsTGoodsInventoryOverview() {
+        TableColumn columnGoodInvNumber = Dialog.getColumn("INV #", "INVENTORY_NUMBER", 80, true);
+        TableColumn columnGoodLabel = Dialog.getColumn("Produkt", "LABEL", 100, true);
+        TableColumn columnGoodAmount = Dialog.getColumn("Menge", "amount", 100, true);
+        TableColumn columnGoodPrice = Dialog.getColumn("Preis", "price", 100, true);
+        TableColumn columnGoodCurrency = Dialog.getColumn("Währung", "currency", 100, true);
+        TableColumn columnGoodStorageUnit = Dialog.getColumn("Lagereinheit", "storageUnit", 100, true);
+        tGoodsInventoryOverview.getColumns().addAll(columnGoodInvNumber, columnGoodLabel, columnGoodAmount, columnGoodPrice, columnGoodCurrency, columnGoodStorageUnit);
     }
 
     private TableColumn[] getColumnsItemType() {
@@ -325,6 +332,25 @@ implements Initializable {
 
     public void addRowTFuelsFuelOverview(Fuel fuel) {
         tFuelsFuelOverview.getItems().add(fuel);
+    }
+
+    public void addRowTGoodsInventoryOverview(Good good) {
+        tGoodsInventoryOverview.getItems().add(good);
+    }
+
+    private void addExitButton() {
+        MaterialDesignIconView icoExit = new MaterialDesignIconView(MaterialDesignIcon.CLOSE);
+        icoExit.setGlyphSize(30);
+
+        JFXButton exit = new JFXButton();
+        exit.setGraphic(icoExit);
+        exit.setPrefSize(40, 40);
+        exit.setOnAction(event -> System.exit(0));
+        AnchorPane.setRightAnchor(exit, 20d);
+        AnchorPane.setTopAnchor(exit, 20d);
+        for(AnchorPane pane : subPanes) {
+            pane.getChildren().add(exit);
+        }
     }
 
     //===[LOGIC CALL]==================================================
@@ -404,6 +430,14 @@ implements Initializable {
         logic.addFuel(iType, amount, price, currency);
     }
 
+    public void processGood(AnchorPane pane, ItemType iType) {
+        int amount = Integer.parseInt(((JFXTextField) pane.getChildren().get(1)).getText());
+        float price = Float.parseFloat(((JFXTextField) pane.getChildren().get(2)).getText());
+        String currency = ((JFXTextField) pane.getChildren().get(3)).getText();
+        String StorageUnit = (String) ((JFXComboBox) pane.getChildren().get(4)).getSelectionModel().getSelectedItem();
+        logic.addGood(iType, amount, price, currency, StorageUnit);
+    }
+
     //===[CREATE SEARCHABLE DATA]==================================================
 
     public void createItemTypeData(ItemInputDialog itemInputDialog, InventoryType type) {
@@ -455,6 +489,10 @@ implements Initializable {
 
     public StackPane getRootPane() {
         return rootPane;
+    }
+
+    public ArrayList<String> getStorageUnit() {
+        return logic.getStorageUnit();
     }
 
 }
