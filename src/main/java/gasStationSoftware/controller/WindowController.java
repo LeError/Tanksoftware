@@ -177,7 +177,7 @@ implements Initializable {
             new ItemInputDialog(rootPane, this, InventoryType.Fuel);
         } else if (event.getTarget() == btnDeliveriesFuelOverview) {
             try {
-                logic.addFuelDelivery(getFile("Lieferungsdatei"));
+                logic.importFile(getFile("Lieferungsdatei"), 2, "");
             } catch (IOException e) {
                 e.printStackTrace();
             }
