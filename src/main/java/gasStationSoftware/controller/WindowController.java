@@ -41,7 +41,6 @@ import javafx.scene.shape.Polygon;
 import javafx.stage.FileChooser;
 
 import java.awt.*;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -176,11 +175,11 @@ implements Initializable {
         if (event.getTarget() == btnAddFuelOverview) {
             new ItemInputDialog(rootPane, this, InventoryType.Fuel);
         } else if (event.getTarget() == btnDeliveriesFuelOverview) {
-            try {
-                logic.importFile(getFile("Lieferungsdatei"), 2, "");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            hideSubPanes();
+            fuelDeliveryPane.setVisible(true);
+        } else if (event.getTarget() == btnOrdersFuelOverview) {
+            hideSubPanes();
+            fuelOrderPane.setVisible(true);
         }
     }
 
