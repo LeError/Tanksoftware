@@ -21,11 +21,10 @@ import javafx.scene.control.TableView;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
-import javax.rmi.CORBA.Util;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Array;
+import java.nio.file.Files;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -459,6 +458,12 @@ public class Logic {
             displayError("Kraftstoff exsistiert bereits", new Exception("duplicate entry"), false);
         }
         saveInventory();
+    }
+
+    public void addFuelDelivery(String path)
+    throws IOException {
+        int number = new File(DATA_SUB_PATHS[2]).listFiles().length;
+        Files.copy(new File(path).toPath(), new File(DATA_SUB_PATHS[2] + "DELIVERY_" + number + ".txt").toPath());
     }
 
     //===[SAVE FILES]==================================================
