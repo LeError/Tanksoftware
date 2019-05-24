@@ -6,7 +6,14 @@ import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
-import gasStationSoftware.models.*;
+import gasStationSoftware.models.Employee;
+import gasStationSoftware.models.Fuel;
+import gasStationSoftware.models.FuelTank;
+import gasStationSoftware.models.GasPump;
+import gasStationSoftware.models.Good;
+import gasStationSoftware.models.InventoryType;
+import gasStationSoftware.models.ItemType;
+import gasStationSoftware.models.StorageUnit;
 import gasStationSoftware.ui.FuelTankInputDialog;
 import gasStationSoftware.ui.GasPumpInputDialog;
 import gasStationSoftware.ui.ItemInputDialog;
@@ -31,8 +38,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
+import javafx.stage.FileChooser;
 
 import java.awt.*;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -166,6 +175,12 @@ implements Initializable {
     @FXML private void handleFuelAction(MouseEvent event) {
         if (event.getTarget() == btnAddFuelOverview) {
             new ItemInputDialog(rootPane, this, InventoryType.Fuel);
+        } else if (event.getTarget() == btnDeliveriesFuelOverview) {
+            try {
+                logic.addFuelDelivery(getFile("Lieferungsdatei"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -383,7 +398,7 @@ implements Initializable {
         this.buttonsBackground = buttonsBackground;
         this.buttonsFont = buttonsFont;
         this.dividerContent = dividerContent;
-        buttonsStyle =  "-jfx-button-type: RAISED;" +
+        buttonsStyle =  "-jfx-button-type: RAISED;" + "-jfx-disable-visual-focus: true;" +
                         "-fx-background-color: " + Utility.Rgb2Hex(buttonsBackground) + ";" +
                         "-fx-text-fill: " + Utility.Rgb2Hex(buttonsFont) + ";";
         iconsStyle = "-fx-fill: " + Utility.Rgb2Hex(icons) + ";";
@@ -493,6 +508,13 @@ implements Initializable {
 
     public ArrayList<String> getStorageUnit() {
         return logic.getStorageUnit();
+    }
+
+    private String getFile(String title) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle(title);
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text Files", "*.txt"));
+        return fileChooser.showOpenDialog(rootPane.getScene().getWindow()).getAbsolutePath();
     }
 
 }
