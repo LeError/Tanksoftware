@@ -13,8 +13,15 @@
   "storageUnitLabel":[],
   "storageUnitX":[],
   "storageUnitY": [],
+
   "fuelType": [],
   "fuelPrice": [],
   "fuelCurrency": [],
-  "fuelAmount": []
+  "fuelAmount": [],
+
+  "goodType": [],
+  "goodPrice": [],
+  "goodCurrency": [],
+  "goodAmount": [],
+  "goodStorageUnit": []
 }
