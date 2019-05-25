@@ -31,7 +31,7 @@ extends Item {
         return amount;
     }
 
-    public String getUnit() {
+    public String getUNIT() {
         return UNIT;
     }
 
