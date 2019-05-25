@@ -5,12 +5,14 @@ extends Item {
 
     private StorageUnit storage;
     private int amount;
+    private final String UNIT;
 
-    public Good(ItemType type, float price, String currency, StorageUnit storage, int amount) {
+    public Good(ItemType type, float price, String currency, StorageUnit storage, int amount, String unit) {
         super(type, price, currency);
         this.storage = storage;
         this.amount = amount;
         this.storage.addItem(this);
+        this.UNIT = unit;
     }
 
     public StorageUnit getStorage() {
@@ -27,6 +29,10 @@ extends Item {
 
     public int getAmount() {
         return amount;
+    }
+
+    public String getUNIT() {
+        return UNIT;
     }
 
 }

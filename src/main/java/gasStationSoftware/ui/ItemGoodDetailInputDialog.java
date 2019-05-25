@@ -20,19 +20,22 @@ extends Dialog {
         JFXTextField txtItem = getTextfield(200, 30, true, 10d, 5d, 5d);
         txtItem.setText(iType.getLABEL());
 
-        JFXTextField txtAmount = getTextfield(200, 30, true, 60d, 5d, 5d);
+        JFXTextField txtAmount = getTextfield(200, 30, false, 60d, 5d, 5d);
         txtAmount.setText("0");
 
-        JFXTextField txtPrice = getTextfield(200, 30, false, 110d, 5d, 5d);
+        JFXTextField txtUnit = getTextfield(200, 30, false, 110d, 5d, 5d);
+        txtUnit.setPromptText("Einheit");
+
+        JFXTextField txtPrice = getTextfield(200, 30, false, 160d, 5d, 5d);
         txtPrice.setPromptText("Preis");
 
-        JFXTextField txtCurrency = getTextfield(200, 30, true, 160d, 5d, 5d);
+        JFXTextField txtCurrency = getTextfield(200, 30, true, 210d, 5d, 5d);
         txtCurrency.setText("EUR");
 
-        JFXComboBox cbStorage = getComboBox(windowController.getStorageUnit(), "Wähle Lagereinheit", 200, 30, 210d, 5d, 5d);
+        JFXComboBox cbStorage = getComboBox(windowController.getStorageUnit(), "Wähle Lagereinheit", 280, 30, 260d, 5d, 5d);
 
-        AnchorPane pane = getAnchorPane(300, 250);
-        pane.getChildren().addAll(txtItem, txtAmount, txtPrice, txtCurrency, cbStorage);
+        AnchorPane pane = getAnchorPane(300, 330);
+        pane.getChildren().addAll(txtItem, txtAmount, txtUnit, txtPrice, txtCurrency, cbStorage);
         inputDialog(rootPane, pane, "Produkt " + iType.getLABEL() + " einbuchen");
     }
 

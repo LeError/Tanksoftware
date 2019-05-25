@@ -23,5 +23,6 @@
   "goodPrice": [],
   "goodCurrency": [],
   "goodAmount": [],
-  "goodStorageUnit": []
+  "goodStorageUnit": [],
+  "goodUnit" : []
 }
