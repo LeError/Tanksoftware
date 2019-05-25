@@ -456,7 +456,7 @@ public class Logic {
             goods.add(newGood);
             windowController.addRowTGoodsInventoryOverview(newGood);
         } else {
-            displayError("Kraftstoff exsistiert bereits", new Exception("duplicate entry"), false);
+            displayError("Produkt exsistiert bereits", new Exception("duplicate entry"), false);
         }
         saveInventory();
     }
@@ -521,6 +521,7 @@ public class Logic {
         write.addItemArray("goodCurrency", getCurrencyGood());
         write.addItemArray("goodAmount", getAmountGood());
         write.addItemArray("goodStorageUnit", getStorageUnitGood());
+        write.addItemArray("goodUnit", getUnit());
         write.write(true);
     }
 
@@ -688,6 +689,14 @@ public class Logic {
             storage[i] = storageUnits.get(i).getLabel() + " (" + storageUnits.get(i).getX() + "|" + storageUnits.get(i).getY() + ")";
         }
         return storage;
+    }
+
+    private String[] getUnit() {
+        String[] unit = new String[goods.size()];
+        for(int i = 0; i < goods.size(); i++) {
+            unit[i] = goods.get(i).getUNIT();
+        }
+        return unit;
     }
 
     //===[GETTER]==================================================
