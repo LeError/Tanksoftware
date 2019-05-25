@@ -652,41 +652,41 @@ public class Logic {
     }
 
     private String[] getInvNumberGood() {
-        String[] invNum = new String[fuels.size()];
+        String[] invNum = new String[goods.size()];
         for (int i = 0; i < invNum.length; i++) {
-            invNum[i] = String.valueOf(fuels.get(i).getINVENTORY_NUMBER());
+            invNum[i] = String.valueOf(goods.get(i).getINVENTORY_NUMBER());
         }
         return invNum;
     }
 
     private String[] getPriceGood() {
-        String[] price = new String[fuels.size()];
+        String[] price = new String[goods.size()];
         for (int i = 0; i < price.length; i++) {
-            price[i] = String.valueOf(fuels.get(i).getPrice());
+            price[i] = String.valueOf(goods.get(i).getPrice());
         }
         return price;
     }
 
     private String[] getCurrencyGood() {
-        String[] currency = new String[fuels.size()];
+        String[] currency = new String[goods.size()];
         for (int i = 0; i < currency.length; i++) {
-            currency[i] = fuels.get(i).getCurrency();
+            currency[i] = goods.get(i).getCurrency();
         }
         return currency;
     }
 
     private String[] getAmountGood() {
-        String[] amount = new String[fuels.size()];
+        String[] amount = new String[goods.size()];
         for (int i = 0; i < amount.length; i++) {
-            amount[i] = String.valueOf(fuels.get(i).getAmount());
+            amount[i] = String.valueOf(goods.get(i).getAmount());
         }
         return amount;
     }
 
     private String[] getStorageUnitGood() {
-        String[] storage = new String[storageUnits.size()];
+        String[] storage = new String[goods.size()];
         for(int i = 0; i < storage.length; i++) {
-            storage[i] = storageUnits.get(i).getLabel() + " (" + storageUnits.get(i).getX() + "|" + storageUnits.get(i).getY() + ")";
+            storage[i] = goods.get(i).getStorage().getLabel() + " (" + goods.get(i).getStorage().getX() + "|" + goods.get(i).getStorage().getY() + ")";
         }
         return storage;
     }
