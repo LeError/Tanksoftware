@@ -438,7 +438,7 @@ public class Logic {
     public void addGood(ItemType iType, int amount, float price, String currency, String storageUnit, String unit) {
         boolean newEntry = true;
         for(Good good : goods) {
-            if(good.getTYPE() == iType) {
+            if(good.getTYPE() == iType && good.getUNIT().equals(unit)) {
                 newEntry = false;
             }
         }
