@@ -1,0 +1,10 @@
+{
+  "menuBar": "#000000",
+  "contentPaneBackground": "#1E1E1E",
+  "icons": "#FF0000",
+  "dividerMenuBar": "#5E5E5E",
+  "fontContent": "#212121",
+  "buttonsBackground": "#FFFFFF",
+  "buttonsFont": "#FFFFFF",
+  "dividerContent": "#212121"
+}

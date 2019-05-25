@@ -64,6 +64,10 @@ public class Logic {
 
     //===[CONSTRUCTOR]==================================================
 
+    /**
+     * Constructor für Logic
+     * @author Robin Herder
+     */
     private Logic() {
         checkDir(DATA_FILE_PATH);
         checkDirs(DATA_SUB_PATHS);
@@ -78,6 +82,11 @@ public class Logic {
 
     //===[INSTANCE GETTER]==================================================
 
+    /**
+     * Getter für die Logic Instance
+     * @return logic
+     * @author Robin Herder
+     */
     public static Logic getInstance() {
         if (logic == null) {
             logic = new Logic();
@@ -85,6 +94,12 @@ public class Logic {
         return logic;
     }
 
+    /**
+     * Getter für die Logic Instance
+     * @param windowController
+     * @return logic
+     * @author Robin Herder
+     */
     public static Logic getInstance(WindowController windowController) {
         Logic.windowController = windowController;
         return getInstance();
@@ -92,6 +107,11 @@ public class Logic {
 
     //===[CHECK DIRS AND FILES]==================================================
 
+    /**
+     * Directory erstellen
+     * @param dir Dateipfad als String
+     * @author Robin Herder
+     */
     private void checkDir(String dir) {
         File dataDir = new File(dir);
         if (!dataDir.isDirectory()) {
@@ -99,12 +119,22 @@ public class Logic {
         }
     }
 
+    /**
+     * Erstellt mehrere Directories
+     * @param dirs Array mit Dateipfaden
+     * @author Robin Herder
+     */
     private void checkDirs(String[] dirs) {
         for (String dir : dirs) {
             checkDir(dir);
         }
     }
 
+    /**
+     * @throws IOException
+     * @throws DataFileNotFoundException
+     * @author Robin Herder
+     */
     private void checkDataFiles() throws IOException, DataFileNotFoundException {
         for (String file : DATA_FILE_NAMES) {
             File dataFile = new File(DATA_FILE_PATH + file);
@@ -134,6 +164,11 @@ public class Logic {
 
     //===[JSON EXTRACTION]==================================================
 
+    /**
+     * @param source
+     * @param file
+     * @author Robin Herder
+     */
     private void exportJSONResources(String source, String file) {
         InputStream jsonSource = getClass().getClassLoader().getResourceAsStream("\\json\\" + source);
         File jsonDestination = new File(DATA_FILE_PATH + file);
@@ -146,6 +181,13 @@ public class Logic {
 
     //===[DISPLAY ERRORS]==================================================
 
+    /**
+     * Zeigt Errors an
+     * @param error
+     * @param e
+     * @param end
+     * @author Robin Herder
+     */
     public static void displayError(String error, Exception e, boolean end) { // TODO change to errorDialog
         new ErrorDialog(windowController.getRootPane(), error, e, end);
         if(end){
@@ -155,6 +197,10 @@ public class Logic {
 
     //===[LOAD SAVE FILES]==================================================
 
+    /**
+     * Lädt Dateien
+     * @author Robin Herder
+     */
     public void loadFiles() {
         try {
             loadTheme();
@@ -177,6 +223,11 @@ public class Logic {
         }
     }
 
+    /**
+     * Lädt Theme
+     * @throws DataFileNotFoundException
+     * @author Robin Herder
+     */
     private void loadTheme() throws DataFileNotFoundException {
         ReadJSON read = new ReadJSON(DATA_FILE_PATH + DATA_FILE_NAMES[1]);
         String theme = read.getItemString("theme");
@@ -194,6 +245,12 @@ public class Logic {
         );
     }
 
+    /**
+     * Lädt Angestellte
+     * @throws OSException
+     * @throws ParseException
+     * @author Robin Herder
+     */
     private void loadEmployees() throws OSException, ParseException {
         ReadFile read = new ReadFile(DATA_FILE_PATH + DATA_FILE_NAMES[3]);
         String[][] lines = read.getLINES();
@@ -206,6 +263,12 @@ public class Logic {
         }
     }
 
+    /**
+     * Lädt Inventar
+     * @throws DataFileNotFoundException
+     * @throws NumberOutOfRangeException
+     * @author Robin Herder
+     */
     private void loadInventory() throws DataFileNotFoundException, NumberOutOfRangeException {
         ReadJSON read = new ReadJSON(DATA_FILE_PATH + DATA_FILE_NAMES[0]);
 
@@ -250,6 +313,13 @@ public class Logic {
 
     //===[CREATE OBJECTS FROM JSON]==================================================
 
+    /**
+     * Erstellt Item-Objekte aus der JSON
+     * @param label
+     * @param inventoryNumber
+     * @param type
+     * @author Robin Herder
+     */
     private void createItemTypeObjects(String[] label, String[] inventoryNumber, String[] type) {
         for(int i = 0; i < inventoryNumber.length; i++) {
             InventoryType invType;
@@ -264,6 +334,14 @@ public class Logic {
         Collections.sort(this.types, Comparator.comparingInt(iType -> iType.getINVENTORY_NUMBER()));
     }
 
+    /**
+     * Erstellt Tanks
+     * @param tankID
+     * @param tankCapacity
+     * @param tankLevel
+     * @param tankAssignedFuels
+     * @author Robin Herder
+     */
     private void createFuelTankObjects(int[] tankID, float[] tankCapacity, float[] tankLevel, int[] tankAssignedFuels) {
         ArrayList<ItemType> fuels = Utility.getInventoryType(types, InventoryType.Fuel);
         for(int i = 0; i < tankAssignedFuels.length; i++) {
@@ -282,6 +360,11 @@ public class Logic {
         Collections.sort(this.tanks, Comparator.comparingInt(tank -> tank.getTANK_NUMBER()));
     }
 
+    /**
+     * Erstellt Zapfsäulen
+     * @param gasPumps
+     * @author Robin Herder
+     */
     private void createGasPumpObjects(ArrayList<String>[] gasPumps ) {
         ArrayList<ItemType> types = Utility.getInventoryType(this.types, InventoryType.Fuel);
         for (int i = 0; i < gasPumps.length; i++) {
@@ -299,12 +382,27 @@ public class Logic {
         Collections.sort(this.gasPumps, Comparator.comparingInt(gasPump -> gasPump.getGAS_PUMP_NUMBER()));
     }
 
+    /**
+     * Erstellt Lager
+     * @param label
+     * @param x
+     * @param y
+     * @author Robin Herder
+     */
     private void createStorageUnitObjects(String[] label, int[] x, int[] y) {
        for(int i = 0; i < label.length; i++) {
            storageUnits.add(new StorageUnit(label[i], x[i] ,y[i]));
        }
     }
 
+    /**
+     * Erstellt Kraftstoff
+     * @param invNumber
+     * @param price
+     * @param currency
+     * @param amount
+     * @author Robin Herder
+     */
     private void createFuel(int[] invNumber, float[] price, String[] currency, float[] amount) {
         ArrayList<ItemType> fuelTypes = Utility.getInventoryType(types, InventoryType.Fuel);
         for (int i = 0; i < invNumber.length; i++) {
@@ -319,6 +417,15 @@ public class Logic {
         }
     }
 
+    /**
+     * Erstellt Ware
+     * @param invNumber
+     * @param price
+     * @param currency
+     * @param amount
+     * @param storageUnits
+     * @author Robin Herder
+     */
     private void createGood(int[] invNumber, float[] price, String[] currency, int[] amount, String[] storageUnits, String[] unit) {
         ArrayList<ItemType> goodTypes = Utility.getInventoryType(types, InventoryType.Good);
         for (int i = 0; i < invNumber.length; i++) {
@@ -341,6 +448,12 @@ public class Logic {
 
     //===[GET FREE IDS]==================================================
 
+    /**
+     * Gibt die nächste freie Inventarnummer zurück
+     * @param type
+     * @return freeInvNumber
+     * @author Robin Herder
+     */
     public int getFreeInvNumber(InventoryType type) {
         int number = 1;
         ArrayList<ItemType> types = Utility.getInventoryType(this.types, type);
@@ -354,6 +467,11 @@ public class Logic {
         return number;
     }
 
+    /**
+     * Gibt nächste freie Tanknummer zurück
+     * @return FreeTankNumber
+     * @author Robin Herder
+     */
     public int getFreeTankNumber() {
         int number = 1;
         Collections.sort(tanks, Comparator.comparingInt(tank -> tank.getTANK_NUMBER()));
@@ -366,6 +484,11 @@ public class Logic {
         return number;
     }
 
+    /**
+     * Gibt nächste freie Zapfsäulennummer zurück
+     * @return FreeGasPumpNumber
+     * @author Robin Herder
+     */
     private int getFreeGasPumpNumber() {
         int number = 1;
         Collections.sort(gasPumps, Comparator.comparingInt(gasPump -> gasPump.getGAS_PUMP_NUMBER()));
@@ -380,6 +503,12 @@ public class Logic {
 
     //===[ADD NEW OBJECT]==================================================
 
+    /**
+     * Neues Item erstellen
+     * @param label
+     * @param type
+     * @author Robin Herder
+     */
     public void addItemType(String label, InventoryType type) {
         ItemType newItemType = new ItemType(label, getFreeInvNumber(type), type);
         types.add(newItemType);
