@@ -414,42 +414,86 @@ implements Initializable {
 
     //===[ADD ROWS TO TABLES]==================================================
 
+    /**
+     * Neuer Mitarbeiter der Mitarbeiterübersicht-Tabelle hinzufügen
+     * @param employee
+     * @author Robin Herder
+     */
     public void addRowTEmployeesEmployeeOverview(Employee employee){
         tEmployeesEmployeeOverview.getItems().add(employee);
     }
 
+    /**
+     * Neuer Kraftstoff der Kraftstoffeinstellungen-Tabelle hinzufügen
+     * @param type
+     * @author Robin Herder
+     */
     public void addRowTFuelsSettingsFuel(ItemType type) {
         if(type.getTYPE_LABEL().equals(InventoryType.Fuel.getTYPE())) {
             tFuelsSettingsFuel.getItems().add(type);
         }
     }
 
+    /**
+     * Neuer Tank der Tankeinstellungen-Tabelle hinzufügen
+     * @param tank
+     * @author Robin Herder
+     */
     public void addRowTTanksSettingsTank(FuelTank tank){
         tTanksSettingsTank.getItems().add(tank);
     }
 
+    /**
+     * Neue Zapfsäuler der Zapfsäuleneinstellung-Tabelle hinzufügen
+     * @param gasPump
+     * @author Robin Herder
+     */
     public void addRowTGasPumpsSettingsGasPump(GasPump gasPump) {
         tGasPumpsSettingsGasPump.getItems().add(gasPump);
     }
 
+    /**
+     * Neue Ware der Wareneinstellungen-Tabelle hinzufügen
+     * @param type
+     * @author Robin Herder
+     */
     public void addRowTGoodsSettingsGood(ItemType type) {
         if(type.getTYPE_LABEL().equals(InventoryType.Good.getTYPE())) {
             tGoodsSettingsGood.getItems().add(type);
         }
     }
 
+    /**
+     *
+     * @param storageUnit
+     * @author Robin Herder
+     */
     public void addRowTSettingsStorageUnit(StorageUnit storageUnit) {
         tGoodsSettingsStorageUnit.getItems().add(storageUnit);
     }
 
+    /**
+     * Kraftstoff der Kraftstoffübersichtstabelle hinzufügen
+     * @param fuel
+     * @author Robin Herder
+     */
     public void addRowTFuelsFuelOverview(Fuel fuel) {
         tFuelsFuelOverview.getItems().add(fuel);
     }
 
+    /**
+     * Ware der Warenübersichtstabelle hinzufügen
+     * @param good
+     * @author Robin Herder
+     */
     public void addRowTGoodsInventoryOverview(Good good) {
         tGoodsInventoryOverview.getItems().add(good);
     }
 
+    /**
+     * Exit-Buttons hinzufügen
+     * @author Robin Herder
+     */
     private void addExitButton() {
         MaterialDesignIconView icoExit = new MaterialDesignIconView(MaterialDesignIcon.CLOSE);
         icoExit.setGlyphSize(30);
