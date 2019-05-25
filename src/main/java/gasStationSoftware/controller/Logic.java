@@ -21,11 +21,10 @@ import javafx.scene.control.TableView;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
-import javax.rmi.CORBA.Util;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Array;
+import java.nio.file.Files;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -242,7 +241,8 @@ public class Logic {
         Utility.getFloatArray(read.getItemStringArray("goodPrice")),
         read.getItemStringArray("goodCurrency"),
         Utility.getIntArray(read.getItemStringArray("goodAmount")),
-        read.getItemStringArray("goodStorageUnit"));
+        read.getItemStringArray("goodStorageUnit"),
+        read.getItemStringArray("goodUnit"));
         for(Good good : goods) {
             windowController.addRowTGoodsInventoryOverview(good);
         }
@@ -319,7 +319,7 @@ public class Logic {
         }
     }
 
-    private void createGood(int[] invNumber, float[] price, String[] currency, int[] amount, String[] storageUnits) {
+    private void createGood(int[] invNumber, float[] price, String[] currency, int[] amount, String[] storageUnits, String[] unit) {
         ArrayList<ItemType> goodTypes = Utility.getInventoryType(types, InventoryType.Good);
         for (int i = 0; i < invNumber.length; i++) {
             ItemType good = null;
@@ -335,7 +335,7 @@ public class Logic {
                     storage = this.storageUnits.get(y);
                 }
             }
-            goods.add(new Good(good, price[i], currency[i], storage, amount[i]));
+            goods.add(new Good(good, price[i], currency[i], storage, amount[i], unit[i]));
         }
     }
 
@@ -435,10 +435,10 @@ public class Logic {
         saveInventory();
     }
 
-    public void addGood(ItemType iType, int amount, float price, String currency, String storageUnit) {
+    public void addGood(ItemType iType, int amount, float price, String currency, String storageUnit, String unit) {
         boolean newEntry = true;
         for(Good good : goods) {
-            if(good.getTYPE() == iType) {
+            if(good.getTYPE() == iType && good.getUNIT().equals(unit)) {
                 newEntry = false;
             }
         }
@@ -452,13 +452,49 @@ public class Logic {
         }
 
         if(newEntry) {
-            Good newGood = new Good(iType, price, currency, storageUnits.get(idxStorage), amount);
+            Good newGood = new Good(iType, price, currency, storageUnits.get(idxStorage), amount, unit);
             goods.add(newGood);
             windowController.addRowTGoodsInventoryOverview(newGood);
         } else {
-            displayError("Kraftstoff exsistiert bereits", new Exception("duplicate entry"), false);
+            displayError("Produkt exsistiert bereits", new Exception("duplicate entry"), false);
         }
         saveInventory();
+    }
+
+    public void importFile(String path, int dir, String theme)
+    throws IOException {
+        String file = "";
+        String extension = "";
+        switch (dir) {
+        case 0:
+            file = "RECEIPT_";
+            extension = ".txt";
+            break;
+        case 1:
+            file = "FUEL_ORDER_";
+            extension = ".txt";
+            break;
+        case 2:
+            file = "FUEL_DELIVERY_";
+            extension = ".txt";
+            break;
+        case 3:
+            file = "GOOD_ORDER_";
+            extension = ".txt";
+            break;
+        case 4:
+            file = "GOOD_DELIVERY_";
+            extension = ".txt";
+            break;
+        case 5:
+            file = theme;
+            extension = ".json";
+            break;
+        default:
+            throw new IOException();
+        }
+        int number = new File(DATA_SUB_PATHS[dir]).listFiles().length;
+        Files.copy(new File(path).toPath(), new File(DATA_SUB_PATHS[2] + file + number + extension).toPath());
     }
 
     //===[SAVE FILES]==================================================
@@ -485,6 +521,7 @@ public class Logic {
         write.addItemArray("goodCurrency", getCurrencyGood());
         write.addItemArray("goodAmount", getAmountGood());
         write.addItemArray("goodStorageUnit", getStorageUnitGood());
+        write.addItemArray("goodUnit", getUnit());
         write.write(true);
     }
 
@@ -615,43 +652,51 @@ public class Logic {
     }
 
     private String[] getInvNumberGood() {
-        String[] invNum = new String[fuels.size()];
+        String[] invNum = new String[goods.size()];
         for (int i = 0; i < invNum.length; i++) {
-            invNum[i] = String.valueOf(fuels.get(i).getINVENTORY_NUMBER());
+            invNum[i] = String.valueOf(goods.get(i).getINVENTORY_NUMBER());
         }
         return invNum;
     }
 
     private String[] getPriceGood() {
-        String[] price = new String[fuels.size()];
+        String[] price = new String[goods.size()];
         for (int i = 0; i < price.length; i++) {
-            price[i] = String.valueOf(fuels.get(i).getPrice());
+            price[i] = String.valueOf(goods.get(i).getPrice());
         }
         return price;
     }
 
     private String[] getCurrencyGood() {
-        String[] currency = new String[fuels.size()];
+        String[] currency = new String[goods.size()];
         for (int i = 0; i < currency.length; i++) {
-            currency[i] = fuels.get(i).getCurrency();
+            currency[i] = goods.get(i).getCurrency();
         }
         return currency;
     }
 
     private String[] getAmountGood() {
-        String[] amount = new String[fuels.size()];
+        String[] amount = new String[goods.size()];
         for (int i = 0; i < amount.length; i++) {
-            amount[i] = String.valueOf(fuels.get(i).getAmount());
+            amount[i] = String.valueOf(goods.get(i).getAmount());
         }
         return amount;
     }
 
     private String[] getStorageUnitGood() {
-        String[] storage = new String[fuels.size()];
+        String[] storage = new String[goods.size()];
         for(int i = 0; i < storage.length; i++) {
-            storage[i] = storageUnits.get(i).getLabel() + " (" + storageUnits.get(i).getX() + "|" + storageUnits.get(i).getY() + ")";
+            storage[i] = goods.get(i).getStorage().getLabel() + " (" + goods.get(i).getStorage().getX() + "|" + goods.get(i).getStorage().getY() + ")";
         }
         return storage;
+    }
+
+    private String[] getUnit() {
+        String[] unit = new String[goods.size()];
+        for(int i = 0; i < goods.size(); i++) {
+            unit[i] = goods.get(i).getUNIT();
+        }
+        return unit;
     }
 
     //===[GETTER]==================================================
