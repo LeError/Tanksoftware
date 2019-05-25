@@ -293,10 +293,11 @@ implements Initializable {
         TableColumn columnGoodInvNumber = Dialog.getColumn("INV #", "INVENTORY_NUMBER", 80, true);
         TableColumn columnGoodLabel = Dialog.getColumn("Produkt", "LABEL", 100, true);
         TableColumn columnGoodAmount = Dialog.getColumn("Menge", "amount", 100, true);
+        TableColumn columnGoodUnit = Dialog.getColumn("Einheit", "UNIT", 100, true);
         TableColumn columnGoodPrice = Dialog.getColumn("Preis", "price", 100, true);
         TableColumn columnGoodCurrency = Dialog.getColumn("Währung", "currency", 100, true);
         TableColumn columnGoodStorageUnit = Dialog.getColumn("Lagereinheit", "storageUnit", 100, true);
-        tGoodsInventoryOverview.getColumns().addAll(columnGoodInvNumber, columnGoodLabel, columnGoodAmount, columnGoodPrice, columnGoodCurrency, columnGoodStorageUnit);
+        tGoodsInventoryOverview.getColumns().addAll(columnGoodInvNumber, columnGoodLabel, columnGoodAmount, columnGoodUnit, columnGoodPrice, columnGoodCurrency, columnGoodStorageUnit);
     }
 
     private TableColumn[] getColumnsItemType() {
@@ -446,10 +447,11 @@ implements Initializable {
 
     public void processGood(AnchorPane pane, ItemType iType) {
         int amount = Integer.parseInt(((JFXTextField) pane.getChildren().get(1)).getText());
-        float price = Float.parseFloat(((JFXTextField) pane.getChildren().get(2)).getText());
-        String currency = ((JFXTextField) pane.getChildren().get(3)).getText();
-        String StorageUnit = (String) ((JFXComboBox) pane.getChildren().get(4)).getSelectionModel().getSelectedItem();
-        logic.addGood(iType, amount, price, currency, StorageUnit);
+        String unit = ((JFXTextField) pane.getChildren().get(2)).getText();
+        float price = Float.parseFloat(((JFXTextField) pane.getChildren().get(3)).getText());
+        String currency = ((JFXTextField) pane.getChildren().get(4)).getText();
+        String StorageUnit = (String) ((JFXComboBox) pane.getChildren().get(5)).getSelectionModel().getSelectedItem();
+        logic.addGood(iType, amount, price, currency, StorageUnit, unit);
     }
 
     //===[CREATE SEARCHABLE DATA]==================================================
