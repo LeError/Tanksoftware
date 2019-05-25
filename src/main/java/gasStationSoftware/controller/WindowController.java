@@ -136,7 +136,6 @@ implements Initializable {
         addColumnsTFuelsFuelOverview();
         addColumnsTGoodsInventoryOverview();
         setDefaultContent();
-        addExitButton();
     }
 
     //===[HANDLE EVENT]==================================================
@@ -488,26 +487,6 @@ implements Initializable {
      */
     public void addRowTGoodsInventoryOverview(Good good) {
         tGoodsInventoryOverview.getItems().add(good);
-    }
-
-    /**
-     *
-     * Exit-Buttons hinzufügen
-     * @author Robin Herder
-     */
-    private void addExitButton() {
-        MaterialDesignIconView icoExit = new MaterialDesignIconView(MaterialDesignIcon.CLOSE);
-        icoExit.setGlyphSize(30);
-
-        JFXButton exit = new JFXButton();
-        exit.setGraphic(icoExit);
-        exit.setPrefSize(40, 40);
-        exit.setOnAction(event -> System.exit(0));
-        AnchorPane.setRightAnchor(exit, 20d);
-        AnchorPane.setTopAnchor(exit, 20d);
-        for(AnchorPane pane : subPanes) {
-            pane.getChildren().add(exit);
-        }
     }
 
     //===[LOGIC CALL]==================================================
