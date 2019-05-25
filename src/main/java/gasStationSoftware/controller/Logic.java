@@ -241,7 +241,8 @@ public class Logic {
         Utility.getFloatArray(read.getItemStringArray("goodPrice")),
         read.getItemStringArray("goodCurrency"),
         Utility.getIntArray(read.getItemStringArray("goodAmount")),
-        read.getItemStringArray("goodStorageUnit"));
+        read.getItemStringArray("goodStorageUnit"),
+        read.getItemStringArray("goodUnit"));
         for(Good good : goods) {
             windowController.addRowTGoodsInventoryOverview(good);
         }
@@ -318,7 +319,7 @@ public class Logic {
         }
     }
 
-    private void createGood(int[] invNumber, float[] price, String[] currency, int[] amount, String[] storageUnits) {
+    private void createGood(int[] invNumber, float[] price, String[] currency, int[] amount, String[] storageUnits, String[] unit) {
         ArrayList<ItemType> goodTypes = Utility.getInventoryType(types, InventoryType.Good);
         for (int i = 0; i < invNumber.length; i++) {
             ItemType good = null;
@@ -334,7 +335,7 @@ public class Logic {
                     storage = this.storageUnits.get(y);
                 }
             }
-            goods.add(new Good(good, price[i], currency[i], storage, amount[i]));
+            goods.add(new Good(good, price[i], currency[i], storage, amount[i], unit[i]));
         }
     }
 
@@ -434,7 +435,7 @@ public class Logic {
         saveInventory();
     }
 
-    public void addGood(ItemType iType, int amount, float price, String currency, String storageUnit) {
+    public void addGood(ItemType iType, int amount, float price, String currency, String storageUnit, String unit) {
         boolean newEntry = true;
         for(Good good : goods) {
             if(good.getTYPE() == iType) {
@@ -451,7 +452,7 @@ public class Logic {
         }
 
         if(newEntry) {
-            Good newGood = new Good(iType, price, currency, storageUnits.get(idxStorage), amount);
+            Good newGood = new Good(iType, price, currency, storageUnits.get(idxStorage), amount, unit);
             goods.add(newGood);
             windowController.addRowTGoodsInventoryOverview(newGood);
         } else {
@@ -682,7 +683,7 @@ public class Logic {
     }
 
     private String[] getStorageUnitGood() {
-        String[] storage = new String[fuels.size()];
+        String[] storage = new String[storageUnits.size()];
         for(int i = 0; i < storage.length; i++) {
             storage[i] = storageUnits.get(i).getLabel() + " (" + storageUnits.get(i).getX() + "|" + storageUnits.get(i).getY() + ")";
         }
