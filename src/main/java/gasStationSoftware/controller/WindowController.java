@@ -118,6 +118,12 @@ implements Initializable {
 
     //===[INIT]==================================================
 
+    /**
+     *
+     * @param location
+     * @param resources
+     * @author Robin Herder
+     */
     @Override public void initialize(URL location, ResourceBundle resources) {
         logic = Logic.getInstance(this);
         logic.loadFiles();
@@ -134,6 +140,11 @@ implements Initializable {
 
     //===[HANDLE EVENT]==================================================
 
+    /**
+     * Wechsel zwischen den Menus der linken menubar
+     * @param event
+     * @author Robin Herder
+     */
     @FXML private void handleMenuButtonAction(MouseEvent event) {
         hidePanes();
         hideSubPanes();
@@ -160,10 +171,25 @@ implements Initializable {
         }
     }
 
+    /**
+     *
+     * @param event
+     * @author Robin Herder
+     */
     @FXML private void handleUserAction(MouseEvent event) {}
 
+    /**
+     *
+     * @param event
+     * @author Robin Herder
+     */
     @FXML private void handleSaleAction(MouseEvent event) {}
 
+    /**
+     *
+     * @param event
+     * @author Robin Herder
+     */
     @FXML private void handleInventoryAction(MouseEvent event) {
         if (event.getTarget() == btnAddGoodOverview) {
             new ItemInputDialog(rootPane, this, InventoryType.Good);
@@ -176,6 +202,11 @@ implements Initializable {
         }
     }
 
+    /**
+     *
+     * @param event
+     * @author Robin Herder
+     */
     @FXML private void handleFuelAction(MouseEvent event) {
         if (event.getTarget() == btnAddFuelOverview) {
             new ItemInputDialog(rootPane, this, InventoryType.Fuel);
@@ -188,10 +219,25 @@ implements Initializable {
         }
     }
 
+    /**
+     *
+     * @param event
+     * @author Robin Herder
+     */
     @FXML private void handleEmployeeAction(MouseEvent event) {}
 
+    /**
+     *
+     * @param event
+     * @author Robin Herder
+     */
     @FXML private void handleReportAction(MouseEvent event) {}
 
+    /**
+     *
+     * @param event
+     * @author Robin Herder
+     */
     @FXML private void handleSettingsAction(MouseEvent event) {
         if (event.getTarget() == btnEditThemeSettingsOverview) {
 
@@ -229,6 +275,10 @@ implements Initializable {
 
     //===[HIDE PANES]==================================================
 
+    /**
+     * Panes ausblenden
+     * @author Robin Herder
+     */
     private void hidePanes() {
         for (AnchorPane pane : panes) {
             pane.setVisible(false);
@@ -236,6 +286,10 @@ implements Initializable {
         hideSubPanes();
     }
 
+    /**
+     * Sub-Pane ausblenden
+     * @author Robin Herder
+     */
     private void hideSubPanes() {
         for (AnchorPane pane : subPanes) {
             pane.setVisible(false);
@@ -244,6 +298,10 @@ implements Initializable {
 
     //===[ADD COLUMNS TO TABLES]==================================================
 
+    /**
+     * Spalten Mitarbeiterüersicht einfügen
+     * @author Robin Herder
+     */
     private void addColumnsTEmployeesEmployeeOverview() {
         TableColumn columnEmployeeNumber = Dialog.getColumn("Angestelter #", "EMPLOYEE_NUMBER", 80, true);
         TableColumn columnEmploymentDate = Dialog.getColumn("Einstellungsdatum", "EMPLOYMENT_DATE_FORMATTED", 100, true);
@@ -252,10 +310,18 @@ implements Initializable {
         tEmployeesEmployeeOverview.getColumns().addAll(columnEmployeeNumber, columnEmploymentDate, columnFirstName, columnSurname);
     }
 
+    /**
+     * Spalten der Kraftstoffeinstellungen einfügen
+     * @author Robin Herder
+     */
     private void addColumnsTFuelsSettingsFuel() {
         tFuelsSettingsFuel.getColumns().addAll(getColumnsItemType());
     }
 
+    /**
+     * Spalten der Tankeinstellungen einfügen
+     * @author Robin Herder
+     */
     private void addColumnsTTanksSettingsTank() {
         TableColumn columnTankNumber = Dialog.getColumn("Tank #", "TANK_NUMBER", 80, true);
         TableColumn columnTankCapacity = Dialog.getColumn("Max Tank Kapazität in l", "CAPACITY", 200, true);
@@ -266,6 +332,10 @@ implements Initializable {
         tTanksSettingsTank.getColumns().addAll(columnTankNumber, columnTankCapacity, columnTankLevel, columnTankLevelPercentage, columnTankFuel, columnInvNumber);
     }
 
+    /**
+     * Spalten der Zapfsäuleneinstellungen einfügen
+     * @author Robin Herder
+     */
     private void addColumnsTGasPumpsSettingsGasPump() {
         TableColumn columnGasPumpNumber = Dialog.getColumn("Zapfsäule #", "GAS_PUMP_NUMBER", 80, true);
         TableColumn columnGasPumpFuel = Dialog.getColumn("Verfügbare Kraftstoffe", "assignedFuels", 200, true);
@@ -273,10 +343,18 @@ implements Initializable {
         tGasPumpsSettingsGasPump.getColumns().addAll(columnGasPumpNumber, columnGasPumpFuel, columnGasPumpTank);
     }
 
+    /**
+     * Spalten der Wareneinstellungen einfügen
+     * @author Robin Herder
+     */
     private void addColumnsTGoodsSettingsGood() {
         tGoodsSettingsGood.getColumns().addAll(getColumnsItemType());
     }
 
+    /**
+     * Spalten der
+     * @author Robin Herder
+     */
     private void addColumnsTGoodsSettingsStorageUnit() {
         TableColumn columnStorageUnitLabel = Dialog.getColumn("Bezeichner", "label", 200, true);
         TableColumn columnStorageUnitX = Dialog.getColumn("Platzierung X", "x", 200, true);
@@ -284,6 +362,10 @@ implements Initializable {
         tGoodsSettingsStorageUnit.getColumns().addAll(columnStorageUnitLabel, columnStorageUnitX, columnStorageUnitY);
     }
 
+    /**
+     *
+     * @author Robin Herder
+     */
     private void addColumnsTFuelsFuelOverview() {
         TableColumn columnFuelInvNumber = Dialog.getColumn("INV #", "INVENTORY_NUMBER", 80, true);
         TableColumn columnFuelLabel = Dialog.getColumn("Kraftstoff", "LABEL", 100, true);
@@ -294,6 +376,10 @@ implements Initializable {
         tFuelsFuelOverview.getColumns().addAll(columnFuelInvNumber, columnFuelLabel, columnFuelAmount, columnFuelPrice, columnFuelCurrency, columnFuelTanks);
     }
 
+    /**
+     *
+     * @author Robin Herder
+     */
     private void addColumnsTGoodsInventoryOverview() {
         TableColumn columnGoodInvNumber = Dialog.getColumn("INV #", "INVENTORY_NUMBER", 80, true);
         TableColumn columnGoodLabel = Dialog.getColumn("Produkt", "LABEL", 100, true);
@@ -305,6 +391,11 @@ implements Initializable {
         tGoodsInventoryOverview.getColumns().addAll(columnGoodInvNumber, columnGoodLabel, columnGoodAmount, columnGoodUnit, columnGoodPrice, columnGoodCurrency, columnGoodStorageUnit);
     }
 
+    /**
+     *
+     * @return  colums[]
+     * @author Robin Herder
+     */
     private TableColumn[] getColumnsItemType() {
         TableColumn columnInventoryNumber = new TableColumn("Inventar #");
         columnInventoryNumber.setCellValueFactory(new PropertyValueFactory<>("INVENTORY_NUMBER"));
@@ -322,55 +413,110 @@ implements Initializable {
 
     //===[ADD ROWS TO TABLES]==================================================
 
+    /**
+     * Neuer Mitarbeiter der Mitarbeiterübersicht-Tabelle hinzufügen
+     * @param employee
+     * @author Robin Herder
+     */
     public void addRowTEmployeesEmployeeOverview(Employee employee){
         tEmployeesEmployeeOverview.getItems().add(employee);
     }
 
+    /**
+     * Neuer Kraftstoff der Kraftstoffeinstellungen-Tabelle hinzufügen
+     * @param type
+     * @author Robin Herder
+     */
     public void addRowTFuelsSettingsFuel(ItemType type) {
         if(type.getTYPE_LABEL().equals(InventoryType.Fuel.getTYPE())) {
             tFuelsSettingsFuel.getItems().add(type);
         }
     }
 
+    /**
+     * Neuer Tank der Tankeinstellungen-Tabelle hinzufügen
+     * @param tank
+     * @author Robin Herder
+     */
     public void addRowTTanksSettingsTank(FuelTank tank){
         tTanksSettingsTank.getItems().add(tank);
     }
 
+    /**
+     * Neue Zapfsäuler der Zapfsäuleneinstellung-Tabelle hinzufügen
+     * @param gasPump
+     * @author Robin Herder
+     */
     public void addRowTGasPumpsSettingsGasPump(GasPump gasPump) {
         tGasPumpsSettingsGasPump.getItems().add(gasPump);
     }
 
+    /**
+     * Neue Ware der Wareneinstellungen-Tabelle hinzufügen
+     * @param type
+     * @author Robin Herder
+     */
     public void addRowTGoodsSettingsGood(ItemType type) {
         if(type.getTYPE_LABEL().equals(InventoryType.Good.getTYPE())) {
             tGoodsSettingsGood.getItems().add(type);
         }
     }
 
+    /**
+     *
+     * @param storageUnit
+     * @author Robin Herder
+     */
     public void addRowTSettingsStorageUnit(StorageUnit storageUnit) {
         tGoodsSettingsStorageUnit.getItems().add(storageUnit);
     }
 
+    /**
+     * Kraftstoff der Kraftstoffübersichtstabelle hinzufügen
+     * @param fuel
+     * @author Robin Herder
+     */
     public void addRowTFuelsFuelOverview(Fuel fuel) {
         tFuelsFuelOverview.getItems().add(fuel);
     }
 
+    /**
+     * Ware der Warenübersichtstabelle hinzufügen
+     * @param good
+     * @author Robin Herder
+     */
     public void addRowTGoodsInventoryOverview(Good good) {
         tGoodsInventoryOverview.getItems().add(good);
     }
 
     //===[LOGIC CALL]==================================================
 
+    /**
+     *
+     * @param table
+     * @author Robin Herder
+     */
     public void addTankTableRows(TableView table) {
         logic.addTankTableRows(table);
     }
 
     //===[DEFAULT CONTENT]==================================================
 
+    /**
+     *
+     * @author Robin Herder
+     */
     private void setDefaultContent() {
         cbTypeSettingsOverview.getItems().setAll((Object[]) CB_SETTINGS_TYPE_OPTIONS);
         cbTypeSettingsOverview.setPromptText(CB_SETTINGS_TYPE_PROMT);
     }
 
+    /**
+     *
+     * @param themes
+     * @param selected
+     * @author Robin Herder
+     */
     public void setComboboxThemes(String[] themes, String selected) {
         cbThemeSettingsOverview.getItems().setAll((Object[]) themes);
         cbThemeSettingsOverview.getSelectionModel().select(selected);
@@ -378,6 +524,18 @@ implements Initializable {
 
     //===[THEME]==================================================
 
+    /**
+     * Theme einstellen
+     * @param backgroundMenuBar
+     * @param contentPaneBackground
+     * @param icons
+     * @param dividerMenuBar
+     * @param fontContent
+     * @param buttonsBackground
+     * @param buttonsFont
+     * @param dividerContent
+     * @author Robin Herder
+     */
     public void setTheme(Color backgroundMenuBar, Color contentPaneBackground, Color icons, Color dividerMenuBar,
     Color fontContent, Color buttonsBackground, Color buttonsFont, Color dividerContent) {
         this.backgroundMenuBar = backgroundMenuBar;
@@ -394,17 +552,32 @@ implements Initializable {
         iconsStyle = "-fx-fill: " + Utility.Rgb2Hex(icons) + ";";
     }
 
+    /**
+     *
+     * @author Robin Herder
+     */
     private void applyTheme() {
 
     }
 
     //===[PROCESS INPUT]==================================================
 
+    /**
+     *
+     * @param pane
+     * @param type
+     * @author Robin Herder
+     */
     public void processItemTypeInput(AnchorPane pane, InventoryType type) {
         String label = ((JFXTextField) pane.getChildren().get(1)).getText();
         logic.addItemType(label, type);
     }
 
+    /**
+     *
+     * @param pane
+     * @author Robin Herder
+     */
     public void processFuelTankInput(AnchorPane pane) {
         float capacity = Float.parseFloat(((JFXTextField) pane.getChildren().get(1)).getText());
         float level = Float.parseFloat(((JFXTextField) pane.getChildren().get(2)).getText());
@@ -412,6 +585,11 @@ implements Initializable {
         logic.addFuelTank(capacity, level, index);
     }
 
+    /**
+     *
+     * @param pane
+     * @author Robin Herder
+     */
     public void processGasPumpInput(AnchorPane pane) {
         TableView table = (TableView) pane.getChildren().get(1);
         ArrayList<FuelTank> tanks = new ArrayList<>();
@@ -421,6 +599,11 @@ implements Initializable {
         logic.addGasPump(tanks);
     }
 
+    /**
+     *
+     * @param pane
+     * @author Robin Herder
+     */
     public void processStorageUnit(AnchorPane pane) {
         String label = ((JFXTextField) pane.getChildren().get(0)).getText();
         int x = Integer.parseInt(((JFXTextField) pane.getChildren().get(1)).getText());
@@ -428,6 +611,12 @@ implements Initializable {
         logic.addStorageUnit(label, x, y);
     }
 
+    /**
+     *
+     * @param pane
+     * @param iType
+     * @author Robin Herder
+     */
     public void processFuel(AnchorPane pane, ItemType iType){
         float amount = Float.parseFloat(((JFXTextField) pane.getChildren().get(1)).getText());
         float price = Float.parseFloat(((JFXTextField) pane.getChildren().get(2)).getText());
@@ -435,6 +624,12 @@ implements Initializable {
         logic.addFuel(iType, amount, price, currency);
     }
 
+    /**
+     *
+     * @param pane
+     * @param iType
+     * @author Robin Herder
+     */
     public void processGood(AnchorPane pane, ItemType iType) {
         int amount = Integer.parseInt(((JFXTextField) pane.getChildren().get(1)).getText());
         String unit = ((JFXTextField) pane.getChildren().get(2)).getText();
@@ -446,6 +641,12 @@ implements Initializable {
 
     //===[CREATE SEARCHABLE DATA]==================================================
 
+    /**
+     *
+     * @param itemInputDialog
+     * @param type
+     * @author Robin Herder
+     */
     public void createItemTypeData(ItemInputDialog itemInputDialog, InventoryType type) {
         ObservableList<ItemType> observableItemTypeList = FXCollections.observableArrayList();
         observableItemTypeList.addAll(logic.getItemTypes(type));
@@ -473,34 +674,76 @@ implements Initializable {
 
     //===[GETTER]==================================================
 
+    /**
+     * Gibt dem Style aller Buttons zurück
+     * @return buttensStyle
+     * @author Robin Herder
+     */
     public static String getButtonStyle() {
         return buttonsStyle;
     }
 
+    /**
+     * Gibt den Style aller Icons zurück
+     * @return iconsStyle
+     * @author Robin Herder
+     */
     public static String getIconStyle() {
         return iconsStyle;
     }
 
+    /**
+     * Gibt die nächste freie Inventarnummer des Types zurück
+     * @param type
+     * @return freeInvNumber
+     * @author Robin Herder
+     */
     public int getFreeInvNumber(InventoryType type) {
         return logic.getFreeInvNumber(type);
     }
 
+    /**
+     * Gibt die nächste freie Tanknummer zurück
+     * @return freeTankNumber
+     * @author Robin Herder
+     */
     public int getTankNumber() {
         return logic.getFreeTankNumber();
     }
 
+    /**
+     * Gibt die Kraftstoffe zurück
+     * @return fuel[]
+     * @author Robin Herder
+     */
     public ArrayList<String> getFuel() {
         return logic.getFuel();
     }
 
+    /**
+     *
+     * @return rootPane
+     * @author Robin Herder
+     */
     public StackPane getRootPane() {
         return rootPane;
     }
 
+    /**
+     *
+     * @return
+     * @author Robin Herder
+     */
     public ArrayList<String> getStorageUnit() {
         return logic.getStorageUnit();
     }
 
+    /**
+     *
+     * @param title
+     * @return ahja
+     * @author Robin Herder
+     */
     private String getFile(String title) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle(title);

@@ -504,7 +504,7 @@ public class Logic {
     //===[ADD NEW OBJECT]==================================================
 
     /**
-     * Neues Item erstellen
+     * Neues Item hinzufügen
      * @param label
      * @param type
      * @author Robin Herder
@@ -520,6 +520,13 @@ public class Logic {
         saveInventory();
     }
 
+    /**
+     * Neuen Tank hinzufügen
+     * @param capacity
+     * @param level
+     * @param fuel
+     * @author Robin Herder
+     */
     public void addFuelTank(float capacity, float level, int fuel) {
         try {
             ArrayList<ItemType> fuels = Utility.getInventoryType(types, InventoryType.Fuel);
@@ -532,6 +539,11 @@ public class Logic {
         }
     }
 
+    /**
+     * Neue Zapfsäule hinzufügen
+     * @param tanks
+     * @author Robin Herder
+     */
     public void addGasPump(ArrayList<FuelTank> tanks) {
         GasPump newGasPump = new GasPump(getFreeGasPumpNumber(), tanks);
         gasPumps.add(newGasPump);
@@ -539,6 +551,13 @@ public class Logic {
         saveInventory();
     }
 
+    /**
+     * Neues Lager hinzufügen
+     * @param label
+     * @param x
+     * @param y
+     * @author Robin Herder
+     */
     public void addStorageUnit(String label, int x, int y) {
         StorageUnit newStorageUnit = new StorageUnit(label, x, y);
         storageUnits.add(newStorageUnit);
@@ -546,6 +565,14 @@ public class Logic {
         saveInventory();
     }
 
+    /**
+     * Neuen Kraftstoff hinzufügen
+     * @param iType
+     * @param amount
+     * @param price
+     * @param currency
+     * @author Robin Herder
+     */
     public void addFuel(ItemType iType, float amount, float price, String currency) {
         boolean newEntry = true;
         for(Fuel fuel : fuels) {
@@ -564,6 +591,16 @@ public class Logic {
         saveInventory();
     }
 
+    /**
+     * Neue Ware hinzufügen
+     * @param iType
+     * @param amount
+     * @param price
+     * @param currency
+     * @param storageUnit
+     * @param unit
+     * @author Robin Herder
+     */
     public void addGood(ItemType iType, int amount, float price, String currency, String storageUnit, String unit) {
         boolean newEntry = true;
         for(Good good : goods) {
@@ -590,6 +627,13 @@ public class Logic {
         saveInventory();
     }
 
+    /**
+     * @param path
+     * @param dir
+     * @param theme
+     * @throws IOException
+     * @author Robin Herder
+     */
     public void importFile(String path, int dir, String theme)
     throws IOException {
         String file = "";
@@ -628,6 +672,10 @@ public class Logic {
 
     //===[SAVE FILES]==================================================
 
+    /**
+     * Inventar in JSON speichern
+     * @author Robin Herder
+     */
     private void saveInventory() {
         WriteJSON write = new WriteJSON(DATA_FILE_PATH + DATA_FILE_NAMES[0]);
         write.addItemArray("tankCapacity", getTankCapacity());
@@ -656,6 +704,11 @@ public class Logic {
 
     //===[GET STRINGS FOR JSON]==================================================
 
+    /**
+     * Gibt Tankkapazität aller Tanks zurück
+     * @return tankCapacity[]
+     * @author Robin Herder
+     */
     private String[] getTankCapacity() {
         String[] tankCapacity = new String[tanks.size()];
         for (int i = 0; i < tanks.size(); i++) {
@@ -664,6 +717,11 @@ public class Logic {
         return tankCapacity;
     }
 
+    /**
+     * Gibt Füllstand aller Tanks zurück
+     * @return tankLevel[]
+     * @author Robin Herder
+     */
     private String[] getTankLevel() {
         String[] tankLevel = new String[tanks.size()];
         for (int i = 0; i < tanks.size(); i++) {
@@ -672,6 +730,11 @@ public class Logic {
         return tankLevel;
     }
 
+    /**
+     * Gibt die Kraftstoffarten der Tanks zurück
+     * @return tankAssignedFuels[]
+     * @author Robin Herder
+     */
     private String[] getTankAssignedFuels() {
         String[] tankAssignedFuels = new String[tanks.size()];
         for (int i = 0; i < tanks.size(); i++) {
@@ -680,6 +743,11 @@ public class Logic {
         return tankAssignedFuels;
     }
 
+    /**
+     * Gibt die ID des Tanks zurück
+     * @return tankID[]
+     * @author Robin Herder
+     */
     private String[] getTankID() {
         String[] tankID = new String[tanks.size()];
         for (int i = 0; i < tanks.size(); i++) {
@@ -688,6 +756,11 @@ public class Logic {
         return tankID;
     }
 
+    /**
+     * Gibt die Bezeichnung aller Items zurück
+     * @return itemLabel[]
+     * @author Robin Herder
+     */
     private String[] getItemLabel() {
         String[] itemLabel = new String[types.size()];
         for (int i = 0; i < types.size(); i++) {
@@ -696,6 +769,11 @@ public class Logic {
         return itemLabel;
     }
 
+    /**
+     * Gibt die Inventarnummer aller Items zurück
+     * @return itemInventoryNumber[]
+     * @author Robin Herder
+     */
     private String[] getItemInventoryNumber() {
         String[] itemInventoryNumber = new String[types.size()];
         for (int i = 0; i < types.size(); i++) {
@@ -704,6 +782,11 @@ public class Logic {
         return itemInventoryNumber;
     }
 
+    /**
+     * Gibt den Itemtyp aller Items zurück
+     * @return itemType[]
+     * @author Robin Herder
+     */
     private String[] getItemType() {
         String[] itemType = new String[types.size()];
         for (int i = 0; i < types.size(); i++) {
@@ -712,6 +795,11 @@ public class Logic {
         return itemType;
     }
 
+    /**
+     * Gibt die Tanks einer Zapfsäule zurück
+     * @return gasPumpAssignedTanks[]
+     * @author Robin Herder
+     */
     private ArrayList<String>[] getGasPumpAssignedTanks() {
         ArrayList<String>[] gasPumpAssignedTanks = new ArrayList[gasPumps.size()];
         for (int i = 0; i < gasPumps.size(); i++) {
@@ -724,6 +812,11 @@ public class Logic {
         return gasPumpAssignedTanks;
     }
 
+    /**
+     * Gibt den Namen aller Lager zurück
+     * @return
+     * @author Robin Herder
+     */
     private String[] getStorageUnitLabel() {
         String[] label = new String[storageUnits.size()];
         for(int i = 0; i < label.length; i++) {
@@ -732,6 +825,11 @@ public class Logic {
         return label;
     }
 
+    /**
+     *
+     * @return
+     * @author Robin Herder
+     */
     private String[] getStorageUnitX() {
         String[] x = new String[storageUnits.size()];
         for(int i = 0; i < x.length; i++) {
@@ -740,6 +838,10 @@ public class Logic {
         return x;
     }
 
+    /**
+     * @return
+     * @author Robin Herder
+     */
     private String[] getStorageUnitY() {
         String[] y = new String[storageUnits.size()];
         for(int i = 0; i < y.length; i++) {
@@ -748,6 +850,11 @@ public class Logic {
         return y;
     }
 
+    /**
+     * Gibt die Inventarnummer aller Kraftstoffe zurück
+     * @return invNum[]
+     * @author Robin Herder
+     */
     private String[] getInvNumberFuel() {
         String[] invNum = new String[fuels.size()];
         for (int i = 0; i < invNum.length; i++) {
@@ -756,6 +863,11 @@ public class Logic {
         return invNum;
     }
 
+    /**
+     * Gibt den Preis aller Kraftstoffe zurück
+     * @return price[]
+     * @author Robin Herder
+     */
     private String[] getPriceFuel() {
         String[] price = new String[fuels.size()];
         for (int i = 0; i < price.length; i++) {
@@ -764,6 +876,11 @@ public class Logic {
         return price;
     }
 
+    /**
+     *
+     * @return currency[]
+     * @author Robin Herder
+     */
     private String[] getCurrencyFuel() {
         String[] currency = new String[fuels.size()];
         for (int i = 0; i < currency.length; i++) {
@@ -772,6 +889,11 @@ public class Logic {
         return currency;
     }
 
+    /**
+     * Gibt die Menge an Kraftstoff zurück
+     * @return amount[]
+     * @author Robin Herder
+     */
     private String[] getAmountFuel() {
         String[] amount = new String[fuels.size()];
         for (int i = 0; i < amount.length; i++) {
@@ -780,6 +902,11 @@ public class Logic {
         return amount;
     }
 
+    /**
+     * Gibt die Inventarnummer aller Waren zurück
+     * @return
+     * @author Robin Herder
+     */
     private String[] getInvNumberGood() {
         String[] invNum = new String[goods.size()];
         for (int i = 0; i < invNum.length; i++) {
@@ -788,6 +915,11 @@ public class Logic {
         return invNum;
     }
 
+    /**
+     * Gibt den Preis aller Waren zurück
+     * @return price[]
+     * @author Robin Herder
+     */
     private String[] getPriceGood() {
         String[] price = new String[goods.size()];
         for (int i = 0; i < price.length; i++) {
@@ -796,6 +928,11 @@ public class Logic {
         return price;
     }
 
+    /**
+     *
+     * @return currency[]
+     * @author Robin Herder
+     */
     private String[] getCurrencyGood() {
         String[] currency = new String[goods.size()];
         for (int i = 0; i < currency.length; i++) {
@@ -804,6 +941,11 @@ public class Logic {
         return currency;
     }
 
+    /**
+     * Gibt die menge aller Waren zurück
+     * @return amount[]
+     * @author Robin Herder
+     */
     private String[] getAmountGood() {
         String[] amount = new String[goods.size()];
         for (int i = 0; i < amount.length; i++) {
@@ -812,6 +954,11 @@ public class Logic {
         return amount;
     }
 
+    /**
+     *
+     * @return storage[]
+     * @author Robin Herder
+     */
     private String[] getStorageUnitGood() {
         String[] storage = new String[goods.size()];
         for(int i = 0; i < storage.length; i++) {
@@ -820,6 +967,9 @@ public class Logic {
         return storage;
     }
 
+    /**
+     * @return unit[]
+     */
     private String[] getUnit() {
         String[] unit = new String[goods.size()];
         for(int i = 0; i < goods.size(); i++) {
@@ -830,6 +980,11 @@ public class Logic {
 
     //===[GETTER]==================================================
 
+    /**
+     * Gibt alle Kraftstoffe zurück
+     * @return fuel
+     * @author Robin Herder
+     */
     public ArrayList<String> getFuel() {
         ArrayList<ItemType> types = Utility.getInventoryType(this.types, InventoryType.Fuel);
         ArrayList<String> fuel = new ArrayList<>();
@@ -839,15 +994,31 @@ public class Logic {
         return fuel;
     }
 
+    /**
+     * Gibt alle Itemtypes zurück
+     * @param type
+     * @return types[]
+     * @author Robin Herder
+     */
     public ArrayList<ItemType> getItemTypes(InventoryType type) {
         ArrayList<ItemType> types = Utility.getInventoryType(this.types, type);
         return types;
     }
 
+    /**
+     * Gibt alle Tanks zurpck
+     * @return
+     * @author Robin Herder
+     */
     public ArrayList<FuelTank> getTanks() {
         return tanks;
     }
 
+    /**
+     *
+     * @return storage[]
+     * @author Robin Herder
+     */
     public ArrayList<String> getStorageUnit() {
         ArrayList<String> storage = new ArrayList<>();
         for(StorageUnit storageUnit : storageUnits) {
@@ -858,6 +1029,11 @@ public class Logic {
 
     //===[GET ROWS FOR INPUT DIALOGS]==================================================
 
+    /**
+     *
+     * @param table
+     * @author Robin Herder
+     */
     public void addTankTableRows(TableView table) {
         for(FuelTank tank : tanks) {
             table.getItems().add(tank);

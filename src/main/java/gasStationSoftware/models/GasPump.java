@@ -8,6 +8,12 @@ public class GasPump {
     private ArrayList<ItemType> fuels = new ArrayList<>();
     private ArrayList<FuelTank> tanks;
 
+    /**
+     * Constructor Zapfsäule
+     * @param gasPumpNumber
+     * @param tanks
+     * @author Robin Herder
+     */
     public GasPump(int gasPumpNumber, ArrayList<FuelTank> tanks) {
         this.GAS_PUMP_NUMBER = gasPumpNumber;
         this.tanks = tanks;
@@ -18,34 +24,74 @@ public class GasPump {
         }
     }
 
+    /**
+     * Kraftstoff der Zapfsäule hinzufügen
+     * @param fuel
+     * @author Robin Herder
+     */
     public void addFuel(ItemType fuel) {
         fuels.add(fuel);
     }
 
+    /**
+     * Kraftstoff der Zapfsäule entfernen
+     * @param fuel
+     * @author Robin Herder
+     */
     public void removeFuel(ItemType fuel) {
         fuels.remove(fuel);
     }
 
+    /**
+     * Gibt die Kraftstoffe der Zapfsäule zurück
+     * @return fuels[]
+     * @author Robin Herder
+     */
     public ArrayList<ItemType> getFuels() {
         return fuels;
     }
 
+    /**
+     * Tank der Zapfsäule hinzufügen
+     * @param tank
+     * @author Robin Herder
+     */
     public void addTank(FuelTank tank) {
         tanks.add(tank);
     }
 
+    /**
+     * Tank der Zapfsäule entfernen
+     * @param tank
+     * @author Robin Herder
+     */
     public void removeTank(FuelTank tank){
         tanks.remove(tank);
     }
 
+    /**
+     * Gibt alle Tanks der Zapfsäule zurück
+     * @return tanks[]
+     * @author Robin Herder
+     */
     public ArrayList<FuelTank> getTanks() {
         return tanks;
     }
 
+    /**
+     * Gibt die Zapfsäulennummer zurück
+     * @return GAS_PUMP_NUMBER
+     * @author Robin Herder
+     */
     public int getGAS_PUMP_NUMBER() {
         return GAS_PUMP_NUMBER;
     }
 
+    /**
+     * Gibt die Kraftstoffe der Zapfsäule als String zurück
+     * @return assigendFuels
+     * @author Robin Herder
+     */
     public String getAssignedFuels() {
         String assignedFuels = "";
         for (ItemType fuel : fuels) {
@@ -54,6 +100,11 @@ public class GasPump {
         return assignedFuels;
     }
 
+    /**
+     * Gibt die Tanks der Zapfsäule als String zurück
+     * @return assingedTanks
+     * @author Robin Herder
+     */
     public String getAssignedTanks() {
         String assignedTanks = "";
         for (FuelTank tank : tanks) {

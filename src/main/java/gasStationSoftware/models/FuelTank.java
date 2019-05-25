@@ -10,6 +10,15 @@ public class FuelTank {
     private float level;
     private float levelPercentage;
 
+    /**
+     * Constructor Kraftstofftank
+     * @param tankNumber
+     * @param capacity
+     * @param level
+     * @param fuel
+     * @throws NumberOutOfRangeException
+     * @author Robin Herder
+     */
     public FuelTank(int tankNumber, float capacity, float level, ItemType fuel)
     throws NumberOutOfRangeException {
         TANK_NUMBER = tankNumber;
@@ -22,34 +31,75 @@ public class FuelTank {
         }
     }
 
+    /**
+     * Gibt die Tanknummer zurück
+     * @return TANK_NUMBER
+     * @author Robin Herder
+     */
     public int getTANK_NUMBER() {
         return TANK_NUMBER;
     }
 
+    /**
+     * Gibt die Kapazität zurück
+     * @return CAPACITY
+     * @author Robin Herder
+     */
     public float getCAPACITY() {
         return CAPACITY;
     }
 
+    /**
+     *
+     * @return fuelLabel
+     * @author Robin Herder
+     */
     public String getFuelLabel() {
         return fuel.getLABEL();
     }
 
+    /**
+     * Gibt den Kraftstoff des Tanks zurück
+     * @return fuel
+     * @author Robin Herder
+     */
     public ItemType getFuel() {
         return fuel;
     }
 
+    /**
+     * Kraftstoff des Tanks einstellen
+     * @param fuel
+     * @author Robin Herder
+     */
     public void setFuel(ItemType fuel) {
         this.fuel = fuel;
     }
 
+    /**
+     * Gibt den Füllstand zurück
+     * @return level
+     * @author Robin Herder
+     */
     public float getLevel() {
         return level;
     }
 
+    /**
+     * Gibt den Füllstand in Prozent zurück
+     * @return levelPercentage
+     * @author Robin Herder
+     */
     public float getLevelPercentage() {
         return levelPercentage;
     }
 
+    /**
+     * Neuen Füllstand des Tanks festlegen
+     * @param level
+     * @throws NumberOutOfRangeException
+     * @author Robin Herder
+     */
     public void setLevel(float level) throws NumberOutOfRangeException {
         this.level = level;
         levelPercentage = level / CAPACITY;
@@ -58,6 +108,11 @@ public class FuelTank {
         }
     }
 
+    /**
+     * Gibt InvNumber des Tanks zurück
+     * @return invNumber
+     * @author Robin Herder
+     */
     public int getInvNumber() {
         return fuel.getINVENTORY_NUMBER();
     }
