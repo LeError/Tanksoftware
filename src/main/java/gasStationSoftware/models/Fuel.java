@@ -9,7 +9,7 @@ public class Fuel extends Item {
     private float amount;
 
     /**
-     *
+     * Constuctor Fuel
      * @param type
      * @param price
      * @param currency
