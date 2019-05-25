@@ -491,6 +491,7 @@ implements Initializable {
     }
 
     /**
+     *
      * Exit-Buttons hinzufügen
      * @author Robin Herder
      */
@@ -511,17 +512,32 @@ implements Initializable {
 
     //===[LOGIC CALL]==================================================
 
+    /**
+     *
+     * @param table
+     * @author Robin Herder
+     */
     public void addTankTableRows(TableView table) {
         logic.addTankTableRows(table);
     }
 
     //===[DEFAULT CONTENT]==================================================
 
+    /**
+     *
+     * @author Robin Herder
+     */
     private void setDefaultContent() {
         cbTypeSettingsOverview.getItems().setAll((Object[]) CB_SETTINGS_TYPE_OPTIONS);
         cbTypeSettingsOverview.setPromptText(CB_SETTINGS_TYPE_PROMT);
     }
 
+    /**
+     *
+     * @param themes
+     * @param selected
+     * @author Robin Herder
+     */
     public void setComboboxThemes(String[] themes, String selected) {
         cbThemeSettingsOverview.getItems().setAll((Object[]) themes);
         cbThemeSettingsOverview.getSelectionModel().select(selected);
@@ -529,6 +545,18 @@ implements Initializable {
 
     //===[THEME]==================================================
 
+    /**
+     * Theme einstellen
+     * @param backgroundMenuBar
+     * @param contentPaneBackground
+     * @param icons
+     * @param dividerMenuBar
+     * @param fontContent
+     * @param buttonsBackground
+     * @param buttonsFont
+     * @param dividerContent
+     * @author Robin Herder
+     */
     public void setTheme(Color backgroundMenuBar, Color contentPaneBackground, Color icons, Color dividerMenuBar,
     Color fontContent, Color buttonsBackground, Color buttonsFont, Color dividerContent) {
         this.backgroundMenuBar = backgroundMenuBar;
@@ -545,17 +573,32 @@ implements Initializable {
         iconsStyle = "-fx-fill: " + Utility.Rgb2Hex(icons) + ";";
     }
 
+    /**
+     *
+     * @author Robin Herder
+     */
     private void applyTheme() {
 
     }
 
     //===[PROCESS INPUT]==================================================
 
+    /**
+     *
+     * @param pane
+     * @param type
+     * @author Robin Herder
+     */
     public void processItemTypeInput(AnchorPane pane, InventoryType type) {
         String label = ((JFXTextField) pane.getChildren().get(1)).getText();
         logic.addItemType(label, type);
     }
 
+    /**
+     *
+     * @param pane
+     * @author Robin Herder
+     */
     public void processFuelTankInput(AnchorPane pane) {
         float capacity = Float.parseFloat(((JFXTextField) pane.getChildren().get(1)).getText());
         float level = Float.parseFloat(((JFXTextField) pane.getChildren().get(2)).getText());
@@ -563,6 +606,11 @@ implements Initializable {
         logic.addFuelTank(capacity, level, index);
     }
 
+    /**
+     *
+     * @param pane
+     * @author Robin Herder
+     */
     public void processGasPumpInput(AnchorPane pane) {
         TableView table = (TableView) pane.getChildren().get(1);
         ArrayList<FuelTank> tanks = new ArrayList<>();
@@ -572,6 +620,11 @@ implements Initializable {
         logic.addGasPump(tanks);
     }
 
+    /**
+     *
+     * @param pane
+     * @author Robin Herder
+     */
     public void processStorageUnit(AnchorPane pane) {
         String label = ((JFXTextField) pane.getChildren().get(0)).getText();
         int x = Integer.parseInt(((JFXTextField) pane.getChildren().get(1)).getText());
@@ -579,6 +632,12 @@ implements Initializable {
         logic.addStorageUnit(label, x, y);
     }
 
+    /**
+     *
+     * @param pane
+     * @param iType
+     * @author Robin Herder
+     */
     public void processFuel(AnchorPane pane, ItemType iType){
         float amount = Float.parseFloat(((JFXTextField) pane.getChildren().get(1)).getText());
         float price = Float.parseFloat(((JFXTextField) pane.getChildren().get(2)).getText());
@@ -586,6 +645,12 @@ implements Initializable {
         logic.addFuel(iType, amount, price, currency);
     }
 
+    /**
+     *
+     * @param pane
+     * @param iType
+     * @author Robin Herder
+     */
     public void processGood(AnchorPane pane, ItemType iType) {
         int amount = Integer.parseInt(((JFXTextField) pane.getChildren().get(1)).getText());
         String unit = ((JFXTextField) pane.getChildren().get(2)).getText();
@@ -597,6 +662,12 @@ implements Initializable {
 
     //===[CREATE SEARCHABLE DATA]==================================================
 
+    /**
+     *
+     * @param itemInputDialog
+     * @param type
+     * @author Robin Herder
+     */
     public void createItemTypeData(ItemInputDialog itemInputDialog, InventoryType type) {
         ObservableList<ItemType> observableItemTypeList = FXCollections.observableArrayList();
         observableItemTypeList.addAll(logic.getItemTypes(type));
@@ -624,34 +695,76 @@ implements Initializable {
 
     //===[GETTER]==================================================
 
+    /**
+     * Gibt dem Style aller Buttons zurück
+     * @return buttensStyle
+     * @author Robin Herder
+     */
     public static String getButtonStyle() {
         return buttonsStyle;
     }
 
+    /**
+     * Gibt den Style aller Icons zurück
+     * @return iconsStyle
+     * @author Robin Herder
+     */
     public static String getIconStyle() {
         return iconsStyle;
     }
 
+    /**
+     * Gibt die nächste freie Inventarnummer des Types zurück
+     * @param type
+     * @return freeInvNumber
+     * @author Robin Herder
+     */
     public int getFreeInvNumber(InventoryType type) {
         return logic.getFreeInvNumber(type);
     }
 
+    /**
+     * Gibt die nächste freie Tanknummer zurück
+     * @return freeTankNumber
+     * @author Robin Herder
+     */
     public int getTankNumber() {
         return logic.getFreeTankNumber();
     }
 
+    /**
+     * Gibt die Kraftstoffe zurück
+     * @return fuel[]
+     * @author Robin Herder
+     */
     public ArrayList<String> getFuel() {
         return logic.getFuel();
     }
 
+    /**
+     *
+     * @return rootPane
+     * @author Robin Herder
+     */
     public StackPane getRootPane() {
         return rootPane;
     }
 
+    /**
+     *
+     * @return
+     * @author Robin Herder
+     */
     public ArrayList<String> getStorageUnit() {
         return logic.getStorageUnit();
     }
 
+    /**
+     *
+     * @param title
+     * @return ahja
+     * @author Robin Herder
+     */
     private String getFile(String title) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle(title);
