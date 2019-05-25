@@ -168,6 +168,12 @@ implements Initializable {
     @FXML private void handleInventoryAction(MouseEvent event) {
         if (event.getTarget() == btnAddGoodOverview) {
             new ItemInputDialog(rootPane, this, InventoryType.Good);
+        } else if(event.getTarget() == btnDeliveriesInventoryOverview) {
+            hideSubPanes();
+            inventoryDeliveryPane.setVisible(true);
+        } else if(event.getTarget() == btnOrderInventoryOverview) {
+            hideSubPanes();
+            inventoryOrderPane.setVisible(true);
         }
     }
 
