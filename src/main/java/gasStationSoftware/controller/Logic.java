@@ -13,11 +13,7 @@ import gasStationSoftware.models.InventoryType;
 import gasStationSoftware.models.ItemType;
 import gasStationSoftware.models.StorageUnit;
 import gasStationSoftware.ui.ErrorDialog;
-import gasStationSoftware.util.ReadTableFile;
-import gasStationSoftware.util.ReadJSON;
-import gasStationSoftware.util.Utility;
-import gasStationSoftware.util.WriteFile;
-import gasStationSoftware.util.WriteJSON;
+import gasStationSoftware.util.*;
 import javafx.scene.control.TableView;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
@@ -1042,5 +1038,11 @@ public class Logic {
         for(FuelTank tank : tanks) {
             table.getItems().add(tank);
         }
+    }
+
+    //===[GET ROWS FOR INPUT DIALOGS]==================================================
+
+    public void importFuelDelivery(String path) {
+        ReadListFile read = new ReadListFile(path);
     }
 }
