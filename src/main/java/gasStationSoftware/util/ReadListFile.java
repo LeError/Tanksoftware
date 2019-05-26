@@ -37,6 +37,4 @@ public class ReadListFile {
         return line.trim().split("=");
     }
 
-
-
 }
