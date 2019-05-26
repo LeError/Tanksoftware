@@ -14,7 +14,7 @@ import gasStationSoftware.models.InventoryType;
 import gasStationSoftware.models.ItemType;
 import gasStationSoftware.models.StorageUnit;
 import gasStationSoftware.ui.ErrorDialog;
-import gasStationSoftware.util.ReadFile;
+import gasStationSoftware.util.ReadTableFile;
 import gasStationSoftware.util.ReadJSON;
 import gasStationSoftware.util.Utility;
 import gasStationSoftware.util.WriteFile;
@@ -255,7 +255,7 @@ public class Logic {
      * @author Robin Herder
      */
     private void loadEmployees() throws OSException, ParseException {
-        ReadFile read = new ReadFile(DATA_FILE_PATH + DATA_FILE_NAMES[3]);
+        ReadTableFile read = new ReadTableFile(DATA_FILE_PATH + DATA_FILE_NAMES[3]);
         String[][] lines = read.getLINES();
         for(int i = 0; i < lines.length; i++) {
             Date date = new SimpleDateFormat("dd.MM.yyyy").parse(lines[i][3]);
