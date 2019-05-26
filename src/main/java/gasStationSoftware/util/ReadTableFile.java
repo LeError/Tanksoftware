@@ -46,10 +46,6 @@ public class ReadTableFile {
         return line.trim().split(";");
     }
 
-    private boolean isWindows() {
-        return System.getProperty("os.name").toLowerCase().contains("win");
-    }
-
     public static boolean isEmpty(String path) {
         File file = new File(path);
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
