@@ -217,6 +217,8 @@ implements Initializable {
         } else if (event.getTarget() == btnOrdersFuelOverview) {
             hideSubPanes();
             fuelOrderPane.setVisible(true);
+        } else if(event.getTarget() == btnImportFuelDeliveries) {
+            logic.importFuelDelivery(getFile("Kraftstofflieferung importieren"));
         }
     }
 
