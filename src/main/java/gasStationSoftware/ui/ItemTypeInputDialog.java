@@ -11,6 +11,13 @@ public class ItemTypeInputDialog extends Dialog {
 
     private InventoryType type;
 
+    /**
+     * Constructor ItemTypeInputDialog
+     * @param rootPane
+     * @param windowController
+     * @param type
+     * @author Robin Herder
+     */
     public ItemTypeInputDialog(StackPane rootPane, WindowController windowController, InventoryType type) {
 
         super(windowController);
@@ -39,6 +46,11 @@ public class ItemTypeInputDialog extends Dialog {
         }
     }
 
+    /**
+     *
+     * @param pane
+     * @author Robin Herder
+     */
     @Override
     protected void processSubmit(AnchorPane pane) {
         windowController.processItemTypeInput(pane, type);

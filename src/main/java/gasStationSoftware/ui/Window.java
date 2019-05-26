@@ -19,12 +19,23 @@ extends Application {
         launch(args);
     }
 
+    /**
+     * Erstellt die Logic
+     * @throws Exception
+     * @author Robin Herder
+     */
     @Override public void init()
     throws Exception {
         super.init();
         Logic.getInstance();
     }
 
+    /**
+     * Startet die UI
+     * @param stage
+     * @throws Exception
+     * @author Robin Herder
+     */
     @Override public void start(Stage stage)
     throws Exception {
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("Window.fxml"));
