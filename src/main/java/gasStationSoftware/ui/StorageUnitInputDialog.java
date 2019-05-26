@@ -8,6 +8,12 @@ import javafx.scene.layout.StackPane;
 
 public class StorageUnitInputDialog extends Dialog {
 
+    /**
+     * Constructor StorageUnitInputDialog
+     * @param rootPane
+     * @param windowController
+     * @author Robin Herder
+     */
     public StorageUnitInputDialog(StackPane rootPane, WindowController windowController) {
         super(windowController);
 
@@ -25,6 +31,11 @@ public class StorageUnitInputDialog extends Dialog {
         inputDialog(rootPane, pane, "Lagereinheit anlegen");
     }
 
+    /**
+     *
+     * @param pane
+     * @author Robin Herder
+     */
     @Override
     protected void processSubmit(AnchorPane pane) {
         windowController.processStorageUnit(pane);

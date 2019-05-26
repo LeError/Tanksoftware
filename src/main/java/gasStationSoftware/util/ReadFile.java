@@ -15,6 +15,12 @@ public class ReadFile {
     private final ArrayList<String> LINES = new ArrayList<>();
     private final ArrayList<String> TOP_LINES = new ArrayList<>();
 
+    /**
+     * Constructor ReadFile
+     * @param url
+     * @throws OSException
+     * @author Robin Herder
+     */
     public ReadFile(String url)
     throws OSException { //TODO add canRead & canWrite
         if (!isWindows()) {
@@ -37,6 +43,11 @@ public class ReadFile {
         }
     }
 
+    /**
+     *
+     * @return lines[][]
+     * @author Robin Herder
+     */
     public String[][] getLINES() {
         String[][] lines = new String[LINES.size()][];
         for (int i = 0; i < LINES.size(); i++) {
@@ -45,18 +56,39 @@ public class ReadFile {
         return lines;
     }
 
+    /**
+     *
+     * @return TOP_LINES[]
+     * @author Robin Herder
+     */
     public ArrayList<String> getTOP_LINES() {
         return TOP_LINES;
     }
 
+    /**
+     *
+     * @param line
+     * @return Line[]
+     */
     private String[] getLine(String line) {
         return line.trim().split(";");
     }
 
+    /**
+     *
+     * @return boolean
+     * @author Robin Herder
+     */
     private boolean isWindows() {
         return System.getProperty("os.name").toLowerCase().contains("win");
     }
 
+    /**
+     *
+     * @param path
+     * @return boolean
+     * @author Robin Herder
+     */
     public static boolean isEmpty(String path) {
         File file = new File(path);
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {

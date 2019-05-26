@@ -14,6 +14,12 @@ import java.util.ArrayList;
 
 public class GasPumpInputDialog extends Dialog {
 
+    /**
+     * Constructor GasPumpDialog
+     * @param rootPane
+     * @param windowController
+     * @author Robin Herder
+     */
     public GasPumpInputDialog(StackPane rootPane, WindowController windowController) {
         super(windowController);
 
@@ -55,6 +61,11 @@ public class GasPumpInputDialog extends Dialog {
     }
 
 
+    /**
+     *
+     * @param pane
+     * @author Robin Herder
+     */
     @Override
     protected void processSubmit(AnchorPane pane) {
         windowController.processGasPumpInput(pane);

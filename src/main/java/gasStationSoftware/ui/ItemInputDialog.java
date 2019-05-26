@@ -18,6 +18,13 @@ public class ItemInputDialog extends Dialog {
     private TableView tItemList;
     private StackPane rootPane;
 
+    /**
+     * Constructor ItemInputDialog
+     * @param rootPane
+     * @param windowController
+     * @param type
+     * @author Robin Herder
+     */
     public ItemInputDialog(StackPane rootPane, WindowController windowController, InventoryType type) {
         super(windowController);
         this.type = type;
@@ -43,6 +50,11 @@ public class ItemInputDialog extends Dialog {
         }
     }
 
+    /**
+     *
+     * @param pane
+     * ItemInputDialog
+     */
     @Override
     protected void processSubmit(AnchorPane pane) {
         ItemType iType = (ItemType) ((TableView) pane.getChildren().get(1)).getSelectionModel().getSelectedItem();

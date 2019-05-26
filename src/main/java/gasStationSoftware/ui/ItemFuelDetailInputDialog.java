@@ -12,6 +12,13 @@ extends Dialog {
 
     private ItemType iType;
 
+    /**
+     * Constructor ItemFuelDetailInputDialog
+     * @param rootPane
+     * @param windowController
+     * @param iType
+     * @author Robin Herder
+     */
     public ItemFuelDetailInputDialog(StackPane rootPane, WindowController windowController, ItemType iType) {
         super(windowController);
         this.iType = iType;
@@ -33,6 +40,11 @@ extends Dialog {
         inputDialog(rootPane, pane, "Kraftstoff " + iType.getLABEL() + " einbuchen");
     }
 
+    /**
+     *
+     * @param pane
+     * @author Robin Herder
+     */
     @Override
     protected void processSubmit(AnchorPane pane) {
         windowController.processFuel(pane, iType);

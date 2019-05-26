@@ -13,6 +13,13 @@ extends Dialog {
 
     private ItemType iType;
 
+    /**
+     * Constructor ItemGoodDetailInputDialog
+     * @param rootPane
+     * @param windowController
+     * @param iType
+     * @author Robin Herder
+     */
     public ItemGoodDetailInputDialog(StackPane rootPane, WindowController windowController, ItemType iType) {
         super(windowController);
         this.iType = iType;
@@ -39,6 +46,11 @@ extends Dialog {
         inputDialog(rootPane, pane, "Produkt " + iType.getLABEL() + " einbuchen");
     }
 
+    /**
+     *
+     * @param pane
+     * @author Robin Herder
+     */
     @Override protected void processSubmit(AnchorPane pane) {
         windowController.processGood(pane, iType);
     }

@@ -11,6 +11,12 @@ import java.util.Date;
 
 public class Utility {
 
+    /**
+     * Gibt eine Farbe des eingegebenen Hex-Codes zurück
+     * @param colorStr
+     * @return Color
+     * @author Robin Herder
+     */
     public static Color hex2Rgb(String colorStr) {
         return new Color(
                 Integer.valueOf( colorStr.substring( 1, 3 ), 16 ),
@@ -19,20 +25,43 @@ public class Utility {
         );
     }
 
+    /**
+     * Gibt den Hex-Code der eingegebenen Farbe zurück
+     * @param color
+     * @return String
+     * @author Robin Herder
+     */
     public static String Rgb2Hex(Color color) {
         return ("#" + Integer.toHexString(color.getRGB()).substring(2));
     }
 
+    /**
+     * Gibt das Datum als String zurück
+     * @return String
+     * @author Robin Herder
+     */
     public static String getDate() {
         return new SimpleDateFormat("dd.MM.yyyy").format(new Date());
     }
 
+    /**
+     * Gibt das eingegebene Datum als String zurück
+     * @param date
+     * @return String
+     * @author Robin Herder
+     */
     public static String getDateFormatted(Date date) {
         String pattern = "dd.MM.yyyy";
         DateFormat dateFormatter = new SimpleDateFormat(pattern);
         return dateFormatter.format(date);
     }
 
+    /**
+     *
+     * @param array
+     * @return IntArray
+     * @author Robin Herder
+     */
     public static int[] getIntArray(String[] array) {
         int[] reArray = new int[array.length];
         try {
@@ -45,6 +74,12 @@ public class Utility {
         return reArray;
     }
 
+    /**
+     *
+     * @param array
+     * @return FloatArray
+     * @author Robin Herder
+     */
     public static float[] getFloatArray(String[] array) {
         float[] reArray = new float[array.length];
         try {
@@ -57,6 +92,13 @@ public class Utility {
         return reArray;
     }
 
+    /**
+     *
+     * @param iTypes
+     * @param type
+     * @return InventoryType
+     * @author Robin Herder
+     */
     public static ArrayList<ItemType> getInventoryType(ArrayList<ItemType> iTypes, InventoryType type) {
         ArrayList<ItemType> result = new ArrayList<>();
         for(ItemType iType : iTypes){
