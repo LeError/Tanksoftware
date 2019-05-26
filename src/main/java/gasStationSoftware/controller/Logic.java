@@ -3,8 +3,10 @@ package gasStationSoftware.controller;
 import gasStationSoftware.exceptions.DataFileNotFoundException;
 import gasStationSoftware.exceptions.NumberOutOfRangeException;
 import gasStationSoftware.exceptions.OSException;
+import gasStationSoftware.models.DocumentType;
 import gasStationSoftware.models.Employee;
 import gasStationSoftware.models.Fuel;
+import gasStationSoftware.models.FuelDocument;
 import gasStationSoftware.models.FuelTank;
 import gasStationSoftware.models.GasPump;
 import gasStationSoftware.models.Good;
@@ -221,6 +223,7 @@ public class Logic {
         } catch (NumberOutOfRangeException e) {
             e.printStackTrace();
         }
+        loadFuelDeliveries();
     }
 
     /**
@@ -309,6 +312,11 @@ public class Logic {
         for(Good good : goods) {
             windowController.addRowTGoodsInventoryOverview(good);
         }
+    }
+
+    private void loadFuelDeliveries() {
+        FuelDocument doc = new FuelDocument(DocumentType.fuelDelivery, "test", new Date(), fuels);
+        windowController.addRowTFuelsFuelDelivery(doc);
     }
 
     //===[CREATE OBJECTS FROM JSON]==================================================
