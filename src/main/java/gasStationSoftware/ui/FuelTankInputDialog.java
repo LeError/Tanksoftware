@@ -10,6 +10,12 @@ import javafx.scene.layout.StackPane;
 public class FuelTankInputDialog extends Dialog {
 
 
+    /**
+     * Constructor FuelTankInputDialog
+     * @param rootPane
+     * @param windowController
+     * @author Robin Herder
+     */
     public FuelTankInputDialog(StackPane rootPane, WindowController windowController) {
         super(windowController);
 
@@ -29,6 +35,11 @@ public class FuelTankInputDialog extends Dialog {
         inputDialog(rootPane, pane, "Erstellen Kraftstofftank");
     }
 
+    /**
+     *
+     * @param pane
+     * @author Robin Herder
+     */
     @Override
     protected void processSubmit(AnchorPane pane) {
         windowController.processFuelTankInput(pane);

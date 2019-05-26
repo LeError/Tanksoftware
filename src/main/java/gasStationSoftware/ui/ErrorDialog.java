@@ -13,10 +13,26 @@ import javafx.scene.layout.StackPane;
 
 public class ErrorDialog {
 
+    /**
+     * Constructor ErrorDialog
+     * @param rootPane
+     * @param title
+     * @param e
+     * @param exit
+     * @author Robin Herder
+     */
     public ErrorDialog(StackPane rootPane, String title, Exception e, boolean exit) {
         inputDialog(rootPane, title, e.getStackTrace().toString(), exit);
     }
 
+    /**
+     *
+     * @param rootPane
+     * @param title
+     * @param errorText
+     * @param exit
+     * @author Robin Herder
+     */
     @FXML
     protected void inputDialog(StackPane rootPane, String title, String errorText, boolean exit){
         JFXDialogLayout dialogContent = new JFXDialogLayout();
