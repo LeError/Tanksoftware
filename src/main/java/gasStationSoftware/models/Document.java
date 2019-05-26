@@ -28,5 +28,9 @@ public abstract class Document {
         return Utility.getDateFormatted(DATE);
     }
 
+    public Date getODate() {
+        return DATE;
+    }
+
     public abstract String[] getLinesForFile();
 }
