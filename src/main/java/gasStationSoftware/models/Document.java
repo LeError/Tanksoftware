@@ -1,5 +1,7 @@
 package gasStationSoftware.models;
 
+import gasStationSoftware.util.Utility;
+
 import java.util.Date;
 
 public abstract class Document {
@@ -22,8 +24,8 @@ public abstract class Document {
         return NAME;
     }
 
-    public Date getDATE() {
-        return DATE;
+    public String getDATE() {
+        return Utility.getDateFormatted(DATE);
     }
 
     public abstract String[] getLinesForFile();
