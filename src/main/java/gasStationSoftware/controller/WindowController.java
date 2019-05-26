@@ -4,10 +4,10 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
-import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import gasStationSoftware.models.Employee;
 import gasStationSoftware.models.Fuel;
+import gasStationSoftware.models.FuelDocument;
 import gasStationSoftware.models.FuelTank;
 import gasStationSoftware.models.GasPump;
 import gasStationSoftware.models.Good;
@@ -90,7 +90,7 @@ implements Initializable {
     @FXML private Label titleFuelOverview, titleFuelOrder, titleFuelDeliveries;
     @FXML private JFXButton btnDeliveriesFuelOverview, btnOrdersFuelOverview, btnSubmitFuelOrder, btnCancelFuelOrder, btnCancelFuelDeliveries, btnImportFuelDeliveries, btnAddFuelOverview;
     @FXML private MaterialDesignIconView icoDeiveriesFuelOverview, icoOrdersFuelOverview;
-    @FXML private TableView tFuelsFuelOverview, tFuelsFuelOrder, tDeiveriesFuelDeliveries;
+    @FXML private TableView tFuelsFuelOverview, tFuelsFuelOrder, tFuelsFuelDeliveries;
 
     @FXML private AnchorPane employeePane, employeeOverviewPane, employeeCreatePane;
     @FXML private Polygon polygonEmployee;
@@ -135,6 +135,7 @@ implements Initializable {
         addColumnsTGoodsSettingsStorageUnit();
         addColumnsTFuelsFuelOverview();
         addColumnsTGoodsInventoryOverview();
+        addColumnsTFuelsFuelDelivery();
         setDefaultContent();
     }
 
@@ -391,6 +392,12 @@ implements Initializable {
         tGoodsInventoryOverview.getColumns().addAll(columnGoodInvNumber, columnGoodLabel, columnGoodAmount, columnGoodUnit, columnGoodPrice, columnGoodCurrency, columnGoodStorageUnit);
     }
 
+    private void addColumnsTFuelsFuelDelivery() {
+        TableColumn columnFuelDeliveryName = Dialog.getColumn("Lieferung", "NAME", 200, true);
+        TableColumn columnFuelDeliveryDate = Dialog.getColumn("Datum", "DATE", 200, true);
+        tFuelsFuelDeliveries.getColumns().addAll(columnFuelDeliveryName, columnFuelDeliveryDate);
+    }
+
     /**
      *
      * @return  colums[]
@@ -487,6 +494,10 @@ implements Initializable {
      */
     public void addRowTGoodsInventoryOverview(Good good) {
         tGoodsInventoryOverview.getItems().add(good);
+    }
+
+    public void addRowTFuelsFuelDelivery(FuelDocument delivery) {
+        tFuelsFuelDeliveries.getItems().add(delivery);
     }
 
     //===[LOGIC CALL]==================================================
