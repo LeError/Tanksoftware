@@ -9,13 +9,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class ReadFile {
+public class ReadTableFile {
 
     private final File FILE;
     private final ArrayList<String> LINES = new ArrayList<>();
     private final ArrayList<String> TOP_LINES = new ArrayList<>();
 
-    public ReadFile(String url)
+    public ReadTableFile(String url)
     throws OSException { //TODO add canRead & canWrite
         if (!isWindows()) {
             throw new OSException("At the moment only Windows is supported");
