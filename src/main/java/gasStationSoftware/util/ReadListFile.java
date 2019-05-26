@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class ReadListFile {
 
@@ -35,6 +36,10 @@ public class ReadListFile {
 
     private String[] getLine(String line) {
         return line.trim().split("=");
+    }
+
+    public Date getDate() {
+        return new Date(getLine(date)[1]);
     }
 
 }
