@@ -10,10 +10,20 @@ public enum DocumentType {
 
     private final String TYPE;
 
+    /**
+     * Constructor DocumentType
+     * @param type
+     * @author Robin Herder
+     */
     private DocumentType(String type) {
         TYPE = type;
     }
 
+    /**
+     * Gibt den Type zurück
+     * @return TYPE
+     * @author Robin Herder
+     */
     public String getTYPE() {
         return TYPE;
     }
