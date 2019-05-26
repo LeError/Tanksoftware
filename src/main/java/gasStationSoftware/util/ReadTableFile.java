@@ -12,14 +12,13 @@ public class ReadTableFile {
     private final ArrayList<String> LINES = new ArrayList<>();
     private final ArrayList<String> TOP_LINES = new ArrayList<>();
 
-    public ReadTableFile(String url) { //TODO add canRead & canWrite
     /**
      * Constructor ReadFile
      * @param url
      * @throws OSException
      * @author Robin Herder
      */
-    public ReadFile(String url) {
+    public ReadTableFile(String url) { //TODO add canRead & canWrite
         FILE = new File(url);
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(FILE))) {
             String line;
