@@ -1,5 +1,7 @@
 package gasStationSoftware.models;
 
+import gasStationSoftware.util.Utility;
+
 import java.util.Date;
 
 public abstract class Document {
@@ -39,12 +41,16 @@ public abstract class Document {
         return NAME;
     }
 
+    public String getDATE() {
+        return Utility.getDateFormatted(DATE);
+    }
+
     /**
      * Gibt das Erstelldatum des Dokuments zurück
      * @return DATE
      * @author Robin Herder
      */
-    public Date getDATE() {
+    public Date getODATE() {
         return DATE;
     }
 

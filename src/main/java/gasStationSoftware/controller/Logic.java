@@ -2,9 +2,10 @@ package gasStationSoftware.controller;
 
 import gasStationSoftware.exceptions.DataFileNotFoundException;
 import gasStationSoftware.exceptions.NumberOutOfRangeException;
-import gasStationSoftware.exceptions.OSException;
+import gasStationSoftware.models.DocumentType;
 import gasStationSoftware.models.Employee;
 import gasStationSoftware.models.Fuel;
+import gasStationSoftware.models.FuelDocument;
 import gasStationSoftware.models.FuelTank;
 import gasStationSoftware.models.GasPump;
 import gasStationSoftware.models.Good;
@@ -12,11 +13,7 @@ import gasStationSoftware.models.InventoryType;
 import gasStationSoftware.models.ItemType;
 import gasStationSoftware.models.StorageUnit;
 import gasStationSoftware.ui.ErrorDialog;
-import gasStationSoftware.util.ReadFile;
-import gasStationSoftware.util.ReadJSON;
-import gasStationSoftware.util.Utility;
-import gasStationSoftware.util.WriteFile;
-import gasStationSoftware.util.WriteJSON;
+import gasStationSoftware.util.*;
 import javafx.scene.control.TableView;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
@@ -209,8 +206,6 @@ public class Logic {
         }
         try {
             loadEmployees();
-        } catch (OSException e) {
-            e.printStackTrace();
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -221,6 +216,7 @@ public class Logic {
         } catch (NumberOutOfRangeException e) {
             e.printStackTrace();
         }
+        loadFuelDeliveries();
     }
 
     /**
@@ -247,12 +243,11 @@ public class Logic {
 
     /**
      * Lädt Angestellte
-     * @throws OSException
      * @throws ParseException
      * @author Robin Herder
      */
-    private void loadEmployees() throws OSException, ParseException {
-        ReadFile read = new ReadFile(DATA_FILE_PATH + DATA_FILE_NAMES[3]);
+    private void loadEmployees() throws ParseException {
+        ReadTableFile read = new ReadTableFile(DATA_FILE_PATH + DATA_FILE_NAMES[3]);
         String[][] lines = read.getLINES();
         for(int i = 0; i < lines.length; i++) {
             Date date = new SimpleDateFormat("dd.MM.yyyy").parse(lines[i][3]);
@@ -309,6 +304,11 @@ public class Logic {
         for(Good good : goods) {
             windowController.addRowTGoodsInventoryOverview(good);
         }
+    }
+
+    private void loadFuelDeliveries() {
+        FuelDocument doc = new FuelDocument(DocumentType.fuelDelivery, "test", new Date(), fuels);
+        windowController.addRowTFuelsFuelDelivery(doc);
     }
 
     //===[CREATE OBJECTS FROM JSON]==================================================
@@ -1038,5 +1038,11 @@ public class Logic {
         for(FuelTank tank : tanks) {
             table.getItems().add(tank);
         }
+    }
+
+    //===[GET ROWS FOR INPUT DIALOGS]==================================================
+
+    public void importFuelDelivery(String path) {
+        ReadListFile read = new ReadListFile(path);
     }
 }

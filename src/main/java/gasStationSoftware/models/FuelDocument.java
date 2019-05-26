@@ -17,44 +17,8 @@ public class FuelDocument extends Document {
         return new String[0];
     }
 
-    public String[] getInvNumbers() {
-        String[] invNumber = new String[FUELS.size()];
-        for(int i = 0; i < FUELS.size(); i++) {
-            invNumber[i] = String.valueOf(FUELS.get(i).getINVENTORY_NUMBER());
-        }
-        return invNumber;
-    }
-
-    public String[] getFuel() {
-        String[] invNumber = new String[FUELS.size()];
-        for(int i = 0; i < FUELS.size(); i++) {
-            invNumber[i] = String.valueOf(FUELS.get(i).getINVENTORY_NUMBER());
-        }
-        return invNumber;
-    }
-
-    public String[] getAmount() {
-        String[] invNumber = new String[FUELS.size()];
-        for(int i = 0; i < FUELS.size(); i++) {
-            invNumber[i] = String.valueOf(FUELS.get(i).getINVENTORY_NUMBER());
-        }
-        return invNumber;
-    }
-
-    public String[] getPrice() {
-        String[] invNumber = new String[FUELS.size()];
-        for(int i = 0; i < FUELS.size(); i++) {
-            invNumber[i] = String.valueOf(FUELS.get(i).getINVENTORY_NUMBER());
-        }
-        return invNumber;
-    }
-
-    public String[] getCurrency() {
-        String[] invNumber = new String[FUELS.size()];
-        for(int i = 0; i < FUELS.size(); i++) {
-            invNumber[i] = String.valueOf(FUELS.get(i).getINVENTORY_NUMBER());
-        }
-        return invNumber;
+    public ArrayList<Fuel> getFuels() {
+        return FUELS;
     }
 
 }
