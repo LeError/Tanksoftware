@@ -13,6 +13,11 @@ public class WriteJSON {
     private File path;
     private JSONObject obj = new JSONObject();
 
+    /**
+     * Constructor WriteJSON
+     * @param path
+     * @author Robin Herder
+     */
     public WriteJSON(String path) {
         this.path = new File(path);
         if (!this.path.getParentFile().isDirectory())

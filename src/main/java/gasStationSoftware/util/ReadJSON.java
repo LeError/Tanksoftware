@@ -15,6 +15,12 @@ public class ReadJSON {
     private File path;
     private JSONObject jsonObject;
 
+    /**
+     * Constructor ReadJSON
+     * @param path
+     * @throws DataFileNotFoundException
+     * @author Robin Herder
+     */
     public ReadJSON(String path)
     throws DataFileNotFoundException {
         this.path = new File(path);
@@ -25,6 +31,10 @@ public class ReadJSON {
         }
     }
 
+    /**
+     *
+     * @author Robin Herder
+     */
     public void read() { //TODO add canRead & canWrite
         try (FileReader fileReader = new FileReader(path)) {
             Object obj = parser.parse(fileReader);
@@ -34,10 +44,22 @@ public class ReadJSON {
         }
     }
 
+    /**
+     *
+     * @param name
+     * @return ItemString
+     * @author Robin Herder
+     */
     public String getItemString(String name) {
         return (String) jsonObject.get(name);
     }
 
+    /**
+     *
+     * @param name
+     * @return items[]
+     * @author Robin Herder
+     */
     public String[] getItemStringArray(String name) {
         JSONArray list = (JSONArray) jsonObject.get(name);
         String[] items = new String[list.size()];
@@ -46,6 +68,12 @@ public class ReadJSON {
         return items;
     }
 
+    /**
+     *
+     * @param name
+     * @return items[]
+     * @author Robin Herder
+     */
     public ArrayList<String>[] getItemStringArrayListArray(String name) {
         JSONArray objectArray = (JSONArray) jsonObject.get(name);
         ArrayList<String>[] items = new ArrayList[objectArray.size()];
