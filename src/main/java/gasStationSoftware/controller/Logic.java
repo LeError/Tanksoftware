@@ -2,7 +2,6 @@ package gasStationSoftware.controller;
 
 import gasStationSoftware.exceptions.DataFileNotFoundException;
 import gasStationSoftware.exceptions.NumberOutOfRangeException;
-import gasStationSoftware.exceptions.OSException;
 import gasStationSoftware.models.DocumentType;
 import gasStationSoftware.models.Employee;
 import gasStationSoftware.models.Fuel;
@@ -211,8 +210,6 @@ public class Logic {
         }
         try {
             loadEmployees();
-        } catch (OSException e) {
-            e.printStackTrace();
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -250,11 +247,10 @@ public class Logic {
 
     /**
      * Lädt Angestellte
-     * @throws OSException
      * @throws ParseException
      * @author Robin Herder
      */
-    private void loadEmployees() throws OSException, ParseException {
+    private void loadEmployees() throws ParseException {
         ReadTableFile read = new ReadTableFile(DATA_FILE_PATH + DATA_FILE_NAMES[3]);
         String[][] lines = read.getLINES();
         for(int i = 0; i < lines.length; i++) {
