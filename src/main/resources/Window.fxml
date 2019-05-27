@@ -651,5 +651,22 @@
             <fx:reference source="icoOrderInventoryOverview" />
             <fx:reference source="icoDeliveryInventoryOverview" />
         </ArrayList>
+
+        <ArrayList fx:id="polygons">
+            <fx:reference source="polygonEmployee"/>
+            <fx:reference source="polygonFuel"/>
+            <fx:reference source="polygonInventory"/>
+            <fx:reference source="polygonReport"/>
+            <fx:reference source="polygonSales"/>
+            <fx:reference source="polygonSettings"/>
+            <fx:reference source="polygonUser"/>
+        </ArrayList>
+        <ArrayList fx:id="divider">
+            <fx:reference source="dividerBalanceReportOverview"/>
+            <fx:reference source="dividerGasStationAdministrationSettingsOverview"/>
+            <fx:reference source="dividerImportExportSettingsOverview"/>
+            <fx:reference source="dividerThemesSettingsOverview"/>
+            <fx:reference source="dividerUser"/>
+        </ArrayList>
     </fx:define>
 </StackPane>
