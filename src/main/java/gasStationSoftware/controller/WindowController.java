@@ -137,6 +137,7 @@ implements Initializable {
         addColumnsTFuelsFuelOverview();
         addColumnsTGoodsInventoryOverview();
         addColumnsTFuelsFuelDelivery();
+        addColumnsTGoodsInventoryDelivery();
         setDefaultContent();
     }
 
@@ -405,6 +406,12 @@ implements Initializable {
         TableColumn columnFuelDeliveryName = Dialog.getColumn("Lieferung", "NAME", 200, true);
         TableColumn columnFuelDeliveryDate = Dialog.getColumn("Datum", "DATE", 200, true);
         tFuelsFuelDeliveries.getColumns().addAll(columnFuelDeliveryName, columnFuelDeliveryDate);
+    }
+
+    private void addColumnsTGoodsInventoryDelivery() {
+        TableColumn columnGoodDeliveryName = Dialog.getColumn("Lieferung", "NAME", 200, true);
+        TableColumn columnGoodDeliveryDate = Dialog.getColumn("Datum", "DATE", 200, true);
+        tGoodsInventoryDelivery.getColumns().addAll();
     }
 
     /**
