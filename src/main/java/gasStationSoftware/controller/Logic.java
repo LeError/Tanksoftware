@@ -1038,6 +1038,14 @@ public class Logic {
         windowController.addRowTFuelsFuelDelivery((FuelDocument) documents.get(documents.size() - 1));
     }
 
+    public void importGoodDelivery(String path) {
+        ReadTableFile read = new ReadTableFile(path);
+        String filename = FilenameUtils.removeExtension(new File(path).getName());
+        String lines[][] = read.getLINES();
+
+        windowController.addRowTFuelsFuelDelivery((FuelDocument) documents.get(documents.size() - 1));
+    }
+
     /**
      * @param path
      * @param dir
