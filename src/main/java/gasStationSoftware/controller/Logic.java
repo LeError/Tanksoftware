@@ -2,17 +2,7 @@ package gasStationSoftware.controller;
 
 import gasStationSoftware.exceptions.DataFileNotFoundException;
 import gasStationSoftware.exceptions.NumberOutOfRangeException;
-import gasStationSoftware.models.Document;
-import gasStationSoftware.models.DocumentType;
-import gasStationSoftware.models.Employee;
-import gasStationSoftware.models.Fuel;
-import gasStationSoftware.models.FuelDocument;
-import gasStationSoftware.models.FuelTank;
-import gasStationSoftware.models.GasPump;
-import gasStationSoftware.models.Good;
-import gasStationSoftware.models.InventoryType;
-import gasStationSoftware.models.ItemType;
-import gasStationSoftware.models.StorageUnit;
+import gasStationSoftware.models.*;
 import gasStationSoftware.ui.ErrorDialog;
 import gasStationSoftware.util.ReadJSON;
 import gasStationSoftware.util.ReadListFile;
@@ -1042,7 +1032,29 @@ public class Logic {
         ReadTableFile read = new ReadTableFile(path);
         String filename = FilenameUtils.removeExtension(new File(path).getName());
         String lines[][] = read.getLINES();
-
+        ArrayList<Integer> invNumber = new ArrayList<>();
+        ArrayList<String> label = new ArrayList<>();
+        ArrayList<String> unit = new ArrayList<>();
+        ArrayList<Integer> amount = new ArrayList<>();
+        ArrayList<Float> price = new ArrayList<>();
+        ArrayList<Good> good = new ArrayList<>();
+        for(int i = 0; i < lines.length; i++) {
+            invNumber.add(Integer.parseInt(lines[i][0]));
+            label.add(lines[i][1]);
+            unit.add(lines[i][2]);
+            amount.add(Integer.parseInt(lines[i][3]));
+            price.add(Float.parseFloat(lines[i][4]));
+        }
+        for(int i = 0; i < lines.length; i++) {
+            int idxItemType = 0;
+            for (int ii = 0; ii < types.size(); ii++) {
+                if (types.get(ii).getINVENTORY_NUMBER() == invNumber.get(i)) {
+                    idxItemType = ii;
+                }
+            }
+            good.add(new Good(types.get(idxItemType), price.get(i), "EUR", new StorageUnit("Neu", -1, -1), amount.get(i), unit.get(i)));
+            documents.add(new GoodDocument(DocumentType.goodDelivery, filename, read.getDate(), good));
+        }
         windowController.addRowTFuelsFuelDelivery((FuelDocument) documents.get(documents.size() - 1));
     }
 
