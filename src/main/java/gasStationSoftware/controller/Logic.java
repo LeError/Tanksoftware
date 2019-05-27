@@ -28,6 +28,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -636,49 +637,6 @@ public class Logic {
         saveInventory();
     }
 
-    /**
-     * @param path
-     * @param dir
-     * @param theme
-     * @throws IOException
-     * @author Robin Herder
-     */
-    public void importFile(String path, int dir, String theme)
-    throws IOException {
-        String file = "";
-        String extension = "";
-        switch (dir) {
-        case 0:
-            file = "RECEIPT_";
-            extension = ".txt";
-            break;
-        case 1:
-            file = "FUEL_ORDER_";
-            extension = ".txt";
-            break;
-        case 2:
-            file = "FUEL_DELIVERY_";
-            extension = ".txt";
-            break;
-        case 3:
-            file = "GOOD_ORDER_";
-            extension = ".txt";
-            break;
-        case 4:
-            file = "GOOD_DELIVERY_";
-            extension = ".txt";
-            break;
-        case 5:
-            file = theme;
-            extension = ".json";
-            break;
-        default:
-            throw new IOException();
-        }
-        int number = new File(DATA_SUB_PATHS[dir]).listFiles().length;
-        Files.copy(new File(path).toPath(), new File(DATA_SUB_PATHS[2] + file + number + extension).toPath());
-    }
-
     //===[SAVE FILES]==================================================
 
     /**
@@ -1078,5 +1036,50 @@ public class Logic {
             documents.add(new FuelDocument(DocumentType.fuelDelivery, filename, read.getDate(), fuels));
         }
         windowController.addRowTFuelsFuelDelivery((FuelDocument) documents.get(documents.size() - 1));
+    }
+
+    /**
+     * @param path
+     * @param dir
+     * @param theme
+     * @throws IOException
+     * @author Robin Herder
+     */
+    public String importFile(String path, int dir, String theme)
+    throws IOException {
+        String file;
+        String extension;
+        switch (dir) {
+        case 0:
+            file = "RECEIPT_";
+            extension = ".txt";
+            break;
+        case 1:
+            file = "FUEL_ORDER_";
+            extension = ".txt";
+            break;
+        case 2:
+            file = "FUEL_DELIVERY_";
+            extension = ".txt";
+            break;
+        case 3:
+            file = "GOOD_ORDER_";
+            extension = ".txt";
+            break;
+        case 4:
+            file = "GOOD_DELIVERY_";
+            extension = ".txt";
+            break;
+        case 5:
+            file = theme;
+            extension = ".json";
+            break;
+        default:
+            throw new IOException();
+        }
+        int number = new File(DATA_SUB_PATHS[dir]).listFiles().length;
+        Path newPath = new File(DATA_SUB_PATHS[2] + file + number + extension).toPath();
+        Files.copy(new File(path).toPath(), newPath);
+        return newPath.toString();
     }
 }
