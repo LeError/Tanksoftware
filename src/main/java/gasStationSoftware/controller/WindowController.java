@@ -89,7 +89,7 @@ implements Initializable {
     @FXML private AnchorPane fuelPane, fuelOverviewPane, fuelOrderPane, fuelDeliveryPane;
     @FXML private Polygon polygonFuel;
     @FXML private Label titleFuelOverview, titleFuelOrder, titleFuelDeliveries;
-    @FXML private JFXButton btnDeliveriesFuelOverview, btnOrdersFuelOverview, btnSubmitFuelOrder, btnCancelFuelOrder, btnCancelFuelDeliveries, btnImportFuelDeliveries, btnAddFuelOverview;
+    @FXML private JFXButton btnDeliveriesFuelOverview, btnOrdersFuelOverview, btnSubmitFuelOrder, btnCancelFuelOrder, btnOpenFuelDeliveries, btnImportFuelDeliveries, btnAddFuelOverview;
     @FXML private MaterialDesignIconView icoDeiveriesFuelOverview, icoOrdersFuelOverview;
     @FXML private TableView tFuelsFuelOverview, tFuelsFuelOrder, tFuelsFuelDeliveries;
 
@@ -201,6 +201,8 @@ implements Initializable {
         } else if(event.getTarget() == btnOrderInventoryOverview) {
             hideSubPanes();
             inventoryOrderPane.setVisible(true);
+        } else if (event.getTarget() == btnOpenFuelDeliveries) {
+
         }
     }
 
