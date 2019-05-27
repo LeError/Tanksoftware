@@ -2,6 +2,7 @@ package gasStationSoftware.controller;
 
 import gasStationSoftware.exceptions.DataFileNotFoundException;
 import gasStationSoftware.exceptions.NumberOutOfRangeException;
+import gasStationSoftware.models.Document;
 import gasStationSoftware.models.DocumentType;
 import gasStationSoftware.models.Employee;
 import gasStationSoftware.models.Fuel;
@@ -13,7 +14,12 @@ import gasStationSoftware.models.InventoryType;
 import gasStationSoftware.models.ItemType;
 import gasStationSoftware.models.StorageUnit;
 import gasStationSoftware.ui.ErrorDialog;
-import gasStationSoftware.util.*;
+import gasStationSoftware.util.ReadJSON;
+import gasStationSoftware.util.ReadListFile;
+import gasStationSoftware.util.ReadTableFile;
+import gasStationSoftware.util.Utility;
+import gasStationSoftware.util.WriteFile;
+import gasStationSoftware.util.WriteJSON;
 import javafx.scene.control.TableView;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
@@ -58,6 +64,7 @@ public class Logic {
     private ArrayList<StorageUnit> storageUnits = new ArrayList<>();
     private ArrayList<Fuel> fuels = new ArrayList<>();
     private ArrayList<Good> goods = new ArrayList<>();
+    private ArrayList<Document> documents = new ArrayList<>();
 
     //===[CONSTRUCTOR]==================================================
 
@@ -307,8 +314,10 @@ public class Logic {
     }
 
     private void loadFuelDeliveries() {
-        FuelDocument doc = new FuelDocument(DocumentType.fuelDelivery, "test", new Date(), fuels);
-        windowController.addRowTFuelsFuelDelivery(doc);
+        File[] files = new File(DATA_SUB_PATHS[2]).listFiles();
+        for (File file : files) {
+            importFuelDelivery(file.getAbsolutePath());
+        }
     }
 
     //===[CREATE OBJECTS FROM JSON]==================================================
@@ -1044,5 +1053,30 @@ public class Logic {
 
     public void importFuelDelivery(String path) {
         ReadListFile read = new ReadListFile(path);
+        String filename = FilenameUtils.removeExtension(new File(path).getName());
+        String[][] lines = read.getLINES();
+        ArrayList<String> label = new ArrayList<>();
+        ArrayList<Float> price = new ArrayList<>();
+        ArrayList<Integer> amount = new ArrayList<>();
+        ArrayList<Fuel> fuel = new ArrayList<>();
+        for (int i = 0; i < lines.length; i++) {
+            if (i % 2 == 0) {
+                label.add(lines[i][0]);
+                amount.add(Integer.parseInt(lines[i][1]));
+            } else {
+                price.add(Float.parseFloat(lines[i][1]));
+            }
+        }
+        for (int i = 0; i < label.size(); i++) {
+            int idxItemType = 0;
+            for (int ii = 0; ii < types.size(); ii++) {
+                if (types.get(ii).getLABEL().equals(label.get(i))) {
+                    idxItemType = ii;
+                }
+            }
+            fuel.add(new Fuel(types.get(idxItemType), price.get(i), "EUR", amount.get(i)));
+            documents.add(new FuelDocument(DocumentType.fuelDelivery, filename, read.getDate(), fuels));
+        }
+        windowController.addRowTFuelsFuelDelivery((FuelDocument) documents.get(documents.size() - 1));
     }
 }
