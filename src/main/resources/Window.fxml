@@ -668,5 +668,33 @@
             <fx:reference source="dividerThemesSettingsOverview"/>
             <fx:reference source="dividerUser"/>
         </ArrayList>
+        <ArrayList fx:id="labels">
+            <fx:reference source="lblBalanceReportOverview"/>
+            <fx:reference source="lblCostsReportOverview"/>
+            <fx:reference source="lblDailySalesUser"/>
+            <fx:reference source="lblFuelManagmentSettingsOverview"/>
+            <fx:reference source="lblGasPumpsSettingsOverview"/>
+            <fx:reference source="lblGoodsSettingsOverview"/>
+            <fx:reference source="lblMontlySalesUser"/>
+            <fx:reference source="lblOrderSumSalesOverview"/>
+            <fx:reference source="lblResultReportOverview"/>
+            <fx:reference source="lblSalesReportOverview"/>
+            <fx:reference source="lblSalesSumDailyUser"/>
+            <fx:reference source="lblSalesSumDayCurrencyUser"/>
+            <fx:reference source="lblSalesSumMonthCurrencyUser"/>
+            <fx:reference source="lblSalesSumMonthlyUser"/>
+            <fx:reference source="lblSalesSumYearCurrencyUser"/>
+            <fx:reference source="lblSalesSumYearlyUser"/>
+            <fx:reference source="lblYearlySalesUser"/>
+            <fx:reference source="lblUserRoleUser"/>
+            <fx:reference source="lblUserNameUser"/>
+            <fx:reference source="lblTypeSettingsOverview"/>
+            <fx:reference source="lblTotalSalesOverview"/>
+            <fx:reference source="lblTotalCurrencySalesOverview"/>
+            <fx:reference source="lblTimespanReportOverview"/>
+            <fx:reference source="lblThemeSettingsOverview"/>
+            <fx:reference source="lblTanksSettingsOverview"/>
+            <fx:reference source="lblStorageUnitSettingsOverview"/>
+        </ArrayList>
     </fx:define>
 </StackPane>
