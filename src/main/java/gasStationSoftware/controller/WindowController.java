@@ -41,6 +41,7 @@ import javafx.scene.shape.Polygon;
 import javafx.stage.FileChooser;
 
 import java.awt.*;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -218,7 +219,11 @@ implements Initializable {
             hideSubPanes();
             fuelOrderPane.setVisible(true);
         } else if(event.getTarget() == btnImportFuelDeliveries) {
-            logic.importFuelDelivery(getFile("Kraftstofflieferung importieren"));
+            try {
+                logic.importFuelDelivery(logic.importFile(getFile("Kraftstofflieferung importieren"), 2, null));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
