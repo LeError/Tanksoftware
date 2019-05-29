@@ -813,5 +813,13 @@
             <fx:reference source="btnSubmitInventoryOrder"/>
             <fx:reference source="btnTanksSettingsOverview"/>
         </ArrayList>
+        <ArrayList fx:id="allCd">
+            <fx:reference source="cbThemeSettingsOverview"/>
+            <fx:reference source="cbTypeSettingsOverview"/>
+        </ArrayList>
+        <ArrayList fx:id="allIv">
+            <fx:reference source="ivUserMenuBar"/>
+            <fx:reference source="ivUserProfilePictureUser"/>
+        </ArrayList>
     </fx:define>
 </StackPane>
