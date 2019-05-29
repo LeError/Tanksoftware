@@ -61,6 +61,10 @@ extends Item {
         return amount;
     }
 
+    public void addAmount(int amount) {
+        this.amount = amount;
+    }
+
     /**
      *
      * @return
