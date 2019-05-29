@@ -623,7 +623,6 @@
             <fx:reference source="polygonUser"/>
         </ArrayList>
         <ArrayList fx:id="allDivider">
-            <fx:reference source="dividerBalanceReportOverview"/>
             <fx:reference source="dividerGasStationAdministrationSettingsOverview"/>
             <fx:reference source="dividerImportExportSettingsOverview"/>
             <fx:reference source="dividerThemesSettingsOverview"/>
@@ -705,7 +704,6 @@
             <fx:reference source="icoEditSettingsFuel"/>
             <fx:reference source="icoEditSettingsTank"/>
             <fx:reference source="icoEditThemeSettingsOverview"/>
-            <fx:reference source="icoEmployeesMenuBar"/>
             <fx:reference source="icoExportSettingsGasPump"/>
             <fx:reference source="icoExportSettingsGood"/>
             <fx:reference source="icoExportSettingsOverview"/>
@@ -719,17 +717,11 @@
             <fx:reference source="icoImportSettingsGood"/>
             <fx:reference source="icoImportSettingsOverview"/>
             <fx:reference source="icoImportSettingsStorageUnit"/>
-            <fx:reference source="icoInventoryMenuBar"/>
-            <fx:reference source="icoMenuBar"/>
             <fx:reference source="icoNewSettingsFuel"/>
             <fx:reference source="icoNewSettingsTank"/>
             <fx:reference source="icoOrderInventoryOverview"/>
             <fx:reference source="icoOrdersFuelOverview"/>
-            <fx:reference source="icoReportsMenuBar"/>
-            <fx:reference source="icoSellingMenuBar"/>
-            <fx:reference source="icoSettingsMenuBar"/>
             <fx:reference source="icoStorageUnitSettingsOverview"/>
-            <fx:reference source="icoTanksMenuBar"/>
             <fx:reference source="icoTanksSettingsOverview"/>
         </ArrayList>
         <ArrayList fx:id="allButtons">
