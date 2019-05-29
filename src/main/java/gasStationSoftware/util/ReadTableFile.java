@@ -18,7 +18,6 @@ public class ReadTableFile {
     /**
      * Constructor ReadFile
      * @param url
-     * @throws OSException
      * @author Robin Herder
      */
     public ReadTableFile(String url) { //TODO add canRead & canWrite
@@ -90,7 +89,7 @@ public class ReadTableFile {
 
     public Date getDate() {
         try {
-            return new SimpleDateFormat("dd.MM.yyyy").parse(getLine(TOP_LINES.get(0))[1]);
+            return new SimpleDateFormat("dd.MM.yyyy").parse(TOP_LINES.get(0).trim().split("=")[1]);
         } catch (ParseException e) {
             e.printStackTrace();
         }
