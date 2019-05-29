@@ -696,5 +696,37 @@
             <fx:reference source="lblTanksSettingsOverview"/>
             <fx:reference source="lblStorageUnitSettingsOverview"/>
         </ArrayList>
+        <ArrayList fx:id="tableViews">
+            <fx:reference source="tEmployeesEmployeeOverview"/>
+            <fx:reference source="tFuel"/>
+            <fx:reference source="tFuelsFuelDeliveries"/>
+            <fx:reference source="tFuelsFuelOrder"/>
+            <fx:reference source="tFuelsFuelOverview"/>
+            <fx:reference source="tFuelsSettingsFuel"/>
+            <fx:reference source="tGasPumpsSettingsGasPump"/>
+            <fx:reference source="tGoodsInventoryDelivery"/>
+            <fx:reference source="tGoodsInventoryOrder"/>
+            <fx:reference source="tGoodsSettingsGood"/>
+            <fx:reference source="tGoodsSettingsStorageUnit"/>
+            <fx:reference source="tGoodsInventoryOverview"/>
+        </ArrayList>
+        <ArrayList fx:id="titles">
+            <fx:reference source="titleEmployeeOverview"/>
+            <fx:reference source="titleFuelDeliveries"/>
+            <fx:reference source="titleFuelOrder"/>
+            <fx:reference source="titleFuelOverview"/>
+            <fx:reference source="titleInventoryDelivery"/>
+            <fx:reference source="titleInventoryOrder"/>
+            <fx:reference source="titleInventoryOverview"/>
+            <fx:reference source="titleReportOverview"/>
+            <fx:reference source="titleSalesOverview"/>
+            <fx:reference source="titleSettingGood"/>
+            <fx:reference source="titleSettingsFuel"/>
+            <fx:reference source="titleSettingsGasPump"/>
+            <fx:reference source="titleSettingsOverview"/>
+            <fx:reference source="titleSettingsTank"/>
+            <fx:reference source="titleSettingStorageUnit"/>
+            <fx:reference source="titleUser"/>
+        </ArrayList>
     </fx:define>
 </StackPane>
