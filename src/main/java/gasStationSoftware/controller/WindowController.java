@@ -108,6 +108,14 @@ implements Initializable {
     @FXML private TableView tFuelsSettingsFuel, tTanksSettingsTank, tGasPumpsSettingsGasPump, tGoodsSettingsGood, tGoodsSettingsStorageUnit;
 
     @FXML private ArrayList<AnchorPane> panes, subPanes;
+    @FXML private ArrayList<MaterialDesignIconView> icoMenuBar, allIcons;
+    @FXML private ArrayList<JFXButton> allButtons;
+    @FXML private ArrayList<Polygon> allPolygons;
+    @FXML private ArrayList<Separator> allDivider;
+    @FXML private ArrayList<Label> allLabels, allTitles, allSubTitles;
+    @FXML private ArrayList<TableView> allTableViews;
+    @FXML private ArrayList<JFXComboBox> allCb;
+    @FXML private ArrayList<ImageView> allIv;
 
     //===[INIT]==================================================
 
