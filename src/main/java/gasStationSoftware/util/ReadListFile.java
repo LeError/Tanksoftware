@@ -3,6 +3,8 @@ package gasStationSoftware.util;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -39,7 +41,12 @@ public class ReadListFile {
     }
 
     public Date getDate() {
-        return new Date(getLine(date)[1]);
+        try {
+            return new SimpleDateFormat("dd.MM.yyyy").parse(getLine(date)[1]);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }

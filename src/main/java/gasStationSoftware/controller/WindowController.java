@@ -5,15 +5,7 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
-import gasStationSoftware.models.Employee;
-import gasStationSoftware.models.Fuel;
-import gasStationSoftware.models.FuelDocument;
-import gasStationSoftware.models.FuelTank;
-import gasStationSoftware.models.GasPump;
-import gasStationSoftware.models.Good;
-import gasStationSoftware.models.InventoryType;
-import gasStationSoftware.models.ItemType;
-import gasStationSoftware.models.StorageUnit;
+import gasStationSoftware.models.*;
 import gasStationSoftware.ui.FuelTankInputDialog;
 import gasStationSoftware.ui.GasPumpInputDialog;
 import gasStationSoftware.ui.ItemInputDialog;
@@ -41,6 +33,7 @@ import javafx.scene.shape.Polygon;
 import javafx.stage.FileChooser;
 
 import java.awt.*;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -54,7 +47,7 @@ implements Initializable {
     private final static String CB_SETTINGS_TYPE_PROMT = "Type auswählen";
 
     private static Color backgroundMenuBar, contentPaneBackground, icons, dividerMenuBar, fontContent, buttonsBackground, buttonsFont, dividerContent;
-    private static String backgroundMenuBarStyle, contentPaneBackgroundStyle, iconsStyle, dividerMenuBarStyle, fontContentStyle, buttonsStyle, dividerContentStyle;
+    private static String backgroundPolygon, backgroundMenuBarStyle, contentPaneBackgroundStyle, iconsStyle, dividerMenuBarStyle, fontStyle, buttonsStyle, dividerContentStyle;
 
     @FXML private StackPane rootPane;
 
@@ -81,14 +74,14 @@ implements Initializable {
     @FXML private Polygon polygonInventory;
     @FXML private Label titleInventoryOverview, titleInventoryOrder, titleInventoryDelivery;
     @FXML private JFXButton btnOrderInventoryOverview, btnDeliveriesInventoryOverview, btnGroceriesInventoryOrder, btnOtherInventoryOrder, btnAdultInventoryOrder, btnAddGoodOverview;
-    @FXML private JFXButton btnCanelInventoryOrder, btnSubmitInventoryOrder, btnCancelInventoryDelivery, btnImportInventoryDelivery;
+    @FXML private JFXButton btnCanelInventoryOrder, btnSubmitInventoryOrder, btnOpeInventoryDelivery, btnImportInventoryDelivery;
     @FXML private MaterialDesignIconView icoOrderInventoryOverview, icoDeliveryInventoryOverview, icoAddFuelOverview;
     @FXML private TableView tGoodsInventoryOverview, tGoodsInventoryOrder, tGoodsInventoryDelivery;
 
     @FXML private AnchorPane fuelPane, fuelOverviewPane, fuelOrderPane, fuelDeliveryPane;
     @FXML private Polygon polygonFuel;
     @FXML private Label titleFuelOverview, titleFuelOrder, titleFuelDeliveries;
-    @FXML private JFXButton btnDeliveriesFuelOverview, btnOrdersFuelOverview, btnSubmitFuelOrder, btnCancelFuelOrder, btnCancelFuelDeliveries, btnImportFuelDeliveries, btnAddFuelOverview;
+    @FXML private JFXButton btnDeliveriesFuelOverview, btnOrdersFuelOverview, btnSubmitFuelOrder, btnCancelFuelOrder, btnOpenFuelDeliveries, btnImportFuelDeliveries, btnAddFuelOverview;
     @FXML private MaterialDesignIconView icoDeiveriesFuelOverview, icoOrdersFuelOverview;
     @FXML private TableView tFuelsFuelOverview, tFuelsFuelOrder, tFuelsFuelDeliveries;
 
@@ -115,6 +108,14 @@ implements Initializable {
     @FXML private TableView tFuelsSettingsFuel, tTanksSettingsTank, tGasPumpsSettingsGasPump, tGoodsSettingsGood, tGoodsSettingsStorageUnit;
 
     @FXML private ArrayList<AnchorPane> panes, subPanes;
+    @FXML private ArrayList<MaterialDesignIconView> icoMenuBar, allIcons;
+    @FXML private ArrayList<JFXButton> allButtons;
+    @FXML private ArrayList<Polygon> allPolygons;
+    @FXML private ArrayList<Separator> allDivider;
+    @FXML private ArrayList<Label> allLabels, allTitles, allSubTitles;
+    @FXML private ArrayList<TableView> allTableViews;
+    @FXML private ArrayList<JFXComboBox> allCb;
+    @FXML private ArrayList<ImageView> allIv;
 
     //===[INIT]==================================================
 
@@ -136,6 +137,7 @@ implements Initializable {
         addColumnsTFuelsFuelOverview();
         addColumnsTGoodsInventoryOverview();
         addColumnsTFuelsFuelDelivery();
+        addColumnsTGoodsInventoryDelivery();
         setDefaultContent();
     }
 
@@ -200,6 +202,12 @@ implements Initializable {
         } else if(event.getTarget() == btnOrderInventoryOverview) {
             hideSubPanes();
             inventoryOrderPane.setVisible(true);
+        } else if (event.getTarget() == btnImportInventoryDelivery) {
+            try {
+                logic.importGoodDelivery(logic.importFile(getFile("Lieferung importieren"), 4, null), true);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -218,7 +226,11 @@ implements Initializable {
             hideSubPanes();
             fuelOrderPane.setVisible(true);
         } else if(event.getTarget() == btnImportFuelDeliveries) {
-            logic.importFuelDelivery(getFile("Kraftstofflieferung importieren"));
+            try {
+                logic.importFuelDelivery(logic.importFile(getFile("Kraftstofflieferung importieren"), 2, null));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -400,6 +412,12 @@ implements Initializable {
         tFuelsFuelDeliveries.getColumns().addAll(columnFuelDeliveryName, columnFuelDeliveryDate);
     }
 
+    private void addColumnsTGoodsInventoryDelivery() {
+        TableColumn columnGoodDeliveryName = Dialog.getColumn("Lieferung", "NAME", 200, true);
+        TableColumn columnGoodDeliveryDate = Dialog.getColumn("Datum", "DATE", 200, true);
+        tGoodsInventoryDelivery.getColumns().addAll(columnGoodDeliveryName, columnGoodDeliveryDate);
+    }
+
     /**
      *
      * @return  colums[]
@@ -494,12 +512,17 @@ implements Initializable {
      * @param good
      * @author Robin Herder
      */
-    public void addRowTGoodsInventoryOverview(Good good) {
-        tGoodsInventoryOverview.getItems().add(good);
+    public void addRowTGoodsInventoryOverview(ArrayList<Good> goods) {
+        tGoodsInventoryOverview.getItems().clear();
+        tGoodsInventoryOverview.getItems().addAll(goods);
     }
 
     public void addRowTFuelsFuelDelivery(FuelDocument delivery) {
         tFuelsFuelDeliveries.getItems().add(delivery);
+    }
+
+    public void addRowTGoodsInventoryDelivery(GoodDocument delivery) {
+        tGoodsInventoryDelivery.getItems().add(delivery);
     }
 
     //===[LOGIC CALL]==================================================
@@ -559,10 +582,47 @@ implements Initializable {
         this.buttonsBackground = buttonsBackground;
         this.buttonsFont = buttonsFont;
         this.dividerContent = dividerContent;
+        backgroundMenuBarStyle = "-fx-background-color: " + Utility.Rgb2Hex(backgroundMenuBar) + ";";
+        backgroundPolygon =  "-fx-fill: " + Utility.Rgb2Hex(backgroundMenuBar) + ";";
+        contentPaneBackgroundStyle = "-fx-background-color: " + Utility.Rgb2Hex(contentPaneBackground) + ";";
         buttonsStyle =  "-jfx-button-type: RAISED;" + "-jfx-disable-visual-focus: true;" +
                         "-fx-background-color: " + Utility.Rgb2Hex(buttonsBackground) + ";" +
                         "-fx-text-fill: " + Utility.Rgb2Hex(buttonsFont) + ";";
+        dividerMenuBarStyle = "-fx-background-color: " + Utility.Rgb2Hex(dividerMenuBar) + ";";
+        dividerContentStyle = "-fx-background-color: " + Utility.Rgb2Hex(dividerContent) + ";";
+        fontStyle = "-fx-text-fill: " + Utility.Rgb2Hex(fontContent) + ";";
         iconsStyle = "-fx-fill: " + Utility.Rgb2Hex(icons) + ";";
+        for(Label label : allLabels) {
+            label.setStyle(fontStyle);
+        }
+        for(Label label : allTitles) {
+            label.setStyle(fontStyle);
+        }
+        for(Label label : allSubTitles) {
+            label.setStyle(fontStyle);
+        }
+        for(Separator separator : allDivider) {
+            separator.setStyle(dividerContentStyle);
+        }
+        for(Polygon polygon : allPolygons) {
+            polygon.setStyle(backgroundMenuBarStyle);
+        }
+        for(JFXButton button : allButtons) {
+            button.setStyle(buttonsStyle);
+        }
+        for(AnchorPane pane : panes) {
+            pane.setStyle(contentPaneBackgroundStyle);
+        }
+        for(Polygon polygon : allPolygons) {
+            polygon.setStyle(backgroundPolygon);
+        }
+        for(MaterialDesignIconView icon : allIcons) {
+            icon.setStyle(iconsStyle);
+        }
+        for(MaterialDesignIconView icon : icoMenuBar) {
+            icon.setStyle(iconsStyle);
+        }
+        menuBarPane.setStyle(backgroundMenuBarStyle);
     }
 
     /**

@@ -4,7 +4,10 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class ReadTableFile {
 
@@ -15,7 +18,6 @@ public class ReadTableFile {
     /**
      * Constructor ReadFile
      * @param url
-     * @throws OSException
      * @author Robin Herder
      */
     public ReadTableFile(String url) { //TODO add canRead & canWrite
@@ -69,15 +71,6 @@ public class ReadTableFile {
 
     /**
      *
-     * @return boolean
-     * @author Robin Herder
-     */
-    private boolean isWindows() {
-        return System.getProperty("os.name").toLowerCase().contains("win");
-    }
-
-    /**
-     *
      * @param path
      * @return boolean
      * @author Robin Herder
@@ -92,6 +85,15 @@ public class ReadTableFile {
             return true;
         }
         return false;
+    }
+
+    public Date getDate() {
+        try {
+            return new SimpleDateFormat("dd.MM.yyyy").parse(TOP_LINES.get(0).trim().split("=")[1]);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }

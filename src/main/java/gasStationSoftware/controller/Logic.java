@@ -2,18 +2,14 @@ package gasStationSoftware.controller;
 
 import gasStationSoftware.exceptions.DataFileNotFoundException;
 import gasStationSoftware.exceptions.NumberOutOfRangeException;
-import gasStationSoftware.models.DocumentType;
-import gasStationSoftware.models.Employee;
-import gasStationSoftware.models.Fuel;
-import gasStationSoftware.models.FuelDocument;
-import gasStationSoftware.models.FuelTank;
-import gasStationSoftware.models.GasPump;
-import gasStationSoftware.models.Good;
-import gasStationSoftware.models.InventoryType;
-import gasStationSoftware.models.ItemType;
-import gasStationSoftware.models.StorageUnit;
+import gasStationSoftware.models.*;
 import gasStationSoftware.ui.ErrorDialog;
-import gasStationSoftware.util.*;
+import gasStationSoftware.util.ReadJSON;
+import gasStationSoftware.util.ReadListFile;
+import gasStationSoftware.util.ReadTableFile;
+import gasStationSoftware.util.Utility;
+import gasStationSoftware.util.WriteFile;
+import gasStationSoftware.util.WriteJSON;
 import javafx.scene.control.TableView;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
@@ -22,6 +18,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -58,6 +55,7 @@ public class Logic {
     private ArrayList<StorageUnit> storageUnits = new ArrayList<>();
     private ArrayList<Fuel> fuels = new ArrayList<>();
     private ArrayList<Good> goods = new ArrayList<>();
+    private ArrayList<Document> documents = new ArrayList<>();
 
     //===[CONSTRUCTOR]==================================================
 
@@ -301,14 +299,15 @@ public class Logic {
         Utility.getIntArray(read.getItemStringArray("goodAmount")),
         read.getItemStringArray("goodStorageUnit"),
         read.getItemStringArray("goodUnit"));
-        for(Good good : goods) {
-            windowController.addRowTGoodsInventoryOverview(good);
-        }
+        Collections.sort(goods, Comparator.comparingInt(good -> good.getINVENTORY_NUMBER()));
+        windowController.addRowTGoodsInventoryOverview(goods);
     }
 
     private void loadFuelDeliveries() {
-        FuelDocument doc = new FuelDocument(DocumentType.fuelDelivery, "test", new Date(), fuels);
-        windowController.addRowTFuelsFuelDelivery(doc);
+        File[] files = new File(DATA_SUB_PATHS[2]).listFiles();
+        for (File file : files) {
+            importFuelDelivery(file.getAbsolutePath());
+        }
     }
 
     //===[CREATE OBJECTS FROM JSON]==================================================
@@ -620,54 +619,11 @@ public class Logic {
         if(newEntry) {
             Good newGood = new Good(iType, price, currency, storageUnits.get(idxStorage), amount, unit);
             goods.add(newGood);
-            windowController.addRowTGoodsInventoryOverview(newGood);
+            windowController.addRowTGoodsInventoryOverview(goods);
         } else {
             displayError("Produkt exsistiert bereits", new Exception("duplicate entry"), false);
         }
         saveInventory();
-    }
-
-    /**
-     * @param path
-     * @param dir
-     * @param theme
-     * @throws IOException
-     * @author Robin Herder
-     */
-    public void importFile(String path, int dir, String theme)
-    throws IOException {
-        String file = "";
-        String extension = "";
-        switch (dir) {
-        case 0:
-            file = "RECEIPT_";
-            extension = ".txt";
-            break;
-        case 1:
-            file = "FUEL_ORDER_";
-            extension = ".txt";
-            break;
-        case 2:
-            file = "FUEL_DELIVERY_";
-            extension = ".txt";
-            break;
-        case 3:
-            file = "GOOD_ORDER_";
-            extension = ".txt";
-            break;
-        case 4:
-            file = "GOOD_DELIVERY_";
-            extension = ".txt";
-            break;
-        case 5:
-            file = theme;
-            extension = ".json";
-            break;
-        default:
-            throw new IOException();
-        }
-        int number = new File(DATA_SUB_PATHS[dir]).listFiles().length;
-        Files.copy(new File(path).toPath(), new File(DATA_SUB_PATHS[2] + file + number + extension).toPath());
     }
 
     //===[SAVE FILES]==================================================
@@ -1044,5 +1000,136 @@ public class Logic {
 
     public void importFuelDelivery(String path) {
         ReadListFile read = new ReadListFile(path);
+        String filename = FilenameUtils.removeExtension(new File(path).getName());
+        String[][] lines = read.getLINES();
+        ArrayList<String> label = new ArrayList<>();
+        ArrayList<Float> price = new ArrayList<>();
+        ArrayList<Integer> amount = new ArrayList<>();
+        ArrayList<Fuel> fuel = new ArrayList<>();
+        for (int i = 0; i < lines.length; i++) {
+            if (i % 2 == 0) {
+                label.add(lines[i][0]);
+                amount.add(Integer.parseInt(lines[i][1]));
+            } else {
+                price.add(Float.parseFloat(lines[i][1]));
+            }
+        }
+        for (int i = 0; i < label.size(); i++) {
+            int idxItemType = 0;
+            for (int ii = 0; ii < types.size(); ii++) {
+                if (types.get(ii).getLABEL().equals(label.get(i))) {
+                    idxItemType = ii;
+                }
+            }
+            fuel.add(new Fuel(types.get(idxItemType), price.get(i), "EUR", amount.get(i)));
+            documents.add(new FuelDocument(DocumentType.fuelDelivery, filename, read.getDate(), fuels));
+        }
+        windowController.addRowTFuelsFuelDelivery((FuelDocument) documents.get(documents.size() - 1));
+    }
+
+    public void importGoodDelivery(String path, boolean newDelivery) {
+        ReadTableFile read = new ReadTableFile(path);
+        String filename = FilenameUtils.removeExtension(new File(path).getName());
+        String lines[][] = read.getLINES();
+        ArrayList<Integer> invNumber = new ArrayList<>();
+        ArrayList<String> label = new ArrayList<>();
+        ArrayList<String> unit = new ArrayList<>();
+        ArrayList<Integer> amount = new ArrayList<>();
+        ArrayList<Float> price = new ArrayList<>();
+        ArrayList<Good> good = new ArrayList<>();
+        for(int i = 0; i < lines.length; i++) {
+            invNumber.add(Integer.parseInt(lines[i][0]));
+            label.add(lines[i][1]);
+            unit.add(lines[i][2]);
+            amount.add(Integer.parseInt(lines[i][3]));
+            price.add(Float.parseFloat(lines[i][4]));
+        }
+        for(int i = 0; i < lines.length; i++) {
+            int idxItemType = 0;
+            for (int ii = 0; ii < types.size(); ii++) {
+                if (types.get(ii).getINVENTORY_NUMBER() == invNumber.get(i)) {
+                    idxItemType = ii;
+                }
+            }
+            good.add(new Good(types.get(idxItemType), price.get(i), "EUR", new StorageUnit("Neu", -1, -1), amount.get(i), unit.get(i)));
+            documents.add(new GoodDocument(DocumentType.goodDelivery, filename, read.getDate(), good));
+        }
+        windowController.addRowTGoodsInventoryDelivery((GoodDocument) documents.get(documents.size() - 1));
+        if(newDelivery) {
+            addDeliveredGoods(((GoodDocument) documents.get(documents.size() - 1)).getGoods());
+        }
+
+    }
+
+    private void addDeliveredGoods(ArrayList<Good> deliveredGoods) {
+        for(Good deliveredGood : deliveredGoods) {
+            boolean existsNot = true;
+            for(Good storedGood : goods){
+                if(deliveredGood.getINVENTORY_NUMBER() == storedGood.getINVENTORY_NUMBER() && deliveredGood.getUNIT() == storedGood.getUNIT()) {
+                    existsNot = !existsNot;
+                    storedGood.addAmount(deliveredGood.getAmount());
+                }
+            }
+            if(existsNot) {
+                boolean typeExistsNot = true;
+                for(int i = 0; i < goods.size(); i++) {
+                    if(deliveredGood.getINVENTORY_NUMBER() == goods.get(i).getINVENTORY_NUMBER()) {
+                        typeExistsNot = !typeExistsNot;
+                        goods.add(new Good(goods.get(i).getTYPE(), deliveredGood.getPrice(), deliveredGood.getCurrency(), deliveredGood.getStorage(), deliveredGood.getAmount(), deliveredGood.getUNIT()));
+                        windowController.addRowTGoodsInventoryOverview(goods);
+                    }
+                }
+                if(typeExistsNot) {
+                    types.add(new ItemType(deliveredGood.getLABEL(), deliveredGood.getINVENTORY_NUMBER(), InventoryType.Good));
+                    goods.add(new Good(types.get(types.size() - 1), deliveredGood.getPrice(), deliveredGood.getCurrency(), deliveredGood.getStorage(), deliveredGood.getAmount(), deliveredGood.getUNIT()));
+                    windowController.addRowTGoodsInventoryOverview(goods);
+                }
+            }
+        }
+    }
+
+    /**
+     * @param path
+     * @param dir
+     * @param theme
+     * @throws IOException
+     * @author Robin Herder
+     */
+    public String importFile(String path, int dir, String theme)
+    throws IOException {
+        String file;
+        String extension;
+        switch (dir) {
+        case 0:
+            file = "RECEIPT_";
+            extension = ".txt";
+            break;
+        case 1:
+            file = "FUEL_ORDER_";
+            extension = ".txt";
+            break;
+        case 2:
+            file = "FUEL_DELIVERY_";
+            extension = ".txt";
+            break;
+        case 3:
+            file = "GOOD_ORDER_";
+            extension = ".txt";
+            break;
+        case 4:
+            file = "GOOD_DELIVERY_";
+            extension = ".txt";
+            break;
+        case 5:
+            file = theme;
+            extension = ".json";
+            break;
+        default:
+            throw new IOException();
+        }
+        int number = new File(DATA_SUB_PATHS[dir]).listFiles().length;
+        Path newPath = new File(DATA_SUB_PATHS[dir] + file + number + extension).toPath();
+        Files.copy(new File(path).toPath(), newPath);
+        return newPath.toString();
     }
 }

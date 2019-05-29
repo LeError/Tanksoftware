@@ -4,6 +4,7 @@
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXDatePicker?>
 <?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import java.lang.Double?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
@@ -15,7 +16,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Polygon?>
 <?import javafx.scene.text.Font?>
-<?import java.lang.Double?>
+
 <?import java.util.ArrayList?>
 <StackPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gasStationSoftware.controller.WindowController">
     <children>
@@ -207,31 +208,19 @@
                                       <Font name="System Bold" size="30.0" />
                                   </font>
                               </Label>
-                              <JFXButton fx:id="btnOrderInventoryOverview" buttonType="RAISED" layoutX="515.0"
-                                         layoutY="520.0" onMousePressed="#handleInventoryAction" prefHeight="30.0"
-                                         prefWidth="150.0"
-                                         style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;"
-                                         text="Bestellen" textFill="WHITE">
+                              <JFXButton fx:id="btnOrderInventoryOverview" buttonType="RAISED" layoutX="515.0" layoutY="520.0" onMousePressed="#handleInventoryAction" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Bestellen" textFill="WHITE">
                                   <graphic>
                                       <MaterialDesignIconView fx:id="icoOrderInventoryOverview" fill="WHITE" glyphName="TRUCK_DELIVERY" size="20" smooth="false" />
                                   </graphic>
                               </JFXButton>
-                              <JFXButton fx:id="btnDeliveriesInventoryOverview" buttonType="RAISED" layoutX="675.0"
-                                         layoutY="520.0" onMousePressed="#handleInventoryAction" prefHeight="30.0"
-                                         prefWidth="150.0"
-                                         style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;"
-                                         text="Lieferung" textFill="WHITE">
+                              <JFXButton fx:id="btnDeliveriesInventoryOverview" buttonType="RAISED" layoutX="675.0" layoutY="520.0" onMousePressed="#handleInventoryAction" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Lieferung" textFill="WHITE">
                                   <graphic>
                                       <MaterialDesignIconView fx:id="icoDeliveryInventoryOverview" fill="WHITE" glyphName="PACKAGE_VARIANT" size="20" smooth="false" />
                                   </graphic>
                               </JFXButton>
-                              <JFXButton fx:id="btnAddGoodOverview" buttonType="RAISED" layoutX="355.0" layoutY="520.0"
-                                         onMousePressed="#handleInventoryAction" prefHeight="30.0" prefWidth="150.0"
-                                         style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;"
-                                         text="Produkt anlegen" textFill="WHITE">
+                              <JFXButton fx:id="btnAddGoodOverview" buttonType="RAISED" layoutX="355.0" layoutY="520.0" onMousePressed="#handleInventoryAction" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Produkt anlegen" textFill="WHITE">
                                   <graphic>
-                                      <MaterialDesignIconView fx:id="icoAddGoodOverview" fill="WHITE" glyphName="PLUS"
-                                                              size="20" smooth="false"/>
+                                      <MaterialDesignIconView fx:id="icoAddGoodOverview" fill="WHITE" glyphName="PLUS" size="20" smooth="false" />
                                   </graphic>
                               </JFXButton>
                               <TableView fx:id="tGoodsInventoryOverview" layoutX="65.0" layoutY="100.0" prefHeight="400.0" prefWidth="760.0" />
@@ -261,8 +250,8 @@
                                   </font>
                               </Label>
                               <TableView fx:id="tGoodsInventoryDelivery" layoutX="65.0" layoutY="100.0" prefHeight="400.0" prefWidth="760.0" />
-                              <JFXButton fx:id="btnCancelInventoryDelivery" buttonType="RAISED" layoutX="515.0" layoutY="520.0" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Abbrechen" textFill="WHITE" />
-                              <JFXButton fx:id="btnImportInventoryDelivery" buttonType="RAISED" layoutX="675.0" layoutY="520.0" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Importieren" textAlignment="CENTER" textFill="WHITE" />
+                              <JFXButton fx:id="btnOpeInventoryDelivery" buttonType="RAISED" layoutX="515.0" layoutY="520.0" onMousePressed="#handleInventoryAction" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Öffnen" textFill="WHITE" />
+                              <JFXButton fx:id="btnImportInventoryDelivery" buttonType="RAISED" layoutX="675.0" layoutY="520.0" onMousePressed="#handleInventoryAction" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Importieren" textAlignment="CENTER" textFill="WHITE" />
                           </children>
                       </AnchorPane>
                   </children>
@@ -286,34 +275,22 @@
                                       <Font name="System Bold" size="30.0" />
                                   </font>
                               </Label>
-                              <JFXButton fx:id="btnDeliveriesFuelOverview" buttonType="RAISED" layoutX="675.0"
-                                         layoutY="520.0" onMousePressed="#handleFuelAction" prefHeight="30.0"
-                                         prefWidth="150.0"
-                                         style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;"
-                                         text="Lieferung" textFill="WHITE">
+                              <JFXButton fx:id="btnDeliveriesFuelOverview" buttonType="RAISED" layoutX="675.0" layoutY="520.0" onMousePressed="#handleFuelAction" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Lieferung" textFill="WHITE">
                                   <graphic>
                                       <MaterialDesignIconView fx:id="icoDeiveriesFuelOverview" fill="WHITE" glyphName="PACKAGE_VARIANT" size="20" smooth="false" />
                                   </graphic>
                               </JFXButton>
-                              <JFXButton fx:id="btnOrdersFuelOverview" buttonType="RAISED" layoutX="515.0"
-                                         layoutY="520.0" onMousePressed="#handleFuelAction" prefHeight="30.0"
-                                         prefWidth="150.0"
-                                         style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;"
-                                         text="Bestellen" textFill="WHITE">
+                              <JFXButton fx:id="btnOrdersFuelOverview" buttonType="RAISED" layoutX="515.0" layoutY="520.0" onMousePressed="#handleFuelAction" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Bestellen" textFill="WHITE">
                                   <graphic>
                                       <MaterialDesignIconView fx:id="icoOrdersFuelOverview" fill="WHITE" glyphName="TRUCK_DELIVERY" size="20" smooth="false" />
                                   </graphic>
                               </JFXButton>
-                              <JFXButton fx:id="btnAddFuelOverview" buttonType="RAISED" layoutX="355.0" layoutY="520.0"
-                                         onMousePressed="#handleFuelAction" prefHeight="30.0" prefWidth="150.0"
-                                         style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;"
-                                         text="Kraftstoff anlegen" textFill="WHITE">
+                              <JFXButton fx:id="btnAddFuelOverview" buttonType="RAISED" layoutX="355.0" layoutY="520.0" onMousePressed="#handleFuelAction" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Kraftstoff anlegen" textFill="WHITE">
                            <graphic>
                               <MaterialDesignIconView fx:id="icoAddFuelOverview" fill="WHITE" glyphName="PLUS" size="20" smooth="false" />
                            </graphic>
                         </JFXButton>
-                              <TableView fx:id="tFuelsFuelOverview" layoutX="65.0" layoutY="100.0" prefHeight="400.0"
-                                         prefWidth="760.0"/>
+                              <TableView fx:id="tFuelsFuelOverview" layoutX="65.0" layoutY="100.0" prefHeight="400.0" prefWidth="760.0" />
                           </children>
                       </AnchorPane>
                       <AnchorPane fx:id="fuelOrderPane" prefHeight="600.0" prefWidth="890.0" visible="false">
@@ -335,10 +312,9 @@
                                       <Font name="System Bold" size="30.0" />
                                   </font>
                               </Label>
-                              <TableView fx:id="tFuelsFuelDeliveries" layoutX="65.0" layoutY="100.0" prefHeight="400.0"
-                                         prefWidth="760.0"/>
-                              <JFXButton fx:id="btnCancelFuelDeliveries" buttonType="RAISED" layoutX="515.0" layoutY="520.0" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Abbrechen" textFill="WHITE" />
-                              <JFXButton fx:id="btnImportFuelDeliveries" buttonType="RAISED" layoutX="675.0" layoutY="520.0" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Importieren&#10;" textAlignment="CENTER" textFill="WHITE" />
+                              <TableView fx:id="tFuelsFuelDeliveries" layoutX="65.0" layoutY="100.0" prefHeight="400.0" prefWidth="760.0" />
+                              <JFXButton fx:id="btnOpenFuelDeliveries" buttonType="RAISED" layoutX="515.0" layoutY="520.0" onMousePressed="#handleFuelAction" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Öffnen" textFill="WHITE" />
+                              <JFXButton fx:id="btnImportFuelDeliveries" buttonType="RAISED" layoutX="675.0" layoutY="520.0" onMousePressed="#handleFuelAction" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Importieren&#10;" textAlignment="CENTER" textFill="WHITE" />
                           </children>
                       </AnchorPane>
                   </children>
@@ -629,13 +605,6 @@
             <fx:reference source="settingsGoodPane" />
             <fx:reference source="settingsStorageUnitPane" />
         </ArrayList>
-        <ArrayList fx:id="buttons">
-            <fx:reference source="btnCheckOutSalesOverview" />
-            <fx:reference source="btnGoodsSalesOverview" />
-            <fx:reference source="btnGasPumpsSalesOverview" />
-            <fx:reference source="btnOrderInventoryOverview" />
-            <fx:reference source="btnDeliveriesInventoryOverview" />
-        </ArrayList>
         <ArrayList fx:id="icoMenuBar">
             <fx:reference source="icoSellingMenuBar" />
             <fx:reference source="icoTanksMenuBar" />
@@ -644,14 +613,6 @@
             <fx:reference source="icoEmployeesMenuBar" />
             <fx:reference source="icoReportsMenuBar" />
         </ArrayList>
-        <ArrayList fx:id="btnIcons">
-            <fx:reference source="icoCheckOutSalesOverview" />
-            <fx:reference source="icoGoodsSalesOverview" />
-            <fx:reference source="icoGasPumpsSalesOverview" />
-            <fx:reference source="icoOrderInventoryOverview" />
-            <fx:reference source="icoDeliveryInventoryOverview" />
-        </ArrayList>
-
         <ArrayList fx:id="allPolygons">
             <fx:reference source="polygonEmployee"/>
             <fx:reference source="polygonFuel"/>
@@ -662,7 +623,6 @@
             <fx:reference source="polygonUser"/>
         </ArrayList>
         <ArrayList fx:id="allDivider">
-            <fx:reference source="dividerBalanceReportOverview"/>
             <fx:reference source="dividerGasStationAdministrationSettingsOverview"/>
             <fx:reference source="dividerImportExportSettingsOverview"/>
             <fx:reference source="dividerThemesSettingsOverview"/>
@@ -744,7 +704,6 @@
             <fx:reference source="icoEditSettingsFuel"/>
             <fx:reference source="icoEditSettingsTank"/>
             <fx:reference source="icoEditThemeSettingsOverview"/>
-            <fx:reference source="icoEmployeesMenuBar"/>
             <fx:reference source="icoExportSettingsGasPump"/>
             <fx:reference source="icoExportSettingsGood"/>
             <fx:reference source="icoExportSettingsOverview"/>
@@ -758,26 +717,20 @@
             <fx:reference source="icoImportSettingsGood"/>
             <fx:reference source="icoImportSettingsOverview"/>
             <fx:reference source="icoImportSettingsStorageUnit"/>
-            <fx:reference source="icoInventoryMenuBar"/>
-            <fx:reference source="icoMenuBar"/>
             <fx:reference source="icoNewSettingsFuel"/>
             <fx:reference source="icoNewSettingsTank"/>
             <fx:reference source="icoOrderInventoryOverview"/>
             <fx:reference source="icoOrdersFuelOverview"/>
-            <fx:reference source="icoReportsMenuBar"/>
-            <fx:reference source="icoSellingMenuBar"/>
-            <fx:reference source="icoSettingsMenuBar"/>
             <fx:reference source="icoStorageUnitSettingsOverview"/>
-            <fx:reference source="icoTanksMenuBar"/>
             <fx:reference source="icoTanksSettingsOverview"/>
         </ArrayList>
         <ArrayList fx:id="allButtons">
             <fx:reference source="btnAddFuelOverview"/>
             <fx:reference source="btnAddGoodOverview"/>
             <fx:reference source="btnAdultInventoryOrder"/>
-            <fx:reference source="btnCancelFuelDeliveries"/>
+            <fx:reference source="btnOpenFuelDeliveries"/>
             <fx:reference source="btnCancelFuelOrder"/>
-            <fx:reference source="btnCancelInventoryDelivery"/>
+            <fx:reference source="btnOpeInventoryDelivery"/>
             <fx:reference source="btnCanelInventoryOrder"/>
             <fx:reference source="btnCheckOutSalesOverview"/>
             <fx:reference source="btnCreateEmployeeOverview"/>
@@ -813,7 +766,7 @@
             <fx:reference source="btnSubmitInventoryOrder"/>
             <fx:reference source="btnTanksSettingsOverview"/>
         </ArrayList>
-        <ArrayList fx:id="allCd">
+        <ArrayList fx:id="allCb">
             <fx:reference source="cbThemeSettingsOverview"/>
             <fx:reference source="cbTypeSettingsOverview"/>
         </ArrayList>

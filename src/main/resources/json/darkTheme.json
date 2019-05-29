@@ -5,6 +5,6 @@
   "dividerMenuBar": "#5E5E5E",
   "fontContent": "#212121",
   "buttonsBackground": "#FFFFFF",
-  "buttonsFont": "#FFFFFF",
+  "buttonsFont": "#000000",
   "dividerContent": "#212121"
 }
