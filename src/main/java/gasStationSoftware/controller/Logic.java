@@ -299,9 +299,8 @@ public class Logic {
         Utility.getIntArray(read.getItemStringArray("goodAmount")),
         read.getItemStringArray("goodStorageUnit"),
         read.getItemStringArray("goodUnit"));
-        for(Good good : goods) {
-            windowController.addRowTGoodsInventoryOverview(good);
-        }
+        Collections.sort(goods, Comparator.comparingInt(good -> good.getINVENTORY_NUMBER()));
+        windowController.addRowTGoodsInventoryOverview(goods);
     }
 
     private void loadFuelDeliveries() {
@@ -620,7 +619,7 @@ public class Logic {
         if(newEntry) {
             Good newGood = new Good(iType, price, currency, storageUnits.get(idxStorage), amount, unit);
             goods.add(newGood);
-            windowController.addRowTGoodsInventoryOverview(newGood);
+            windowController.addRowTGoodsInventoryOverview(goods);
         } else {
             displayError("Produkt exsistiert bereits", new Exception("duplicate entry"), false);
         }
@@ -1055,7 +1054,32 @@ public class Logic {
             good.add(new Good(types.get(idxItemType), price.get(i), "EUR", new StorageUnit("Neu", -1, -1), amount.get(i), unit.get(i)));
             documents.add(new GoodDocument(DocumentType.goodDelivery, filename, read.getDate(), good));
         }
-        windowController.addRowTFuelsFuelDelivery((FuelDocument) documents.get(documents.size() - 1));
+        windowController.addRowTGoodsInventoryDelivery((GoodDocument) documents.get(documents.size() - 1));
+        ArrayList<Good> deliveredGoods = ((GoodDocument) documents.get(documents.size() - 1)).getGoods();
+        for(Good deliveredGood : deliveredGoods) {
+            boolean existsNot = true;
+            for(Good storedGood : goods){
+                if(deliveredGood.getINVENTORY_NUMBER() == storedGood.getINVENTORY_NUMBER() && deliveredGood.getUNIT() == storedGood.getUNIT()) {
+                    existsNot = !existsNot;
+                    storedGood.addAmount(deliveredGood.getAmount());
+                }
+            }
+           /* if(existsNot) {
+                boolean typeExistsNot = true;
+                for(int i = 0; i < goods.size(); i++) {
+                    if(deliveredGood.getINVENTORY_NUMBER() == goods.get(i).getINVENTORY_NUMBER()) {
+                        typeExistsNot = !typeExistsNot;
+                        goods.add(new Good(goods.get(i).getTYPE(), deliveredGood.getPrice(), deliveredGood.getCurrency(), deliveredGood.getStorage(), deliveredGood.getAmount(), deliveredGood.getUNIT()));
+                        windowController.addRowTGoodsInventoryOverview(goods);
+                    }
+                }
+                if(typeExistsNot) {
+                    types.add(new ItemType(deliveredGood.getLABEL(), deliveredGood.getINVENTORY_NUMBER(), InventoryType.Good));
+                    goods.add(new Good(types.get(types.size() - 1), deliveredGood.getPrice(), deliveredGood.getCurrency(), deliveredGood.getStorage(), deliveredGood.getAmount(), deliveredGood.getUNIT()));
+                    windowController.addRowTGoodsInventoryOverview(goods);
+                }
+            }*/
+        }
     }
 
     /**
@@ -1098,7 +1122,7 @@ public class Logic {
             throw new IOException();
         }
         int number = new File(DATA_SUB_PATHS[dir]).listFiles().length;
-        Path newPath = new File(DATA_SUB_PATHS[2] + file + number + extension).toPath();
+        Path newPath = new File(DATA_SUB_PATHS[dir] + file + number + extension).toPath();
         Files.copy(new File(path).toPath(), newPath);
         return newPath.toString();
     }
