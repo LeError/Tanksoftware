@@ -5,15 +5,7 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
-import gasStationSoftware.models.Employee;
-import gasStationSoftware.models.Fuel;
-import gasStationSoftware.models.FuelDocument;
-import gasStationSoftware.models.FuelTank;
-import gasStationSoftware.models.GasPump;
-import gasStationSoftware.models.Good;
-import gasStationSoftware.models.InventoryType;
-import gasStationSoftware.models.ItemType;
-import gasStationSoftware.models.StorageUnit;
+import gasStationSoftware.models.*;
 import gasStationSoftware.ui.FuelTankInputDialog;
 import gasStationSoftware.ui.GasPumpInputDialog;
 import gasStationSoftware.ui.ItemInputDialog;
@@ -82,7 +74,7 @@ implements Initializable {
     @FXML private Polygon polygonInventory;
     @FXML private Label titleInventoryOverview, titleInventoryOrder, titleInventoryDelivery;
     @FXML private JFXButton btnOrderInventoryOverview, btnDeliveriesInventoryOverview, btnGroceriesInventoryOrder, btnOtherInventoryOrder, btnAdultInventoryOrder, btnAddGoodOverview;
-    @FXML private JFXButton btnCanelInventoryOrder, btnSubmitInventoryOrder, btnCancelInventoryDelivery, btnImportInventoryDelivery;
+    @FXML private JFXButton btnCanelInventoryOrder, btnSubmitInventoryOrder, btnOpeInventoryDelivery, btnImportInventoryDelivery;
     @FXML private MaterialDesignIconView icoOrderInventoryOverview, icoDeliveryInventoryOverview, icoAddFuelOverview;
     @FXML private TableView tGoodsInventoryOverview, tGoodsInventoryOrder, tGoodsInventoryDelivery;
 
@@ -202,8 +194,12 @@ implements Initializable {
         } else if(event.getTarget() == btnOrderInventoryOverview) {
             hideSubPanes();
             inventoryOrderPane.setVisible(true);
-        } else if (event.getTarget() == btnOpenFuelDeliveries) {
-
+        } else if (event.getTarget() == btnImportInventoryDelivery) {
+            try {
+                logic.importGoodDelivery(logic.importFile(getFile("Lieferung importieren"), 4, null));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -411,7 +407,7 @@ implements Initializable {
     private void addColumnsTGoodsInventoryDelivery() {
         TableColumn columnGoodDeliveryName = Dialog.getColumn("Lieferung", "NAME", 200, true);
         TableColumn columnGoodDeliveryDate = Dialog.getColumn("Datum", "DATE", 200, true);
-        tGoodsInventoryDelivery.getColumns().addAll();
+        tGoodsInventoryDelivery.getColumns().addAll(columnGoodDeliveryName, columnGoodDeliveryDate);
     }
 
     /**
@@ -508,12 +504,17 @@ implements Initializable {
      * @param good
      * @author Robin Herder
      */
-    public void addRowTGoodsInventoryOverview(Good good) {
-        tGoodsInventoryOverview.getItems().add(good);
+    public void addRowTGoodsInventoryOverview(ArrayList<Good> goods) {
+        tGoodsInventoryOverview.getItems().clear();
+        tGoodsInventoryOverview.getItems().addAll(goods);
     }
 
     public void addRowTFuelsFuelDelivery(FuelDocument delivery) {
         tFuelsFuelDeliveries.getItems().add(delivery);
+    }
+
+    public void addRowTGoodsInventoryDelivery(GoodDocument delivery) {
+        tGoodsInventoryDelivery.getItems().add(delivery);
     }
 
     //===[LOGIC CALL]==================================================
