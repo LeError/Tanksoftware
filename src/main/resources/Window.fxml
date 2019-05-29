@@ -605,13 +605,6 @@
             <fx:reference source="settingsGoodPane" />
             <fx:reference source="settingsStorageUnitPane" />
         </ArrayList>
-        <ArrayList fx:id="buttons">
-            <fx:reference source="btnCheckOutSalesOverview" />
-            <fx:reference source="btnGoodsSalesOverview" />
-            <fx:reference source="btnGasPumpsSalesOverview" />
-            <fx:reference source="btnOrderInventoryOverview" />
-            <fx:reference source="btnDeliveriesInventoryOverview" />
-        </ArrayList>
         <ArrayList fx:id="icoMenuBar">
             <fx:reference source="icoSellingMenuBar" />
             <fx:reference source="icoTanksMenuBar" />
@@ -620,14 +613,6 @@
             <fx:reference source="icoEmployeesMenuBar" />
             <fx:reference source="icoReportsMenuBar" />
         </ArrayList>
-        <ArrayList fx:id="btnIcons">
-            <fx:reference source="icoCheckOutSalesOverview" />
-            <fx:reference source="icoGoodsSalesOverview" />
-            <fx:reference source="icoGasPumpsSalesOverview" />
-            <fx:reference source="icoOrderInventoryOverview" />
-            <fx:reference source="icoDeliveryInventoryOverview" />
-        </ArrayList>
-
         <ArrayList fx:id="allPolygons">
             <fx:reference source="polygonEmployee"/>
             <fx:reference source="polygonFuel"/>
@@ -751,9 +736,9 @@
             <fx:reference source="btnAddFuelOverview"/>
             <fx:reference source="btnAddGoodOverview"/>
             <fx:reference source="btnAdultInventoryOrder"/>
-            <fx:reference source="btnCancelFuelDeliveries"/>
+            <fx:reference source="btnOpenFuelDeliveries"/>
             <fx:reference source="btnCancelFuelOrder"/>
-            <fx:reference source="btnCancelInventoryDelivery"/>
+            <fx:reference source="btnOpeInventoryDelivery"/>
             <fx:reference source="btnCanelInventoryOrder"/>
             <fx:reference source="btnCheckOutSalesOverview"/>
             <fx:reference source="btnCreateEmployeeOverview"/>
@@ -789,7 +774,7 @@
             <fx:reference source="btnSubmitInventoryOrder"/>
             <fx:reference source="btnTanksSettingsOverview"/>
         </ArrayList>
-        <ArrayList fx:id="allCd">
+        <ArrayList fx:id="allCb">
             <fx:reference source="cbThemeSettingsOverview"/>
             <fx:reference source="cbTypeSettingsOverview"/>
         </ArrayList>
