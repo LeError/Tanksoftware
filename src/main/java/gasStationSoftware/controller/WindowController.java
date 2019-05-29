@@ -47,7 +47,7 @@ implements Initializable {
     private final static String CB_SETTINGS_TYPE_PROMT = "Type auswählen";
 
     private static Color backgroundMenuBar, contentPaneBackground, icons, dividerMenuBar, fontContent, buttonsBackground, buttonsFont, dividerContent;
-    private static String backgroundMenuBarStyle, contentPaneBackgroundStyle, iconsStyle, dividerMenuBarStyle, fontContentStyle, buttonsStyle, dividerContentStyle;
+    private static String backgroundPolygon, backgroundMenuBarStyle, contentPaneBackgroundStyle, iconsStyle, dividerMenuBarStyle, fontStyle, buttonsStyle, dividerContentStyle;
 
     @FXML private StackPane rootPane;
 
@@ -582,10 +582,47 @@ implements Initializable {
         this.buttonsBackground = buttonsBackground;
         this.buttonsFont = buttonsFont;
         this.dividerContent = dividerContent;
+        backgroundMenuBarStyle = "-fx-background-color: " + Utility.Rgb2Hex(backgroundMenuBar) + ";";
+        backgroundPolygon =  "-fx-fill: " + Utility.Rgb2Hex(backgroundMenuBar) + ";";
+        contentPaneBackgroundStyle = "-fx-background-color: " + Utility.Rgb2Hex(contentPaneBackground) + ";";
         buttonsStyle =  "-jfx-button-type: RAISED;" + "-jfx-disable-visual-focus: true;" +
                         "-fx-background-color: " + Utility.Rgb2Hex(buttonsBackground) + ";" +
                         "-fx-text-fill: " + Utility.Rgb2Hex(buttonsFont) + ";";
+        dividerMenuBarStyle = "-fx-background-color: " + Utility.Rgb2Hex(dividerMenuBar) + ";";
+        dividerContentStyle = "-fx-background-color: " + Utility.Rgb2Hex(dividerContent) + ";";
+        fontStyle = "-fx-text-fill: " + Utility.Rgb2Hex(fontContent) + ";";
         iconsStyle = "-fx-fill: " + Utility.Rgb2Hex(icons) + ";";
+        for(Label label : allLabels) {
+            label.setStyle(fontStyle);
+        }
+        for(Label label : allTitles) {
+            label.setStyle(fontStyle);
+        }
+        for(Label label : allSubTitles) {
+            label.setStyle(fontStyle);
+        }
+        for(Separator separator : allDivider) {
+            separator.setStyle(dividerContentStyle);
+        }
+        for(Polygon polygon : allPolygons) {
+            polygon.setStyle(backgroundMenuBarStyle);
+        }
+        for(JFXButton button : allButtons) {
+            button.setStyle(buttonsStyle);
+        }
+        for(AnchorPane pane : panes) {
+            pane.setStyle(contentPaneBackgroundStyle);
+        }
+        for(Polygon polygon : allPolygons) {
+            polygon.setStyle(backgroundPolygon);
+        }
+        for(MaterialDesignIconView icon : allIcons) {
+            icon.setStyle(iconsStyle);
+        }
+        for(MaterialDesignIconView icon : icoMenuBar) {
+            icon.setStyle(iconsStyle);
+        }
+        menuBarPane.setStyle(backgroundMenuBarStyle);
     }
 
     /**
