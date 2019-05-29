@@ -1027,7 +1027,7 @@ public class Logic {
         windowController.addRowTFuelsFuelDelivery((FuelDocument) documents.get(documents.size() - 1));
     }
 
-    public void importGoodDelivery(String path) {
+    public void importGoodDelivery(String path, boolean newDelivery) {
         ReadTableFile read = new ReadTableFile(path);
         String filename = FilenameUtils.removeExtension(new File(path).getName());
         String lines[][] = read.getLINES();
@@ -1055,7 +1055,13 @@ public class Logic {
             documents.add(new GoodDocument(DocumentType.goodDelivery, filename, read.getDate(), good));
         }
         windowController.addRowTGoodsInventoryDelivery((GoodDocument) documents.get(documents.size() - 1));
-        ArrayList<Good> deliveredGoods = ((GoodDocument) documents.get(documents.size() - 1)).getGoods();
+        if(newDelivery) {
+            addDeliveredGoods(((GoodDocument) documents.get(documents.size() - 1)).getGoods());
+        }
+
+    }
+
+    private void addDeliveredGoods(ArrayList<Good> deliveredGoods) {
         for(Good deliveredGood : deliveredGoods) {
             boolean existsNot = true;
             for(Good storedGood : goods){
@@ -1064,7 +1070,7 @@ public class Logic {
                     storedGood.addAmount(deliveredGood.getAmount());
                 }
             }
-           /* if(existsNot) {
+            if(existsNot) {
                 boolean typeExistsNot = true;
                 for(int i = 0; i < goods.size(); i++) {
                     if(deliveredGood.getINVENTORY_NUMBER() == goods.get(i).getINVENTORY_NUMBER()) {
@@ -1078,7 +1084,7 @@ public class Logic {
                     goods.add(new Good(types.get(types.size() - 1), deliveredGood.getPrice(), deliveredGood.getCurrency(), deliveredGood.getStorage(), deliveredGood.getAmount(), deliveredGood.getUNIT()));
                     windowController.addRowTGoodsInventoryOverview(goods);
                 }
-            }*/
+            }
         }
     }
 
