@@ -196,7 +196,7 @@ implements Initializable {
             inventoryOrderPane.setVisible(true);
         } else if (event.getTarget() == btnImportInventoryDelivery) {
             try {
-                logic.importGoodDelivery(logic.importFile(getFile("Lieferung importieren"), 4, null));
+                logic.importGoodDelivery(logic.importFile(getFile("Lieferung importieren"), 4, null), true);
             } catch (IOException e) {
                 e.printStackTrace();
             }
