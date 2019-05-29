@@ -1,6 +1,7 @@
 {
   "theme": "default",
   "themes": [
-    "default"
+    "default",
+    "dark"
   ]
 }
