@@ -52,7 +52,6 @@ public class Logic {
     private ArrayList<ItemType> types = new ArrayList<>();
     private ArrayList<FuelTank> tanks = new ArrayList<>();
     private ArrayList<GasPump> gasPumps = new ArrayList<>();
-    private ArrayList<StorageUnit> storageUnits = new ArrayList<>();
     private ArrayList<Fuel> fuels = new ArrayList<>();
     private ArrayList<Good> goods = new ArrayList<>();
     private ArrayList<Document> documents = new ArrayList<>();
@@ -211,8 +210,6 @@ public class Logic {
             loadInventory();
         } catch (DataFileNotFoundException e) {
             e.printStackTrace();
-        } catch (NumberOutOfRangeException e) {
-            e.printStackTrace();
         }
         loadFuelDeliveries();
     }
@@ -262,7 +259,7 @@ public class Logic {
      * @throws NumberOutOfRangeException
      * @author Robin Herder
      */
-    private void loadInventory() throws DataFileNotFoundException, NumberOutOfRangeException {
+    private void loadInventory() throws DataFileNotFoundException {
         ReadJSON read = new ReadJSON(DATA_FILE_PATH + DATA_FILE_NAMES[0]);
 
         createItemTypeObjects(read.getItemStringArray("itemLabel"), read.getItemStringArray("itemInventoryNumber"), read.getItemStringArray("itemType"));
@@ -281,11 +278,6 @@ public class Logic {
             windowController.addRowTGasPumpsSettingsGasPump(gasPump);
         }
 
-        createStorageUnitObjects(read.getItemStringArray("storageUnitLabel"), Utility.getIntArray(read.getItemStringArray("storageUnitX")), Utility.getIntArray(read.getItemStringArray("storageUnitY")));
-        for(StorageUnit storageUnit : storageUnits) {
-            windowController.addRowTSettingsStorageUnit(storageUnit);
-        }
-
         createFuel(Utility.getIntArray(read.getItemStringArray("fuelType")),
         Utility.getFloatArray(read.getItemStringArray("fuelPrice")), read.getItemStringArray("fuelCurrency"),
         Utility.getFloatArray(read.getItemStringArray("fuelAmount")));
@@ -297,7 +289,6 @@ public class Logic {
         Utility.getFloatArray(read.getItemStringArray("goodPrice")),
         read.getItemStringArray("goodCurrency"),
         Utility.getIntArray(read.getItemStringArray("goodAmount")),
-        read.getItemStringArray("goodStorageUnit"),
         read.getItemStringArray("goodUnit"));
         Collections.sort(goods, Comparator.comparingInt(good -> good.getINVENTORY_NUMBER()));
         windowController.addRowTGoodsInventoryOverview(goods);
@@ -382,19 +373,6 @@ public class Logic {
     }
 
     /**
-     * Erstellt Lager
-     * @param label
-     * @param x
-     * @param y
-     * @author Robin Herder
-     */
-    private void createStorageUnitObjects(String[] label, int[] x, int[] y) {
-       for(int i = 0; i < label.length; i++) {
-           storageUnits.add(new StorageUnit(label[i], x[i] ,y[i]));
-       }
-    }
-
-    /**
      * Erstellt Kraftstoff
      * @param invNumber
      * @param price
@@ -422,10 +400,9 @@ public class Logic {
      * @param price
      * @param currency
      * @param amount
-     * @param storageUnits
      * @author Robin Herder
      */
-    private void createGood(int[] invNumber, float[] price, String[] currency, int[] amount, String[] storageUnits, String[] unit) {
+    private void createGood(int[] invNumber, float[] price, String[] currency, int[] amount, String[] unit) {
         ArrayList<ItemType> goodTypes = Utility.getInventoryType(types, InventoryType.Good);
         for (int i = 0; i < invNumber.length; i++) {
             ItemType good = null;
@@ -435,13 +412,7 @@ public class Logic {
                     break;
                 }
             }
-            StorageUnit storage = null;
-            for(int y = 0; y < getStorageUnit().size(); y++) {
-                if(getStorageUnit().get(y).equals(storageUnits[i])) {
-                    storage = this.storageUnits.get(y);
-                }
-            }
-            goods.add(new Good(good, price[i], currency[i], storage, amount[i], unit[i]));
+            goods.add(new Good(good, price[i], currency[i], amount[i], unit[i]));
         }
     }
 
@@ -551,20 +522,6 @@ public class Logic {
     }
 
     /**
-     * Neues Lager hinzufügen
-     * @param label
-     * @param x
-     * @param y
-     * @author Robin Herder
-     */
-    public void addStorageUnit(String label, int x, int y) {
-        StorageUnit newStorageUnit = new StorageUnit(label, x, y);
-        storageUnits.add(newStorageUnit);
-        windowController.addRowTSettingsStorageUnit(newStorageUnit);
-        saveInventory();
-    }
-
-    /**
      * Neuen Kraftstoff hinzufügen
      * @param iType
      * @param amount
@@ -596,11 +553,10 @@ public class Logic {
      * @param amount
      * @param price
      * @param currency
-     * @param storageUnit
      * @param unit
      * @author Robin Herder
      */
-    public void addGood(ItemType iType, int amount, float price, String currency, String storageUnit, String unit) {
+    public void addGood(ItemType iType, int amount, float price, String currency, String unit) {
         boolean newEntry = true;
         for(Good good : goods) {
             if(good.getTYPE() == iType && good.getUNIT().equals(unit)) {
@@ -608,16 +564,8 @@ public class Logic {
             }
         }
 
-        int idxStorage = 0;
-        ArrayList<String> storages = getStorageUnit();
-        for(int i = 0; i < storages.size(); i++) {
-            if(storages.get(i).equals(storageUnit)) {
-                idxStorage = i;
-            }
-        }
-
         if(newEntry) {
-            Good newGood = new Good(iType, price, currency, storageUnits.get(idxStorage), amount, unit);
+            Good newGood = new Good(iType, price, currency, amount, unit);
             goods.add(newGood);
             windowController.addRowTGoodsInventoryOverview(goods);
         } else {
@@ -642,9 +590,6 @@ public class Logic {
         write.addItemArray("itemInventoryNumber", getItemInventoryNumber());
         write.addItemArray("itemType", getItemType());
         write.addItemArrayListArray("gasPumpAssignedTanks", "gasPump", getGasPumpAssignedTanks());
-        write.addItemArray("storageUnitLabel", getStorageUnitLabel());
-        write.addItemArray("storageUnitX", getStorageUnitX());
-        write.addItemArray("storageUnitY", getStorageUnitY());
         write.addItemArray("fuelType", getInvNumberFuel());
         write.addItemArray("fuelPrice", getPriceFuel());
         write.addItemArray("fuelCurrency", getCurrencyFuel());
@@ -653,7 +598,6 @@ public class Logic {
         write.addItemArray("goodPrice", getPriceGood());
         write.addItemArray("goodCurrency", getCurrencyGood());
         write.addItemArray("goodAmount", getAmountGood());
-        write.addItemArray("goodStorageUnit", getStorageUnitGood());
         write.addItemArray("goodUnit", getUnit());
         write.write(true);
     }
@@ -769,44 +713,6 @@ public class Logic {
     }
 
     /**
-     * Gibt den Namen aller Lager zurück
-     * @return
-     * @author Robin Herder
-     */
-    private String[] getStorageUnitLabel() {
-        String[] label = new String[storageUnits.size()];
-        for(int i = 0; i < label.length; i++) {
-            label[i] = storageUnits.get(i).getLabel();
-        }
-        return label;
-    }
-
-    /**
-     *
-     * @return
-     * @author Robin Herder
-     */
-    private String[] getStorageUnitX() {
-        String[] x = new String[storageUnits.size()];
-        for(int i = 0; i < x.length; i++) {
-            x[i] = String.valueOf(storageUnits.get(i).getX());
-        }
-        return x;
-    }
-
-    /**
-     * @return
-     * @author Robin Herder
-     */
-    private String[] getStorageUnitY() {
-        String[] y = new String[storageUnits.size()];
-        for(int i = 0; i < y.length; i++) {
-            y[i] = String.valueOf(storageUnits.get(i).getY());
-        }
-        return y;
-    }
-
-    /**
      * Gibt die Inventarnummer aller Kraftstoffe zurück
      * @return invNum[]
      * @author Robin Herder
@@ -911,19 +817,6 @@ public class Logic {
     }
 
     /**
-     *
-     * @return storage[]
-     * @author Robin Herder
-     */
-    private String[] getStorageUnitGood() {
-        String[] storage = new String[goods.size()];
-        for(int i = 0; i < storage.length; i++) {
-            storage[i] = goods.get(i).getStorage().getLabel() + " (" + goods.get(i).getStorage().getX() + "|" + goods.get(i).getStorage().getY() + ")";
-        }
-        return storage;
-    }
-
-    /**
      * @return unit[]
      */
     private String[] getUnit() {
@@ -968,19 +861,6 @@ public class Logic {
      */
     public ArrayList<FuelTank> getTanks() {
         return tanks;
-    }
-
-    /**
-     *
-     * @return storage[]
-     * @author Robin Herder
-     */
-    public ArrayList<String> getStorageUnit() {
-        ArrayList<String> storage = new ArrayList<>();
-        for(StorageUnit storageUnit : storageUnits) {
-            storage.add(storageUnit.getLabel() + " (" + storageUnit.getX() + "|" + storageUnit.getY() + ")");
-        }
-        return storage;
     }
 
     //===[GET ROWS FOR INPUT DIALOGS]==================================================
@@ -1051,7 +931,7 @@ public class Logic {
                     idxItemType = ii;
                 }
             }
-            good.add(new Good(types.get(idxItemType), price.get(i), "EUR", new StorageUnit("Neu", -1, -1), amount.get(i), unit.get(i)));
+            good.add(new Good(types.get(idxItemType), price.get(i), "EUR", amount.get(i), unit.get(i)));
             documents.add(new GoodDocument(DocumentType.goodDelivery, filename, read.getDate(), good));
         }
         windowController.addRowTGoodsInventoryDelivery((GoodDocument) documents.get(documents.size() - 1));
@@ -1075,13 +955,13 @@ public class Logic {
                 for(int i = 0; i < goods.size(); i++) {
                     if(deliveredGood.getINVENTORY_NUMBER() == goods.get(i).getINVENTORY_NUMBER()) {
                         typeExistsNot = !typeExistsNot;
-                        goods.add(new Good(goods.get(i).getTYPE(), deliveredGood.getPrice(), deliveredGood.getCurrency(), deliveredGood.getStorage(), deliveredGood.getAmount(), deliveredGood.getUNIT()));
+                        goods.add(new Good(goods.get(i).getTYPE(), deliveredGood.getPrice(), deliveredGood.getCurrency(), deliveredGood.getAmount(), deliveredGood.getUNIT()));
                         windowController.addRowTGoodsInventoryOverview(goods);
                     }
                 }
                 if(typeExistsNot) {
                     types.add(new ItemType(deliveredGood.getLABEL(), deliveredGood.getINVENTORY_NUMBER(), InventoryType.Good));
-                    goods.add(new Good(types.get(types.size() - 1), deliveredGood.getPrice(), deliveredGood.getCurrency(), deliveredGood.getStorage(), deliveredGood.getAmount(), deliveredGood.getUNIT()));
+                    goods.add(new Good(types.get(types.size() - 1), deliveredGood.getPrice(), deliveredGood.getCurrency(), deliveredGood.getAmount(), deliveredGood.getUNIT()));
                     windowController.addRowTGoodsInventoryOverview(goods);
                 }
             }

@@ -10,7 +10,6 @@ import gasStationSoftware.ui.FuelTankInputDialog;
 import gasStationSoftware.ui.GasPumpInputDialog;
 import gasStationSoftware.ui.ItemInputDialog;
 import gasStationSoftware.ui.ItemTypeInputDialog;
-import gasStationSoftware.ui.StorageUnitInputDialog;
 import gasStationSoftware.util.Dialog;
 import gasStationSoftware.util.Utility;
 import javafx.collections.FXCollections;
@@ -98,14 +97,13 @@ implements Initializable {
     @FXML private JFXDatePicker dpTimespanReportOverview, dpTimespanReportOverview1;
     @FXML private TableView tReportReportOverview;
 
-    @FXML private AnchorPane settingsPane, settingsOverviewPane, settingsFuelPane, settingsTankPane, settingsGasPumpPane, settingsGoodPane, settingsStorageUnitPane;
+    @FXML private AnchorPane settingsPane, settingsOverviewPane, settingsFuelPane, settingsTankPane, settingsGasPumpPane, settingsGoodPane;
     @FXML private Polygon polygonSettings;
     @FXML private JFXButton btnEditThemeSettingsOverview, btnCreateThemeSettingsOverview, btnFuelsSettingsOverview, btnTanksSettingsOverview, btnGasPumpsSettingsOverview;
     @FXML private JFXButton btnGoodsSettingsOverview, btnExportSettingsOverview, btnImportSettingsOverview, btnNewSettingsFuel, btnEditSettingsFuel, btnNewSettingsTank;
-    @FXML private JFXButton btnEditSettingsTank, btnNewSettingsGasPump, btnEditSettingsGasPump, btnNewSettingsGood, btnEditSettingsGood, btnStorageUnitSettingsOverview;
-    @FXML private JFXButton btnNewSettingsStorageUnit, btnEditSettingsStorageUnit;
+    @FXML private JFXButton btnEditSettingsTank, btnNewSettingsGasPump, btnEditSettingsGasPump, btnNewSettingsGood, btnEditSettingsGood;
     @FXML private JFXComboBox cbThemeSettingsOverview, cbTypeSettingsOverview;
-    @FXML private TableView tFuelsSettingsFuel, tTanksSettingsTank, tGasPumpsSettingsGasPump, tGoodsSettingsGood, tGoodsSettingsStorageUnit;
+    @FXML private TableView tFuelsSettingsFuel, tTanksSettingsTank, tGasPumpsSettingsGasPump, tGoodsSettingsGood;
 
     @FXML private ArrayList<AnchorPane> panes, subPanes;
     @FXML private ArrayList<MaterialDesignIconView> icoMenuBar, allIcons;
@@ -133,7 +131,6 @@ implements Initializable {
         addColumnsTTanksSettingsTank();
         addColumnsTGasPumpsSettingsGasPump();
         addColumnsTGoodsSettingsGood();
-        addColumnsTGoodsSettingsStorageUnit();
         addColumnsTFuelsFuelOverview();
         addColumnsTGoodsInventoryOverview();
         addColumnsTFuelsFuelDelivery();
@@ -270,9 +267,6 @@ implements Initializable {
         } else if (event.getTarget() == btnGoodsSettingsOverview) {
             hideSubPanes();
             settingsGoodPane.setVisible(true);
-        } else if(event.getTarget() == btnStorageUnitSettingsOverview) {
-            hideSubPanes();
-            settingsStorageUnitPane.setVisible(true);
         } else if (event.getTarget() == btnExportSettingsOverview) {
         } else if (event.getTarget() == btnImportSettingsOverview) {
         } else if (event.getTarget() == btnNewSettingsFuel) {
@@ -283,8 +277,6 @@ implements Initializable {
             new GasPumpInputDialog(rootPane, this);
         } else if (event.getTarget() == btnNewSettingsGood) {
             new ItemTypeInputDialog(rootPane, this, InventoryType.Good);
-        } else if (event.getTarget() == btnNewSettingsStorageUnit) {
-            new StorageUnitInputDialog(rootPane, this);
         }
     }
 
@@ -367,17 +359,6 @@ implements Initializable {
     }
 
     /**
-     * Spalten der
-     * @author Robin Herder
-     */
-    private void addColumnsTGoodsSettingsStorageUnit() {
-        TableColumn columnStorageUnitLabel = Dialog.getColumn("Bezeichner", "label", 200, true);
-        TableColumn columnStorageUnitX = Dialog.getColumn("Platzierung X", "x", 200, true);
-        TableColumn columnStorageUnitY = Dialog.getColumn("Platzierung Y", "y", 200, true);
-        tGoodsSettingsStorageUnit.getColumns().addAll(columnStorageUnitLabel, columnStorageUnitX, columnStorageUnitY);
-    }
-
-    /**
      *
      * @author Robin Herder
      */
@@ -402,8 +383,7 @@ implements Initializable {
         TableColumn columnGoodUnit = Dialog.getColumn("Einheit", "UNIT", 100, true);
         TableColumn columnGoodPrice = Dialog.getColumn("Preis", "price", 100, true);
         TableColumn columnGoodCurrency = Dialog.getColumn("Währung", "currency", 100, true);
-        TableColumn columnGoodStorageUnit = Dialog.getColumn("Lagereinheit", "storageUnit", 100, true);
-        tGoodsInventoryOverview.getColumns().addAll(columnGoodInvNumber, columnGoodLabel, columnGoodAmount, columnGoodUnit, columnGoodPrice, columnGoodCurrency, columnGoodStorageUnit);
+        tGoodsInventoryOverview.getColumns().addAll(columnGoodInvNumber, columnGoodLabel, columnGoodAmount, columnGoodUnit, columnGoodPrice, columnGoodCurrency);
     }
 
     private void addColumnsTFuelsFuelDelivery() {
@@ -487,15 +467,6 @@ implements Initializable {
         if(type.getTYPE_LABEL().equals(InventoryType.Good.getTYPE())) {
             tGoodsSettingsGood.getItems().add(type);
         }
-    }
-
-    /**
-     *
-     * @param storageUnit
-     * @author Robin Herder
-     */
-    public void addRowTSettingsStorageUnit(StorageUnit storageUnit) {
-        tGoodsSettingsStorageUnit.getItems().add(storageUnit);
     }
 
     /**
@@ -675,18 +646,6 @@ implements Initializable {
     /**
      *
      * @param pane
-     * @author Robin Herder
-     */
-    public void processStorageUnit(AnchorPane pane) {
-        String label = ((JFXTextField) pane.getChildren().get(0)).getText();
-        int x = Integer.parseInt(((JFXTextField) pane.getChildren().get(1)).getText());
-        int y = Integer.parseInt(((JFXTextField) pane.getChildren().get(2)).getText());
-        logic.addStorageUnit(label, x, y);
-    }
-
-    /**
-     *
-     * @param pane
      * @param iType
      * @author Robin Herder
      */
@@ -708,8 +667,7 @@ implements Initializable {
         String unit = ((JFXTextField) pane.getChildren().get(2)).getText();
         float price = Float.parseFloat(((JFXTextField) pane.getChildren().get(3)).getText());
         String currency = ((JFXTextField) pane.getChildren().get(4)).getText();
-        String StorageUnit = (String) ((JFXComboBox) pane.getChildren().get(5)).getSelectionModel().getSelectedItem();
-        logic.addGood(iType, amount, price, currency, StorageUnit, unit);
+        logic.addGood(iType, amount, price, currency, unit);
     }
 
     //===[CREATE SEARCHABLE DATA]==================================================
@@ -800,15 +758,6 @@ implements Initializable {
      */
     public StackPane getRootPane() {
         return rootPane;
-    }
-
-    /**
-     *
-     * @return
-     * @author Robin Herder
-     */
-    public ArrayList<String> getStorageUnit() {
-        return logic.getStorageUnit();
     }
 
     /**

@@ -10,16 +10,6 @@
 
   "gasPumpAssignedTanks": [],
 
-  "storageUnitLabel":[
-    "Lieferung"
-  ],
-  "storageUnitX":[
-    "-1"
-  ],
-  "storageUnitY": [
-    "-1"
-  ],
-
   "fuelType": [],
   "fuelPrice": [],
   "fuelCurrency": [],
@@ -29,6 +19,5 @@
   "goodPrice": [],
   "goodCurrency": [],
   "goodAmount": [],
-  "goodStorageUnit": [],
   "goodUnit" : []
 }

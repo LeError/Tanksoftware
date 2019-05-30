@@ -127,25 +127,6 @@
     }
   ],
 
-  "storageUnitLabel":[
-    "Zigaretten",
-    "Spirituosen",
-    "Snacks",
-    "Lieferung"
-  ],
-  "storageUnitX":[
-    "0",
-    "0",
-    "0",
-    "-1"
-  ],
-  "storageUnitY":[
-    "0",
-    "1",
-    "2",
-    "-1"
-  ],
-
   "fuelType": [
     "1",
     "2",
@@ -206,15 +187,6 @@
     "150",
     "50",
     "20"
-  ],
-  "goodStorageUnit": [
-    "Zigaretten (0|0)",
-    "Zigaretten (0|0)",
-    "Lieferung (-1|-1)",
-    "Lieferung (-1|-1)",
-    "Lieferung (-1|-1)",
-    "Lieferung (-1|-1)",
-    "Lieferung (-1|-1)"
   ],
   "goodUnit" : [
     "Schachtel",

@@ -554,26 +554,6 @@
                         </JFXButton>
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="settingsStorageUnitPane" minHeight="600.0" minWidth="890.0" prefHeight="600.0" prefWidth="890.0">
-                     <children>
-                        <Label fx:id="titleSettingStorageUnit" layoutX="65.0" layoutY="30.0" prefHeight="50.0" prefWidth="300.0" text="Lagereinheiten" textFill="#212121">
-                           <font>
-                              <Font name="System Bold" size="30.0" />
-                           </font>
-                        </Label>
-                        <TableView fx:id="tGoodsSettingsStorageUnit" layoutX="65.0" layoutY="100.0" prefHeight="400.0" prefWidth="760.0" />
-                        <JFXButton fx:id="btnNewSettingsStorageUnit" buttonType="RAISED" layoutX="515.0" layoutY="520.0" onMouseClicked="#handleSettingsAction" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Neu" textFill="WHITE">
-                           <graphic>
-                              <MaterialDesignIconView fx:id="icoExportSettingsStorageUnit" fill="WHITE" glyphName="PLUS" size="20" smooth="false" />
-                           </graphic>
-                        </JFXButton>
-                        <JFXButton fx:id="btnEditSettingsStorageUnit" buttonType="RAISED" layoutX="675.0" layoutY="520.0" onMouseClicked="#handleSettingsAction" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Editieren" textFill="WHITE">
-                           <graphic>
-                              <MaterialDesignIconView fx:id="icoImportSettingsStorageUnit" fill="WHITE" glyphName="PENCIL" size="20" smooth="false" />
-                           </graphic>
-                        </JFXButton>
-                     </children>
-                  </AnchorPane>
                   </children>
               </AnchorPane>
          </children></AnchorPane>
@@ -603,7 +583,6 @@
             <fx:reference source="settingsTankPane" />
             <fx:reference source="settingsGasPumpPane" />
             <fx:reference source="settingsGoodPane" />
-            <fx:reference source="settingsStorageUnitPane" />
         </ArrayList>
         <ArrayList fx:id="icoMenuBar">
             <fx:reference source="icoSellingMenuBar" />
@@ -667,7 +646,6 @@
             <fx:reference source="tGoodsInventoryDelivery"/>
             <fx:reference source="tGoodsInventoryOrder"/>
             <fx:reference source="tGoodsSettingsGood"/>
-            <fx:reference source="tGoodsSettingsStorageUnit"/>
             <fx:reference source="tGoodsInventoryOverview"/>
         </ArrayList>
         <ArrayList fx:id="allTitles">
@@ -685,7 +663,6 @@
             <fx:reference source="titleSettingsGasPump"/>
             <fx:reference source="titleSettingsOverview"/>
             <fx:reference source="titleSettingsTank"/>
-            <fx:reference source="titleSettingStorageUnit"/>
             <fx:reference source="titleUser"/>
         </ArrayList>
         <ArrayList fx:id="allSubTitles">
@@ -707,7 +684,6 @@
             <fx:reference source="icoExportSettingsGasPump"/>
             <fx:reference source="icoExportSettingsGood"/>
             <fx:reference source="icoExportSettingsOverview"/>
-            <fx:reference source="icoExportSettingsStorageUnit"/>
             <fx:reference source="icoFuelsSettingsOverview"/>
             <fx:reference source="icoGasPumpsSalesOverview"/>
             <fx:reference source="icoGasPumpsSettingsOverview"/>
@@ -716,7 +692,6 @@
             <fx:reference source="icoImportSettingsGasPump"/>
             <fx:reference source="icoImportSettingsGood"/>
             <fx:reference source="icoImportSettingsOverview"/>
-            <fx:reference source="icoImportSettingsStorageUnit"/>
             <fx:reference source="icoNewSettingsFuel"/>
             <fx:reference source="icoNewSettingsTank"/>
             <fx:reference source="icoOrderInventoryOverview"/>
@@ -741,7 +716,6 @@
             <fx:reference source="btnEditSettingsFuel"/>
             <fx:reference source="btnEditSettingsGasPump"/>
             <fx:reference source="btnEditSettingsGood"/>
-            <fx:reference source="btnEditSettingsStorageUnit"/>
             <fx:reference source="btnEditSettingsTank"/>
             <fx:reference source="btnEditThemeSettingsOverview"/>
             <fx:reference source="btnExportSettingsOverview"/>
@@ -756,7 +730,6 @@
             <fx:reference source="btnNewSettingsFuel"/>
             <fx:reference source="btnNewSettingsGasPump"/>
             <fx:reference source="btnNewSettingsGood"/>
-            <fx:reference source="btnNewSettingsStorageUnit"/>
             <fx:reference source="btnNewSettingsTank"/>
             <fx:reference source="btnOrderInventoryOverview"/>
             <fx:reference source="btnOrdersFuelOverview"/>
