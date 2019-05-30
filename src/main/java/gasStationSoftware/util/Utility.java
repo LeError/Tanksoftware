@@ -1,5 +1,7 @@
 package gasStationSoftware.util;
 
+import gasStationSoftware.models.Document;
+import gasStationSoftware.models.DocumentType;
 import gasStationSoftware.models.InventoryType;
 import gasStationSoftware.models.ItemType;
 
@@ -102,10 +104,18 @@ public class Utility {
     public static ArrayList<ItemType> getInventoryType(ArrayList<ItemType> iTypes, InventoryType type) {
         ArrayList<ItemType> result = new ArrayList<>();
         for(ItemType iType : iTypes){
-            if(iType.getTYPE_LABEL().equals(InventoryType.Fuel.getTYPE()) && type.getTYPE().equals(InventoryType.Fuel.getTYPE())) {
+            if(iType.getTYPE() == type) {
                 result.add(iType);
-            } else if(iType.getTYPE_LABEL().equals(InventoryType.Good.getTYPE()) && type.getTYPE().equals(InventoryType.Good.getTYPE())) {
-                result.add(iType);
+            }
+        }
+        return result;
+    }
+
+    public static ArrayList<?> getDocument(ArrayList<Document> documents, DocumentType docType) {
+        ArrayList<Document> result = new ArrayList<>();
+        for(Document document : documents) {
+            if(document.getDOC_TYPE() == docType) {
+                result.add(document);
             }
         }
         return result;
