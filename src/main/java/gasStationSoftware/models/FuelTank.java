@@ -100,7 +100,7 @@ public class FuelTank {
      * @throws NumberOutOfRangeException
      * @author Robin Herder
      */
-    public void setLevel(float level) throws NumberOutOfRangeException {
+    public void addLevel(float level) throws NumberOutOfRangeException {
         this.level = level;
         levelPercentage = level / CAPACITY;
         if(levelPercentage > 1 || levelPercentage < 0) {
@@ -115,5 +115,9 @@ public class FuelTank {
      */
     public int getInvNumber() {
         return fuel.getINVENTORY_NUMBER();
+    }
+
+    public float getFreeSpace() {
+        return CAPACITY - level;
     }
 }
