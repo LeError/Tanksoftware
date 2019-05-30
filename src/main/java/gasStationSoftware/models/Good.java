@@ -31,7 +31,7 @@ extends Item {
     }
 
     public void addAmount(int amount) {
-        this.amount = amount;
+        this.amount += amount;
     }
 
     /**
