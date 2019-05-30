@@ -248,9 +248,7 @@ public class Logic {
             Date date = new SimpleDateFormat("dd.MM.yyyy").parse(lines[i][3]);
             employees.add(new Employee(Integer.parseInt(lines[i][0]), lines[i][1], lines[i][2], date));
         }
-        for(Employee employee : employees) {
-            windowController.addRowTEmployeesEmployeeOverview(employee);
-        }
+        windowController.addRowTEmployeesEmployeeOverview(employees);
     }
 
     /**
@@ -263,27 +261,19 @@ public class Logic {
         ReadJSON read = new ReadJSON(DATA_FILE_PATH + DATA_FILE_NAMES[0]);
 
         createItemTypeObjects(read.getItemStringArray("itemLabel"), read.getItemStringArray("itemInventoryNumber"), read.getItemStringArray("itemType"));
-        for(ItemType iType : this.types) {
-            windowController.addRowTFuelsSettingsFuel(iType);
-            windowController.addRowTGoodsSettingsGood(iType);
-        }
+        windowController.addRowTFuelsSettingsFuel(types);
+        windowController.addRowTGoodsSettingsGood(types);
 
         createFuelTankObjects(Utility.getIntArray(read.getItemStringArray("tankID")), Utility.getFloatArray(read.getItemStringArray("tankCapacity")), Utility.getFloatArray(read.getItemStringArray("tankLevel")), Utility.getIntArray(read.getItemStringArray("tankAssignedFuels")));
-        for(FuelTank tank : tanks) {
-            windowController.addRowTTanksSettingsTank(tank);
-        }
+        windowController.addRowTTanksSettingsTank(tanks);
 
         createGasPumpObjects(read.getItemStringArrayListArray("gasPumpAssignedTanks"));
-        for (GasPump gasPump : this.gasPumps) {
-            windowController.addRowTGasPumpsSettingsGasPump(gasPump);
-        }
+        windowController.addRowTGasPumpsSettingsGasPump(gasPumps);
 
         createFuel(Utility.getIntArray(read.getItemStringArray("fuelType")),
         Utility.getFloatArray(read.getItemStringArray("fuelPrice")), read.getItemStringArray("fuelCurrency"),
         Utility.getFloatArray(read.getItemStringArray("fuelAmount")));
-        for (Fuel fuel : fuels) {
-            windowController.addRowTFuelsFuelOverview(fuel);
-        }
+        windowController.addRowTFuelsFuelOverview(fuels);
 
         createGood(Utility.getIntArray(read.getItemStringArray("goodType")),
         Utility.getFloatArray(read.getItemStringArray("goodPrice")),
@@ -482,11 +472,9 @@ public class Logic {
     public void addItemType(String label, InventoryType type) {
         ItemType newItemType = new ItemType(label, getFreeInvNumber(type), type);
         types.add(newItemType);
-        if (type == InventoryType.Fuel) {
-            windowController.addRowTFuelsSettingsFuel(newItemType);
-        } else if(type == InventoryType.Good) {
-            windowController.addRowTGoodsSettingsGood(newItemType);
-        }
+        Collections.sort(types, Comparator.comparingInt(itemType -> itemType.getINVENTORY_NUMBER()));
+        windowController.addRowTFuelsSettingsFuel(types);
+        windowController.addRowTGoodsSettingsGood(types);
         saveInventory();
     }
 
@@ -502,7 +490,8 @@ public class Logic {
             ArrayList<ItemType> fuels = Utility.getInventoryType(types, InventoryType.Fuel);
             FuelTank newFuelTank = new FuelTank(getFreeTankNumber(), capacity, level, fuels.get(fuel));
             tanks.add(newFuelTank);
-            windowController.addRowTTanksSettingsTank(newFuelTank);
+            Collections.sort(tanks, Comparator.comparingInt(tank -> tank.getTANK_NUMBER()));
+            windowController.addRowTTanksSettingsTank(tanks);
             saveInventory();
         } catch (NumberOutOfRangeException e) {
             e.printStackTrace();
@@ -517,7 +506,8 @@ public class Logic {
     public void addGasPump(ArrayList<FuelTank> tanks) {
         GasPump newGasPump = new GasPump(getFreeGasPumpNumber(), tanks);
         gasPumps.add(newGasPump);
-        windowController.addRowTGasPumpsSettingsGasPump(newGasPump);
+        Collections.sort(gasPumps, Comparator.comparingInt(gasPump -> gasPump.getGAS_PUMP_NUMBER()));
+        windowController.addRowTGasPumpsSettingsGasPump(gasPumps);
         saveInventory();
     }
 
@@ -540,7 +530,8 @@ public class Logic {
         if(newEntry) {
             Fuel newFuel = new Fuel(iType, price, currency, amount);
             fuels.add(newFuel);
-            windowController.addRowTFuelsFuelOverview(newFuel);
+            Collections.sort(fuels, Comparator.comparingInt(fuel -> fuel.getINVENTORY_NUMBER()));
+            windowController.addRowTFuelsFuelOverview(fuels);
         } else {
             displayError("Kraftstoff exsistiert bereits", new Exception("duplicate entry"), false);
         }
@@ -567,6 +558,7 @@ public class Logic {
         if(newEntry) {
             Good newGood = new Good(iType, price, currency, amount, unit);
             goods.add(newGood);
+            Collections.sort(goods, Comparator.comparingInt(good -> good.getINVENTORY_NUMBER()));
             windowController.addRowTGoodsInventoryOverview(goods);
         } else {
             displayError("Produkt exsistiert bereits", new Exception("duplicate entry"), false);
@@ -904,7 +896,7 @@ public class Logic {
             fuel.add(new Fuel(types.get(idxItemType), price.get(i), "EUR", amount.get(i)));
             documents.add(new FuelDocument(DocumentType.fuelDelivery, filename, read.getDate(), fuels));
         }
-        windowController.addRowTFuelsFuelDelivery((FuelDocument) documents.get(documents.size() - 1));
+        windowController.addRowTFuelsFuelDelivery((ArrayList<FuelDocument>) Utility.getDocument(documents, DocumentType.fuelDelivery));
     }
 
     public void importGoodDelivery(String path, boolean newDelivery) {
@@ -934,7 +926,7 @@ public class Logic {
             good.add(new Good(types.get(idxItemType), price.get(i), "EUR", amount.get(i), unit.get(i)));
             documents.add(new GoodDocument(DocumentType.goodDelivery, filename, read.getDate(), good));
         }
-        windowController.addRowTGoodsInventoryDelivery((GoodDocument) documents.get(documents.size() - 1));
+        windowController.addRowTGoodsInventoryDelivery((ArrayList<GoodDocument>) Utility.getDocument(documents, DocumentType.goodDelivery));
         if(newDelivery) {
             addDeliveredGoods(((GoodDocument) documents.get(documents.size() - 1)).getGoods());
         }
