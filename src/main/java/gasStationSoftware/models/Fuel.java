@@ -13,8 +13,13 @@ public class Fuel extends Item {
      * @param currency
      * @author Robin Herder
      */
-    public Fuel(ItemType type, float price, String currency) {
+    public Fuel(ItemType type, float price, String currency, float amount) {
         super(type, price, currency);
+        try {
+            addAmount(amount);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
