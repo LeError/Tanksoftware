@@ -82,6 +82,9 @@ public class Fuel extends Item {
     public void addAmount(float amount) throws Exception {
         boolean raiseError = !checkSpace(amount);
         for(FuelTank tank : getOTanks()) {
+            if(amount == 0) {
+                break;
+            }
             if(tank.getFreeSpace() == 0){
                 continue;
             } else if(amount < tank.getFreeSpace()) {
