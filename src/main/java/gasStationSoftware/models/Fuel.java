@@ -106,9 +106,15 @@ public class Fuel extends Item {
      * @param amount
      * @author Robin Herder
      */
-    public void removeAmount(float amount) throws Exception {
+    public void removeAmount(float amount, GasPump gasPump) throws Exception {
         boolean raiseError = getAmount() < amount;
-        for(FuelTank tank : getOTanks()) {
+        ArrayList<FuelTank> tanks = new ArrayList<>();
+        for(FuelTank tank : gasPump.getTanks()) {
+            if(tank.getFuel() == getTYPE()) {
+                tanks.add(tank);
+            }
+        }
+        for(FuelTank tank : tanks) {
             if(tank.getLevel() == 0) {
                 continue;
             } else if(tank.getLevel() >= amount) {
