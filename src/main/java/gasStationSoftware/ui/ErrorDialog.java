@@ -38,11 +38,10 @@ public class ErrorDialog {
         JFXDialogLayout dialogContent = new JFXDialogLayout();
         JFXDialog dialog = new JFXDialog(rootPane, dialogContent, JFXDialog.DialogTransition.CENTER);
 
-        JFXTextArea txtErrorText = new JFXTextArea(errorText);
+        Label txtErrorText = new Label(errorText);
         txtErrorText.setMinSize(490, 80);
         txtErrorText.setMaxSize(490, 80);
         txtErrorText.setPrefSize(490, 80);
-        txtErrorText.setDisable(true);
         AnchorPane.setTopAnchor(txtErrorText, 10d);
         AnchorPane.setLeftAnchor(txtErrorText, 5d);
         AnchorPane.setRightAnchor(txtErrorText, 5d);
