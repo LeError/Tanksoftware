@@ -425,62 +425,66 @@ implements Initializable {
      * @param employee
      * @author Robin Herder
      */
-    public void addRowTEmployeesEmployeeOverview(Employee employee){
-        tEmployeesEmployeeOverview.getItems().add(employee);
+    public void addRowTEmployeesEmployeeOverview(ArrayList<Employee> employee){
+        tEmployeesEmployeeOverview.getItems().clear();
+        tEmployeesEmployeeOverview.getItems().addAll(employee);
     }
 
     /**
      * Neuer Kraftstoff der Kraftstoffeinstellungen-Tabelle hinzufügen
-     * @param type
+     * @param types
      * @author Robin Herder
      */
-    public void addRowTFuelsSettingsFuel(ItemType type) {
-        if(type.getTYPE_LABEL().equals(InventoryType.Fuel.getTYPE())) {
-            tFuelsSettingsFuel.getItems().add(type);
-        }
+    public void addRowTFuelsSettingsFuel(ArrayList<ItemType> types) {
+        types = Utility.getInventoryType(types, InventoryType.Fuel);
+        tFuelsSettingsFuel.getItems().clear();
+        tFuelsSettingsFuel.getItems().addAll(types);
     }
 
     /**
      * Neuer Tank der Tankeinstellungen-Tabelle hinzufügen
-     * @param tank
+     * @param tanks
      * @author Robin Herder
      */
-    public void addRowTTanksSettingsTank(FuelTank tank){
-        tTanksSettingsTank.getItems().add(tank);
+    public void addRowTTanksSettingsTank(ArrayList<FuelTank> tanks){
+        tTanksSettingsTank.getItems().clear();
+        tTanksSettingsTank.getItems().addAll(tanks);
     }
 
     /**
      * Neue Zapfsäuler der Zapfsäuleneinstellung-Tabelle hinzufügen
-     * @param gasPump
+     * @param gasPumps
      * @author Robin Herder
      */
-    public void addRowTGasPumpsSettingsGasPump(GasPump gasPump) {
-        tGasPumpsSettingsGasPump.getItems().add(gasPump);
+    public void addRowTGasPumpsSettingsGasPump(ArrayList<GasPump> gasPumps) {
+        tGasPumpsSettingsGasPump.getItems().clear();
+        tGasPumpsSettingsGasPump.getItems().addAll(gasPumps);
     }
 
     /**
      * Neue Ware der Wareneinstellungen-Tabelle hinzufügen
-     * @param type
+     * @param types
      * @author Robin Herder
      */
-    public void addRowTGoodsSettingsGood(ItemType type) {
-        if(type.getTYPE_LABEL().equals(InventoryType.Good.getTYPE())) {
-            tGoodsSettingsGood.getItems().add(type);
-        }
+    public void addRowTGoodsSettingsGood(ArrayList<ItemType> types) {
+        types = Utility.getInventoryType(types, InventoryType.Good);
+        tGoodsSettingsGood.getItems().clear();
+        tGoodsSettingsGood.getItems().addAll(types);
     }
 
     /**
      * Kraftstoff der Kraftstoffübersichtstabelle hinzufügen
-     * @param fuel
+     * @param fuels
      * @author Robin Herder
      */
-    public void addRowTFuelsFuelOverview(Fuel fuel) {
-        tFuelsFuelOverview.getItems().add(fuel);
+    public void addRowTFuelsFuelOverview(ArrayList<Fuel> fuels) {
+        tFuelsFuelOverview.getItems().clear();
+        tFuelsFuelOverview.getItems().addAll(fuels);
     }
 
     /**
      * Ware der Warenübersichtstabelle hinzufügen
-     * @param good
+     * @param goods
      * @author Robin Herder
      */
     public void addRowTGoodsInventoryOverview(ArrayList<Good> goods) {
@@ -488,12 +492,14 @@ implements Initializable {
         tGoodsInventoryOverview.getItems().addAll(goods);
     }
 
-    public void addRowTFuelsFuelDelivery(FuelDocument delivery) {
-        tFuelsFuelDeliveries.getItems().add(delivery);
+    public void addRowTFuelsFuelDelivery(ArrayList<FuelDocument> deliveries) {
+        tFuelsFuelDeliveries.getItems().clear();
+        tFuelsFuelDeliveries.getItems().addAll(deliveries);
     }
 
-    public void addRowTGoodsInventoryDelivery(GoodDocument delivery) {
-        tGoodsInventoryDelivery.getItems().add(delivery);
+    public void addRowTGoodsInventoryDelivery(ArrayList<GoodDocument> deliveries) {
+        tGoodsInventoryDelivery.getItems().clear();
+        tGoodsInventoryDelivery.getItems().addAll(deliveries);
     }
 
     //===[LOGIC CALL]==================================================
