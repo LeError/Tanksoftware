@@ -20,17 +20,6 @@ extends Application {
     }
 
     /**
-     * Erstellt die Logic
-     * @throws Exception
-     * @author Robin Herder
-     */
-    @Override public void init()
-    throws Exception {
-        super.init();
-        Logic.getInstance();
-    }
-
-    /**
      * Startet die UI
      * @param stage
      * @throws Exception
