@@ -942,30 +942,7 @@ public class Logic {
     }
 
     private void addDeliveredGoods(ArrayList<Good> deliveredGoods) {
-        for(Good deliveredGood : deliveredGoods) {
-            boolean existsNot = true;
-            for(Good storedGood : goods){
-                if(deliveredGood.getINVENTORY_NUMBER() == storedGood.getINVENTORY_NUMBER() && deliveredGood.getUNIT() == storedGood.getUNIT()) {
-                    existsNot = !existsNot;
-                    storedGood.addAmount(deliveredGood.getAmount());
-                }
-            }
-            if(existsNot) {
-                boolean typeExistsNot = true;
-                for(int i = 0; i < goods.size(); i++) {
-                    if(deliveredGood.getINVENTORY_NUMBER() == goods.get(i).getINVENTORY_NUMBER()) {
-                        typeExistsNot = !typeExistsNot;
-                        goods.add(new Good(goods.get(i).getTYPE(), deliveredGood.getPrice(), deliveredGood.getCurrency(), deliveredGood.getAmount(), deliveredGood.getUNIT()));
-                        windowController.addRowTGoodsInventoryOverview(goods);
-                    }
-                }
-                if(typeExistsNot) {
-                    types.add(new ItemType(deliveredGood.getLABEL(), deliveredGood.getINVENTORY_NUMBER(), InventoryType.Good));
-                    goods.add(new Good(types.get(types.size() - 1), deliveredGood.getPrice(), deliveredGood.getCurrency(), deliveredGood.getAmount(), deliveredGood.getUNIT()));
-                    windowController.addRowTGoodsInventoryOverview(goods);
-                }
-            }
-        }
+
     }
 
     /**
