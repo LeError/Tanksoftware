@@ -5,9 +5,9 @@ import java.util.Date;
 
 public class FuelDocument extends Document {
 
-    private final ArrayList<Fuel> FUELS;
+    private final ArrayList<DeliveredFuel> FUELS;
 
-    public FuelDocument(DocumentType docType, String name, Date date, ArrayList<Fuel> fuels) {
+    public FuelDocument(DocumentType docType, String name, Date date, ArrayList<DeliveredFuel> fuels) {
         super(docType, name, date);
         FUELS = fuels;
     }
@@ -17,7 +17,7 @@ public class FuelDocument extends Document {
         return new String[0];
     }
 
-    public ArrayList<Fuel> getFuels() {
+    public ArrayList<?> getFuels() {
         return FUELS;
     }
 

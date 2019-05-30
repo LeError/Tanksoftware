@@ -885,7 +885,7 @@ public class Logic {
         ArrayList<String> label = new ArrayList<>();
         ArrayList<Float> price = new ArrayList<>();
         ArrayList<Integer> amount = new ArrayList<>();
-        ArrayList<Fuel> fuel = new ArrayList<>();
+        ArrayList<DeliveredFuel> fuel = new ArrayList<>();
         for (int i = 0; i < lines.length; i++) {
             if (i % 2 == 0) {
                 label.add(lines[i][0]);
@@ -901,17 +901,41 @@ public class Logic {
                     idxItemType = ii;
                 }
             }
-            fuel.add(new Fuel(types.get(idxItemType), price.get(i), "EUR", amount.get(i)));
+            fuel.add(new DeliveredFuel(types.get(idxItemType), price.get(i), "EUR", amount.get(i)));
         }
-        documents.add(new FuelDocument(DocumentType.fuelDelivery, filename, read.getDate(), fuels));
+        System.out.println("ArrayList: " + fuel.size());
+        documents.add(new FuelDocument(DocumentType.fuelDelivery, filename, read.getDate(), fuel));
         windowController.addRowTFuelsFuelDelivery((ArrayList<FuelDocument>) Utility.getDocument(documents, DocumentType.fuelDelivery));
         if(newDelivery) {
-            addDeliveredFuels(((FuelDocument) documents.get(documents.size() - 1)).getFuels());
+            addDeliveredFuels((ArrayList<DeliveredFuel>) ((FuelDocument) documents.get(documents.size() - 1)).getFuels());
         }
     }
 
-    public void addDeliveredFuels(ArrayList<Fuel> deliveredFuels) {
-
+    public void addDeliveredFuels(ArrayList<DeliveredFuel> deliveredFuels) {
+        boolean[] exists = new boolean[deliveredFuels.size()];
+        for(boolean entry : exists) {
+            entry = false;
+        }
+        int max = fuels.size();
+        for(int i = 0; i < max; i++) {
+            for(DeliveredFuel fuel : deliveredFuels) {
+                if(fuel.getINVENTORY_NUMBER() == fuels.get(i).getINVENTORY_NUMBER()) {
+                    exists[deliveredFuels.indexOf(fuel)] = true;
+                    try {
+                        fuels.get(i).addAmount(fuel.getAmountDelivered());
+                    } catch(Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+        for(int i = 0; i < exists.length; i++) {
+            if(!exists[i]) {
+                displayError("Kraftstoff existiert nicht!", new Exception("Kraftstoff " + deliveredFuels.get(i) + " exsistiert nicht! Erstelle ihn im Einstellungs bereich!"), false);
+            }
+        }
+        Collections.sort(fuels, Comparator.comparingInt(fuel -> fuel.getINVENTORY_NUMBER()));
+        windowController.addRowTFuelsFuelOverview(fuels);
     }
 
     public void importGoodDelivery(String path, boolean newDelivery) {
