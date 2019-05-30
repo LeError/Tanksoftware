@@ -224,7 +224,7 @@ implements Initializable {
             fuelOrderPane.setVisible(true);
         } else if(event.getTarget() == btnImportFuelDeliveries) {
             try {
-                logic.importFuelDelivery(logic.importFile(getFile("Kraftstofflieferung importieren"), 2, null));
+                logic.importFuelDelivery(logic.importFile(getFile("Kraftstofflieferung importieren"), 2, null), true);
             } catch (IOException e) {
                 e.printStackTrace();
             }
