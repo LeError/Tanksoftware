@@ -212,6 +212,7 @@ public class Logic {
             e.printStackTrace();
         }
         loadFuelDeliveries();
+        loadGoodDeliveries();
     }
 
     /**
@@ -288,6 +289,13 @@ public class Logic {
         File[] files = new File(DATA_SUB_PATHS[2]).listFiles();
         for (File file : files) {
             importFuelDelivery(file.getAbsolutePath());
+        }
+    }
+
+    private void loadGoodDeliveries() {
+        File[] files = new File(DATA_SUB_PATHS[4]).listFiles();
+        for (File file : files) {
+            importGoodDelivery(file.getAbsolutePath(), false);
         }
     }
 
@@ -894,8 +902,8 @@ public class Logic {
                 }
             }
             fuel.add(new Fuel(types.get(idxItemType), price.get(i), "EUR", amount.get(i)));
-            documents.add(new FuelDocument(DocumentType.fuelDelivery, filename, read.getDate(), fuels));
         }
+        documents.add(new FuelDocument(DocumentType.fuelDelivery, filename, read.getDate(), fuels));
         windowController.addRowTFuelsFuelDelivery((ArrayList<FuelDocument>) Utility.getDocument(documents, DocumentType.fuelDelivery));
     }
 
@@ -924,8 +932,8 @@ public class Logic {
                 }
             }
             good.add(new Good(types.get(idxItemType), price.get(i), "EUR", amount.get(i), unit.get(i)));
-            documents.add(new GoodDocument(DocumentType.goodDelivery, filename, read.getDate(), good));
         }
+        documents.add(new GoodDocument(DocumentType.goodDelivery, filename, read.getDate(), good));
         windowController.addRowTGoodsInventoryDelivery((ArrayList<GoodDocument>) Utility.getDocument(documents, DocumentType.goodDelivery));
         if(newDelivery) {
             addDeliveredGoods(((GoodDocument) documents.get(documents.size() - 1)).getGoods());
