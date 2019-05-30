@@ -52,7 +52,6 @@ public class Logic {
     private ArrayList<ItemType> types = new ArrayList<>();
     private ArrayList<FuelTank> tanks = new ArrayList<>();
     private ArrayList<GasPump> gasPumps = new ArrayList<>();
-    private ArrayList<StorageUnit> storageUnits = new ArrayList<>();
     private ArrayList<Fuel> fuels = new ArrayList<>();
     private ArrayList<Good> goods = new ArrayList<>();
     private ArrayList<Document> documents = new ArrayList<>();
@@ -211,10 +210,9 @@ public class Logic {
             loadInventory();
         } catch (DataFileNotFoundException e) {
             e.printStackTrace();
-        } catch (NumberOutOfRangeException e) {
-            e.printStackTrace();
         }
         loadFuelDeliveries();
+        loadGoodDeliveries();
     }
 
     /**
@@ -251,9 +249,7 @@ public class Logic {
             Date date = new SimpleDateFormat("dd.MM.yyyy").parse(lines[i][3]);
             employees.add(new Employee(Integer.parseInt(lines[i][0]), lines[i][1], lines[i][2], date));
         }
-        for(Employee employee : employees) {
-            windowController.addRowTEmployeesEmployeeOverview(employee);
-        }
+        windowController.addRowTEmployeesEmployeeOverview(employees);
     }
 
     /**
@@ -262,42 +258,28 @@ public class Logic {
      * @throws NumberOutOfRangeException
      * @author Robin Herder
      */
-    private void loadInventory() throws DataFileNotFoundException, NumberOutOfRangeException {
+    private void loadInventory() throws DataFileNotFoundException {
         ReadJSON read = new ReadJSON(DATA_FILE_PATH + DATA_FILE_NAMES[0]);
 
         createItemTypeObjects(read.getItemStringArray("itemLabel"), read.getItemStringArray("itemInventoryNumber"), read.getItemStringArray("itemType"));
-        for(ItemType iType : this.types) {
-            windowController.addRowTFuelsSettingsFuel(iType);
-            windowController.addRowTGoodsSettingsGood(iType);
-        }
+        windowController.addRowTFuelsSettingsFuel(types);
+        windowController.addRowTGoodsSettingsGood(types);
 
         createFuelTankObjects(Utility.getIntArray(read.getItemStringArray("tankID")), Utility.getFloatArray(read.getItemStringArray("tankCapacity")), Utility.getFloatArray(read.getItemStringArray("tankLevel")), Utility.getIntArray(read.getItemStringArray("tankAssignedFuels")));
-        for(FuelTank tank : tanks) {
-            windowController.addRowTTanksSettingsTank(tank);
-        }
+        windowController.addRowTTanksSettingsTank(tanks);
 
         createGasPumpObjects(read.getItemStringArrayListArray("gasPumpAssignedTanks"));
-        for (GasPump gasPump : this.gasPumps) {
-            windowController.addRowTGasPumpsSettingsGasPump(gasPump);
-        }
-
-        createStorageUnitObjects(read.getItemStringArray("storageUnitLabel"), Utility.getIntArray(read.getItemStringArray("storageUnitX")), Utility.getIntArray(read.getItemStringArray("storageUnitY")));
-        for(StorageUnit storageUnit : storageUnits) {
-            windowController.addRowTSettingsStorageUnit(storageUnit);
-        }
+        windowController.addRowTGasPumpsSettingsGasPump(gasPumps);
 
         createFuel(Utility.getIntArray(read.getItemStringArray("fuelType")),
         Utility.getFloatArray(read.getItemStringArray("fuelPrice")), read.getItemStringArray("fuelCurrency"),
         Utility.getFloatArray(read.getItemStringArray("fuelAmount")));
-        for (Fuel fuel : fuels) {
-            windowController.addRowTFuelsFuelOverview(fuel);
-        }
+        windowController.addRowTFuelsFuelOverview(fuels);
 
         createGood(Utility.getIntArray(read.getItemStringArray("goodType")),
         Utility.getFloatArray(read.getItemStringArray("goodPrice")),
         read.getItemStringArray("goodCurrency"),
         Utility.getIntArray(read.getItemStringArray("goodAmount")),
-        read.getItemStringArray("goodStorageUnit"),
         read.getItemStringArray("goodUnit"));
         Collections.sort(goods, Comparator.comparingInt(good -> good.getINVENTORY_NUMBER()));
         windowController.addRowTGoodsInventoryOverview(goods);
@@ -306,7 +288,14 @@ public class Logic {
     private void loadFuelDeliveries() {
         File[] files = new File(DATA_SUB_PATHS[2]).listFiles();
         for (File file : files) {
-            importFuelDelivery(file.getAbsolutePath());
+            importFuelDelivery(file.getAbsolutePath(), false);
+        }
+    }
+
+    private void loadGoodDeliveries() {
+        File[] files = new File(DATA_SUB_PATHS[4]).listFiles();
+        for (File file : files) {
+            importGoodDelivery(file.getAbsolutePath(), false);
         }
     }
 
@@ -382,19 +371,6 @@ public class Logic {
     }
 
     /**
-     * Erstellt Lager
-     * @param label
-     * @param x
-     * @param y
-     * @author Robin Herder
-     */
-    private void createStorageUnitObjects(String[] label, int[] x, int[] y) {
-       for(int i = 0; i < label.length; i++) {
-           storageUnits.add(new StorageUnit(label[i], x[i] ,y[i]));
-       }
-    }
-
-    /**
      * Erstellt Kraftstoff
      * @param invNumber
      * @param price
@@ -422,10 +398,9 @@ public class Logic {
      * @param price
      * @param currency
      * @param amount
-     * @param storageUnits
      * @author Robin Herder
      */
-    private void createGood(int[] invNumber, float[] price, String[] currency, int[] amount, String[] storageUnits, String[] unit) {
+    private void createGood(int[] invNumber, float[] price, String[] currency, int[] amount, String[] unit) {
         ArrayList<ItemType> goodTypes = Utility.getInventoryType(types, InventoryType.Good);
         for (int i = 0; i < invNumber.length; i++) {
             ItemType good = null;
@@ -435,13 +410,7 @@ public class Logic {
                     break;
                 }
             }
-            StorageUnit storage = null;
-            for(int y = 0; y < getStorageUnit().size(); y++) {
-                if(getStorageUnit().get(y).equals(storageUnits[i])) {
-                    storage = this.storageUnits.get(y);
-                }
-            }
-            goods.add(new Good(good, price[i], currency[i], storage, amount[i], unit[i]));
+            goods.add(new Good(good, price[i], currency[i], amount[i], unit[i]));
         }
     }
 
@@ -511,11 +480,9 @@ public class Logic {
     public void addItemType(String label, InventoryType type) {
         ItemType newItemType = new ItemType(label, getFreeInvNumber(type), type);
         types.add(newItemType);
-        if (type == InventoryType.Fuel) {
-            windowController.addRowTFuelsSettingsFuel(newItemType);
-        } else if(type == InventoryType.Good) {
-            windowController.addRowTGoodsSettingsGood(newItemType);
-        }
+        Collections.sort(types, Comparator.comparingInt(itemType -> itemType.getINVENTORY_NUMBER()));
+        windowController.addRowTFuelsSettingsFuel(types);
+        windowController.addRowTGoodsSettingsGood(types);
         saveInventory();
     }
 
@@ -531,7 +498,8 @@ public class Logic {
             ArrayList<ItemType> fuels = Utility.getInventoryType(types, InventoryType.Fuel);
             FuelTank newFuelTank = new FuelTank(getFreeTankNumber(), capacity, level, fuels.get(fuel));
             tanks.add(newFuelTank);
-            windowController.addRowTTanksSettingsTank(newFuelTank);
+            Collections.sort(tanks, Comparator.comparingInt(tank -> tank.getTANK_NUMBER()));
+            windowController.addRowTTanksSettingsTank(tanks);
             saveInventory();
         } catch (NumberOutOfRangeException e) {
             e.printStackTrace();
@@ -546,21 +514,8 @@ public class Logic {
     public void addGasPump(ArrayList<FuelTank> tanks) {
         GasPump newGasPump = new GasPump(getFreeGasPumpNumber(), tanks);
         gasPumps.add(newGasPump);
-        windowController.addRowTGasPumpsSettingsGasPump(newGasPump);
-        saveInventory();
-    }
-
-    /**
-     * Neues Lager hinzufügen
-     * @param label
-     * @param x
-     * @param y
-     * @author Robin Herder
-     */
-    public void addStorageUnit(String label, int x, int y) {
-        StorageUnit newStorageUnit = new StorageUnit(label, x, y);
-        storageUnits.add(newStorageUnit);
-        windowController.addRowTSettingsStorageUnit(newStorageUnit);
+        Collections.sort(gasPumps, Comparator.comparingInt(gasPump -> gasPump.getGAS_PUMP_NUMBER()));
+        windowController.addRowTGasPumpsSettingsGasPump(gasPumps);
         saveInventory();
     }
 
@@ -583,7 +538,8 @@ public class Logic {
         if(newEntry) {
             Fuel newFuel = new Fuel(iType, price, currency, amount);
             fuels.add(newFuel);
-            windowController.addRowTFuelsFuelOverview(newFuel);
+            Collections.sort(fuels, Comparator.comparingInt(fuel -> fuel.getINVENTORY_NUMBER()));
+            windowController.addRowTFuelsFuelOverview(fuels);
         } else {
             displayError("Kraftstoff exsistiert bereits", new Exception("duplicate entry"), false);
         }
@@ -596,11 +552,10 @@ public class Logic {
      * @param amount
      * @param price
      * @param currency
-     * @param storageUnit
      * @param unit
      * @author Robin Herder
      */
-    public void addGood(ItemType iType, int amount, float price, String currency, String storageUnit, String unit) {
+    public void addGood(ItemType iType, int amount, float price, String currency, String unit) {
         boolean newEntry = true;
         for(Good good : goods) {
             if(good.getTYPE() == iType && good.getUNIT().equals(unit)) {
@@ -608,17 +563,10 @@ public class Logic {
             }
         }
 
-        int idxStorage = 0;
-        ArrayList<String> storages = getStorageUnit();
-        for(int i = 0; i < storages.size(); i++) {
-            if(storages.get(i).equals(storageUnit)) {
-                idxStorage = i;
-            }
-        }
-
         if(newEntry) {
-            Good newGood = new Good(iType, price, currency, storageUnits.get(idxStorage), amount, unit);
+            Good newGood = new Good(iType, price, currency, amount, unit);
             goods.add(newGood);
+            Collections.sort(goods, Comparator.comparingInt(good -> good.getINVENTORY_NUMBER()));
             windowController.addRowTGoodsInventoryOverview(goods);
         } else {
             displayError("Produkt exsistiert bereits", new Exception("duplicate entry"), false);
@@ -642,9 +590,6 @@ public class Logic {
         write.addItemArray("itemInventoryNumber", getItemInventoryNumber());
         write.addItemArray("itemType", getItemType());
         write.addItemArrayListArray("gasPumpAssignedTanks", "gasPump", getGasPumpAssignedTanks());
-        write.addItemArray("storageUnitLabel", getStorageUnitLabel());
-        write.addItemArray("storageUnitX", getStorageUnitX());
-        write.addItemArray("storageUnitY", getStorageUnitY());
         write.addItemArray("fuelType", getInvNumberFuel());
         write.addItemArray("fuelPrice", getPriceFuel());
         write.addItemArray("fuelCurrency", getCurrencyFuel());
@@ -653,7 +598,6 @@ public class Logic {
         write.addItemArray("goodPrice", getPriceGood());
         write.addItemArray("goodCurrency", getCurrencyGood());
         write.addItemArray("goodAmount", getAmountGood());
-        write.addItemArray("goodStorageUnit", getStorageUnitGood());
         write.addItemArray("goodUnit", getUnit());
         write.write(true);
     }
@@ -769,44 +713,6 @@ public class Logic {
     }
 
     /**
-     * Gibt den Namen aller Lager zurück
-     * @return
-     * @author Robin Herder
-     */
-    private String[] getStorageUnitLabel() {
-        String[] label = new String[storageUnits.size()];
-        for(int i = 0; i < label.length; i++) {
-            label[i] = storageUnits.get(i).getLabel();
-        }
-        return label;
-    }
-
-    /**
-     *
-     * @return
-     * @author Robin Herder
-     */
-    private String[] getStorageUnitX() {
-        String[] x = new String[storageUnits.size()];
-        for(int i = 0; i < x.length; i++) {
-            x[i] = String.valueOf(storageUnits.get(i).getX());
-        }
-        return x;
-    }
-
-    /**
-     * @return
-     * @author Robin Herder
-     */
-    private String[] getStorageUnitY() {
-        String[] y = new String[storageUnits.size()];
-        for(int i = 0; i < y.length; i++) {
-            y[i] = String.valueOf(storageUnits.get(i).getY());
-        }
-        return y;
-    }
-
-    /**
      * Gibt die Inventarnummer aller Kraftstoffe zurück
      * @return invNum[]
      * @author Robin Herder
@@ -911,19 +817,6 @@ public class Logic {
     }
 
     /**
-     *
-     * @return storage[]
-     * @author Robin Herder
-     */
-    private String[] getStorageUnitGood() {
-        String[] storage = new String[goods.size()];
-        for(int i = 0; i < storage.length; i++) {
-            storage[i] = goods.get(i).getStorage().getLabel() + " (" + goods.get(i).getStorage().getX() + "|" + goods.get(i).getStorage().getY() + ")";
-        }
-        return storage;
-    }
-
-    /**
      * @return unit[]
      */
     private String[] getUnit() {
@@ -970,19 +863,6 @@ public class Logic {
         return tanks;
     }
 
-    /**
-     *
-     * @return storage[]
-     * @author Robin Herder
-     */
-    public ArrayList<String> getStorageUnit() {
-        ArrayList<String> storage = new ArrayList<>();
-        for(StorageUnit storageUnit : storageUnits) {
-            storage.add(storageUnit.getLabel() + " (" + storageUnit.getX() + "|" + storageUnit.getY() + ")");
-        }
-        return storage;
-    }
-
     //===[GET ROWS FOR INPUT DIALOGS]==================================================
 
     /**
@@ -998,7 +878,7 @@ public class Logic {
 
     //===[GET ROWS FOR INPUT DIALOGS]==================================================
 
-    public void importFuelDelivery(String path) {
+    public void importFuelDelivery(String path, boolean newDelivery) {
         ReadListFile read = new ReadListFile(path);
         String filename = FilenameUtils.removeExtension(new File(path).getName());
         String[][] lines = read.getLINES();
@@ -1022,9 +902,16 @@ public class Logic {
                 }
             }
             fuel.add(new Fuel(types.get(idxItemType), price.get(i), "EUR", amount.get(i)));
-            documents.add(new FuelDocument(DocumentType.fuelDelivery, filename, read.getDate(), fuels));
         }
-        windowController.addRowTFuelsFuelDelivery((FuelDocument) documents.get(documents.size() - 1));
+        documents.add(new FuelDocument(DocumentType.fuelDelivery, filename, read.getDate(), fuels));
+        windowController.addRowTFuelsFuelDelivery((ArrayList<FuelDocument>) Utility.getDocument(documents, DocumentType.fuelDelivery));
+        if(newDelivery) {
+            addDeliveredFuels(((FuelDocument) documents.get(documents.size() - 1)).getFuels());
+        }
+    }
+
+    public void addDeliveredFuels(ArrayList<Fuel> deliveredFuels) {
+
     }
 
     public void importGoodDelivery(String path, boolean newDelivery) {
@@ -1045,16 +932,21 @@ public class Logic {
             price.add(Float.parseFloat(lines[i][4]));
         }
         for(int i = 0; i < lines.length; i++) {
-            int idxItemType = 0;
+            int idxItemType = -1;
             for (int ii = 0; ii < types.size(); ii++) {
                 if (types.get(ii).getINVENTORY_NUMBER() == invNumber.get(i)) {
                     idxItemType = ii;
                 }
             }
-            good.add(new Good(types.get(idxItemType), price.get(i), "EUR", new StorageUnit("Neu", -1, -1), amount.get(i), unit.get(i)));
-            documents.add(new GoodDocument(DocumentType.goodDelivery, filename, read.getDate(), good));
+            if(idxItemType == -1) {
+                types.add(new ItemType(label.get(i), invNumber.get(i), InventoryType.Good));
+                windowController.addRowTGoodsSettingsGood(types);
+                idxItemType = types.size() - 1;
+            }
+            good.add(new Good(types.get(idxItemType), price.get(i), "EUR", amount.get(i), unit.get(i)));
         }
-        windowController.addRowTGoodsInventoryDelivery((GoodDocument) documents.get(documents.size() - 1));
+        documents.add(new GoodDocument(DocumentType.goodDelivery, filename, read.getDate(), good));
+        windowController.addRowTGoodsInventoryDelivery((ArrayList<GoodDocument>) Utility.getDocument(documents, DocumentType.goodDelivery));
         if(newDelivery) {
             addDeliveredGoods(((GoodDocument) documents.get(documents.size() - 1)).getGoods());
         }
@@ -1062,30 +954,31 @@ public class Logic {
     }
 
     private void addDeliveredGoods(ArrayList<Good> deliveredGoods) {
-        for(Good deliveredGood : deliveredGoods) {
-            boolean existsNot = true;
-            for(Good storedGood : goods){
-                if(deliveredGood.getINVENTORY_NUMBER() == storedGood.getINVENTORY_NUMBER() && deliveredGood.getUNIT() == storedGood.getUNIT()) {
-                    existsNot = !existsNot;
-                    storedGood.addAmount(deliveredGood.getAmount());
-                }
-            }
-            if(existsNot) {
-                boolean typeExistsNot = true;
-                for(int i = 0; i < goods.size(); i++) {
-                    if(deliveredGood.getINVENTORY_NUMBER() == goods.get(i).getINVENTORY_NUMBER()) {
-                        typeExistsNot = !typeExistsNot;
-                        goods.add(new Good(goods.get(i).getTYPE(), deliveredGood.getPrice(), deliveredGood.getCurrency(), deliveredGood.getStorage(), deliveredGood.getAmount(), deliveredGood.getUNIT()));
-                        windowController.addRowTGoodsInventoryOverview(goods);
-                    }
-                }
-                if(typeExistsNot) {
-                    types.add(new ItemType(deliveredGood.getLABEL(), deliveredGood.getINVENTORY_NUMBER(), InventoryType.Good));
-                    goods.add(new Good(types.get(types.size() - 1), deliveredGood.getPrice(), deliveredGood.getCurrency(), deliveredGood.getStorage(), deliveredGood.getAmount(), deliveredGood.getUNIT()));
-                    windowController.addRowTGoodsInventoryOverview(goods);
+        boolean[] added = new boolean[deliveredGoods.size()];
+        for(boolean addedEntry : added) {
+            addedEntry = false;
+        }
+        int max = goods.size();
+        for(int i = 0; i < max; i++) {
+            for(Good deliveredGood : deliveredGoods) {
+                if(goods.get(i).getINVENTORY_NUMBER() == deliveredGood.getINVENTORY_NUMBER()) {
+                    added[deliveredGoods.indexOf(deliveredGood)] = true;
+                    goods.get(i).addAmount(deliveredGood.getAmount());
                 }
             }
         }
+        for(int i = 0; i < added.length; i++) {
+            if(!added[i]) {
+                for(ItemType type : Utility.getInventoryType(types, InventoryType.Good)){
+                    if(type.getINVENTORY_NUMBER() == deliveredGoods.get(i).getINVENTORY_NUMBER()) {
+                        goods.add(new Good(type, deliveredGoods.get(i).getPrice(), deliveredGoods.get(i).getCurrency(), deliveredGoods.get(i).getAmount(), deliveredGoods.get(i).getUNIT()));
+                        break;
+                    }
+                }
+            }
+        }
+        Collections.sort(goods, Comparator.comparingInt(good -> good.getINVENTORY_NUMBER()));
+        windowController.addRowTGoodsInventoryOverview(goods);
     }
 
     /**

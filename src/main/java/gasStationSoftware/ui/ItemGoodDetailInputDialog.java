@@ -39,10 +39,8 @@ extends Dialog {
         JFXTextField txtCurrency = getTextfield(200, 30, true, 210d, 5d, 5d);
         txtCurrency.setText("EUR");
 
-        JFXComboBox cbStorage = getComboBox(windowController.getStorageUnit(), "Wähle Lagereinheit", 280, 30, 260d, 5d, 5d);
-
-        AnchorPane pane = getAnchorPane(300, 330);
-        pane.getChildren().addAll(txtItem, txtAmount, txtUnit, txtPrice, txtCurrency, cbStorage);
+        AnchorPane pane = getAnchorPane(300, 280);
+        pane.getChildren().addAll(txtItem, txtAmount, txtUnit, txtPrice, txtCurrency);
         inputDialog(rootPane, pane, "Produkt " + iType.getLABEL() + " einbuchen");
     }
 
