@@ -911,7 +911,30 @@ public class Logic {
     }
 
     public void addDeliveredFuels(ArrayList<Fuel> deliveredFuels) {
-
+        boolean[] exists = new boolean[deliveredFuels.size()];
+        for(boolean entry : exists) {
+            entry = false;
+        }
+        int max = fuels.size();
+        for(int i = 0; i < max; i++) {
+            for(Fuel fuel : deliveredFuels) {
+                if(fuel.getINVENTORY_NUMBER() == fuels.get(i).getINVENTORY_NUMBER()) {
+                    exists[deliveredFuels.indexOf(fuel)] = true;
+                    try {
+                        fuels.get(i).addAmount(fuel.getAmount());
+                    } catch(Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+        for(int i = 0; i < exists.length; i++) {
+            if(!exists[i]) {
+                displayError("Kraftstoff existiert nicht!", new Exception("Kraftstoff " + deliveredFuels.get(i) + " exsistiert nicht! Erstelle ihn im Einstellungs bereich!"), false);
+            }
+        }
+        Collections.sort(fuels, Comparator.comparingInt(fuel -> fuel.getINVENTORY_NUMBER()));
+        windowController.addRowTFuelsFuelOverview(fuels);
     }
 
     public void importGoodDelivery(String path, boolean newDelivery) {
