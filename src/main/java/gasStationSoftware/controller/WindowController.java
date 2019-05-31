@@ -65,7 +65,7 @@ implements Initializable {
     @FXML private AnchorPane sellingPane, sellingOverviewPane;
     @FXML private Polygon polygonSales;
     @FXML private Label titleSalesOverview, lblOrderSumSalesOverview, lblTotalSalesOverview, lblTotalCurrencySalesOverview;
-    @FXML private JFXButton btnCheckOutSalesOverview, btnGoodsSalesOverview, btnGasPumpsSalesOverview;
+    @FXML private JFXButton btnCheckOutSalesOverview, btnGoodsSalesOverview, btnGasPumpsSalesOverview, btnAddAmountSalesOverview, btnRemoveAmountSalesOverview, btnDeleteSalesOverview;
     @FXML private MaterialDesignIconView icoCheckOutSalesOverview, icoGoodsSalesOverview, icoGasPumpsSalesOverview;
     @FXML private TableView tCheckoutSellingOverview;
 
@@ -184,7 +184,21 @@ implements Initializable {
      * @param event
      * @author Robin Herder
      */
-    @FXML private void handleSaleAction(MouseEvent event) {}
+    @FXML private void handleSaleAction(MouseEvent event) {
+        if (event.getTarget() == btnGoodsSalesOverview) {
+
+        } else if(event.getTarget() == btnGasPumpsSalesOverview) {
+
+        } else if(event.getTarget() == btnCheckOutSalesOverview) {
+
+        } else if (event.getTarget() == btnAddAmountSalesOverview) {
+
+        } else if (event.getTarget() == btnRemoveAmountSalesOverview) {
+
+        } else if (event.getTarget() == btnDeleteSalesOverview) {
+
+        }
+    }
 
     /**
      *
