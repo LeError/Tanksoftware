@@ -903,7 +903,6 @@ public class Logic {
             }
             fuel.add(new DeliveredFuel(types.get(idxItemType), price.get(i), "EUR", amount.get(i)));
         }
-        System.out.println("ArrayList: " + fuel.size());
         documents.add(new FuelDocument(DocumentType.fuelDelivery, filename, read.getDate(), fuel));
         windowController.addRowTFuelsFuelDelivery((ArrayList<FuelDocument>) Utility.getDocument(documents, DocumentType.fuelDelivery));
         if(newDelivery) {
