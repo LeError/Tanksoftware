@@ -854,6 +854,10 @@ public class Logic {
         return types;
     }
 
+    public ArrayList<Good> getGoods() {
+        return goods;
+    }
+
     /**
      * Gibt alle Tanks zurpck
      * @return
