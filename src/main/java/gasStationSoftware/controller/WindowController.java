@@ -6,10 +6,7 @@ import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import gasStationSoftware.models.*;
-import gasStationSoftware.ui.FuelTankInputDialog;
-import gasStationSoftware.ui.GasPumpInputDialog;
-import gasStationSoftware.ui.ItemInputDialog;
-import gasStationSoftware.ui.ItemTypeInputDialog;
+import gasStationSoftware.ui.*;
 import gasStationSoftware.util.Dialog;
 import gasStationSoftware.util.Utility;
 import javafx.collections.FXCollections;
@@ -186,7 +183,7 @@ implements Initializable {
      */
     @FXML private void handleSaleAction(MouseEvent event) {
         if (event.getTarget() == btnGoodsSalesOverview) {
-
+            new GoodsDialog(rootPane, this);
         } else if(event.getTarget() == btnGasPumpsSalesOverview) {
 
         } else if(event.getTarget() == btnCheckOutSalesOverview) {
@@ -731,6 +728,31 @@ implements Initializable {
         sortedItemType.comparatorProperty().bind(itemInputDialog.getTable().comparatorProperty());
 
         itemInputDialog.getTable().setItems(sortedItemType);
+    }
+
+    public void createGoodsData(GoodsDialog goodsDialog) {
+        ObservableList<Good> observableGoodsList = FXCollections.observableArrayList();
+        observableGoodsList.addAll(logic.getGoods());
+        FilteredList<Good> filteredGoods = new FilteredList<>(observableGoodsList, o -> true);
+
+        goodsDialog.getTxtSearch().textProperty().addListener((observable, oldSearchValue, searchValue) ->
+            filteredGoods.setPredicate(Good -> {
+                if (searchValue == null || searchValue.isEmpty()) {
+                    return true;
+                }
+                String lowerCaseFilter = searchValue.toLowerCase();
+                if (Good.getLABEL().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (String.valueOf(Good.getINVENTORY_NUMBER()).toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                }
+                return false;
+            }));
+
+        SortedList<Good> goodSortedList = new SortedList<>(filteredGoods);
+        goodSortedList.comparatorProperty().bind(goodsDialog.getTable().comparatorProperty());
+
+        goodsDialog.getTable().setItems(goodSortedList);
     }
 
     //===[GETTER]==================================================
