@@ -142,7 +142,7 @@
                                         <Font name="System Bold" size="30.0" />
                                     </font>
                                 </Label>
-                                <TableView fx:id="tFuel" layoutX="65.0" layoutY="90.0" prefHeight="400.0" prefWidth="490.0" />
+                                <TableView fx:id="tCheckoutSellingOverview" layoutX="65.0" layoutY="90.0" prefHeight="400.0" prefWidth="490.0" />
                                 <Label fx:id="lblOrderSumSalesOverview" layoutX="65.0" layoutY="520.0" text="Gesamtsumme:" textFill="#212121">
                                     <font>
                                         <Font name="System Bold" size="20.0" />
@@ -185,19 +185,19 @@
                                         <MaterialDesignIconView fx:id="icoGasPumpsSalesOverview" fill="WHITE" glyphName="CART_PLUS" size="30" />
                                     </graphic>
                                 </JFXButton>
-                        <JFXButton buttonType="RAISED" layoutX="580.0" layoutY="90.0" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #607D8B;" textFill="WHITE">
+                        <JFXButton fx:id="btnAddAmountSalesOverview" buttonType="RAISED" layoutX="580.0" layoutY="90.0" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #607D8B;" textFill="WHITE">
                            <graphic>
-                              <MaterialDesignIconView fill="WHITE" glyphName="PLUS" size="30" />
+                              <MaterialDesignIconView fx:id="icoAddAmountSalesOverview" fill="WHITE" glyphName="PLUS" size="30" />
                            </graphic>
                         </JFXButton>
-                        <JFXButton buttonType="RAISED" layoutX="760.0" layoutY="90.0" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #607D8B;" textFill="WHITE">
+                        <JFXButton fx:id="btnRemoveAmountSalesOverview" buttonType="RAISED" layoutX="670.0" layoutY="90.0" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #607D8B;" textFill="WHITE">
                            <graphic>
-                              <MaterialDesignIconView fill="WHITE" glyphName="DELETE" size="30" />
+                              <MaterialDesignIconView fx:id="icoRemoveAmountSalesOverview" fill="WHITE" glyphName="MINUS" size="30" />
                            </graphic>
                         </JFXButton>
-                        <JFXButton buttonType="RAISED" layoutX="670.0" layoutY="90.0" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #607D8B;" textFill="WHITE">
+                        <JFXButton fx:id="btnDeleteSalesOverview" buttonType="RAISED" layoutX="760.0" layoutY="90.0" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #607D8B;" textFill="WHITE">
                            <graphic>
-                              <MaterialDesignIconView fill="WHITE" glyphName="MINUS" size="30" />
+                              <MaterialDesignIconView fx:id="icoDeleteSalesOverview" fill="WHITE" glyphName="DELETE" size="30" />
                            </graphic>
                         </JFXButton>
                             </children>
@@ -645,7 +645,7 @@
         </ArrayList>
         <ArrayList fx:id="allTableViews">
             <fx:reference source="tEmployeesEmployeeOverview" />
-            <fx:reference source="tFuel" />
+            <fx:reference source="tCheckoutSellingOverview" />
             <fx:reference source="tFuelsFuelDeliveries" />
             <fx:reference source="tFuelsFuelOrder" />
             <fx:reference source="tFuelsFuelOverview" />
@@ -705,6 +705,9 @@
             <fx:reference source="icoOrderInventoryOverview" />
             <fx:reference source="icoOrdersFuelOverview" />
             <fx:reference source="icoTanksSettingsOverview" />
+            <fx:reference source="icoAddAmountSalesOverview" />
+            <fx:reference source="icoRemoveAmountSalesOverview" />
+            <fx:reference source="icoDeleteSalesOverview" />
         </ArrayList>
         <ArrayList fx:id="allButtons">
             <fx:reference source="btnAddFuelOverview" />
@@ -744,6 +747,9 @@
             <fx:reference source="btnSubmitFuelOrder" />
             <fx:reference source="btnSubmitInventoryOrder" />
             <fx:reference source="btnTanksSettingsOverview" />
+            <fx:reference source="btnAddAmountSalesOverview" />
+            <fx:reference source="btnRemoveAmountSalesOverview" />
+            <fx:reference source="btnDeleteSalesOverview" />
         </ArrayList>
         <ArrayList fx:id="allCb">
             <fx:reference source="cbThemeSettingsOverview" />
