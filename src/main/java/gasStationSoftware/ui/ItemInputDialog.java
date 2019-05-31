@@ -34,7 +34,7 @@ public class ItemInputDialog extends Dialog {
         txtSearch.setPromptText("Suche");
 
         TableColumn columnInvNumber = getColumn("INV #", "INVENTORY_NUMBER", 90d, false);
-        TableColumn columnLabel = getColumn("Kraftstoff", "LABEL", 198d, false);
+        TableColumn columnLabel = getColumn("Produkt", "LABEL", 198d, false);
 
         tItemList = getTable(290, 180, 55d, 5d);
         tItemList.getColumns().addAll(columnInvNumber,columnLabel);
