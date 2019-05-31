@@ -935,6 +935,7 @@ public class Logic {
         }
         Collections.sort(fuels, Comparator.comparingInt(fuel -> fuel.getINVENTORY_NUMBER()));
         windowController.addRowTFuelsFuelOverview(fuels);
+        saveInventory();
     }
 
     public void importGoodDelivery(String path, boolean newDelivery) {
@@ -1002,6 +1003,7 @@ public class Logic {
         }
         Collections.sort(goods, Comparator.comparingInt(good -> good.getINVENTORY_NUMBER()));
         windowController.addRowTGoodsInventoryOverview(goods);
+        saveInventory();
     }
 
     /**
