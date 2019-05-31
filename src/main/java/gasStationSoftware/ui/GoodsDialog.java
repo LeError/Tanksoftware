@@ -14,7 +14,7 @@ public class GoodsDialog extends Dialog {
     private TableView tItemList;
     private StackPane rootPane;
 
-    protected GoodsDialog(StackPane rootPane, WindowController windowController) {
+    public GoodsDialog(StackPane rootPane, WindowController windowController) {
         super(windowController);
         this.rootPane = rootPane;
 
@@ -27,7 +27,7 @@ public class GoodsDialog extends Dialog {
         tItemList = getTable(290, 180, 55d, 5d);
         tItemList.getColumns().addAll(columnInvNumber,columnLabel);
 
-
+        windowController.createGoodsData(this);
 
         AnchorPane pane = getAnchorPane(300, 240);
         pane.getChildren().addAll(txtSearch, tItemList);
@@ -37,6 +37,14 @@ public class GoodsDialog extends Dialog {
     @Override
     protected void processSubmit(AnchorPane pane) {
 
+    }
+
+    public JFXTextField getTxtSearch() {
+        return txtSearch;
+    }
+
+    public TableView getTable() {
+        return tItemList;
     }
 
 }
