@@ -67,7 +67,7 @@ implements Initializable {
     @FXML private Label titleSalesOverview, lblOrderSumSalesOverview, lblTotalSalesOverview, lblTotalCurrencySalesOverview;
     @FXML private JFXButton btnCheckOutSalesOverview, btnGoodsSalesOverview, btnGasPumpsSalesOverview;
     @FXML private MaterialDesignIconView icoCheckOutSalesOverview, icoGoodsSalesOverview, icoGasPumpsSalesOverview;
-    @FXML private TableView tFuel;
+    @FXML private TableView tCheckoutSellingOverview;
 
     @FXML private AnchorPane inventoryPane, inventoryOverviewPane, inventoryOrderPane, inventoryDeliveryPane;
     @FXML private Polygon polygonInventory;
@@ -135,6 +135,7 @@ implements Initializable {
         addColumnsTGoodsInventoryOverview();
         addColumnsTFuelsFuelDelivery();
         addColumnsTGoodsInventoryDelivery();
+        addColumnsTCheckoutSellingOverview();
         setDefaultContent();
     }
 
@@ -396,6 +397,15 @@ implements Initializable {
         TableColumn columnGoodDeliveryName = Dialog.getColumn("Lieferung", "NAME", 200, true);
         TableColumn columnGoodDeliveryDate = Dialog.getColumn("Datum", "DATE", 200, true);
         tGoodsInventoryDelivery.getColumns().addAll(columnGoodDeliveryName, columnGoodDeliveryDate);
+    }
+
+    private void addColumnsTCheckoutSellingOverview() {
+        TableColumn columnCheckoutInvNumber = Dialog.getColumn("INV #","INVENTORY_NUMBER", 100, true);
+        TableColumn columnCheckoutLabel = Dialog.getColumn("Bezeichnung","LABEL", 100, true);
+        TableColumn columnCheckoutType = Dialog.getColumn("Type","INVENTORY_TYPE", 100, true);
+        TableColumn columnCheckoutPrice = Dialog.getColumn("Preis","price", 100, true);
+        TableColumn columnCheckoutAmount = Dialog.getColumn("Anz","checkoutAmount", 100, true);
+        tCheckoutSellingOverview.getColumns().addAll(columnCheckoutInvNumber, columnCheckoutLabel, columnCheckoutType, columnCheckoutPrice, columnCheckoutAmount);
     }
 
     /**
