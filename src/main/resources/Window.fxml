@@ -158,7 +158,7 @@
                                         <Font size="20.0" />
                                     </font>
                                 </Label>
-                                <JFXButton fx:id="btnCheckOutSalesOverview" buttonType="RAISED" layoutX="580.0" layoutY="430.0" prefHeight="130.0" prefWidth="260.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Bezahlen" textFill="WHITE">
+                                <JFXButton fx:id="btnCheckOutSalesOverview" buttonType="RAISED" layoutX="580.0" layoutY="430.0" onMousePressed="#handleSaleAction" prefHeight="130.0" prefWidth="260.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Bezahlen" textFill="WHITE">
                                     <font>
                                         <Font name="System Bold" size="20.0" />
                                     </font>
@@ -169,7 +169,7 @@
                                         <MaterialDesignIconView fx:id="icoCheckOutSalesOverview" fill="WHITE" glyphName="CASH_MULTIPLE" size="30" smooth="false" />
                                     </graphic>
                                 </JFXButton>
-                                <JFXButton fx:id="btnGoodsSalesOverview" buttonType="RAISED" layoutX="580.0" layoutY="310.0" prefHeight="100.0" prefWidth="260.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Waren" textFill="WHITE">
+                                <JFXButton fx:id="btnGoodsSalesOverview" buttonType="RAISED" layoutX="580.0" layoutY="310.0" onMousePressed="#handleSaleAction" prefHeight="100.0" prefWidth="260.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Waren" textFill="WHITE">
                                     <font>
                                         <Font name="System Bold" size="20.0" />
                                     </font>
@@ -177,7 +177,7 @@
                                         <MaterialDesignIconView fx:id="icoGoodsSalesOverview" fill="WHITE" glyphName="CART_PLUS" size="30" />
                                     </graphic>
                                 </JFXButton>
-                                <JFXButton fx:id="btnGasPumpsSalesOverview" buttonType="RAISED" layoutX="580.0" layoutY="190.0" prefHeight="100.0" prefWidth="260.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Säulen" textFill="WHITE">
+                                <JFXButton fx:id="btnGasPumpsSalesOverview" buttonType="RAISED" layoutX="580.0" layoutY="190.0" onMousePressed="#handleSaleAction" prefHeight="100.0" prefWidth="260.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Säulen" textFill="WHITE">
                                     <font>
                                         <Font name="System Bold" size="20.0" />
                                     </font>
@@ -185,17 +185,17 @@
                                         <MaterialDesignIconView fx:id="icoGasPumpsSalesOverview" fill="WHITE" glyphName="CART_PLUS" size="30" />
                                     </graphic>
                                 </JFXButton>
-                        <JFXButton fx:id="btnAddAmountSalesOverview" buttonType="RAISED" layoutX="580.0" layoutY="90.0" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #607D8B;" textFill="WHITE">
+                        <JFXButton fx:id="btnAddAmountSalesOverview" buttonType="RAISED" layoutX="580.0" layoutY="90.0" onMousePressed="#handleSaleAction" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #607D8B;" textFill="WHITE">
                            <graphic>
                               <MaterialDesignIconView fx:id="icoAddAmountSalesOverview" fill="WHITE" glyphName="PLUS" size="30" />
                            </graphic>
                         </JFXButton>
-                        <JFXButton fx:id="btnRemoveAmountSalesOverview" buttonType="RAISED" layoutX="670.0" layoutY="90.0" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #607D8B;" textFill="WHITE">
+                        <JFXButton fx:id="btnRemoveAmountSalesOverview" buttonType="RAISED" layoutX="670.0" layoutY="90.0" onMousePressed="#handleSaleAction" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #607D8B;" textFill="WHITE">
                            <graphic>
                               <MaterialDesignIconView fx:id="icoRemoveAmountSalesOverview" fill="WHITE" glyphName="MINUS" size="30" />
                            </graphic>
                         </JFXButton>
-                        <JFXButton fx:id="btnDeleteSalesOverview" buttonType="RAISED" layoutX="760.0" layoutY="90.0" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #607D8B;" textFill="WHITE">
+                        <JFXButton fx:id="btnDeleteSalesOverview" buttonType="RAISED" layoutX="760.0" layoutY="90.0" onMousePressed="#handleSaleAction" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #607D8B;" textFill="WHITE">
                            <graphic>
                               <MaterialDesignIconView fx:id="icoDeleteSalesOverview" fill="WHITE" glyphName="DELETE" size="30" />
                            </graphic>
