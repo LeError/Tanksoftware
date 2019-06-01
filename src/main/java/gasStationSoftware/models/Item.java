@@ -5,6 +5,7 @@ public abstract class Item {
     protected final ItemType TYPE;
     private String currency;
     private float price;
+    private float checkoutAmount = 0;
 
     /**
      * Constructor Item
@@ -80,5 +81,17 @@ public abstract class Item {
      */
     public String getINVENTORY_TYPE() {
         return TYPE.getTYPE_LABEL();
+    }
+
+    public void setCheckoutAmount(float amount) {
+        checkoutAmount = amount;
+    }
+
+    public void addCheckoutAmount(float amount) {
+        checkoutAmount += amount;
+    }
+
+    public float getCheckoutAmount() {
+        return checkoutAmount;
     }
 }

@@ -6,10 +6,7 @@ import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import gasStationSoftware.models.*;
-import gasStationSoftware.ui.FuelTankInputDialog;
-import gasStationSoftware.ui.GasPumpInputDialog;
-import gasStationSoftware.ui.ItemInputDialog;
-import gasStationSoftware.ui.ItemTypeInputDialog;
+import gasStationSoftware.ui.*;
 import gasStationSoftware.util.Dialog;
 import gasStationSoftware.util.Utility;
 import javafx.collections.FXCollections;
@@ -65,9 +62,9 @@ implements Initializable {
     @FXML private AnchorPane sellingPane, sellingOverviewPane;
     @FXML private Polygon polygonSales;
     @FXML private Label titleSalesOverview, lblOrderSumSalesOverview, lblTotalSalesOverview, lblTotalCurrencySalesOverview;
-    @FXML private JFXButton btnCheckOutSalesOverview, btnGoodsSalesOverview, btnGasPumpsSalesOverview;
+    @FXML private JFXButton btnCheckOutSalesOverview, btnGoodsSalesOverview, btnGasPumpsSalesOverview, btnAddAmountSalesOverview, btnRemoveAmountSalesOverview, btnDeleteSalesOverview;
     @FXML private MaterialDesignIconView icoCheckOutSalesOverview, icoGoodsSalesOverview, icoGasPumpsSalesOverview;
-    @FXML private TableView tFuel;
+    @FXML private TableView tCheckoutSellingOverview;
 
     @FXML private AnchorPane inventoryPane, inventoryOverviewPane, inventoryOrderPane, inventoryDeliveryPane;
     @FXML private Polygon polygonInventory;
@@ -135,6 +132,7 @@ implements Initializable {
         addColumnsTGoodsInventoryOverview();
         addColumnsTFuelsFuelDelivery();
         addColumnsTGoodsInventoryDelivery();
+        addColumnsTCheckoutSellingOverview();
         setDefaultContent();
     }
 
@@ -183,7 +181,21 @@ implements Initializable {
      * @param event
      * @author Robin Herder
      */
-    @FXML private void handleSaleAction(MouseEvent event) {}
+    @FXML private void handleSaleAction(MouseEvent event) {
+        if (event.getTarget() == btnGoodsSalesOverview) {
+            new GoodsDialog(rootPane, this);
+        } else if(event.getTarget() == btnGasPumpsSalesOverview) {
+
+        } else if(event.getTarget() == btnCheckOutSalesOverview) {
+            createReceipt();
+        } else if (event.getTarget() == btnAddAmountSalesOverview) {
+            incAmount();
+        } else if (event.getTarget() == btnRemoveAmountSalesOverview) {
+            decAmount();
+        } else if (event.getTarget() == btnDeleteSalesOverview) {
+            removeElement();
+        }
+    }
 
     /**
      *
@@ -396,6 +408,15 @@ implements Initializable {
         TableColumn columnGoodDeliveryName = Dialog.getColumn("Lieferung", "NAME", 200, true);
         TableColumn columnGoodDeliveryDate = Dialog.getColumn("Datum", "DATE", 200, true);
         tGoodsInventoryDelivery.getColumns().addAll(columnGoodDeliveryName, columnGoodDeliveryDate);
+    }
+
+    private void addColumnsTCheckoutSellingOverview() {
+        TableColumn columnCheckoutInvNumber = Dialog.getColumn("INV #","INVENTORY_NUMBER", 100, true);
+        TableColumn columnCheckoutLabel = Dialog.getColumn("Bezeichnung","LABEL", 100, true);
+        TableColumn columnCheckoutType = Dialog.getColumn("Type","INVENTORY_TYPE", 100, true);
+        TableColumn columnCheckoutPrice = Dialog.getColumn("Preis","price", 100, true);
+        TableColumn columnCheckoutAmount = Dialog.getColumn("Anz","checkoutAmount", 100, true);
+        tCheckoutSellingOverview.getColumns().addAll(columnCheckoutInvNumber, columnCheckoutLabel, columnCheckoutType, columnCheckoutPrice, columnCheckoutAmount);
     }
 
     /**
@@ -676,6 +697,76 @@ implements Initializable {
         logic.addGood(iType, amount, price, currency, unit);
     }
 
+    public void processGoodCheckout(AnchorPane pane) {
+        Item item = (Item) ((TableView) pane.getChildren().get(1)).getSelectionModel().getSelectedItem();
+        item.setCheckoutAmount(1);
+        if(!tCheckoutSellingOverview.getItems().contains(item)) {
+            tCheckoutSellingOverview.getItems().add(item);
+        }
+        updateCheckoutPrice();
+    }
+
+    //===[CHECKOUT SPECIFIC]==================================================
+
+    private void updateCheckoutPrice() {
+        float total = 0;
+        for(Item item : (ObservableList<Item>) tCheckoutSellingOverview.getItems()) {
+            total += item.getPrice() * item.getCheckoutAmount();
+        }
+        lblTotalSalesOverview.setText(String.valueOf(Utility.round(total, 2)));
+    }
+
+    private void incAmount() {
+        if(tCheckoutSellingOverview.getSelectionModel().getSelectedItem() != null) {
+            ArrayList<Item> items = new ArrayList<>();
+            items.addAll(tCheckoutSellingOverview.getItems());
+            Item item = (Item) tCheckoutSellingOverview.getSelectionModel().getSelectedItem();
+            tCheckoutSellingOverview.getItems().clear();
+            items.get(items.indexOf(item)).addCheckoutAmount(1);
+            tCheckoutSellingOverview.getItems().addAll(items);
+            tCheckoutSellingOverview.getSelectionModel().select(item);
+            updateCheckoutPrice();
+        }
+    }
+
+    private void decAmount() {
+        if(tCheckoutSellingOverview.getSelectionModel().getSelectedItem() != null) {
+            ArrayList<Item> items = new ArrayList<>();
+            items.addAll(tCheckoutSellingOverview.getItems());
+            Item item = (Item) tCheckoutSellingOverview.getSelectionModel().getSelectedItem();
+            tCheckoutSellingOverview.getItems().clear();
+            if(items.get(items.indexOf(item)).getCheckoutAmount() > 1) {
+                items.get(items.indexOf(item)).addCheckoutAmount(- 1);
+            } else {
+                items.remove(item);
+            }
+            tCheckoutSellingOverview.getItems().addAll(items);
+            tCheckoutSellingOverview.getSelectionModel().select(item);
+            updateCheckoutPrice();
+        }
+    }
+
+    private void removeElement() {
+        if(tCheckoutSellingOverview.getSelectionModel().getSelectedItem() != null) {
+            ArrayList<Item> items = new ArrayList<>();
+            items.addAll(tCheckoutSellingOverview.getItems());
+            Item item = (Item) tCheckoutSellingOverview.getSelectionModel().getSelectedItem();
+            tCheckoutSellingOverview.getItems().clear();
+            items.remove(item);
+            tCheckoutSellingOverview.getItems().addAll(items);
+            tCheckoutSellingOverview.getSelectionModel().select(item);
+            updateCheckoutPrice();
+        }
+    }
+
+    private void createReceipt(){
+        ArrayList<Item> items = new ArrayList<>();
+        items.addAll(tCheckoutSellingOverview.getItems());
+        tCheckoutSellingOverview.getItems().clear();
+        logic.addReceipt(items);
+        lblTotalSalesOverview.setText("0.00");
+    }
+
     //===[CREATE SEARCHABLE DATA]==================================================
 
     /**
@@ -707,6 +798,31 @@ implements Initializable {
         sortedItemType.comparatorProperty().bind(itemInputDialog.getTable().comparatorProperty());
 
         itemInputDialog.getTable().setItems(sortedItemType);
+    }
+
+    public void createGoodsData(GoodsDialog goodsDialog) {
+        ObservableList<Good> observableGoodsList = FXCollections.observableArrayList();
+        observableGoodsList.addAll(logic.getGoods());
+        FilteredList<Good> filteredGoods = new FilteredList<>(observableGoodsList, o -> true);
+
+        goodsDialog.getTxtSearch().textProperty().addListener((observable, oldSearchValue, searchValue) ->
+            filteredGoods.setPredicate(Good -> {
+                if (searchValue == null || searchValue.isEmpty()) {
+                    return true;
+                }
+                String lowerCaseFilter = searchValue.toLowerCase();
+                if (Good.getLABEL().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (String.valueOf(Good.getINVENTORY_NUMBER()).toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                }
+                return false;
+            }));
+
+        SortedList<Good> goodSortedList = new SortedList<>(filteredGoods);
+        goodSortedList.comparatorProperty().bind(goodsDialog.getTable().comparatorProperty());
+
+        goodsDialog.getTable().setItems(goodSortedList);
     }
 
     //===[GETTER]==================================================

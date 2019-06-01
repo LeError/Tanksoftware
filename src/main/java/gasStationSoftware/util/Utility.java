@@ -6,6 +6,7 @@ import gasStationSoftware.models.InventoryType;
 import gasStationSoftware.models.ItemType;
 
 import java.awt.*;
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -119,6 +120,12 @@ public class Utility {
             }
         }
         return result;
+    }
+
+    public static float round(float number, int decimals) {
+        BigDecimal bd = new BigDecimal(Float.toString(number));
+        bd = bd.setScale(decimals, BigDecimal.ROUND_HALF_UP);
+        return bd.floatValue();
     }
 
 }

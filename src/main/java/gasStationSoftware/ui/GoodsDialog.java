@@ -2,32 +2,20 @@ package gasStationSoftware.ui;
 
 import com.jfoenix.controls.JFXTextField;
 import gasStationSoftware.controller.WindowController;
-import gasStationSoftware.models.InventoryType;
-import gasStationSoftware.models.ItemType;
 import gasStationSoftware.util.Dialog;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 
-public class ItemInputDialog extends Dialog {
-
-    private InventoryType type;
+public class GoodsDialog extends Dialog {
 
     private JFXTextField txtSearch;
     private TableView tItemList;
     private StackPane rootPane;
 
-    /**
-     * Constructor ItemInputDialog
-     * @param rootPane
-     * @param windowController
-     * @param type
-     * @author Robin Herder
-     */
-    public ItemInputDialog(StackPane rootPane, WindowController windowController, InventoryType type) {
+    public GoodsDialog(StackPane rootPane, WindowController windowController) {
         super(windowController);
-        this.type = type;
         this.rootPane = rootPane;
 
         txtSearch = getTextfield(290, 30, false, 10, 5, 5);
@@ -39,30 +27,16 @@ public class ItemInputDialog extends Dialog {
         tItemList = getTable(290, 180, 55d, 5d);
         tItemList.getColumns().addAll(columnInvNumber,columnLabel);
 
-        windowController.createItemTypeData(this, type);
+        windowController.createGoodsData(this);
 
         AnchorPane pane = getAnchorPane(300, 240);
         pane.getChildren().addAll(txtSearch, tItemList);
-        if(type == InventoryType.Fuel) {
-            inputDialog(rootPane, pane, "Kraftstoff einbuchen");
-        } else if (type == InventoryType.Good) {
-            inputDialog(rootPane, pane, "Produkt einbuchen");
-        }
+        inputDialog(rootPane, pane, "Produkt Auswahl");
     }
 
-    /**
-     *
-     * @param pane
-     * ItemInputDialog
-     */
     @Override
     protected void processSubmit(AnchorPane pane) {
-        ItemType iType = (ItemType) ((TableView) pane.getChildren().get(1)).getSelectionModel().getSelectedItem();
-        if(type == InventoryType.Fuel) {
-            new ItemFuelDetailInputDialog(rootPane, windowController, iType);
-        } else if(type == InventoryType.Good) {
-            new ItemGoodDetailInputDialog(rootPane, windowController, iType);
-        }
+        windowController.processGoodCheckout(pane);
     }
 
     public JFXTextField getTxtSearch() {
@@ -72,4 +46,5 @@ public class ItemInputDialog extends Dialog {
     public TableView getTable() {
         return tItemList;
     }
+
 }
