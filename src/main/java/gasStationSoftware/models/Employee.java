@@ -82,4 +82,8 @@ public class Employee {
             return false;
         }
     }
+
+    public String getRole() {
+        return role.getRole();
+    }
 }
