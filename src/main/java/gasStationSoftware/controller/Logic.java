@@ -11,6 +11,7 @@ import gasStationSoftware.util.Utility;
 import gasStationSoftware.util.WriteFile;
 import gasStationSoftware.util.WriteJSON;
 import javafx.scene.control.TableView;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
@@ -45,7 +46,9 @@ public class Logic {
             "inventory.json",
             "settings.json",
             "themes\\default.json",
-            "employees.txt"
+            "employees.txt",
+            "themes\\dark.json",
+            "users.json"
     };
 
     private ArrayList<Employee> employees = new ArrayList<>();
@@ -56,6 +59,8 @@ public class Logic {
     private ArrayList<Good> goods = new ArrayList<>();
     private ArrayList<Document> documents = new ArrayList<>();
     private ArrayList<CustomerOrder> receipts = new ArrayList<>();
+
+    private Employee activeEmployee;
 
     //===[CONSTRUCTOR]==================================================
 
@@ -150,6 +155,12 @@ public class Logic {
                 case "themes\\default.json":
                     exportJSONResources("defaultTheme.json", "themes\\default.json");
                     break;
+                case "users.json":
+                    exportJSONResources("users.json", "users.json");
+                    break;
+                case "themes\\dark.json":
+                    exportJSONResources("darkTheme.json", "themes\\dark.json");
+                    break;
                 default:
                     throw new DataFileNotFoundException(file);
                 }
@@ -206,6 +217,8 @@ public class Logic {
             loadEmployees();
         } catch (ParseException e) {
             e.printStackTrace();
+        } catch (DataFileNotFoundException e) {
+            e.printStackTrace();
         }
         try {
             loadInventory();
@@ -243,12 +256,37 @@ public class Logic {
      * @throws ParseException
      * @author Robin Herder
      */
-    private void loadEmployees() throws ParseException {
+    private void loadEmployees() throws ParseException, DataFileNotFoundException {
         ReadTableFile read = new ReadTableFile(DATA_FILE_PATH + DATA_FILE_NAMES[3]);
         String[][] lines = read.getLINES();
+        ReadJSON readJSON = new ReadJSON(DATA_FILE_PATH + DATA_FILE_NAMES[5]);
+        String[] ids = readJSON.getItemStringArray("userID");
+        String[] passes = readJSON.getItemStringArray("userPass");
+        String[] roles = readJSON.getItemStringArray("userRole");
         for(int i = 0; i < lines.length; i++) {
+            int roleID = -1;
+            String pass = "";
+            for(int ii = 0; ii < ids.length; ii++) {
+                if(Integer.parseInt(lines[i][0]) == Integer.parseInt(ids[ii])){
+                    roleID = Integer.parseInt(roles[ii]);
+                    pass = passes[ii];
+                }
+            }
+            UserRole role = null;
+            switch(roleID) {
+                case 0:
+                    role = UserRole.admin;
+                    break;
+                case 1:
+                    role = UserRole.employee;
+                    break;
+                case 2:
+                    role = UserRole.assistant;
+                    break;
+                default: role = UserRole.assistant;
+            }
             Date date = new SimpleDateFormat("dd.MM.yyyy").parse(lines[i][3]);
-            employees.add(new Employee(Integer.parseInt(lines[i][0]), lines[i][1], lines[i][2], date));
+            employees.add(new Employee(Integer.parseInt(lines[i][0]), lines[i][1], lines[i][2], date, role, pass));
         }
         windowController.addRowTEmployeesEmployeeOverview(employees);
     }
@@ -889,6 +927,18 @@ public class Logic {
         return tanks;
     }
 
+    public String getEmployeeName() {
+        return activeEmployee.getFIRST_NAME() + " " + activeEmployee.getSUR_NAME();
+    }
+
+    public String getEmployeeRole() {
+        return activeEmployee.getRole();
+    }
+
+    public int getRoleID() {
+        return activeEmployee.getIRole();
+    }
+
     //===[GET ROWS FOR INPUT DIALOGS]==================================================
 
     /**
@@ -1075,5 +1125,16 @@ public class Logic {
         Path newPath = new File(DATA_SUB_PATHS[dir] + file + number + extension).toPath();
         Files.copy(new File(path).toPath(), newPath);
         return newPath.toString();
+    }
+
+    public boolean checkLogin(int id, String pass) {
+        String passHash = DigestUtils.sha256Hex(pass);
+        for(Employee employee : employees) {
+            if(employee.logIn(id, passHash)) {
+                activeEmployee = employee;
+                return true;
+            }
+        }
+        return false;
     }
 }
