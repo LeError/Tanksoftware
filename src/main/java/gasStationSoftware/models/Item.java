@@ -87,6 +87,10 @@ public abstract class Item {
         checkoutAmount = amount;
     }
 
+    public void addCheckoutAmount(float amount) {
+        checkoutAmount += amount;
+    }
+
     public float getCheckoutAmount() {
         return checkoutAmount;
     }
