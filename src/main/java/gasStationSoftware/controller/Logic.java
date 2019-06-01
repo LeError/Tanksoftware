@@ -11,6 +11,7 @@ import gasStationSoftware.util.Utility;
 import gasStationSoftware.util.WriteFile;
 import gasStationSoftware.util.WriteJSON;
 import javafx.scene.control.TableView;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
@@ -58,6 +59,8 @@ public class Logic {
     private ArrayList<Good> goods = new ArrayList<>();
     private ArrayList<Document> documents = new ArrayList<>();
     private ArrayList<CustomerOrder> receipts = new ArrayList<>();
+
+    private Employee activeEmployee;
 
     //===[CONSTRUCTOR]==================================================
 
@@ -924,6 +927,18 @@ public class Logic {
         return tanks;
     }
 
+    public String getEmployeeName() {
+        return activeEmployee.getFIRST_NAME() + " " + activeEmployee.getSUR_NAME();
+    }
+
+    public String getEmployeeRole() {
+        return activeEmployee.getRole();
+    }
+
+    public int getRoleID() {
+        return activeEmployee.getIRole();
+    }
+
     //===[GET ROWS FOR INPUT DIALOGS]==================================================
 
     /**
@@ -1110,5 +1125,16 @@ public class Logic {
         Path newPath = new File(DATA_SUB_PATHS[dir] + file + number + extension).toPath();
         Files.copy(new File(path).toPath(), newPath);
         return newPath.toString();
+    }
+
+    public boolean checkLogin(int id, String pass) {
+        String passHash = DigestUtils.sha256Hex(pass);
+        for(Employee employee : employees) {
+            if(employee.logIn(id, passHash)) {
+                activeEmployee = employee;
+                return true;
+            }
+        }
+        return false;
     }
 }
