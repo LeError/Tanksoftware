@@ -55,6 +55,7 @@ public class Logic {
     private ArrayList<Fuel> fuels = new ArrayList<>();
     private ArrayList<Good> goods = new ArrayList<>();
     private ArrayList<Document> documents = new ArrayList<>();
+    private ArrayList<CustomerOrder> receipts = new ArrayList<>();
 
     //===[CONSTRUCTOR]==================================================
 
@@ -470,6 +471,10 @@ public class Logic {
     }
 
     //===[ADD NEW OBJECT]==================================================
+
+    public void addReceipt(ArrayList<Item> items) {
+
+    }
 
     /**
      * Neues Item hinzufügen
