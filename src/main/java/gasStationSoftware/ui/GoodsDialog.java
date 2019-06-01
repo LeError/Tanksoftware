@@ -36,7 +36,7 @@ public class GoodsDialog extends Dialog {
 
     @Override
     protected void processSubmit(AnchorPane pane) {
-
+        windowController.processGoodCheckout(pane);
     }
 
     public JFXTextField getTxtSearch() {
