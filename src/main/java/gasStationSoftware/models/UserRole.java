@@ -8,7 +8,7 @@ public enum UserRole {
     private int id;
     private String role;
 
-    private UserRole(int id, String role) {
+    UserRole(int id, String role) {
         this.id = id;
         this.role = role;
     }
@@ -19,13 +19,5 @@ public enum UserRole {
 
     public String getRole() {
         return role;
-    }
-
-    public boolean hasAcess(int id) {
-        if(id >= this.id) {
-            return true;
-        } else {
-            return false;
-        }
     }
 }
