@@ -1,12 +1,14 @@
 package gasStationSoftware.models;
 
-public enum UserRoles {
-    ;
+public enum UserRole {
+    admin(0, "Administrator"),
+    employee(1, "Angestellter"),
+    assistant(2, "Aushilfe");
 
     private int id;
     private String role;
 
-    private UserRoles(int id, String role) {
+    private UserRole(int id, String role) {
         this.id = id;
         this.role = role;
     }
