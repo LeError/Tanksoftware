@@ -419,7 +419,7 @@
                                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                     </columnResizePolicy>
                                 </TableView>
-                                <JFXButton fx:id="btnEditEmployeeOverview" layoutX="515.0" layoutY="520.0" prefHeight="30.0" prefWidth="150.0" onMousePressed="#handleEmployeeAction" style="-fx-background-color: #607D8B;" text="Mitarbeiter anlegen" textFill="#f8f8f8" />
+                                <JFXButton fx:id="btnEditEmployeeOverview" layoutX="515.0" layoutY="520.0" prefHeight="30.0" prefWidth="150.0" onMousePressed="#handleEmployeeAction" style="-fx-background-color: #607D8B;" text="Mitarbeiter bearbeiten" textFill="#f8f8f8" />
                                 <JFXButton fx:id="btnCreateEmployeeOverview" layoutX="675.0" layoutY="520.0" prefHeight="30.0" prefWidth="150.0" onMousePressed="#handleEmployeeAction" style="-fx-background-color: #607D8B;" text="Mitarbeiter anlegen" textFill="#f8f8f8" />
                         <JFXButton layoutX="830.0" layoutY="15.0" onMousePressed="#handleCloseAction" prefHeight="40.0" prefWidth="40.0" style="-jfx-disable-visual-focus: true;">
                            <graphic>
