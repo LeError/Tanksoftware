@@ -189,11 +189,11 @@ implements Initializable {
         } else if(event.getTarget() == btnCheckOutSalesOverview) {
 
         } else if (event.getTarget() == btnAddAmountSalesOverview) {
-
+            incAmount();
         } else if (event.getTarget() == btnRemoveAmountSalesOverview) {
-
+            decAmount();
         } else if (event.getTarget() == btnDeleteSalesOverview) {
-
+            removeElement();
         }
     }
 
@@ -695,6 +695,72 @@ implements Initializable {
         float price = Float.parseFloat(((JFXTextField) pane.getChildren().get(3)).getText());
         String currency = ((JFXTextField) pane.getChildren().get(4)).getText();
         logic.addGood(iType, amount, price, currency, unit);
+    }
+
+    public void processGoodCheckout(AnchorPane pane) {
+        Item item = (Item) ((TableView) pane.getChildren().get(1)).getSelectionModel().getSelectedItem();
+        item.setCheckoutAmount(1);
+        if(!tCheckoutSellingOverview.getItems().contains(item)) {
+            tCheckoutSellingOverview.getItems().add(item);
+        }
+        updateCheckoutPrice();
+    }
+
+    //===[CHECKOUT SPECIFIC]==================================================
+
+    private void updateCheckoutPrice() {
+        float total = 0;
+        for(Item item : (ObservableList<Item>) tCheckoutSellingOverview.getItems()) {
+            total += item.getPrice() * item.getCheckoutAmount();
+        }
+        lblTotalSalesOverview.setText(String.valueOf(total));
+    }
+
+    private void incAmount() {
+        if(tCheckoutSellingOverview.getSelectionModel().getSelectedItem() != null) {
+            ArrayList<Item> items = new ArrayList<>();
+            items.addAll(tCheckoutSellingOverview.getItems());
+            Item item = (Item) tCheckoutSellingOverview.getSelectionModel().getSelectedItem();
+            tCheckoutSellingOverview.getItems().clear();
+            items.get(items.indexOf(item)).addCheckoutAmount(1);
+            tCheckoutSellingOverview.getItems().addAll(items);
+            tCheckoutSellingOverview.getSelectionModel().select(item);
+            updateCheckoutPrice();
+        }
+    }
+
+    private void decAmount() {
+        if(tCheckoutSellingOverview.getSelectionModel().getSelectedItem() != null) {
+            ArrayList<Item> items = new ArrayList<>();
+            items.addAll(tCheckoutSellingOverview.getItems());
+            Item item = (Item) tCheckoutSellingOverview.getSelectionModel().getSelectedItem();
+            tCheckoutSellingOverview.getItems().clear();
+            if(items.get(items.indexOf(item)).getCheckoutAmount() > 1) {
+                items.get(items.indexOf(item)).addCheckoutAmount(- 1);
+            } else {
+                items.remove(item);
+            }
+            tCheckoutSellingOverview.getItems().addAll(items);
+            tCheckoutSellingOverview.getSelectionModel().select(item);
+            updateCheckoutPrice();
+        }
+    }
+
+    private void removeElement() {
+        if(tCheckoutSellingOverview.getSelectionModel().getSelectedItem() != null) {
+            ArrayList<Item> items = new ArrayList<>();
+            items.addAll(tCheckoutSellingOverview.getItems());
+            Item item = (Item) tCheckoutSellingOverview.getSelectionModel().getSelectedItem();
+            tCheckoutSellingOverview.getItems().clear();
+            items.remove(item);
+            tCheckoutSellingOverview.getItems().addAll(items);
+            tCheckoutSellingOverview.getSelectionModel().select(item);
+            updateCheckoutPrice();
+        }
+    }
+
+    private void createReceipt(){
+
     }
 
     //===[CREATE SEARCHABLE DATA]==================================================
