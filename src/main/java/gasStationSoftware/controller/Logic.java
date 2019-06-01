@@ -45,7 +45,9 @@ public class Logic {
             "inventory.json",
             "settings.json",
             "themes\\default.json",
-            "employees.txt"
+            "employees.txt",
+            "themes\\dark.json",
+            "users.json"
     };
 
     private ArrayList<Employee> employees = new ArrayList<>();
@@ -150,6 +152,12 @@ public class Logic {
                 case "themes\\default.json":
                     exportJSONResources("defaultTheme.json", "themes\\default.json");
                     break;
+                case "users.json":
+                    exportJSONResources("users.json", "users.json");
+                    break;
+                case "themes\\dark.json":
+                    exportJSONResources("darkTheme.json", "themes\\dark.json");
+                    break;
                 default:
                     throw new DataFileNotFoundException(file);
                 }
@@ -206,6 +214,8 @@ public class Logic {
             loadEmployees();
         } catch (ParseException e) {
             e.printStackTrace();
+        } catch (DataFileNotFoundException e) {
+            e.printStackTrace();
         }
         try {
             loadInventory();
@@ -243,12 +253,37 @@ public class Logic {
      * @throws ParseException
      * @author Robin Herder
      */
-    private void loadEmployees() throws ParseException {
+    private void loadEmployees() throws ParseException, DataFileNotFoundException {
         ReadTableFile read = new ReadTableFile(DATA_FILE_PATH + DATA_FILE_NAMES[3]);
         String[][] lines = read.getLINES();
+        ReadJSON readJSON = new ReadJSON(DATA_FILE_PATH + DATA_FILE_NAMES[5]);
+        String[] ids = readJSON.getItemStringArray("userID");
+        String[] passes = readJSON.getItemStringArray("userPass");
+        String[] roles = readJSON.getItemStringArray("userRole");
         for(int i = 0; i < lines.length; i++) {
+            int roleID = -1;
+            String pass = "";
+            for(int ii = 0; ii < ids.length; ii++) {
+                if(Integer.parseInt(lines[i][0]) == Integer.parseInt(ids[ii])){
+                    roleID = Integer.parseInt(roles[ii]);
+                    pass = passes[ii];
+                }
+            }
+            UserRole role = null;
+            switch(roleID) {
+                case 0:
+                    role = UserRole.admin;
+                    break;
+                case 1:
+                    role = UserRole.employee;
+                    break;
+                case 2:
+                    role = UserRole.assistant;
+                    break;
+                default: role = UserRole.assistant;
+            }
             Date date = new SimpleDateFormat("dd.MM.yyyy").parse(lines[i][3]);
-            employees.add(new Employee(Integer.parseInt(lines[i][0]), lines[i][1], lines[i][2], date));
+            employees.add(new Employee(Integer.parseInt(lines[i][0]), lines[i][1], lines[i][2], date, role, pass));
         }
         windowController.addRowTEmployeesEmployeeOverview(employees);
     }
