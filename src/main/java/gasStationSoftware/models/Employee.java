@@ -86,4 +86,8 @@ public class Employee {
     public String getRole() {
         return role.getRole();
     }
+
+    public int getIRole() {
+        return role.getId();
+    }
 }
