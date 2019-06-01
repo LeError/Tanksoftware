@@ -760,7 +760,10 @@ implements Initializable {
     }
 
     private void createReceipt(){
-
+        ArrayList<Item> items = new ArrayList<>();
+        items.addAll(tCheckoutSellingOverview.getItems());
+        tCheckoutSellingOverview.getItems().clear();
+        logic.addReceipt(items);
     }
 
     //===[CREATE SEARCHABLE DATA]==================================================
