@@ -764,6 +764,7 @@ implements Initializable {
         items.addAll(tCheckoutSellingOverview.getItems());
         tCheckoutSellingOverview.getItems().clear();
         logic.addReceipt(items);
+        lblTotalSalesOverview.setText("0.00");
     }
 
     //===[CREATE SEARCHABLE DATA]==================================================
