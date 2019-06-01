@@ -19,7 +19,6 @@ public class ItemTypeInputDialog extends Dialog {
      * @author Robin Herder
      */
     public ItemTypeInputDialog(StackPane rootPane, WindowController windowController, InventoryType type) {
-
         super(windowController);
         this.type = type;
 
