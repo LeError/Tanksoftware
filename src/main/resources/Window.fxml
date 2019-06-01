@@ -27,7 +27,7 @@
                         <Line fx:id="lineMenuBar" endX="100.0" layoutY="105.0" startX="10.0" stroke="#bdbdbd" />
                         <ImageView fx:id="ivUserMenuBar" fitHeight="80.0" fitWidth="80.0" layoutX="15.0" layoutY="14.0" onMousePressed="#handleMenuButtonAction" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@images/res100x100/icons8-male-user-100.png" />
+                                <Image url="@images/icons8-male-user-100.png" />
                             </image>
                         </ImageView>
                         <MaterialDesignIconView fx:id="icoSellingMenuBar" fill="WHITE" glyphName="CART" layoutX="20.0" layoutY="180.0" onMousePressed="#handleMenuButtonAction" size="70" />
@@ -42,7 +42,7 @@
                     <children>
                         <ImageView fx:id="ivUserProfilePictureUser" fitHeight="150.0" fitWidth="150.0" layoutX="65.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@images/res100x100/icons8-male-user-100.png" />
+                                <Image url="@images/icons8-male-user-100.png" />
                             </image>
                         </ImageView>
                         <Polygon fx:id="polygonUser" fill="#607d8a" layoutX="25.0" layoutY="65.0" rotate="90.0" scaleX="0.5" scaleY="0.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-background-color: #607D8B;">
