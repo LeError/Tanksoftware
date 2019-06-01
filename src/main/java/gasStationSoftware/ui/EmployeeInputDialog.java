@@ -49,7 +49,7 @@ public class EmployeeInputDialog extends Dialog {
 
     @Override
     protected void processSubmit(AnchorPane pane) {
-
+        windowController.processEmployee(pane);
     }
 
 }
