@@ -16,6 +16,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -280,14 +281,12 @@ public class Logic {
                 case 1:
                     role = UserRole.employee;
                     break;
-                case 2:
-                    role = UserRole.assistant;
-                    break;
                 default: role = UserRole.assistant;
             }
             Date date = new SimpleDateFormat("dd.MM.yyyy").parse(lines[i][3]);
             employees.add(new Employee(Integer.parseInt(lines[i][0]), lines[i][1], lines[i][2], date, role, pass));
         }
+        Collections.sort(employees, Comparator.comparingInt(employee -> employee.getEMPLOYEE_NUMBER()));
         windowController.addRowTEmployeesEmployeeOverview(employees);
     }
 
@@ -508,6 +507,18 @@ public class Logic {
         return number;
     }
 
+    public int getFreeEmployeeNumber() {
+        int number = 0;
+        Collections.sort(employees, Comparator.comparingInt(employee -> employee.getEMPLOYEE_NUMBER()));
+        for(Employee employee: employees) {
+            if(number != employee.getEMPLOYEE_NUMBER()) {
+                break;
+            }
+            number++;
+        }
+        return number;
+    }
+
     //===[ADD NEW OBJECT]==================================================
 
     public void addReceipt(ArrayList<Item> items) {
@@ -634,6 +645,24 @@ public class Logic {
         saveInventory();
     }
 
+    public void addEmployee(String firstName, String surName, Date employeeDate, String userRole, String userPass) {
+        UserRole role = null;
+        switch (userRole) {
+            case "Administrator":
+                role = UserRole.admin;
+                break;
+            case "Angestellter":
+                role = UserRole.employee;
+                break;
+            default:
+                role = UserRole.assistant;
+        }
+        employees.add(new Employee(getFreeEmployeeNumber(), firstName, surName, employeeDate, role, DigestUtils.sha256Hex(userPass)));
+        Collections.sort(employees, Comparator.comparingInt(employee -> employee.getEMPLOYEE_NUMBER()));
+        windowController.addRowTEmployeesEmployeeOverview(employees);
+        saveEmployees();
+    }
+
     //===[SAVE FILES]==================================================
 
     /**
@@ -660,6 +689,25 @@ public class Logic {
         write.addItemArray("goodAmount", getAmountGood());
         write.addItemArray("goodUnit", getUnit());
         write.write(true);
+    }
+
+    private void saveEmployees() {
+        WriteJSON write = new WriteJSON(DATA_FILE_PATH + DATA_FILE_NAMES[5]);
+        write.addItemArray("userID", getEmployeeNumber());
+        write.addItemArray("userPass", getEmployeePass());
+        write.addItemArray("userRole", getEmployeeRoles());
+        write.write(true);
+        WriteFile writeFile = new WriteFile(DATA_FILE_PATH + DATA_FILE_NAMES[3]);
+        writeFile.addLine("LASTUPDATE=" + Utility.getDateFormatted(new Date()));
+        writeFile.addLine("EMPLOYEENR;FIRSTNAME;LASTNAME;EMPLOYMENTDATE");
+        for(Employee employee : employees) {
+            writeFile.addLine(employee.getEMPLOYEE_NUMBER() + ";" + employee.getFIRST_NAME() + ";" + employee.getSUR_NAME() + ";" + employee.getEMPLOYMENT_DATE_FORMATTED());
+        }
+        try {
+            writeFile.write();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     //===[GET STRINGS FOR JSON]==================================================
@@ -887,6 +935,30 @@ public class Logic {
         return unit;
     }
 
+    private String[] getEmployeeNumber() {
+        String[] employeeNumber = new String[employees.size()];
+        for(int i = 0; i < employees.size(); i++) {
+            employeeNumber[i] = String.valueOf(employees.get(i).getEMPLOYEE_NUMBER());
+        }
+        return employeeNumber;
+    }
+
+    private String[] getEmployeePass() {
+        String[] employeePass = new String[employees.size()];
+        for(int i = 0; i < employees.size(); i++) {
+            employeePass[i] = employees.get(i).getPASS();
+        }
+        return employeePass;
+    }
+
+    private String[] getEmployeeRoles() {
+        String[] employeeRole = new String[employees.size()];
+        for(int i = 0; i < employees.size(); i++) {
+            employeeRole[i] = String.valueOf(employees.get(i).getIRole());
+        }
+        return employeeRole;
+    }
+
     //===[GETTER]==================================================
 
     /**
@@ -937,6 +1009,14 @@ public class Logic {
 
     public int getRoleID() {
         return activeEmployee.getIRole();
+    }
+
+    public ArrayList<String> getUserRoles() {
+        ArrayList<String> userRoles = new ArrayList<>();
+        userRoles.add(UserRole.admin.getRole());
+        userRoles.add(UserRole.employee.getRole());
+        userRoles.add(UserRole.assistant.getRole());
+        return userRoles;
     }
 
     //===[GET ROWS FOR INPUT DIALOGS]==================================================
