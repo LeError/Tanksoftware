@@ -713,7 +713,7 @@ implements Initializable {
         for(Item item : (ObservableList<Item>) tCheckoutSellingOverview.getItems()) {
             total += item.getPrice() * item.getCheckoutAmount();
         }
-        lblTotalSalesOverview.setText(String.valueOf(total));
+        lblTotalSalesOverview.setText(String.valueOf(Utility.round(total, 2)));
     }
 
     private void incAmount() {
