@@ -187,7 +187,7 @@ implements Initializable {
         } else if(event.getTarget() == btnGasPumpsSalesOverview) {
 
         } else if(event.getTarget() == btnCheckOutSalesOverview) {
-
+            createReceipt();
         } else if (event.getTarget() == btnAddAmountSalesOverview) {
             incAmount();
         } else if (event.getTarget() == btnRemoveAmountSalesOverview) {
