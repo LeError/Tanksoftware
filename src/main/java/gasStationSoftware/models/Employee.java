@@ -9,6 +9,8 @@ public class Employee {
     private final int EMPLOYEE_NUMBER;
     private final Date EMPLOYMENT_DATE;
     private final String FIRST_NAME, SUR_NAME, EMPLOYMENT_DATE_FORMATTED;
+    private final String PASS;
+    private UserRole role;
 
     /**
      * Constuctor Employee
@@ -18,12 +20,14 @@ public class Employee {
      * @param employmentDate
      * @author Robin Herder
      */
-    public Employee(int employeeNumber, String firstName, String surname, Date employmentDate) {
+    public Employee(int employeeNumber, String firstName, String surname, Date employmentDate, UserRole role, String pass) {
         EMPLOYEE_NUMBER = employeeNumber;
         EMPLOYMENT_DATE = employmentDate;
         FIRST_NAME = firstName;
         SUR_NAME = surname;
         EMPLOYMENT_DATE_FORMATTED = Utility.getDateFormatted(EMPLOYMENT_DATE);
+        PASS = pass;
+        this.role = role;
     }
 
     /**
@@ -69,5 +73,13 @@ public class Employee {
      */
     public String getEMPLOYMENT_DATE_FORMATTED() {
         return EMPLOYMENT_DATE_FORMATTED;
+    }
+
+    public boolean logIn(int employeeNumber, String pass) {
+        if(EMPLOYEE_NUMBER == employeeNumber && PASS.equals(pass)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
