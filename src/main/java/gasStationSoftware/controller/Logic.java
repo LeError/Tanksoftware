@@ -473,7 +473,24 @@ public class Logic {
     //===[ADD NEW OBJECT]==================================================
 
     public void addReceipt(ArrayList<Item> items) {
-
+        ArrayList<Good> goods = new ArrayList<>();
+        ArrayList<Fuel> fuels = new ArrayList<>();
+        for(Item item : items) {
+            if(item instanceof Good) {
+                Good good = (Good) item;
+                this.goods.get(this.goods.indexOf(good)).addAmount((int) good.getCheckoutAmount());
+                goods.add(good);
+            } else if(item instanceof Fuel)  {
+                Fuel fuel = (Fuel) item;
+                try {
+                    this.fuels.get(this.fuels.indexOf(fuel)).addAmount(fuel.getCheckoutAmount());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                fuels.add(fuel);
+            }
+        }
+        receipts.add(new CustomerOrder("", 0, new Date(), employees.get(0), fuels, goods));
     }
 
     /**
