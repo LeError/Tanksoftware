@@ -47,6 +47,11 @@ implements Initializable {
 
     @FXML private StackPane rootPane;
 
+    @FXML private AnchorPane loginPane, mainPane;
+    @FXML private JFXTextField txtIDLogin, txtPassLogin;
+    @FXML private JFXButton btnLogin;
+    @FXML private Label lblCopyrightLogin;
+
     @FXML private AnchorPane menuBarPane;
     @FXML private Line lineMenuBar;
     @FXML private ImageView ivUserMenuBar;
@@ -137,6 +142,17 @@ implements Initializable {
     }
 
     //===[HANDLE EVENT]==================================================
+
+    @FXML private void handleLoginAction(MouseEvent event) {
+        if(!txtPassLogin.getText().equals("") && !txtIDLogin.getText().equals("") && logic.checkLogin(Integer.parseInt(txtIDLogin.getText()), txtPassLogin.getText())) {
+            login();
+        } else {
+            txtIDLogin.setText("");
+            txtPassLogin.setText("");
+            txtIDLogin.setStyle("-fx-prompt-text-fill: #de1738;");
+            txtPassLogin.setStyle("-fx-prompt-text-fill: #de1738;");
+        }
+    }
 
     /**
      * Wechsel zwischen den Menus der linken menubar
@@ -290,6 +306,10 @@ implements Initializable {
         } else if (event.getTarget() == btnNewSettingsGood) {
             new ItemTypeInputDialog(rootPane, this, InventoryType.Good);
         }
+    }
+
+    @FXML private void handleCloseAction(MouseEvent event) {
+        System.exit(0);
     }
 
     //===[HIDE PANES]==================================================
@@ -544,6 +564,7 @@ implements Initializable {
     private void setDefaultContent() {
         cbTypeSettingsOverview.getItems().setAll((Object[]) CB_SETTINGS_TYPE_OPTIONS);
         cbTypeSettingsOverview.setPromptText(CB_SETTINGS_TYPE_PROMT);
+        lblCopyrightLogin.setText("\u00a9 Lea Buchhold, Lukas Fink, Malik Press, Robin Herder 2019");
     }
 
     /**
@@ -894,6 +915,39 @@ implements Initializable {
         fileChooser.setTitle(title);
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text Files", "*.txt"));
         return fileChooser.showOpenDialog(rootPane.getScene().getWindow()).getAbsolutePath();
+    }
+
+    private void login() {
+        loginPane.setVisible(false);
+        mainPane.setVisible(true);
+        lblUserNameUser.setText(logic.getEmployeeName());
+        lblUserRoleUser.setText(logic.getEmployeeRole());
+
+        if(logic.getRoleID() > 0) {
+            for(AnchorPane pane : panes) {
+                pane.setDisable(true);
+            }
+            for(AnchorPane pane : subPanes) {
+                pane.setDisable(true);
+            }
+            if(logic.getRoleID() == 1) {
+                userPane.setDisable(false);
+                sellingPane.setDisable(false);
+                inventoryPane.setDisable(false);
+                fuelPane.setDisable(false);
+                sellingOverviewPane.setDisable(false);
+                inventoryOverviewPane.setDisable(false);
+                inventoryOrderPane.setDisable(false);
+                inventoryDeliveryPane.setDisable(false);
+                fuelOverviewPane.setDisable(false);
+                fuelOrderPane.setDisable(false);
+                fuelDeliveryPane.setDisable(false);
+            } else if(logic.getRoleID() == 2) {
+                userPane.setDisable(false);
+                sellingPane.setDisable(false);
+                sellingOverviewPane.setDisable(false);
+            }
+        }
     }
 
 }
