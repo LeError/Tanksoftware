@@ -46,7 +46,7 @@ public class CustomerOrder {
             Good good = goodKey.next();
             total +=  good.getPrice() * fuels.get(good);
         }
-        return total;
+        return Utility.round(total, 2);
     }
 
     public String getDate(){
