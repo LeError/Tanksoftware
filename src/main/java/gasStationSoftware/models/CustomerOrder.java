@@ -2,6 +2,7 @@ package gasStationSoftware.models;
 
 import gasStationSoftware.util.Utility;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -16,19 +17,17 @@ public class CustomerOrder {
     private final Date DATE;
     private final Employee EMPLOYEE;
 
-    public CustomerOrder(String title, int receiptNumber, Date date, Employee employee) {
+    public CustomerOrder(String title, int receiptNumber, Date date, Employee employee, ArrayList<Fuel> fuels, ArrayList<Good> goods) {
         TITLE = title;
         RECEIPT_NUMBER = receiptNumber;
         DATE = date;
         EMPLOYEE = employee;
-    }
-
-    public void addFuel(Fuel fuel, float amount) {
-        fuels.put(fuel, amount);
-    }
-
-    public void addGood(Good good, int amount) {
-        goods.put(good, amount);
+        for(Fuel fuel : fuels) {
+            this.fuels.put(fuel, fuel.getCheckoutAmount());
+        }
+        for(Good good : goods) {
+            this.goods.put(good, (int) good.getCheckoutAmount());
+        }
     }
 
     public String[] getLinesForFile() {
