@@ -49,7 +49,8 @@ public class Logic {
             "themes\\default.json",
             "employees.txt",
             "themes\\dark.json",
-            "users.json"
+            "users.json",
+            "tankSimulation.json"
     };
 
     private ArrayList<Employee> employees = new ArrayList<>();
@@ -161,6 +162,9 @@ public class Logic {
                     break;
                 case "themes\\dark.json":
                     exportJSONResources("darkTheme.json", "themes\\dark.json");
+                    break;
+                case "tankSimulation.json":
+                    exportJSONResources("tankSimulation.json", "tankSimulation.json");
                     break;
                 default:
                     throw new DataFileNotFoundException(file);
