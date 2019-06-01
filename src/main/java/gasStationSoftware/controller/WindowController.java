@@ -1,9 +1,6 @@
 package gasStationSoftware.controller;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXDatePicker;
-import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.*;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import gasStationSoftware.models.*;
 import gasStationSoftware.ui.*;
@@ -31,7 +28,9 @@ import javafx.stage.FileChooser;
 import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 public class WindowController
@@ -734,8 +733,13 @@ implements Initializable {
         updateCheckoutPrice();
     }
 
-    public void processEmployee() {
-
+    public void processEmployee(AnchorPane pane) {
+        String firstName = ((JFXTextField) pane.getChildren().get(1)).getText();
+        String surName = ((JFXTextField) pane.getChildren().get(2)).getText();
+        Date employmentDate = Date.from(((JFXDatePicker) pane.getChildren().get(3)).getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
+        String userRole = (String) ((JFXComboBox) pane.getChildren().get(4)).getSelectionModel().getSelectedItem();
+        String userPass = ((JFXPasswordField) pane.getChildren().get(5)).getText();
+        logic.addEmployee(firstName, surName, employmentDate, userRole, userPass);
     }
 
     //===[CHECKOUT SPECIFIC]==================================================
