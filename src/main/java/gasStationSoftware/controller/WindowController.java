@@ -264,7 +264,13 @@ implements Initializable {
      * @param event
      * @author Robin Herder
      */
-    @FXML private void handleEmployeeAction(MouseEvent event) {}
+    @FXML private void handleEmployeeAction(MouseEvent event) {
+        if (event.getTarget() == btnEditEmployeeOverview) {
+
+        } else if (event.getTarget() == btnCreateEmployeeOverview) {
+
+        }
+    }
 
     /**
      *
