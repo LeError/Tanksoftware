@@ -508,6 +508,18 @@ public class Logic {
         return number;
     }
 
+    public int getFreeEmployeeNumber() {
+        int number = 0;
+        Collections.sort(employees, Comparator.comparingInt(employee -> employee.getEMPLOYEE_NUMBER()));
+        for(Employee employee: employees) {
+            if(number != employee.getEMPLOYEE_NUMBER()) {
+                break;
+            }
+            number++;
+        }
+        return number;
+    }
+
     //===[ADD NEW OBJECT]==================================================
 
     public void addReceipt(ArrayList<Item> items) {
@@ -937,6 +949,14 @@ public class Logic {
 
     public int getRoleID() {
         return activeEmployee.getIRole();
+    }
+
+    public ArrayList<String> getUserRoles() {
+        ArrayList<String> userRoles = new ArrayList<>();
+        userRoles.add(UserRole.admin.getRole());
+        userRoles.add(UserRole.employee.getRole());
+        userRoles.add(UserRole.assistant.getRole());
+        return userRoles;
     }
 
     //===[GET ROWS FOR INPUT DIALOGS]==================================================
