@@ -326,7 +326,8 @@ implements Initializable {
         TableColumn columnEmploymentDate = Dialog.getColumn("Einstellungsdatum", "EMPLOYMENT_DATE_FORMATTED", 100, true);
         TableColumn columnFirstName = Dialog.getColumn("Vorname", "FIRST_NAME", 200, true);
         TableColumn columnSurname = Dialog.getColumn("Nachname", "SUR_NAME", 200, true);
-        tEmployeesEmployeeOverview.getColumns().addAll(columnEmployeeNumber, columnEmploymentDate, columnFirstName, columnSurname);
+        TableColumn columnRole = Dialog.getColumn("Rolle", "role", 200, true);
+        tEmployeesEmployeeOverview.getColumns().addAll(columnEmployeeNumber, columnEmploymentDate, columnFirstName, columnSurname, columnRole);
     }
 
     /**
