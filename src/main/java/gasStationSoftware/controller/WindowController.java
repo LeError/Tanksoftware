@@ -268,7 +268,7 @@ implements Initializable {
         if (event.getTarget() == btnEditEmployeeOverview) {
 
         } else if (event.getTarget() == btnCreateEmployeeOverview) {
-
+            new EmployeeInputDialog(rootPane, this);
         }
     }
 
@@ -734,6 +734,10 @@ implements Initializable {
         updateCheckoutPrice();
     }
 
+    public void processEmployee() {
+
+    }
+
     //===[CHECKOUT SPECIFIC]==================================================
 
     private void updateCheckoutPrice() {
@@ -883,6 +887,10 @@ implements Initializable {
         return logic.getFreeInvNumber(type);
     }
 
+    public int getFreeEmployeeNumber() {
+        return logic.getFreeEmployeeNumber();
+    }
+
     /**
      * Gibt die nächste freie Tanknummer zurück
      * @return freeTankNumber
@@ -908,6 +916,10 @@ implements Initializable {
      */
     public StackPane getRootPane() {
         return rootPane;
+    }
+
+    public ArrayList<String> getUserRoles() {
+        return logic.getUserRoles();
     }
 
     /**
