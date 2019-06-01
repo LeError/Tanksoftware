@@ -90,4 +90,8 @@ public class Employee {
     public int getIRole() {
         return role.getId();
     }
+
+    public String getPASS() {
+        return PASS;
+    }
 }
