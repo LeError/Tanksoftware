@@ -737,6 +737,7 @@ implements Initializable {
         GasPump selectedGasPump = (GasPump) ((TableView) pane.getChildren().get(1)).getSelectionModel().getSelectedItem();
         Item item = selectedGasPump.getCheckoutFuel();
         item.setCheckoutAmount(selectedGasPump.getCheckoutAmount());
+        ((Fuel) item).setCheckoutTank(selectedGasPump);
         if(!tCheckoutSellingOverview.getItems().contains(item)) {
             tCheckoutSellingOverview.getItems().add(item);
         }
