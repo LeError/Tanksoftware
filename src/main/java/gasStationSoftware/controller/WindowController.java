@@ -200,7 +200,7 @@ implements Initializable {
         if (event.getTarget() == btnGoodsSalesOverview) {
             new GoodsDialog(rootPane, this);
         } else if(event.getTarget() == btnGasPumpsSalesOverview) {
-
+            new GasPumpDialog(rootPane, this);
         } else if(event.getTarget() == btnCheckOutSalesOverview) {
             createReceipt();
         } else if (event.getTarget() == btnAddAmountSalesOverview) {
@@ -863,7 +863,7 @@ implements Initializable {
 
     public void createGasPumpData(GasPumpDialog gasPumpDialog) {
         ObservableList<GasPump> observableGasPumpList = FXCollections.observableArrayList();
-        observableGasPumpList.addAll();
+        observableGasPumpList.addAll(logic.getUsedGasPumps());
         FilteredList<GasPump> filteredGasPumps = new FilteredList<>(observableGasPumpList, o -> true);
 
         gasPumpDialog.getTxtSearch().textProperty().addListener((observable, oldSearchValue, searchValue) ->
