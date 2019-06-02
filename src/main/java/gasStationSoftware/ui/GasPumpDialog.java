@@ -35,7 +35,7 @@ public class GasPumpDialog extends Dialog {
 
     @Override
     protected void processSubmit(AnchorPane pane) {
-
+        windowController.processGasPumpCheckout(pane);
     }
 
     public JFXTextField getTxtSearch() {
