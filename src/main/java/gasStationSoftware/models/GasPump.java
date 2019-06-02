@@ -8,6 +8,8 @@ public class GasPump {
     private ArrayList<ItemType> fuels = new ArrayList<>();
     private ArrayList<FuelTank> tanks;
 
+    private float cheackoutAmount = 0;
+
     /**
      * Constructor Zapfsäule
      * @param gasPumpNumber
@@ -111,6 +113,14 @@ public class GasPump {
             assignedTanks += tank.getTANK_NUMBER() + " " + tank.getFuelLabel() + "\n";
         }
         return assignedTanks;
+    }
+
+    public void setCheackoutAmount(float amount) {
+        cheackoutAmount = amount;
+    }
+
+    public float getCheackoutAmount() {
+        return cheackoutAmount;
     }
 
 }
