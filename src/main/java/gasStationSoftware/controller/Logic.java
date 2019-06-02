@@ -1023,6 +1023,33 @@ public class Logic {
         return userRoles;
     }
 
+    public ArrayList<GasPump> getUsedGasPumps() {
+        ReadJSON read;
+        ArrayList<GasPump> gasPumps = new ArrayList<>();
+        try {
+            read = new ReadJSON(DATA_FILE_PATH + DATA_FILE_NAMES[6]);
+            String[] gasPumpNumber = read.getItemStringArray("gasPumpNumber");
+            String[] fuelType = read.getItemStringArray("fuelType");
+            String[] fuelAmount = read.getItemStringArray("fuelAmount");
+            for(int i = 0; i < gasPumpNumber.length; i++) {
+                for(GasPump gasPump : this.gasPumps) {
+                    if(gasPump.getGAS_PUMP_NUMBER() == Integer.parseInt(gasPumpNumber[i])) {
+                        gasPumps.add(gasPump);
+                        gasPumps.get(gasPumps.size() - 1).setCheackoutAmount(Float.parseFloat(fuelAmount[i]));
+                        for(Fuel fuel : fuels) {
+                            if(fuel.getINVENTORY_NUMBER() == Integer.parseInt(fuelType[i])) {
+                                gasPumps.get(gasPumps.size() - 1).setCheckoutFuel(fuel);
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (DataFileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return gasPumps;
+    }
+
     //===[GET ROWS FOR INPUT DIALOGS]==================================================
 
     /**
