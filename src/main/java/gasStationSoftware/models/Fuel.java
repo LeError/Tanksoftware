@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 public class Fuel extends Item {
 
+    private GasPump checkoutTankNumber = null;
+
     /**
      * Constuctor Fuel
      * @param type
@@ -129,5 +131,13 @@ public class Fuel extends Item {
         if(raiseError) {
             throw new Exception("Nicht genug Kraftstoff in den tanks! Die Tanks werden bis zu ihrer Kapazitätsgrenze belastet!");
         }
+    }
+
+    public GasPump getCheckoutTank() {
+        return checkoutTankNumber;
+    }
+
+    public void setCheckoutTank(GasPump checkoutTankNumber) {
+        this.checkoutTankNumber = checkoutTankNumber;
     }
 }
