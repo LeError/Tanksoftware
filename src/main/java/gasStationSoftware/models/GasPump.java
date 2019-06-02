@@ -116,11 +116,11 @@ public class GasPump {
         return assignedTanks;
     }
 
-    public void setCheackoutAmount(float amount) {
+    public void setCheckoutAmount(float amount) {
         checkoutAmount = amount;
     }
 
-    public float getCheackoutAmount() {
+    public float getCheckoutAmount() {
         return checkoutAmount;
     }
 
@@ -130,5 +130,9 @@ public class GasPump {
 
     public void setCheckoutFuel(Fuel checkoutFuel) {
         this.checkoutFuel = checkoutFuel;
+    }
+
+    public String getLabel() {
+        return checkoutFuel.getLABEL();
     }
 }
