@@ -12,11 +12,9 @@ public class GoodsDialog extends Dialog {
 
     private JFXTextField txtSearch;
     private TableView tItemList;
-    private StackPane rootPane;
 
     public GoodsDialog(StackPane rootPane, WindowController windowController) {
         super(windowController);
-        this.rootPane = rootPane;
 
         txtSearch = getTextfield(290, 30, false, 10, 5, 5);
         txtSearch.setPromptText("Suche");
