@@ -861,6 +861,31 @@ implements Initializable {
         goodsDialog.getTable().setItems(goodSortedList);
     }
 
+    public void createGasPumpData(GasPumpDialog gasPumpDialog) {
+        ObservableList<GasPump> observableGasPumpList = FXCollections.observableArrayList();
+        observableGasPumpList.addAll();
+        FilteredList<GasPump> filteredGasPumps = new FilteredList<>(observableGasPumpList, o -> true);
+
+        gasPumpDialog.getTxtSearch().textProperty().addListener((observable, oldSearchValue, searchValue) ->
+                filteredGasPumps.setPredicate(gasPump -> {
+                    if (searchValue == null || searchValue.isEmpty()) {
+                        return true;
+                    }
+                    String lowerCaseFilter = searchValue.toLowerCase();
+                    if (gasPump.getAssignedFuels().toLowerCase().contains(lowerCaseFilter)) {
+                        return true;
+                    } else if (String.valueOf(gasPump.getGAS_PUMP_NUMBER()).toLowerCase().contains(lowerCaseFilter)) {
+                        return true;
+                    }
+                    return false;
+                }));
+
+        SortedList<GasPump> gasPumpSortedList = new SortedList<>(filteredGasPumps);
+        gasPumpSortedList.comparatorProperty().bind(gasPumpDialog.getTable().comparatorProperty());
+
+        gasPumpDialog.getTable().setItems(gasPumpSortedList);
+    }
+
     //===[GETTER]==================================================
 
     /**
