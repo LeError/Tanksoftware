@@ -872,7 +872,7 @@ implements Initializable {
                         return true;
                     }
                     String lowerCaseFilter = searchValue.toLowerCase();
-                    if (gasPump.getAssignedFuels().toLowerCase().contains(lowerCaseFilter)) {
+                    if (gasPump.getCheckoutFuel().getLABEL().toLowerCase().contains(lowerCaseFilter)) {
                         return true;
                     } else if (String.valueOf(gasPump.getGAS_PUMP_NUMBER()).toLowerCase().contains(lowerCaseFilter)) {
                         return true;
