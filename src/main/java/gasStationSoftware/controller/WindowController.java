@@ -733,6 +733,16 @@ implements Initializable {
         updateCheckoutPrice();
     }
 
+    public void processGasPumpCheckout(AnchorPane pane) {
+        GasPump selectedGasPump = (GasPump) ((TableView) pane.getChildren().get(1)).getSelectionModel().getSelectedItem();
+        Item item = selectedGasPump.getCheckoutFuel();
+        item.setCheckoutAmount(selectedGasPump.getCheckoutAmount());
+        if(!tCheckoutSellingOverview.getItems().contains(item)) {
+            tCheckoutSellingOverview.getItems().add(item);
+        }
+        updateCheckoutPrice();
+    }
+
     public void processEmployee(AnchorPane pane) {
         String firstName = ((JFXTextField) pane.getChildren().get(1)).getText();
         String surName = ((JFXTextField) pane.getChildren().get(2)).getText();
