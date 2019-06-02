@@ -530,12 +530,12 @@ public class Logic {
         for(Item item : items) {
             if(item instanceof Good) {
                 Good good = (Good) item;
-                this.goods.get(this.goods.indexOf(good)).addAmount((int) good.getCheckoutAmount());
+                this.goods.get(this.goods.indexOf(good)).addAmount(- (int) good.getCheckoutAmount());
                 goods.add(good);
             } else if(item instanceof Fuel)  {
                 Fuel fuel = (Fuel) item;
                 try {
-                    this.fuels.get(this.fuels.indexOf(fuel)).addAmount(fuel.getCheckoutAmount());
+                    this.fuels.get(this.fuels.indexOf(fuel)).removeAmount(fuel.getCheckoutAmount(), fuel.getCheckoutTank());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
