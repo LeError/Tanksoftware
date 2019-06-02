@@ -16,7 +16,6 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -1035,7 +1034,7 @@ public class Logic {
                 for(GasPump gasPump : this.gasPumps) {
                     if(gasPump.getGAS_PUMP_NUMBER() == Integer.parseInt(gasPumpNumber[i])) {
                         gasPumps.add(gasPump);
-                        gasPumps.get(gasPumps.size() - 1).setCheackoutAmount(Float.parseFloat(fuelAmount[i]));
+                        gasPumps.get(gasPumps.size() - 1).setCheckoutAmount(Float.parseFloat(fuelAmount[i]));
                         for(Fuel fuel : fuels) {
                             if(fuel.getINVENTORY_NUMBER() == Integer.parseInt(fuelType[i])) {
                                 gasPumps.get(gasPumps.size() - 1).setCheckoutFuel(fuel);
