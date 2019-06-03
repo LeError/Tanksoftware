@@ -3,9 +3,9 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
-<?import java.lang.Double?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
@@ -17,14 +17,15 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Polygon?>
 <?import javafx.scene.text.Font?>
-
+<?import java.lang.Double?>
 <?import java.util.ArrayList?>
 <StackPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gasStationSoftware.controller.WindowController">
     <children>
       <AnchorPane fx:id="loginPane" prefHeight="600.0" prefWidth="1000.0">
          <children>
             <JFXTextField fx:id="txtIDLogin" layoutX="413.0" layoutY="302.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="175.0" promptText="Personalnummer" />
-            <JFXTextField fx:id="txtPassLogin" layoutX="413.0" layoutY="347.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="175.0" promptText="Passwort" />
+             <JFXPasswordField fx:id="txtPassLogin" layoutX="413.0" layoutY="347.0" minHeight="-Infinity"
+                               minWidth="-Infinity" prefHeight="25.0" prefWidth="175.0" promptText="Passwort"/>
             <JFXButton fx:id="btnLogin" buttonType="RAISED" layoutX="413.0" layoutY="392.0" onMousePressed="#handleLoginAction" prefHeight="25.0" prefWidth="175.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Einloggen" textFill="WHITE">
                <graphic>
                   <MaterialDesignIconView fx:id="icoLogin" fill="WHITE" glyphName="LOCK_OPEN" size="16" />
