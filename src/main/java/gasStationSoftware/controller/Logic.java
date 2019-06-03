@@ -249,7 +249,12 @@ public class Logic {
         }
         loadFuelDeliveries();
         loadGoodDeliveries();
-
+        try {
+            loadReceipts();
+        } catch (DataFileNotFoundException e) {
+            e.printStackTrace();
+        }
+        updateBalance();
     }
 
     /**
@@ -328,7 +333,7 @@ public class Logic {
         createFuelTankObjects(Utility.getIntArray(read.getItemStringArray("tankID")), Utility.getFloatArray(read.getItemStringArray("tankCapacity")), Utility.getFloatArray(read.getItemStringArray("tankLevel")), Utility.getIntArray(read.getItemStringArray("tankAssignedFuels")));
         windowController.addRowTTanksSettingsTank(tanks);
 
-        createGasPumpObjects(read.getItemStringArrayListArray("gasPumpAssignedTanks"));
+        createGasPumpObjects(read.getItemStringArrayListArray("gasPumpAssignedTanks", "gasPump"));
         windowController.addRowTGasPumpsSettingsGasPump(gasPumps);
 
         createFuel(Utility.getIntArray(read.getItemStringArray("fuelType")),
@@ -365,10 +370,10 @@ public class Logic {
         String[] receiptNumber = read.getItemStringArray("receiptTitle");
         String[] receiptEmployee = read.getItemStringArray("receiptEmployees");
         String[] receiptDate = read.getItemStringArray("receiptDate");
-        ArrayList<String>[] receiptGoods = read.getItemStringArrayListArray("receiptGoods");
-        ArrayList<String>[] receiptGoodsAmount = read.getItemStringArrayListArray("receiptGoodsAmount");
-        ArrayList<String>[] receiptFuels = read.getItemStringArrayListArray("receiptFuels");
-        ArrayList<String>[] receiptFuelsAmount = read.getItemStringArrayListArray("receiptFuelsAmount");
+        ArrayList<String>[] receiptGoods = read.getItemStringArrayListArray("receiptGoods", "goods");
+        ArrayList<String>[] receiptGoodsAmount = read.getItemStringArrayListArray("receiptGoodsAmount", "amount");
+        ArrayList<String>[] receiptFuels = read.getItemStringArrayListArray("receiptFuels", "fuels");
+        ArrayList<String>[] receiptFuelsAmount = read.getItemStringArrayListArray("receiptFuelsAmount", "amount");
         for (int i = 0; i < receiptNumber.length; i++) {
             Employee employee = null;
             for (Employee employeeItem : employees) {
@@ -389,10 +394,21 @@ public class Logic {
                 for (Good good : this.goods) {
                     if (good.getINVENTORY_NUMBER() == Integer.parseInt(receiptGood)) {
                         goods.add(good);
-                        //goods.get(goods.size() - 1).setCheckoutAmount(receiptGoodsAmount[i].get());
+                        goods.get(goods.size() - 1).setCheckoutAmount(
+                        Integer.parseInt(receiptGoodsAmount[i].get(receiptGoods[i].indexOf(receiptGood))));
                     }
                 }
             }
+            for (String receiptFuel : receiptFuels[i]) {
+                for (Fuel fuel : this.fuels) {
+                    if (fuel.getINVENTORY_NUMBER() == Integer.parseInt(receiptFuel)) {
+                        fuels.add(fuel);
+                        fuels.get(fuels.size() - 1).setCheckoutAmount(
+                        Float.parseFloat(receiptFuelsAmount[i].get(receiptFuels[i].indexOf(receiptFuel))));
+                    }
+                }
+            }
+            receipts.add(new CustomerOrder(Integer.parseInt(receiptNumber[i]), date, employee, fuels, goods));
         }
     }
 
@@ -752,6 +768,7 @@ public class Logic {
         write.addItemArray("goodAmount", getAmountGood());
         write.addItemArray("goodUnit", getUnit());
         write.write(true);
+        updateBalance();
     }
 
     private void saveEmployees() {
@@ -771,6 +788,7 @@ public class Logic {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        updateBalance();
     }
 
     private void saveReceipt() {
@@ -783,6 +801,7 @@ public class Logic {
         write.addItemArrayListArray("receiptGoods", "goods", getReceiptGoods());
         write.addItemArrayListArray("receiptFuels", "fuels", getReceiptFuels());
         write.write(true);
+        updateBalance();
     }
 
     //===[GET STRINGS FOR JSON]==================================================
@@ -1106,7 +1125,45 @@ public class Logic {
         return employeeRole;
     }
 
+    //===[UPDATE]==================================================
+
+    private void updateBalance() {
+        ArrayList<Document> documents = new ArrayList<>();
+        for (Document document : this.documents) {
+            if (document instanceof FuelDocument || document instanceof GoodDocument) {
+                documents.add(document);
+            }
+        }
+        documents.addAll(receipts);
+        Collections.sort(documents, Comparator.comparingInt(document -> document.getODATE().getDate()));
+        windowController.updateBalance(documents, getDeliveryCosts(), getSales(), getBalance());
+    }
+
     //===[GETTER]==================================================
+
+    private float getDeliveryCosts() {
+        float cost = 0;
+        for (Document document : documents) {
+            if (document instanceof FuelDocument) {
+                cost += ((FuelDocument) document).getTotal();
+            } else if (document instanceof GoodDocument) {
+                cost += ((GoodDocument) document).getTotal();
+            }
+        }
+        return cost;
+    }
+
+    private float getSales() {
+        float sales = 0;
+        for (CustomerOrder receipt : receipts) {
+            sales += receipt.getTotal();
+        }
+        return Utility.round(sales, 2);
+    }
+
+    private float getBalance() {
+        return Utility.round((getSales() - getDeliveryCosts()), 2);
+    }
 
     /**
      * Gibt alle Kraftstoffe zurück
