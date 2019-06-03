@@ -198,11 +198,11 @@ public class Logic {
      * @author Robin Herder
      */
     private void exportJSONResources(String source, String file) {
-        InputStream jsonSource = getClass().getClassLoader().getResourceAsStream("\\json\\" + source);
+        InputStream jsonSource = getClass().getResourceAsStream("/json/" + source);
         File jsonDestination = new File(DATA_FILE_PATH + file);
         try {
             FileUtils.copyInputStreamToFile(jsonSource, jsonDestination);
-        } catch (IOException e) {
+        } catch (Exception e) {
             displayError("Could not export data file from jar!", e, true);
         }
     }
