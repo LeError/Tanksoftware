@@ -34,6 +34,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -614,7 +615,7 @@ public class Logic {
                 fuels.add(fuel);
             }
         }
-        receipts.add(new CustomerOrder(0, new Date(), employees.get(0), fuels, goods));
+        receipts.add(new CustomerOrder(receipts.size(), new Date(), employees.get(0), fuels, goods));
         saveReceipt();
         windowController.addRowTFuelsFuelOverview(this.fuels);
         windowController.addRowTGoodsInventoryOverview(this.goods);
@@ -1127,15 +1128,50 @@ public class Logic {
 
     //===[UPDATE]==================================================
 
-    private void updateBalance() {
+    public void updateBalance() {
+        DateFormat format = new SimpleDateFormat("dd.MM.yyyy");
         ArrayList<Document> documents = new ArrayList<>();
-        for (Document document : this.documents) {
-            if (document instanceof FuelDocument || document instanceof GoodDocument) {
-                documents.add(document);
+        if (windowController.noTimeSpan()) {
+            for (Document document : this.documents) {
+                if (document instanceof FuelDocument || document instanceof GoodDocument) {
+                    documents.add(document);
+                }
+            }
+            documents.addAll(receipts);
+        } else {
+            ArrayList<Date> dates = windowController.getReportDates();
+            Date date0 = null;
+            Date date1 = null;
+            try {
+                date0 = format.parse(dates.get(0).toString());
+                date1 = format.parse(dates.get(1).toString());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            ArrayList<Document> tmpDocument = new ArrayList<>();
+            tmpDocument.addAll(receipts);
+            tmpDocument.addAll(this.documents);
+            if (date0.compareTo(date1) < 0) {
+                for (Document document : tmpDocument) {
+                    System.out
+                    .println(date0.compareTo(document.getODATE()) >= 0 && date1.compareTo(document.getODATE()) <= 0);
+                    if (date0.compareTo(document.getODATE()) >= 0 && date1.compareTo(document.getODATE()) <= 0) {
+                        documents.add(document);
+                        System.out.println("Added");
+                    }
+                }
+
+            } else {
+                System.out.println("Falsch");
+                for (Document document : tmpDocument) {
+                    if (date1.compareTo(document.getODATE()) >= 0 && date0.compareTo(document.getODATE()) <= 0) {
+                        documents.add(document);
+                        System.out.println("Added");
+                    }
+                }
             }
         }
-        documents.addAll(receipts);
-        Collections.sort(documents, Comparator.comparingInt(document -> document.getODATE().getDate()));
+        Collections.sort(documents, Comparator.comparing(Document::getODATE));
         windowController.updateBalance(documents, getDeliveryCosts(), getSales(), getBalance());
     }
 
