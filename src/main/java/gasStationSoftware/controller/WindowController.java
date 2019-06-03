@@ -1058,6 +1058,12 @@ implements Initializable {
         addRowTReportReportOverview(documents);
     }
 
+    public void updateEmployeeBalance(float day, float month, float year) {
+        lblSalesSumDailyUser.setText(String.valueOf(day));
+        lblSalesSumMonthlyUser.setText(String.valueOf(month));
+        lblSalesSumYearlyUser.setText(String.valueOf(year));
+    }
+
     public boolean noTimeSpan() {
         return dpTimespanReportOverview.getValue() == null || dpTimespanReportOverview1.getValue() == null;
     }
