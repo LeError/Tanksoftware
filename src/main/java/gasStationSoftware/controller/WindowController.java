@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
+import gasStationSoftware.models.Document;
 import gasStationSoftware.models.Employee;
 import gasStationSoftware.models.Fuel;
 import gasStationSoftware.models.FuelDocument;
@@ -113,7 +114,7 @@ implements Initializable {
 
     @FXML private AnchorPane reportPane, reportOverviewPane;
     @FXML private Polygon polygonReport;
-    @FXML private Label titleReportOverview, lblBalanceReportOverview, lblTimespanReportOverview, lblSalesReportOverview, lblCostsReportOverview, lblResultReportOverview;
+    @FXML private Label titleReportOverview, lblBalanceReportOverview, lblTimespanReportOverview, lblSalesReportOverview, lblCostsReportOverview, lblResultReportOverview, lblCostValueReportOverview, lblBalanceValueReportOverview, lblSaleValueReportOverview;
     @FXML private Line dividerReportOverview, dividerBalanceReportOverview;
     @FXML private JFXDatePicker dpTimespanReportOverview, dpTimespanReportOverview1;
     @FXML private TableView tReportReportOverview;
@@ -157,6 +158,7 @@ implements Initializable {
         addColumnsTFuelsFuelDelivery();
         addColumnsTGoodsInventoryDelivery();
         addColumnsTCheckoutSellingOverview();
+        addColumnsTReportOverview();
         setDefaultContent();
     }
 
@@ -465,6 +467,15 @@ implements Initializable {
         tCheckoutSellingOverview.getColumns().addAll(columnCheckoutInvNumber, columnCheckoutLabel, columnCheckoutType, columnCheckoutPrice, columnCheckoutAmount);
     }
 
+    private void addColumnsTReportOverview() {
+        TableColumn columnReportDate = Dialog.getColumn("Datum", "DATE", 100, true);
+        TableColumn columnReportName = Dialog.getColumn("Name", "NAME", 200, true);
+        TableColumn columnReportType = Dialog.getColumn("Type", "DOC_TYPEForTab", 200, true);
+        TableColumn columnReportTotal = Dialog.getColumn("Wert", "totalForTab", 100, true);
+        tReportReportOverview.getColumns()
+        .addAll(columnReportDate, columnReportName, columnReportType, columnReportTotal);
+    }
+
     /**
      *
      * @return  colums[]
@@ -567,6 +578,11 @@ implements Initializable {
     public void addRowTGoodsInventoryDelivery(ArrayList<GoodDocument> deliveries) {
         tGoodsInventoryDelivery.getItems().clear();
         tGoodsInventoryDelivery.getItems().addAll(deliveries);
+    }
+
+    public void addRowTReportReportOverview(ArrayList<Document> documents) {
+        tReportReportOverview.getItems().clear();
+        tReportReportOverview.getItems().addAll(documents);
     }
 
     //===[LOGIC CALL]==================================================
@@ -996,8 +1012,12 @@ implements Initializable {
     }
 
     private void login() {
+        hidePanes();
+        hideSubPanes();
         loginPane.setVisible(false);
         mainPane.setVisible(true);
+        menuBarPane.setVisible(true);
+        userPane.setVisible(true);
         lblUserNameUser.setText(logic.getEmployeeName());
         lblUserRoleUser.setText(logic.getEmployeeRole());
 
@@ -1026,6 +1046,13 @@ implements Initializable {
                 sellingOverviewPane.setDisable(false);
             }
         }
+    }
+
+    public void updateBalance(ArrayList<Document> documents, float cost, float sale, float balance) {
+        lblCostValueReportOverview.setText("- " + cost);
+        lblSaleValueReportOverview.setText("+ " + sale);
+        lblBalanceValueReportOverview.setText(String.valueOf(balance));
+        addRowTReportReportOverview(documents);
     }
 
 }
