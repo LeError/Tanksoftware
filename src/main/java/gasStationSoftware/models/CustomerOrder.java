@@ -95,4 +95,8 @@ extends Document {
     public Employee getEMPLOYEE() {
         return EMPLOYEE;
     }
+
+    @Override public String getTotalForTab() {
+        return "+ " + getTotal();
+    }
 }
