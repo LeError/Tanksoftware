@@ -281,7 +281,10 @@ implements Initializable {
      */
     @FXML private void handleEmployeeAction(MouseEvent event) {
         if (event.getTarget() == btnEditEmployeeOverview) {
-
+            if(tEmployeesEmployeeOverview.getSelectionModel().getSelectedItem() != null) {
+                Employee selected = (Employee) tEmployeesEmployeeOverview.getSelectionModel().getSelectedItem();
+                new EmployeeInputDialog(rootPane , this, selected.getEMPLOYEE_NUMBER(), selected.getFIRST_NAME(), selected.getSUR_NAME(), selected.getEMPLOYMENT_DATE(), selected.getIRole());
+            }
         } else if (event.getTarget() == btnCreateEmployeeOverview) {
             new EmployeeInputDialog(rootPane, this);
         }
@@ -783,6 +786,15 @@ implements Initializable {
         String userRole = (String) ((JFXComboBox) pane.getChildren().get(4)).getSelectionModel().getSelectedItem();
         String userPass = ((JFXPasswordField) pane.getChildren().get(5)).getText();
         logic.addEmployee(firstName, surName, employmentDate, userRole, userPass);
+    }
+
+    public void processExistingEmployee(AnchorPane pane) {
+        String employeeNumber = ((JFXTextField) pane.getChildren().get(0)).getText();
+        String firstName = ((JFXTextField) pane.getChildren().get(1)).getText();
+        String surName = ((JFXTextField) pane.getChildren().get(2)).getText();
+        String userRole = (String) ((JFXComboBox) pane.getChildren().get(4)).getSelectionModel().getSelectedItem();
+        String userPass = ((JFXPasswordField) pane.getChildren().get(5)).getText();
+        logic.editEmployee(Integer.parseInt(employeeNumber), firstName, surName, userRole, userPass);
     }
 
     //===[CHECKOUT SPECIFIC]==================================================
