@@ -30,6 +30,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -211,13 +212,6 @@ implements Initializable {
      * @param event
      * @author Robin Herder
      */
-    @FXML private void handleUserAction(MouseEvent event) {}
-
-    /**
-     *
-     * @param event
-     * @author Robin Herder
-     */
     @FXML private void handleSaleAction(MouseEvent event) {
         if (event.getTarget() == btnGoodsSalesOverview) {
             new GoodsDialog(rootPane, this);
@@ -298,7 +292,9 @@ implements Initializable {
      * @param event
      * @author Robin Herder
      */
-    @FXML private void handleReportAction(MouseEvent event) {}
+    @FXML private void handleReportAction(ActionEvent event) {
+        logic.updateBalance();
+    }
 
     /**
      *
@@ -935,6 +931,13 @@ implements Initializable {
 
     //===[GETTER]==================================================
 
+    public ArrayList<Date> getReportDates() {
+        ArrayList<Date> dates = new ArrayList<>();
+        dates.add(Date.from(dpTimespanReportOverview.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        dates.add(Date.from(dpTimespanReportOverview1.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        return dates;
+    }
+
     /**
      * Gibt dem Style aller Buttons zurück
      * @return buttensStyle
@@ -1053,6 +1056,10 @@ implements Initializable {
         lblSaleValueReportOverview.setText("+ " + sale);
         lblBalanceValueReportOverview.setText(String.valueOf(balance));
         addRowTReportReportOverview(documents);
+    }
+
+    public boolean noTimeSpan() {
+        return dpTimespanReportOverview.getValue() == null || dpTimespanReportOverview1.getValue() == null;
     }
 
 }
