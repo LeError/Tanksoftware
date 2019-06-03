@@ -5,7 +5,7 @@ public class DeliveredFuel extends Fuel {
     private final float AMOUNT;
 
     public DeliveredFuel(ItemType type, float price, String currency, float amount) {
-        super(type, price, currency, 0.0f);
+        super(type, price, currency);
         AMOUNT = amount;
     }
 
