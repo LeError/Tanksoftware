@@ -32,6 +32,16 @@ public abstract class Document {
         return DOC_TYPE;
     }
 
+    public String getDOC_TYPEForTab() {
+        String type = "";
+        if (DOC_TYPE == DocumentType.fuelDelivery || DOC_TYPE == DocumentType.goodDelivery) {
+            type = "Ausgabe";
+        } else if (DOC_TYPE == DocumentType.receipt) {
+            type = "Einnahme";
+        }
+        return type;
+    }
+
     /**
      * Gibt den Namen des Dokuments zurück
      * @return NAME
