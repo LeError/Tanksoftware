@@ -21,4 +21,11 @@ public class FuelDocument extends Document {
         return FUELS;
     }
 
+    @Override public String getTotalForTab() {
+        float total = 0;
+        for (DeliveredFuel fuel : FUELS) {
+            total += fuel.getAmountDelivered() * fuel.getPrice();
+        }
+        return "- " + total;
+    }
 }
