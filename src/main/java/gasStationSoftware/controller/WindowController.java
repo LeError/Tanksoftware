@@ -1,9 +1,28 @@
 package gasStationSoftware.controller;
 
-import com.jfoenix.controls.*;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXTextField;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
-import gasStationSoftware.models.*;
-import gasStationSoftware.ui.*;
+import gasStationSoftware.models.Employee;
+import gasStationSoftware.models.Fuel;
+import gasStationSoftware.models.FuelDocument;
+import gasStationSoftware.models.FuelTank;
+import gasStationSoftware.models.GasPump;
+import gasStationSoftware.models.Good;
+import gasStationSoftware.models.GoodDocument;
+import gasStationSoftware.models.InventoryType;
+import gasStationSoftware.models.Item;
+import gasStationSoftware.models.ItemType;
+import gasStationSoftware.ui.EmployeeInputDialog;
+import gasStationSoftware.ui.FuelTankInputDialog;
+import gasStationSoftware.ui.GasPumpDialog;
+import gasStationSoftware.ui.GasPumpInputDialog;
+import gasStationSoftware.ui.GoodsDialog;
+import gasStationSoftware.ui.ItemInputDialog;
+import gasStationSoftware.ui.ItemTypeInputDialog;
 import gasStationSoftware.util.Dialog;
 import gasStationSoftware.util.Utility;
 import javafx.collections.FXCollections;
@@ -47,7 +66,8 @@ implements Initializable {
     @FXML private StackPane rootPane;
 
     @FXML private AnchorPane loginPane, mainPane;
-    @FXML private JFXTextField txtIDLogin, txtPassLogin;
+    @FXML private JFXTextField txtIDLogin;
+    @FXML private JFXPasswordField txtPassLogin;
     @FXML private JFXButton btnLogin;
     @FXML private Label lblCopyrightLogin;
 
