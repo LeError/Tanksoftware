@@ -96,7 +96,8 @@
                             </font>
                         </Label>
                         <Separator fx:id="dividerUser" layoutX="65.0" layoutY="325.0" minHeight="2.0" prefWidth="700.0" style="-fx-background-color: #212121;" />
-                        <Label fx:id="subtitleSalesUser" layoutX="65.0" layoutY="300.0" text="Gesamtumsatz" textFill="#212121">
+                        <Label fx:id="subtitleSalesUser" layoutX="65.0" layoutY="300.0" text="Gesamteinnahmen"
+                               textFill="#212121">
                             <font>
                                 <Font name="System Bold" size="15.0" />
                             </font>
