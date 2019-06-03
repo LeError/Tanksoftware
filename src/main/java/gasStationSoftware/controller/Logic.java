@@ -1499,4 +1499,33 @@ public class Logic {
         }
         return false;
     }
+
+    public void editEmployee(int employeeNumber, String firstName, String surName, String userRole, String pass) {
+        Employee editEmployee = null;
+        for(Employee employee : employees) {
+            if(employee.getEMPLOYEE_NUMBER() == employeeNumber) {
+                editEmployee = employee;
+                break;
+            }
+        }
+        editEmployee.setFirstName(firstName);
+        editEmployee.setSurName(surName);
+        if(pass != null && !pass.equals("")) {
+            editEmployee.setPass(DigestUtils.sha256Hex(userRole));
+        }
+        UserRole role = null;
+        switch (userRole) {
+            case "Administrator":
+                role = UserRole.admin;
+                break;
+            case "Angestellter":
+                role = UserRole.employee;
+                break;
+            default:
+                role = UserRole.assistant;
+        }
+        editEmployee.setRole(role);
+        windowController.addRowTEmployeesEmployeeOverview(employees);
+        saveEmployees();
+    }
 }
