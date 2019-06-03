@@ -21,4 +21,16 @@ extends Document {
         return GOODS;
     }
 
+    public float getTotal() {
+        float total = 0;
+        for (Good good : GOODS) {
+            total += good.getAmount() * good.getPrice();
+        }
+        return total;
+    }
+
+    @Override public String getTotalForTab() {
+        return "- " + getTotal();
+    }
+
 }

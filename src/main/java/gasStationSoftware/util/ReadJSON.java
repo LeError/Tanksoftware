@@ -74,12 +74,12 @@ public class ReadJSON {
      * @return items[]
      * @author Robin Herder
      */
-    public ArrayList<String>[] getItemStringArrayListArray(String name) {
+    public ArrayList<String>[] getItemStringArrayListArray(String name, String subName) {
         JSONArray objectArray = (JSONArray) jsonObject.get(name);
         ArrayList<String>[] items = new ArrayList[objectArray.size()];
         for (int i = 0; i < objectArray.size(); i++) {
             JSONObject jsonObj2 = (JSONObject) objectArray.get(i);
-            JSONArray array = (JSONArray) jsonObj2.get("gasPump");
+            JSONArray array = (JSONArray) jsonObj2.get(subName);
             ArrayList<String> itemList = new ArrayList<>();
             for (int j = 0; j < array.size(); j++) {
                 itemList.add((String) array.get(j));

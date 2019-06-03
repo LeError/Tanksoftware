@@ -8,6 +8,9 @@ public class GasPump {
     private ArrayList<ItemType> fuels = new ArrayList<>();
     private ArrayList<FuelTank> tanks;
 
+    private float checkoutAmount = 0;
+    private Fuel checkoutFuel = null;
+
     /**
      * Constructor Zapfsäule
      * @param gasPumpNumber
@@ -113,4 +116,23 @@ public class GasPump {
         return assignedTanks;
     }
 
+    public void setCheckoutAmount(float amount) {
+        checkoutAmount = amount;
+    }
+
+    public float getCheckoutAmount() {
+        return checkoutAmount;
+    }
+
+    public Fuel getCheckoutFuel() {
+        return checkoutFuel;
+    }
+
+    public void setCheckoutFuel(Fuel checkoutFuel) {
+        this.checkoutFuel = checkoutFuel;
+    }
+
+    public String getLabel() {
+        return checkoutFuel.getLABEL();
+    }
 }

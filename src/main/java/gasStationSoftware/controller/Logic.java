@@ -2,7 +2,21 @@ package gasStationSoftware.controller;
 
 import gasStationSoftware.exceptions.DataFileNotFoundException;
 import gasStationSoftware.exceptions.NumberOutOfRangeException;
-import gasStationSoftware.models.*;
+import gasStationSoftware.models.CustomerOrder;
+import gasStationSoftware.models.DeliveredFuel;
+import gasStationSoftware.models.Document;
+import gasStationSoftware.models.DocumentType;
+import gasStationSoftware.models.Employee;
+import gasStationSoftware.models.Fuel;
+import gasStationSoftware.models.FuelDocument;
+import gasStationSoftware.models.FuelTank;
+import gasStationSoftware.models.GasPump;
+import gasStationSoftware.models.Good;
+import gasStationSoftware.models.GoodDocument;
+import gasStationSoftware.models.InventoryType;
+import gasStationSoftware.models.Item;
+import gasStationSoftware.models.ItemType;
+import gasStationSoftware.models.UserRole;
 import gasStationSoftware.ui.ErrorDialog;
 import gasStationSoftware.util.ReadJSON;
 import gasStationSoftware.util.ReadListFile;
@@ -16,7 +30,6 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -49,7 +62,9 @@ public class Logic {
             "themes\\default.json",
             "employees.txt",
             "themes\\dark.json",
-            "users.json"
+            "users.json",
+            "tankSimulation.json",
+            "allReceipts.json"
     };
 
     private ArrayList<Employee> employees = new ArrayList<>();
@@ -162,6 +177,12 @@ public class Logic {
                 case "themes\\dark.json":
                     exportJSONResources("darkTheme.json", "themes\\dark.json");
                     break;
+                case "tankSimulation.json":
+                    exportJSONResources("tankSimulation.json", "tankSimulation.json");
+                    break;
+                case "allReceipts.json":
+                    exportJSONResources("allReceipts.json", "allReceipts.json");
+                    break;
                 default:
                     throw new DataFileNotFoundException(file);
                 }
@@ -177,11 +198,11 @@ public class Logic {
      * @author Robin Herder
      */
     private void exportJSONResources(String source, String file) {
-        InputStream jsonSource = getClass().getClassLoader().getResourceAsStream("\\json\\" + source);
+        InputStream jsonSource = getClass().getResourceAsStream("/json/" + source);
         File jsonDestination = new File(DATA_FILE_PATH + file);
         try {
             FileUtils.copyInputStreamToFile(jsonSource, jsonDestination);
-        } catch (IOException e) {
+        } catch (Exception e) {
             displayError("Could not export data file from jar!", e, true);
         }
     }
@@ -228,6 +249,12 @@ public class Logic {
         }
         loadFuelDeliveries();
         loadGoodDeliveries();
+        try {
+            loadReceipts();
+        } catch (DataFileNotFoundException e) {
+            e.printStackTrace();
+        }
+        updateBalance();
     }
 
     /**
@@ -306,7 +333,7 @@ public class Logic {
         createFuelTankObjects(Utility.getIntArray(read.getItemStringArray("tankID")), Utility.getFloatArray(read.getItemStringArray("tankCapacity")), Utility.getFloatArray(read.getItemStringArray("tankLevel")), Utility.getIntArray(read.getItemStringArray("tankAssignedFuels")));
         windowController.addRowTTanksSettingsTank(tanks);
 
-        createGasPumpObjects(read.getItemStringArrayListArray("gasPumpAssignedTanks"));
+        createGasPumpObjects(read.getItemStringArrayListArray("gasPumpAssignedTanks", "gasPump"));
         windowController.addRowTGasPumpsSettingsGasPump(gasPumps);
 
         createFuel(Utility.getIntArray(read.getItemStringArray("fuelType")),
@@ -334,6 +361,54 @@ public class Logic {
         File[] files = new File(DATA_SUB_PATHS[4]).listFiles();
         for (File file : files) {
             importGoodDelivery(file.getAbsolutePath(), false);
+        }
+    }
+
+    private void loadReceipts()
+    throws DataFileNotFoundException {
+        ReadJSON read = new ReadJSON(DATA_FILE_PATH + DATA_FILE_NAMES[7]);
+        String[] receiptNumber = read.getItemStringArray("receiptTitle");
+        String[] receiptEmployee = read.getItemStringArray("receiptEmployees");
+        String[] receiptDate = read.getItemStringArray("receiptDate");
+        ArrayList<String>[] receiptGoods = read.getItemStringArrayListArray("receiptGoods", "goods");
+        ArrayList<String>[] receiptGoodsAmount = read.getItemStringArrayListArray("receiptGoodsAmount", "amount");
+        ArrayList<String>[] receiptFuels = read.getItemStringArrayListArray("receiptFuels", "fuels");
+        ArrayList<String>[] receiptFuelsAmount = read.getItemStringArrayListArray("receiptFuelsAmount", "amount");
+        for (int i = 0; i < receiptNumber.length; i++) {
+            Employee employee = null;
+            for (Employee employeeItem : employees) {
+                if (employeeItem.getEMPLOYEE_NUMBER() == Integer.parseInt(receiptEmployee[i])) {
+                    employee = employeeItem;
+                    break;
+                }
+            }
+            Date date = null;
+            try {
+                date = new SimpleDateFormat("dd.MM.yyyy").parse(receiptDate[i]);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            ArrayList<Good> goods = new ArrayList<>();
+            ArrayList<Fuel> fuels = new ArrayList<>();
+            for (String receiptGood : receiptGoods[i]) {
+                for (Good good : this.goods) {
+                    if (good.getINVENTORY_NUMBER() == Integer.parseInt(receiptGood)) {
+                        goods.add(good);
+                        goods.get(goods.size() - 1).setCheckoutAmount(
+                        Integer.parseInt(receiptGoodsAmount[i].get(receiptGoods[i].indexOf(receiptGood))));
+                    }
+                }
+            }
+            for (String receiptFuel : receiptFuels[i]) {
+                for (Fuel fuel : this.fuels) {
+                    if (fuel.getINVENTORY_NUMBER() == Integer.parseInt(receiptFuel)) {
+                        fuels.add(fuel);
+                        fuels.get(fuels.size() - 1).setCheckoutAmount(
+                        Float.parseFloat(receiptFuelsAmount[i].get(receiptFuels[i].indexOf(receiptFuel))));
+                    }
+                }
+            }
+            receipts.add(new CustomerOrder(Integer.parseInt(receiptNumber[i]), date, employee, fuels, goods));
         }
     }
 
@@ -426,7 +501,7 @@ public class Logic {
                     break;
                 }
             }
-            fuels.add(new Fuel(fuel, price[i], currency[i], amount[i]));
+            fuels.add(new Fuel(fuel, price[i], currency[i]));
         }
     }
 
@@ -527,19 +602,23 @@ public class Logic {
         for(Item item : items) {
             if(item instanceof Good) {
                 Good good = (Good) item;
-                this.goods.get(this.goods.indexOf(good)).addAmount((int) good.getCheckoutAmount());
+                this.goods.get(this.goods.indexOf(good)).addAmount(- (int) good.getCheckoutAmount());
                 goods.add(good);
             } else if(item instanceof Fuel)  {
                 Fuel fuel = (Fuel) item;
                 try {
-                    this.fuels.get(this.fuels.indexOf(fuel)).addAmount(fuel.getCheckoutAmount());
+                    this.fuels.get(this.fuels.indexOf(fuel)).removeAmount(fuel.getCheckoutAmount(), fuel.getCheckoutTank());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
                 fuels.add(fuel);
             }
         }
-        receipts.add(new CustomerOrder("", 0, new Date(), employees.get(0), fuels, goods));
+        receipts.add(new CustomerOrder(0, new Date(), employees.get(0), fuels, goods));
+        saveReceipt();
+        windowController.addRowTFuelsFuelOverview(this.fuels);
+        windowController.addRowTGoodsInventoryOverview(this.goods);
+        saveInventory();
     }
 
     /**
@@ -607,7 +686,7 @@ public class Logic {
         }
 
         if(newEntry) {
-            Fuel newFuel = new Fuel(iType, price, currency, amount);
+            Fuel newFuel = new Fuel(iType, price, currency);
             fuels.add(newFuel);
             Collections.sort(fuels, Comparator.comparingInt(fuel -> fuel.getINVENTORY_NUMBER()));
             windowController.addRowTFuelsFuelOverview(fuels);
@@ -689,6 +768,7 @@ public class Logic {
         write.addItemArray("goodAmount", getAmountGood());
         write.addItemArray("goodUnit", getUnit());
         write.write(true);
+        updateBalance();
     }
 
     private void saveEmployees() {
@@ -708,9 +788,95 @@ public class Logic {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        updateBalance();
+    }
+
+    private void saveReceipt() {
+        WriteJSON write = new WriteJSON(DATA_FILE_PATH + DATA_FILE_NAMES[7]);
+        write.addItemArray("receiptTitle", getReceiptTitle());
+        write.addItemArray("receiptEmployees", getReceiptEmployeeNumber());
+        write.addItemArray("receiptDate", getReceiptDate());
+        write.addItemArrayListArray("receiptGoodsAmount", "amount", getReceiptGoodAmount());
+        write.addItemArrayListArray("receiptFuelsAmount", "amount", getReceiptFuelAmount());
+        write.addItemArrayListArray("receiptGoods", "goods", getReceiptGoods());
+        write.addItemArrayListArray("receiptFuels", "fuels", getReceiptFuels());
+        write.write(true);
+        updateBalance();
     }
 
     //===[GET STRINGS FOR JSON]==================================================
+
+    private String[] getReceiptTitle() {
+        String[] receipt = new String[receipts.size()];
+        for (int i = 0; i < receipt.length; i++) {
+            receipt[i] = String.valueOf(receipts.get(i).getRECEIPT_NUMBER());
+        }
+        return receipt;
+    }
+
+    private String[] getReceiptEmployeeNumber() {
+        String[] receipt = new String[receipts.size()];
+        for (int i = 0; i < receipt.length; i++) {
+            receipt[i] = String.valueOf(receipts.get(i).getEMPLOYEE().getEMPLOYEE_NUMBER());
+        }
+        return receipt;
+    }
+
+    private String[] getReceiptDate() {
+        String[] receipt = new String[receipts.size()];
+        for (int i = 0; i < receipt.length; i++) {
+            receipt[i] = receipts.get(i).getDate();
+        }
+        return receipt;
+    }
+
+    private ArrayList<String>[] getReceiptFuelAmount() {
+        ArrayList<String>[] receiptFuels = new ArrayList[receipts.size()];
+        for (int i = 0; i < receipts.size(); i++) {
+            receiptFuels[i] = new ArrayList<>();
+            ArrayList<Float> amount = receipts.get(i).getFuelsAmount();
+            for (int j = 0; j < amount.size(); j++) {
+                receiptFuels[i].add(String.valueOf(amount.get(j)));
+            }
+        }
+        return receiptFuels;
+    }
+
+    private ArrayList<String>[] getReceiptGoodAmount() {
+        ArrayList<String>[] receiptGoods = new ArrayList[receipts.size()];
+        for (int i = 0; i < receipts.size(); i++) {
+            receiptGoods[i] = new ArrayList<>();
+            ArrayList<Integer> amount = receipts.get(i).getGoodsAmount();
+            for (int j = 0; j < amount.size(); j++) {
+                receiptGoods[i].add(String.valueOf(amount.get(j)));
+            }
+        }
+        return receiptGoods;
+    }
+
+    private ArrayList<String>[] getReceiptFuels() {
+        ArrayList<String>[] receiptFuels = new ArrayList[receipts.size()];
+        for (int i = 0; i < receipts.size(); i++) {
+            receiptFuels[i] = new ArrayList<>();
+            ArrayList<Fuel> fuels = receipts.get(i).getFuels();
+            for (int j = 0; j < fuels.size(); j++) {
+                receiptFuels[i].add(String.valueOf(fuels.get(j).getINVENTORY_NUMBER()));
+            }
+        }
+        return receiptFuels;
+    }
+
+    private ArrayList<String>[] getReceiptGoods() {
+        ArrayList<String>[] receiptGoods = new ArrayList[receipts.size()];
+        for (int i = 0; i < receipts.size(); i++) {
+            receiptGoods[i] = new ArrayList<>();
+            ArrayList<Good> goods = receipts.get(i).getGoods();
+            for (int j = 0; j < goods.size(); j++) {
+                receiptGoods[i].add(String.valueOf(goods.get(j).getINVENTORY_NUMBER()));
+            }
+        }
+        return receiptGoods;
+    }
 
     /**
      * Gibt Tankkapazität aller Tanks zurück
@@ -959,7 +1125,45 @@ public class Logic {
         return employeeRole;
     }
 
+    //===[UPDATE]==================================================
+
+    private void updateBalance() {
+        ArrayList<Document> documents = new ArrayList<>();
+        for (Document document : this.documents) {
+            if (document instanceof FuelDocument || document instanceof GoodDocument) {
+                documents.add(document);
+            }
+        }
+        documents.addAll(receipts);
+        Collections.sort(documents, Comparator.comparingInt(document -> document.getODATE().getDate()));
+        windowController.updateBalance(documents, getDeliveryCosts(), getSales(), getBalance());
+    }
+
     //===[GETTER]==================================================
+
+    private float getDeliveryCosts() {
+        float cost = 0;
+        for (Document document : documents) {
+            if (document instanceof FuelDocument) {
+                cost += ((FuelDocument) document).getTotal();
+            } else if (document instanceof GoodDocument) {
+                cost += ((GoodDocument) document).getTotal();
+            }
+        }
+        return cost;
+    }
+
+    private float getSales() {
+        float sales = 0;
+        for (CustomerOrder receipt : receipts) {
+            sales += receipt.getTotal();
+        }
+        return Utility.round(sales, 2);
+    }
+
+    private float getBalance() {
+        return Utility.round((getSales() - getDeliveryCosts()), 2);
+    }
 
     /**
      * Gibt alle Kraftstoffe zurück
@@ -1017,6 +1221,33 @@ public class Logic {
         userRoles.add(UserRole.employee.getRole());
         userRoles.add(UserRole.assistant.getRole());
         return userRoles;
+    }
+
+    public ArrayList<GasPump> getUsedGasPumps() {
+        ReadJSON read;
+        ArrayList<GasPump> gasPumps = new ArrayList<>();
+        try {
+            read = new ReadJSON(DATA_FILE_PATH + DATA_FILE_NAMES[6]);
+            String[] gasPumpNumber = read.getItemStringArray("gasPumpNumber");
+            String[] fuelType = read.getItemStringArray("fuelType");
+            String[] fuelAmount = read.getItemStringArray("fuelAmount");
+            for(int i = 0; i < gasPumpNumber.length; i++) {
+                for(GasPump gasPump : this.gasPumps) {
+                    if(gasPump.getGAS_PUMP_NUMBER() == Integer.parseInt(gasPumpNumber[i])) {
+                        gasPumps.add(gasPump);
+                        gasPumps.get(gasPumps.size() - 1).setCheckoutAmount(Float.parseFloat(fuelAmount[i]));
+                        for(Fuel fuel : fuels) {
+                            if(fuel.getINVENTORY_NUMBER() == Integer.parseInt(fuelType[i])) {
+                                gasPumps.get(gasPumps.size() - 1).setCheckoutFuel(fuel);
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (DataFileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return gasPumps;
     }
 
     //===[GET ROWS FOR INPUT DIALOGS]==================================================

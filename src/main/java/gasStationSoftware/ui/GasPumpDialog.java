@@ -8,33 +8,34 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 
-public class GoodsDialog extends Dialog {
+public class GasPumpDialog extends Dialog {
 
     private JFXTextField txtSearch;
     private TableView tItemList;
 
-    public GoodsDialog(StackPane rootPane, WindowController windowController) {
+    public GasPumpDialog(StackPane rootPane, WindowController windowController) {
         super(windowController);
 
         txtSearch = getTextfield(290, 30, false, 10, 5, 5);
         txtSearch.setPromptText("Suche");
 
-        TableColumn columnInvNumber = getColumn("INV #", "INVENTORY_NUMBER", 90d, false);
-        TableColumn columnLabel = getColumn("Produkt", "LABEL", 198d, false);
+        TableColumn columnInvNumber = getColumn("Säule #", "GAS_PUMP_NUMBER", 90d, false);
+        TableColumn columnLabel = getColumn("Produkt", "label", 100d, false);
+        TableColumn columnAmount = getColumn("Menge", "checkoutAmount", 98d, false);
 
         tItemList = getTable(290, 180, 55d, 5d);
-        tItemList.getColumns().addAll(columnInvNumber,columnLabel);
+        tItemList.getColumns().addAll(columnInvNumber, columnLabel, columnAmount);
 
-        windowController.createGoodsData(this);
+        windowController.createGasPumpData(this);
 
         AnchorPane pane = getAnchorPane(300, 240);
         pane.getChildren().addAll(txtSearch, tItemList);
-        inputDialog(rootPane, pane, "Produkt Auswahl");
+        inputDialog(rootPane, pane, "Zapfsäule auswählen");
     }
 
     @Override
     protected void processSubmit(AnchorPane pane) {
-        windowController.processGoodCheckout(pane);
+        windowController.processGasPumpCheckout(pane);
     }
 
     public JFXTextField getTxtSearch() {
