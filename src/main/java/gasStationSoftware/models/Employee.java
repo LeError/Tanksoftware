@@ -8,8 +8,8 @@ public class Employee {
 
     private final int EMPLOYEE_NUMBER;
     private final Date EMPLOYMENT_DATE;
-    private final String FIRST_NAME, SUR_NAME, EMPLOYMENT_DATE_FORMATTED;
-    private final String PASS;
+    private final String EMPLOYMENT_DATE_FORMATTED;
+    private String pass, firstName, surName;
     private UserRole role;
 
     /**
@@ -23,10 +23,10 @@ public class Employee {
     public Employee(int employeeNumber, String firstName, String surname, Date employmentDate, UserRole role, String pass) {
         EMPLOYEE_NUMBER = employeeNumber;
         EMPLOYMENT_DATE = employmentDate;
-        FIRST_NAME = firstName;
-        SUR_NAME = surname;
+        this.firstName = firstName;
+        surName = surname;
         EMPLOYMENT_DATE_FORMATTED = Utility.getDateFormatted(EMPLOYMENT_DATE);
-        PASS = pass;
+        this.pass = pass;
         this.role = role;
     }
 
@@ -50,20 +50,20 @@ public class Employee {
 
     /**
      * Gibt den Vornamen des Mitarbeiters zurück
-     * @return FIRST_NAME
+     * @return firstName
      * @author Robin Herder
      */
     public String getFIRST_NAME() {
-        return FIRST_NAME;
+        return firstName;
     }
 
     /**
      * Gibt den Nachnamen des Mitarbeiters zurück
-     * @return SUR_NAME
+     * @return surName
      * @author Robin Herder
      */
     public String getSUR_NAME() {
-        return SUR_NAME;
+        return surName;
     }
 
     /**
@@ -76,7 +76,7 @@ public class Employee {
     }
 
     public boolean logIn(int employeeNumber, String pass) {
-        if(EMPLOYEE_NUMBER == employeeNumber && PASS.equals(pass)) {
+        if(EMPLOYEE_NUMBER == employeeNumber && this.pass.equals(pass)) {
             return true;
         } else {
             return false;
@@ -92,6 +92,22 @@ public class Employee {
     }
 
     public String getPASS() {
-        return PASS;
+        return pass;
+    }
+
+    public void setPass(String pass) {
+        this.pass = pass;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setSurName(String surName) {
+        this.surName = surName;
+    }
+
+    public void setRole(UserRole role) {
+        this.role = role;
     }
 }
