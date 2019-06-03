@@ -102,7 +102,7 @@ public class FuelTank {
      */
     public void addLevel(float level) throws NumberOutOfRangeException {
         this.level += level;
-        levelPercentage = level / CAPACITY;
+        levelPercentage = this.level / CAPACITY;
         System.out.println(levelPercentage + " = " + level);
         if(levelPercentage > 1 || levelPercentage < 0) {
             throw new NumberOutOfRangeException();
