@@ -60,4 +60,6 @@ public abstract class Document {
      * @author Robin Herder
      */
     public abstract String[] getLinesForFile();
+
+    public abstract String getTotalForTab();
 }
