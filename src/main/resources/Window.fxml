@@ -467,8 +467,10 @@
                                 <Label fx:id="lblResultReportOverview" layoutX="85.0" layoutY="540.0" text="Differenz:" />
                                 <Line fx:id="dividerReportOverview" endX="730.0" layoutX="65.0" layoutY="410.0" />
                                 <Line fx:id="dividerBalanceReportOverview" endX="250.0" layoutX="85.0" layoutY="530.0" />
-                                <JFXDatePicker fx:id="dpTimespanReportOverview" layoutX="150.0" layoutY="425.0" />
-                                <JFXDatePicker fx:id="dpTimespanReportOverview1" layoutX="400.0" layoutY="425.0" />
+                                <JFXDatePicker fx:id="dpTimespanReportOverview" layoutX="150.0" layoutY="425.0"
+                                               onAction="#handleReportAction"/>
+                                <JFXDatePicker fx:id="dpTimespanReportOverview1" layoutX="400.0" layoutY="425.0"
+                                               onAction="#handleReportAction"/>
                         <JFXButton layoutX="830.0" layoutY="15.0" onMousePressed="#handleCloseAction" prefHeight="40.0" prefWidth="40.0" style="-jfx-disable-visual-focus: true;">
                            <graphic>
                               <MaterialDesignIconView glyphName="CLOSE" size="24" style="-fx-fill: #607D8B;" />
