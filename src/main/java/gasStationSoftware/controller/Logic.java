@@ -615,7 +615,7 @@ public class Logic {
                 fuels.add(fuel);
             }
         }
-        receipts.add(new CustomerOrder(receipts.size(), new Date(), employees.get(0), fuels, goods));
+        receipts.add(new CustomerOrder(receipts.size(), new Date(), activeEmployee, fuels, goods));
         saveReceipt();
         windowController.addRowTFuelsFuelOverview(this.fuels);
         windowController.addRowTGoodsInventoryOverview(this.goods);
@@ -1173,15 +1173,17 @@ public class Logic {
         Collections.sort(documents, Comparator.comparing(Document::getODATE));
         windowController.updateBalance(documents, getDeliveryCosts(), getSales(), getBalance());
         float today = 0, month = 0, year = 0;
-        for(CustomerOrder document : receipts) {
-            if(Utility.getDateFormatted(new Date()).equals(Utility.getDateFormatted(document.getODATE()))) {
-                today += document.getTotal();
-            }
-            if(new Date().getYear() == document.getODATE().getYear() && new Date().getMonth() == document.getODATE().getMonth()){
-                month += document.getTotal();
-            }
-            if(new Date().getYear() == document.getODATE().getYear()){
-                year += document.getTotal();
+        if(activeEmployee != null) {
+            for(CustomerOrder document : receipts) {
+                if(Utility.getDateFormatted(new Date()).equals(Utility.getDateFormatted(document.getODATE())) && document.getEMPLOYEE().getEMPLOYEE_NUMBER() == activeEmployee.getEMPLOYEE_NUMBER()) {
+                    today += document.getTotal();
+                }
+                if(new Date().getYear() == document.getODATE().getYear() && new Date().getMonth() == document.getODATE().getMonth() && document.getEMPLOYEE().getEMPLOYEE_NUMBER() == activeEmployee.getEMPLOYEE_NUMBER()){
+                    month += document.getTotal();
+                }
+                if(new Date().getYear() == document.getODATE().getYear() && document.getEMPLOYEE().getEMPLOYEE_NUMBER() == activeEmployee.getEMPLOYEE_NUMBER()){
+                    year += document.getTotal();
+                }
             }
         }
         windowController.updateEmployeeBalance(today, month, year);
@@ -1491,6 +1493,7 @@ public class Logic {
         for(Employee employee : employees) {
             if(employee.logIn(id, passHash)) {
                 activeEmployee = employee;
+                updateBalance();
                 return true;
             }
         }
