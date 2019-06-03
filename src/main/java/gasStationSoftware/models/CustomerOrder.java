@@ -7,25 +7,25 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 
-public class CustomerOrder {
+public class CustomerOrder
+extends Document {
 
     private HashMap<Fuel, Float> fuels = new HashMap<>();
     private HashMap<Good, Integer> goods = new HashMap<>();
 
-    private final int RECEIPT_NUMBER;
-    private final Date DATE;
     private final Employee EMPLOYEE;
 
     public CustomerOrder(int receiptNumber, Date date, Employee employee, ArrayList<Fuel> fuels,
     ArrayList<Good> goods) {
-        RECEIPT_NUMBER = receiptNumber;
-        DATE = date;
+        super(DocumentType.receipt, String.valueOf(receiptNumber), date);
         EMPLOYEE = employee;
         for(Fuel fuel : fuels) {
             this.fuels.put(fuel, fuel.getCheckoutAmount());
+            fuel.setCheckoutAmount(0);
         }
         for(Good good : goods) {
             this.goods.put(good, (int) good.getCheckoutAmount());
+            good.setCheckoutAmount(0);
         }
     }
 
@@ -49,7 +49,7 @@ public class CustomerOrder {
     }
 
     public String getDate(){
-        return Utility.getDateFormatted(DATE);
+        return Utility.getDateFormatted(getODATE());
     }
 
     public ArrayList<Fuel> getFuels() {
@@ -89,7 +89,7 @@ public class CustomerOrder {
     }
 
     public int getRECEIPT_NUMBER() {
-        return RECEIPT_NUMBER;
+        return Integer.parseInt(getNAME());
     }
 
     public Employee getEMPLOYEE() {
