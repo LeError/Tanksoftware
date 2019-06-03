@@ -3,5 +3,7 @@
   "receiptEmployees" : [],
   "receiptDate" : [],
   "receiptGoods" : [],
-  "receiptFuels" : []
+  "receiptGoodsAmount": [],
+  "receiptFuels": [],
+  "receiptFuelsAmount": []
 }
