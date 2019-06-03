@@ -45,7 +45,8 @@
       </AnchorPane>
         <AnchorPane fx:id="mainPane" prefHeight="200.0" prefWidth="200.0" visible="false">
             <children>
-                <AnchorPane fx:id="menuBarPane" maxHeight="600.0" maxWidth="110.0" minHeight="600.0" minWidth="110.0" prefHeight="600.0" prefWidth="110.0" style="-fx-background-color: #607D8B;">
+                <AnchorPane fx:id="menuBarPane" maxHeight="600.0" maxWidth="110.0" minHeight="600.0" minWidth="110.0"
+                            prefHeight="600.0" prefWidth="110.0" style="-fx-background-color: #607D8B;" visible="false">
                     <children>
                         <Line fx:id="lineMenuBar" endX="100.0" layoutY="105.0" startX="10.0" stroke="#bdbdbd" />
                         <ImageView fx:id="ivUserMenuBar" fitHeight="80.0" fitWidth="80.0" layoutX="15.0" layoutY="14.0" onMousePressed="#handleMenuButtonAction" pickOnBounds="true" preserveRatio="true">
@@ -61,7 +62,8 @@
                         <MaterialDesignIconView fx:id="icoReportsMenuBar" fill="WHITE" glyphName="CHART_LINE" layoutX="19.0" layoutY="500.0" onMousePressed="#handleMenuButtonAction" size="70" />
                     </children>
                 </AnchorPane>
-                <AnchorPane fx:id="userPane" layoutX="110.0" minHeight="600.0" minWidth="890.0" prefHeight="600.0" prefWidth="890.0" style="-fx-background-color: #CFD8DC;">
+                <AnchorPane fx:id="userPane" layoutX="110.0" minHeight="600.0" minWidth="890.0" prefHeight="600.0"
+                            prefWidth="890.0" style="-fx-background-color: #CFD8DC;" visible="false">
                     <children>
                         <ImageView fx:id="ivUserProfilePictureUser" fitHeight="150.0" fitWidth="150.0" layoutX="65.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -420,8 +422,14 @@
                                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                     </columnResizePolicy>
                                 </TableView>
-                                <JFXButton fx:id="btnEditEmployeeOverview" layoutX="515.0" layoutY="520.0" prefHeight="30.0" prefWidth="150.0" onMousePressed="#handleEmployeeAction" style="-fx-background-color: #607D8B;" text="Mitarbeiter bearbeiten" textFill="#f8f8f8" />
-                                <JFXButton fx:id="btnCreateEmployeeOverview" layoutX="675.0" layoutY="520.0" prefHeight="30.0" prefWidth="150.0" onMousePressed="#handleEmployeeAction" style="-fx-background-color: #607D8B;" text="Mitarbeiter anlegen" textFill="#f8f8f8" />
+                                <JFXButton fx:id="btnEditEmployeeOverview" layoutX="515.0" layoutY="520.0"
+                                           onMousePressed="#handleEmployeeAction" prefHeight="30.0" prefWidth="150.0"
+                                           style="-fx-background-color: #607D8B;" text="Mitarbeiter bearbeiten"
+                                           textFill="#f8f8f8"/>
+                                <JFXButton fx:id="btnCreateEmployeeOverview" layoutX="675.0" layoutY="520.0"
+                                           onMousePressed="#handleEmployeeAction" prefHeight="30.0" prefWidth="150.0"
+                                           style="-fx-background-color: #607D8B;" text="Mitarbeiter anlegen"
+                                           textFill="#f8f8f8"/>
                         <JFXButton layoutX="830.0" layoutY="15.0" onMousePressed="#handleCloseAction" prefHeight="40.0" prefWidth="40.0" style="-jfx-disable-visual-focus: true;">
                            <graphic>
                               <MaterialDesignIconView glyphName="CLOSE" size="24" style="-fx-fill: #607D8B;" />
@@ -434,7 +442,8 @@
                 <AnchorPane fx:id="reportPane" layoutX="110.0" minHeight="600.0" minWidth="890.0" prefHeight="600.0" prefWidth="890.0" style="-fx-background-color: #CFD8DC;" visible="false">
                     <children>
                         <Polygon fx:id="polygonReport" fill="#607d8a" layoutX="31.0" layoutY="410.0" points="-35.0, 91.0, 20.0, 60.0, -35.0, 31.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-background-color: #607D8B;" />
-                        <AnchorPane fx:id="reportOverviewPane" minHeight="600.0" minWidth="890.0" prefHeight="600.0" prefWidth="890.0">
+                        <AnchorPane fx:id="reportOverviewPane" minHeight="600.0" minWidth="890.0" prefHeight="600.0"
+                                    prefWidth="890.0" visible="false">
                             <children>
                                 <Label fx:id="titleReportOverview" layoutX="65.0" layoutY="30.0" text="Reporting">
                                     <font>
@@ -464,6 +473,15 @@
                               <MaterialDesignIconView glyphName="CLOSE" size="24" style="-fx-fill: #607D8B;" />
                            </graphic>
                         </JFXButton>
+                                <Label fx:id="lblCostValueReportOverview" alignment="CENTER_RIGHT" layoutX="210.0"
+                                       layoutY="475.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0"
+                                       prefWidth="100.0" text="0.00"/>
+                                <Label fx:id="lblBalanceValueReportOverview" alignment="CENTER_RIGHT" layoutX="210.0"
+                                       layoutY="540.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0"
+                                       prefWidth="100.0" text="0.00"/>
+                                <Label fx:id="lblSaleValueReportOverview" alignment="CENTER_RIGHT" layoutX="210.0"
+                                       layoutY="500.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0"
+                                       prefWidth="100.0" text="0.00"/>
                             </children>
                         </AnchorPane>
                     </children>
@@ -741,6 +759,9 @@
             <fx:reference source="lblThemeSettingsOverview" />
             <fx:reference source="lblTanksSettingsOverview" />
             <fx:reference source="lblCopyrightLogin" />
+            <fx:reference source="lblCostValueReportOverview"/>
+            <fx:reference source="lblBalanceValueReportOverview"/>
+            <fx:reference source="lblSaleValueReportOverview"/>
         </ArrayList>
         <ArrayList fx:id="allTableViews">
             <fx:reference source="tEmployeesEmployeeOverview" />
