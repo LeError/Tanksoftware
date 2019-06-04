@@ -1,7 +1,4 @@
 {
   "theme": "default",
-  "themes": [
-    "default",
-    "dark"
-  ]
+  "title": "Tankstelle"
 }
