@@ -1116,7 +1116,7 @@ public class Logic {
 
     /**
      * Gibt die Inventarnummer aller Waren zurück
-     * @return
+     * @return invNum[]
      * @author Robin Herder
      */
     private String[] getInvNumberGood() {
@@ -1194,7 +1194,7 @@ public class Logic {
 
     /**
      * Gibt den Mitarbeiterpass zurück
-     * @return employeePass
+     * @return employeePass[]
      * @author Robin Herder
      */
     private String[] getEmployeePass() {
@@ -1207,7 +1207,7 @@ public class Logic {
 
     /**
      * Gibt die Mitarbeiterrollen zurück
-     * @return employeeRole
+     * @return employeeRole[]
      * @author Robin Herder
      */
     private String[] getEmployeeRoles() {
@@ -1351,13 +1351,17 @@ public class Logic {
         return types;
     }
 
+    /**
+     * @return goods[]
+     * @author Robin Herder
+     */
     public ArrayList<Good> getGoods() {
         return goods;
     }
 
     /**
      * Gibt alle Tanks zurpck
-     * @return
+     * @return tanks[]
      * @author Robin Herder
      */
     public ArrayList<FuelTank> getTanks() {
@@ -1393,7 +1397,7 @@ public class Logic {
 
     /**
      *
-     * @return
+     * @return userRoles[]
      * @author Robin Herder
      */
     public ArrayList<String> getUserRoles() {
@@ -1451,6 +1455,12 @@ public class Logic {
 
     //===[GET ROWS FOR INPUT DIALOGS]==================================================
 
+    /**
+     * Importier die Kraftstofflieferung
+     * @param path
+     * @param newDelivery
+     * @author Robin Herder
+     */
     public void importFuelDelivery(String path, boolean newDelivery) {
         ReadListFile read = new ReadListFile(path);
         String filename = FilenameUtils.removeExtension(new File(path).getName());
@@ -1483,6 +1493,11 @@ public class Logic {
         }
     }
 
+    /**
+     * Fügt die gelieferten Kraftstoffe hinzu
+     * @param deliveredFuels
+     * @author Robin Herder
+     */
     public void addDeliveredFuels(ArrayList<DeliveredFuel> deliveredFuels) {
         boolean[] exists = new boolean[deliveredFuels.size()];
         for(boolean entry : exists) {
@@ -1511,6 +1526,12 @@ public class Logic {
         saveInventory();
     }
 
+    /**
+     * Importiert eine Warenlieferung
+     * @param path
+     * @param newDelivery
+     * @author Robin Herder
+     */
     public void importGoodDelivery(String path, boolean newDelivery) {
         ReadTableFile read = new ReadTableFile(path);
         String filename = FilenameUtils.removeExtension(new File(path).getName());
@@ -1550,6 +1571,11 @@ public class Logic {
 
     }
 
+    /**
+     * Fügt die gelieferten Warem hinzu
+     * @param deliveredGoods
+     * @author Robin Herder
+     */
     private void addDeliveredGoods(ArrayList<Good> deliveredGoods) {
         boolean[] added = new boolean[deliveredGoods.size()];
         for(boolean addedEntry : added) {
@@ -1580,6 +1606,7 @@ public class Logic {
     }
 
     /**
+     * Impotiert eine Datei
      * @param path
      * @param dir
      * @param theme
@@ -1624,6 +1651,13 @@ public class Logic {
         return newPath.toString();
     }
 
+    /**
+     * Überprüft Mitarbeiternummer und Passwort
+     * @param id
+     * @param pass
+     * @return boolean
+     * @author Robin Herder
+     */
     public boolean checkLogin(int id, String pass) {
         String passHash = DigestUtils.sha256Hex(pass);
         for(Employee employee : employees) {
@@ -1636,6 +1670,15 @@ public class Logic {
         return false;
     }
 
+    /**
+     * Mitarbeiter bearbeiten
+     * @param employeeNumber
+     * @param firstName
+     * @param surName
+     * @param userRole
+     * @param pass
+     * @author Robin Herder
+     */
     public void editEmployee(int employeeNumber, String firstName, String surName, String userRole, String pass) {
         Employee editEmployee = null;
         for(Employee employee : employees) {
@@ -1665,6 +1708,13 @@ public class Logic {
         saveEmployees();
     }
 
+    /**
+     * ItemType bearbeiten
+     * @param id
+     * @param label
+     * @param type
+     * @author Robin Herder
+     */
     public void editItemType(int id, String label, InventoryType type) {
         ArrayList<ItemType> types = Utility.getInventoryType(this.types, type);
         ItemType editEntry = null;
@@ -1683,6 +1733,14 @@ public class Logic {
         saveInventory();
     }
 
+    /**
+     * Kraftstofftank bearbeiten
+     * @param id
+     * @param capacity
+     * @param level
+     * @param index
+     * @author Robin Herder
+     */
     public void editFuelTank(int id, float capacity, float level, int index) {
         FuelTank editFuelTank = null;
         for (FuelTank tank : tanks) {
@@ -1703,6 +1761,12 @@ public class Logic {
         saveInventory();
     }
 
+    /**
+     * Zapfsäule bearbeiten
+     * @param tanks
+     * @param id
+     * @author Robin Herder
+     */
     public void editGasPump(ArrayList<FuelTank> tanks, int id) {
         GasPump editGasPump = null;
         for(GasPump gasPump : gasPumps) {
