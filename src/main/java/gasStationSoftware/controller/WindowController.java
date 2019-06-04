@@ -768,6 +768,15 @@ implements Initializable {
         logic.addGasPump(tanks);
     }
 
+    public void processExistingGasPump(AnchorPane pane, int id) {
+        TableView table = (TableView) pane.getChildren().get(1);
+        ArrayList<FuelTank> tanks = new ArrayList<>();
+        for(int i = 0; i < table.getItems().size(); i++) {
+            tanks.add((FuelTank) table.getItems().get(i));
+        }
+        logic.editGasPump(tanks, id);
+    }
+
     /**
      *
      * @param pane
