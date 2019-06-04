@@ -20,6 +20,8 @@ public class GasPumpInputDialog extends Dialog {
 
     private TableView tTankList, tTankListSelected;
 
+    private GasPump pump;
+
     /**
      * Constructor GasPumpDialog
      * @param rootPane
@@ -33,6 +35,7 @@ public class GasPumpInputDialog extends Dialog {
 
     public GasPumpInputDialog(StackPane rootPane, WindowController windowController, GasPump gasPump) {
         super(windowController);
+        pump = gasPump;
 
         newEntry = false;
         AnchorPane pane = create();
@@ -56,6 +59,8 @@ public class GasPumpInputDialog extends Dialog {
     protected void processSubmit(AnchorPane pane) {
         if (newEntry) {
             windowController.processGasPumpInput(pane);
+        } else {
+            windowController.processExistingGasPump(pane, pump.getGAS_PUMP_NUMBER());
         }
     }
 
