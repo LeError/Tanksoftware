@@ -333,6 +333,12 @@ implements Initializable {
             }
         } else if (event.getTarget() == btnNewSettingsTank) {
             new FuelTankInputDialog(rootPane, this);
+        } else if (event.getTarget() == btnEditSettingsTank) {
+            if (tTanksSettingsTank.getSelectionModel().getSelectedItem() != null) {
+                FuelTank tank = (FuelTank) tTanksSettingsTank.getSelectionModel().getSelectedItem();
+                new FuelTankInputDialog(rootPane, this, tank.getTANK_NUMBER(), tank.getCAPACITY(), tank.getLevel(),
+                tank.getFuel().getINVENTORY_NUMBER() + ": " + tank.getFuel().getLABEL());
+            }
         } else if (event.getTarget() == btnNewSettingsGasPump) {
             new GasPumpInputDialog(rootPane, this);
         } else if (event.getTarget() == btnNewSettingsGood) {
@@ -340,8 +346,7 @@ implements Initializable {
         } else if (event.getTarget() == btnEditSettingsGood) {
             if (tGoodsSettingsGood.getSelectionModel().getSelectedItem() != null) {
                 ItemType good = (ItemType) tGoodsSettingsGood.getSelectionModel().getSelectedItem();
-                new ItemTypeInputDialog(rootPane, this, InventoryType.Good, good.getINVENTORY_NUMBER(),
-                good.getLABEL());
+                new ItemTypeInputDialog(rootPane, this, InventoryType.Good, good.getINVENTORY_NUMBER(), good.getLABEL());
             }
         }
     }
@@ -734,6 +739,14 @@ implements Initializable {
         float level = Float.parseFloat(((JFXTextField) pane.getChildren().get(2)).getText());
         int index = ((JFXComboBox<String>) pane.getChildren().get(3)).getSelectionModel().getSelectedIndex();
         logic.addFuelTank(capacity, level, index);
+    }
+
+    public void processExistingFuelTank(AnchorPane pane) {
+        int id = Integer.parseInt(((JFXTextField) pane.getChildren().get(0)).getText());
+        float capacity = Float.parseFloat(((JFXTextField) pane.getChildren().get(1)).getText());
+        float level = Float.parseFloat(((JFXTextField) pane.getChildren().get(2)).getText());
+        int index = ((JFXComboBox<String>) pane.getChildren().get(3)).getSelectionModel().getSelectedIndex();
+        logic.editFuelTank(id, capacity, level, index);
     }
 
     /**
