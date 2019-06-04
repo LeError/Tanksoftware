@@ -1579,4 +1579,12 @@ public class Logic {
         windowController.addRowTGasPumpsSettingsGasPump(gasPumps);
         saveInventory();
     }
+
+    public void setTheme() {
+        saveSettings();
+    }
+
+    private void saveSettings() {
+        WriteJSON wrtie = new WriteJSON(DATA_FILE_PATH + DATA_FILE_NAMES[]);
+    }
 }
