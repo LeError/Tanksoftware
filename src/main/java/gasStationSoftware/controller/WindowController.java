@@ -341,6 +341,11 @@ implements Initializable {
             }
         } else if (event.getTarget() == btnNewSettingsGasPump) {
             new GasPumpInputDialog(rootPane, this);
+        } else if (event.getTarget() == btnEditSettingsGasPump) {
+            if (tGasPumpsSettingsGasPump.getSelectionModel().getSelectedItem() != null) {
+                GasPump pump = (GasPump) tGasPumpsSettingsGasPump.getSelectionModel().getSelectedItem();
+                new GasPumpInputDialog(rootPane, this, pump);
+            }
         } else if (event.getTarget() == btnNewSettingsGood) {
             new ItemTypeInputDialog(rootPane, this, InventoryType.Good);
         } else if (event.getTarget() == btnEditSettingsGood) {
