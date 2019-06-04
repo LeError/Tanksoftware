@@ -359,6 +359,10 @@ public class Logic {
         windowController.addRowTGoodsInventoryOverview(goods);
     }
 
+    /**
+     * Lädt die Kraftstofflieferungen
+     * @author Robin Herder
+     */
     private void loadFuelDeliveries() {
         File[] files = new File(DATA_SUB_PATHS[2]).listFiles();
         for (File file : files) {
@@ -366,6 +370,10 @@ public class Logic {
         }
     }
 
+    /**
+     * Lädt die Warenlieferungen
+     * @author Robin Herder
+     */
     private void loadGoodDeliveries() {
         File[] files = new File(DATA_SUB_PATHS[4]).listFiles();
         for (File file : files) {
@@ -373,6 +381,11 @@ public class Logic {
         }
     }
 
+    /**
+     * Lädt Quittungen
+     * @throws DataFileNotFoundException
+     * @author Robin Herder
+     */
     private void loadReceipts()
     throws DataFileNotFoundException {
         ReadJSON read = new ReadJSON(DATA_FILE_PATH + DATA_FILE_NAMES[7]);
@@ -591,6 +604,11 @@ public class Logic {
         return number;
     }
 
+    /**
+     * Gibt die nächste freie Mitarbeiternummer zurück
+     * @return freeEmployeeNumber
+     * @author Robin Herder
+     */
     public int getFreeEmployeeNumber() {
         int number = 0;
         Collections.sort(employees, Comparator.comparingInt(employee -> employee.getEMPLOYEE_NUMBER()));
@@ -605,6 +623,11 @@ public class Logic {
 
     //===[ADD NEW OBJECT]==================================================
 
+    /**
+     * Neue Quittung hinzufügen
+     * @param items
+     * @author Robin Herder
+     */
     public void addReceipt(ArrayList<Item> items) {
         ArrayList<Good> goods = new ArrayList<>();
         ArrayList<Fuel> fuels = new ArrayList<>();
@@ -733,6 +756,15 @@ public class Logic {
         saveInventory();
     }
 
+    /**
+     * Neuer Mitarbeiter hinzufügen
+     * @param firstName
+     * @param surName
+     * @param employeeDate
+     * @param userRole
+     * @param userPass
+     * @author Robin Herder
+     */
     public void addEmployee(String firstName, String surName, Date employeeDate, String userRole, String userPass) {
         UserRole role = null;
         switch (userRole) {
@@ -780,6 +812,10 @@ public class Logic {
         updateBalance();
     }
 
+    /**
+     * Mitarbeiter in JOSN speichern
+     * @author Robin Herder
+     */
     private void saveEmployees() {
         WriteJSON write = new WriteJSON(DATA_FILE_PATH + DATA_FILE_NAMES[5]);
         write.addItemArray("userID", getEmployeeNumber());
@@ -800,6 +836,10 @@ public class Logic {
         updateBalance();
     }
 
+    /**
+     * Quittungen in JSON speichern
+     * @author Robin Herder
+     */
     private void saveReceipt() {
         WriteJSON write = new WriteJSON(DATA_FILE_PATH + DATA_FILE_NAMES[7]);
         write.addItemArray("receiptTitle", getReceiptTitle());
@@ -815,6 +855,11 @@ public class Logic {
 
     //===[GET STRINGS FOR JSON]==================================================
 
+    /**
+     * Gibt den Titel einer Quittung zurück
+     * @return reciptTile[]
+     * @author Robin Herder
+     */
     private String[] getReceiptTitle() {
         String[] receipt = new String[receipts.size()];
         for (int i = 0; i < receipt.length; i++) {
@@ -823,6 +868,11 @@ public class Logic {
         return receipt;
     }
 
+    /**
+     *
+     * @return reciept[]
+     * @author Robin Herder
+     */
     private String[] getReceiptEmployeeNumber() {
         String[] receipt = new String[receipts.size()];
         for (int i = 0; i < receipt.length; i++) {
@@ -831,6 +881,11 @@ public class Logic {
         return receipt;
     }
 
+    /**
+     * Gibt die Daten der Quittungen zurück
+     * @return recipeDate[]
+     * @author Robin Herder
+     */
     private String[] getReceiptDate() {
         String[] receipt = new String[receipts.size()];
         for (int i = 0; i < receipt.length; i++) {
@@ -839,6 +894,11 @@ public class Logic {
         return receipt;
     }
 
+    /**
+     * Git die verkaufte Kraftstoffmenge der Quittungen zurück
+     * @return receiptGoods[]
+     * @author Robin Herder
+     */
     private ArrayList<String>[] getReceiptFuelAmount() {
         ArrayList<String>[] receiptFuels = new ArrayList[receipts.size()];
         for (int i = 0; i < receipts.size(); i++) {
@@ -851,6 +911,11 @@ public class Logic {
         return receiptFuels;
     }
 
+    /**
+     * Gibt die Menge der verkauften Waren zurück
+     * @return receiptGoods[]
+     * @author Robin Herder
+     */
     private ArrayList<String>[] getReceiptGoodAmount() {
         ArrayList<String>[] receiptGoods = new ArrayList[receipts.size()];
         for (int i = 0; i < receipts.size(); i++) {
@@ -863,6 +928,11 @@ public class Logic {
         return receiptGoods;
     }
 
+    /**
+     * Gibt die Kraftstoffe der Quittungen zurück
+     * @return receiptFuels[]
+     * @author Robin Herder
+     */
     private ArrayList<String>[] getReceiptFuels() {
         ArrayList<String>[] receiptFuels = new ArrayList[receipts.size()];
         for (int i = 0; i < receipts.size(); i++) {
@@ -875,6 +945,11 @@ public class Logic {
         return receiptFuels;
     }
 
+    /**
+     * Gibt die verkauften Waren der Quittungen zurück
+     * @return receiptGoods[]
+     * @author Robin Herder
+     */
     private ArrayList<String>[] getReceiptGoods() {
         ArrayList<String>[] receiptGoods = new ArrayList[receipts.size()];
         for (int i = 0; i < receipts.size(); i++) {
@@ -1049,7 +1124,7 @@ public class Logic {
 
     /**
      * Gibt die Inventarnummer aller Waren zurück
-     * @return
+     * @return invNum[]
      * @author Robin Herder
      */
     private String[] getInvNumberGood() {
@@ -1100,7 +1175,9 @@ public class Logic {
     }
 
     /**
+     * Gibt die Laereinheiten zurück
      * @return unit[]
+     * @author Robin Herder
      */
     private String[] getUnit() {
         String[] unit = new String[goods.size()];
@@ -1110,6 +1187,11 @@ public class Logic {
         return unit;
     }
 
+    /**
+     * Gibt die Mitarbeiternummern zurück
+     * @return employeeNumber[]
+     * @author Robin Herder
+     */
     private String[] getEmployeeNumber() {
         String[] employeeNumber = new String[employees.size()];
         for(int i = 0; i < employees.size(); i++) {
@@ -1118,6 +1200,11 @@ public class Logic {
         return employeeNumber;
     }
 
+    /**
+     * Gibt den Mitarbeiterpass zurück
+     * @return employeePass[]
+     * @author Robin Herder
+     */
     private String[] getEmployeePass() {
         String[] employeePass = new String[employees.size()];
         for(int i = 0; i < employees.size(); i++) {
@@ -1126,6 +1213,11 @@ public class Logic {
         return employeePass;
     }
 
+    /**
+     * Gibt die Mitarbeiterrollen zurück
+     * @return employeeRole[]
+     * @author Robin Herder
+     */
     private String[] getEmployeeRoles() {
         String[] employeeRole = new String[employees.size()];
         for(int i = 0; i < employees.size(); i++) {
@@ -1136,6 +1228,10 @@ public class Logic {
 
     //===[UPDATE]==================================================
 
+    /**
+     * Update die Bilanz
+     * @author Robin Herder
+     */
     public void updateBalance() {
         DateFormat format = new SimpleDateFormat("dd.MM.yyyy");
         ArrayList<Document> documents = new ArrayList<>();
@@ -1199,6 +1295,11 @@ public class Logic {
 
     //===[GETTER]==================================================
 
+    /**
+     * Gibt die Lieferkosten zurück
+     * @return cost
+     * @author Robin Herder
+     */
     private float getDeliveryCosts() {
         float cost = 0;
         for (Document document : documents) {
@@ -1211,6 +1312,11 @@ public class Logic {
         return cost;
     }
 
+    /**
+     * Gibt den Umsatz zurück
+     * @return sales
+     * @author Robin Herder
+     */
     private float getSales() {
         float sales = 0;
         for (CustomerOrder receipt : receipts) {
@@ -1219,6 +1325,11 @@ public class Logic {
         return Utility.round(sales, 2);
     }
 
+    /**
+     * Gibt den Gewinn zurück
+     * @return balance
+     * @author Robin Herder
+     */
     private float getBalance() {
         return Utility.round((getSales() - getDeliveryCosts()), 2);
     }
@@ -1248,31 +1359,55 @@ public class Logic {
         return types;
     }
 
+    /**
+     * @return goods[]
+     * @author Robin Herder
+     */
     public ArrayList<Good> getGoods() {
         return goods;
     }
 
     /**
      * Gibt alle Tanks zurpck
-     * @return
+     * @return tanks[]
      * @author Robin Herder
      */
     public ArrayList<FuelTank> getTanks() {
         return tanks;
     }
 
+    /**
+     * Gibt den Name des Mitarbeiter zurück
+     * @return employeeName
+     * @author Robin Herder
+     */
     public String getEmployeeName() {
         return activeEmployee.getFIRST_NAME() + " " + activeEmployee.getSUR_NAME();
     }
 
+    /**
+     * Gibt die Rolle des Mitarbeiter zurück
+     * @return employeeRole
+     * @author Robin Herder
+     */
     public String getEmployeeRole() {
         return activeEmployee.getRole();
     }
 
+    /**
+     *
+     * @return
+     * @author Robin Herder
+     */
     public int getRoleID() {
         return activeEmployee.getIRole();
     }
 
+    /**
+     *
+     * @return userRoles[]
+     * @author Robin Herder
+     */
     public ArrayList<String> getUserRoles() {
         ArrayList<String> userRoles = new ArrayList<>();
         userRoles.add(UserRole.admin.getRole());
@@ -1281,6 +1416,11 @@ public class Logic {
         return userRoles;
     }
 
+    /**
+     * Gibt die benutzten Zapfsäulen zurück
+     * @return gasPumps[]
+     * @author Robin Herder
+     */
     public ArrayList<GasPump> getUsedGasPumps() {
         ReadJSON read;
         ArrayList<GasPump> gasPumps = new ArrayList<>();
@@ -1323,6 +1463,12 @@ public class Logic {
 
     //===[GET ROWS FOR INPUT DIALOGS]==================================================
 
+    /**
+     * Importier die Kraftstofflieferung
+     * @param path
+     * @param newDelivery
+     * @author Robin Herder
+     */
     public void importFuelDelivery(String path, boolean newDelivery) {
         ReadListFile read = new ReadListFile(path);
         String filename = FilenameUtils.removeExtension(new File(path).getName());
@@ -1355,6 +1501,11 @@ public class Logic {
         }
     }
 
+    /**
+     * Fügt die gelieferten Kraftstoffe hinzu
+     * @param deliveredFuels
+     * @author Robin Herder
+     */
     public void addDeliveredFuels(ArrayList<DeliveredFuel> deliveredFuels) {
         boolean[] exists = new boolean[deliveredFuels.size()];
         for(boolean entry : exists) {
@@ -1383,6 +1534,12 @@ public class Logic {
         saveInventory();
     }
 
+    /**
+     * Importiert eine Warenlieferung
+     * @param path
+     * @param newDelivery
+     * @author Robin Herder
+     */
     public void importGoodDelivery(String path, boolean newDelivery) {
         ReadTableFile read = new ReadTableFile(path);
         String filename = FilenameUtils.removeExtension(new File(path).getName());
@@ -1422,6 +1579,11 @@ public class Logic {
 
     }
 
+    /**
+     * Fügt die gelieferten Warem hinzu
+     * @param deliveredGoods
+     * @author Robin Herder
+     */
     private void addDeliveredGoods(ArrayList<Good> deliveredGoods) {
         boolean[] added = new boolean[deliveredGoods.size()];
         for(boolean addedEntry : added) {
@@ -1452,6 +1614,7 @@ public class Logic {
     }
 
     /**
+     * Impotiert eine Datei
      * @param path
      * @param dir
      * @param theme
@@ -1496,6 +1659,13 @@ public class Logic {
         return newPath.toString();
     }
 
+    /**
+     * Überprüft Mitarbeiternummer und Passwort
+     * @param id
+     * @param pass
+     * @return boolean
+     * @author Robin Herder
+     */
     public boolean checkLogin(int id, String pass) {
         String passHash = DigestUtils.sha256Hex(pass);
         for(Employee employee : employees) {
@@ -1508,6 +1678,15 @@ public class Logic {
         return false;
     }
 
+    /**
+     * Mitarbeiter bearbeiten
+     * @param employeeNumber
+     * @param firstName
+     * @param surName
+     * @param userRole
+     * @param pass
+     * @author Robin Herder
+     */
     public void editEmployee(int employeeNumber, String firstName, String surName, String userRole, String pass) {
         Employee editEmployee = null;
         for(Employee employee : employees) {
@@ -1537,6 +1716,13 @@ public class Logic {
         saveEmployees();
     }
 
+    /**
+     * ItemType bearbeiten
+     * @param id
+     * @param label
+     * @param type
+     * @author Robin Herder
+     */
     public void editItemType(int id, String label, InventoryType type) {
         ArrayList<ItemType> types = Utility.getInventoryType(this.types, type);
         ItemType editEntry = null;
@@ -1555,6 +1741,14 @@ public class Logic {
         saveInventory();
     }
 
+    /**
+     * Kraftstofftank bearbeiten
+     * @param id
+     * @param capacity
+     * @param level
+     * @param index
+     * @author Robin Herder
+     */
     public void editFuelTank(int id, float capacity, float level, int index) {
         FuelTank editFuelTank = null;
         for (FuelTank tank : tanks) {
@@ -1575,6 +1769,12 @@ public class Logic {
         saveInventory();
     }
 
+    /**
+     * Zapfsäule bearbeiten
+     * @param tanks
+     * @param id
+     * @author Robin Herder
+     */
     public void editGasPump(ArrayList<FuelTank> tanks, int id) {
         GasPump editGasPump = null;
         for(GasPump gasPump : gasPumps) {

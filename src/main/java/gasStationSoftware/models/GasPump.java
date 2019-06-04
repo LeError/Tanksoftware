@@ -116,26 +116,56 @@ public class GasPump {
         return assignedTanks;
     }
 
+    /**
+     *
+     * @param amount
+     * @author Robin Herder
+     */
     public void setCheckoutAmount(float amount) {
         checkoutAmount = amount;
     }
 
+    /**
+     *
+     * @return
+     * @author Robin Herder
+     */
     public float getCheckoutAmount() {
         return checkoutAmount;
     }
 
+    /**
+     *
+     * @return
+     * @author Robin Herder
+     */
     public Fuel getCheckoutFuel() {
         return checkoutFuel;
     }
 
+    /**
+     *
+     * @param checkoutFuel
+     * @author Robin Herder
+     */
     public void setCheckoutFuel(Fuel checkoutFuel) {
         this.checkoutFuel = checkoutFuel;
     }
 
+    /**
+     *
+     * @return
+     * @author Robin Herder
+     */
     public String getLabel() {
         return checkoutFuel.getLABEL();
     }
 
+    /**
+     * Stellt die Tanks der Zapfsäule ein
+     * @param tanks
+     * @author Robin Herder
+     */
     public void setTanks(ArrayList<FuelTank> tanks) {
         this.tanks = tanks;
     }

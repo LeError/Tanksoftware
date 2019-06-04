@@ -107,6 +107,11 @@ public class FuelTank {
         }
     }
 
+    /**
+     * Stellt das Füllstandlevel des Tanks ein
+     * @param level
+     * @throws NumberOutOfRangeException
+     */
     public void setLevel(float level)
     throws NumberOutOfRangeException {
         this.level = level;
@@ -116,6 +121,10 @@ public class FuelTank {
         }
     }
 
+    /**
+     * Stellt die Kapazität ein
+     * @param capacity
+     */
     public void setCAPACITY(float capacity) {
         this.capacity = capacity;
     }
@@ -129,6 +138,11 @@ public class FuelTank {
         return fuel.getINVENTORY_NUMBER();
     }
 
+    /**
+     * Gibt die freie Kapazität des Tanks zurück
+     * @return freeSpace
+     * @author Robin Herder
+     */
     public float getFreeSpace() {
         return capacity - level;
     }

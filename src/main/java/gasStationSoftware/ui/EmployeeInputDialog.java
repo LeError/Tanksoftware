@@ -21,12 +21,28 @@ public class EmployeeInputDialog extends Dialog {
     private JFXComboBox employeeRole;
     private JFXPasswordField employeePass;
 
+    /**
+     *
+     * @param rootPane
+     * @param windowController
+     * @author Robin Herder
+     */
     public EmployeeInputDialog(StackPane rootPane, WindowController windowController) {
         super(windowController);
         AnchorPane pane = create();
         inputDialog(rootPane, pane, "Anlegen Mitarbeiter");
     }
 
+    /**
+     * @param rootPane
+     * @param windowController
+     * @param employeeNumber
+     * @param firstName
+     * @param surName
+     * @param employmentDate
+     * @param employeeRoleIdx
+     * @author Robin Herder
+     */
     public EmployeeInputDialog(StackPane rootPane, WindowController windowController, int employeeNumber, String firstName, String surName, Date employmentDate, int employeeRoleIdx) {
         super(windowController);
 
@@ -58,6 +74,11 @@ public class EmployeeInputDialog extends Dialog {
         inputDialog(rootPane, pane, "Anlegen Mitarbeiter");
     }
 
+    /**
+     *
+     * @param pane
+     * @author Robin Herder
+     */
     @Override
     protected void processSubmit(AnchorPane pane) {
         if(newEntry){
@@ -67,6 +88,11 @@ public class EmployeeInputDialog extends Dialog {
         }
     }
 
+    /**
+     *
+     * @return
+     * @author Robin Herder
+     */
     private AnchorPane create() {
         txtEmployeeNumber = getTextfield(140, 30, true, 10d, 5d, 5d);
         txtEmployeeNumber.setText(String.valueOf(windowController.getFreeEmployeeNumber()));

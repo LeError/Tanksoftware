@@ -13,6 +13,12 @@ public class GasPumpDialog extends Dialog {
     private JFXTextField txtSearch;
     private TableView tItemList;
 
+    /**
+     *
+     * @param rootPane
+     * @param windowController
+     * @author Robin Herder
+     */
     public GasPumpDialog(StackPane rootPane, WindowController windowController) {
         super(windowController);
 
@@ -33,15 +39,30 @@ public class GasPumpDialog extends Dialog {
         inputDialog(rootPane, pane, "Zapfsäule auswählen");
     }
 
+    /**
+     *
+     * @param pane
+     * @author Robin Herder
+     */
     @Override
     protected void processSubmit(AnchorPane pane) {
         windowController.processGasPumpCheckout(pane);
     }
 
+    /**
+     *
+     * @return
+     * @author Robin Herder
+     */
     public JFXTextField getTxtSearch() {
         return txtSearch;
     }
 
+    /**
+     *
+     * @return
+     * @author Robin Herder
+     */
     public TableView getTable() {
         return tItemList;
     }

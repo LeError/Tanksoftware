@@ -32,6 +32,11 @@ public abstract class Document {
         return DOC_TYPE;
     }
 
+    /**
+     *
+     * @return
+     * @author Robin Herder
+     */
     public String getDOC_TYPEForTab() {
         String type = "";
         if (DOC_TYPE == DocumentType.fuelDelivery || DOC_TYPE == DocumentType.goodDelivery) {
@@ -51,6 +56,11 @@ public abstract class Document {
         return NAME;
     }
 
+    /**
+     * Gibt das Datum zurück
+     * @return date
+     * @author Robin Herder
+     */
     public String getDATE() {
         return Utility.getDateFormatted(DATE);
     }
@@ -71,5 +81,10 @@ public abstract class Document {
      */
     public abstract String[] getLinesForFile();
 
+    /**
+     *
+     * @return
+     * @author Robin Herder
+     */
     public abstract String getTotalForTab();
 }

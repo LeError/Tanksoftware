@@ -65,10 +65,20 @@ public class ItemInputDialog extends Dialog {
         }
     }
 
+    /**
+     *
+     * @return
+     * @author Robin Herder
+     */
     public JFXTextField getTxtSearch() {
         return txtSearch;
     }
 
+    /**
+     *
+     * @return
+     * @author Robin Herder
+     */
     public TableView getTable() {
         return tItemList;
     }

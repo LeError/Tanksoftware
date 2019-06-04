@@ -33,6 +33,13 @@ public class GasPumpInputDialog extends Dialog {
         inputDialog(rootPane, create(), "Zapfsäule erstellen");
     }
 
+    /**
+     *
+     * @param rootPane
+     * @param windowController
+     * @param gasPump
+     * @author Robin Herder
+     */
     public GasPumpInputDialog(StackPane rootPane, WindowController windowController, GasPump gasPump) {
         super(windowController);
         pump = gasPump;
@@ -64,6 +71,11 @@ public class GasPumpInputDialog extends Dialog {
         }
     }
 
+    /**
+     *
+     * @return
+     * @author Robin Herder
+     */
     private AnchorPane create() {
         TableColumn columnInvNumber = getColumn("TANK #", "TANK_NUMBER", 60d, false);
         TableColumn columnTank = getColumn("Kraftstoff", "fuelLabel", 138d, false);

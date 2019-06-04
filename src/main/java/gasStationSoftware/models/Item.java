@@ -83,14 +83,29 @@ public abstract class Item {
         return TYPE.getTYPE_LABEL();
     }
 
+    /**
+     *
+     * @param amount
+     * @author Robin Herder
+     */
     public void setCheckoutAmount(float amount) {
         checkoutAmount = amount;
     }
 
+    /**
+     *
+     * @param amount
+     * @author Robin Herder
+     */
     public void addCheckoutAmount(float amount) {
         checkoutAmount += amount;
     }
 
+    /**
+     *
+     * @return
+     * @author Robin Herder
+     */
     public float getCheckoutAmount() {
         return checkoutAmount;
     }

@@ -142,7 +142,7 @@ implements Initializable {
     //===[INIT]==================================================
 
     /**
-     *
+     * Initialisieren
      * @param location
      * @param resources
      * @author Robin Herder
@@ -166,6 +166,11 @@ implements Initializable {
 
     //===[HANDLE EVENT]==================================================
 
+    /**
+     * Login-Handle
+     * @param event
+     * @author Robin Herder
+     */
     @FXML private void handleLoginAction(MouseEvent event) {
         if(!txtPassLogin.getText().equals("") && !txtIDLogin.getText().equals("") && logic.checkLogin(Integer.parseInt(txtIDLogin.getText()), txtPassLogin.getText())) {
             login();
@@ -209,7 +214,7 @@ implements Initializable {
     }
 
     /**
-     *
+     * Handle Verkaufsaktion
      * @param event
      * @author Robin Herder
      */
@@ -230,7 +235,7 @@ implements Initializable {
     }
 
     /**
-     *
+     * Handle Inventoryaktion
      * @param event
      * @author Robin Herder
      */
@@ -253,7 +258,7 @@ implements Initializable {
     }
 
     /**
-     *
+     * Handle Kraftstoffaktion
      * @param event
      * @author Robin Herder
      */
@@ -276,7 +281,7 @@ implements Initializable {
     }
 
     /**
-     *
+     * Handle Mitarbeiteraktion
      * @param event
      * @author Robin Herder
      */
@@ -292,7 +297,7 @@ implements Initializable {
     }
 
     /**
-     *
+     * Handle Statistikaktion
      * @param event
      * @author Robin Herder
      */
@@ -301,7 +306,7 @@ implements Initializable {
     }
 
     /**
-     *
+     * Handle Einstellungsaktion
      * @param event
      * @author Robin Herder
      */
@@ -365,6 +370,11 @@ implements Initializable {
         }
     }
 
+    /**
+     * Handle Fenster schließen
+     * @param event
+     * @author Robin Herder
+     */
     @FXML private void handleCloseAction(MouseEvent event) {
         System.exit(0);
     }
@@ -430,7 +440,7 @@ implements Initializable {
     }
 
     /**
-     * Spalten der Zapfsäuleneinstellungen einfügen
+     * Spalten der Zapfsäuleneinstellungstabelle einfügen
      * @author Robin Herder
      */
     private void addColumnsTGasPumpsSettingsGasPump() {
@@ -449,7 +459,7 @@ implements Initializable {
     }
 
     /**
-     *
+     * Spalten der Kraftstoffübersichtstabelle einfügen
      * @author Robin Herder
      */
     private void addColumnsTFuelsFuelOverview() {
@@ -463,7 +473,7 @@ implements Initializable {
     }
 
     /**
-     *
+     * Spalten der Wareninventarübersichtstabelle einfügen
      * @author Robin Herder
      */
     private void addColumnsTGoodsInventoryOverview() {
@@ -476,18 +486,30 @@ implements Initializable {
         tGoodsInventoryOverview.getColumns().addAll(columnGoodInvNumber, columnGoodLabel, columnGoodAmount, columnGoodUnit, columnGoodPrice, columnGoodCurrency);
     }
 
+    /**
+     * Spalten der Kraftstofflieferungstabelle einfügen
+     * @author Robin Herder
+     */
     private void addColumnsTFuelsFuelDelivery() {
         TableColumn columnFuelDeliveryName = Dialog.getColumn("Lieferung", "NAME", 200, true);
         TableColumn columnFuelDeliveryDate = Dialog.getColumn("Datum", "DATE", 200, true);
         tFuelsFuelDeliveries.getColumns().addAll(columnFuelDeliveryName, columnFuelDeliveryDate);
     }
 
+    /**
+     * Spalten der Warenlieferungstabelle einfügen
+     * @author Robin Herder
+     */
     private void addColumnsTGoodsInventoryDelivery() {
         TableColumn columnGoodDeliveryName = Dialog.getColumn("Lieferung", "NAME", 200, true);
         TableColumn columnGoodDeliveryDate = Dialog.getColumn("Datum", "DATE", 200, true);
         tGoodsInventoryDelivery.getColumns().addAll(columnGoodDeliveryName, columnGoodDeliveryDate);
     }
 
+    /**
+     * Spalten der Verkaufsübersichtstabelle einfügen
+     * @author Robin Herder
+     */
     private void addColumnsTCheckoutSellingOverview() {
         TableColumn columnCheckoutInvNumber = Dialog.getColumn("INV #","INVENTORY_NUMBER", 100, true);
         TableColumn columnCheckoutLabel = Dialog.getColumn("Bezeichnung","LABEL", 100, true);
@@ -497,6 +519,10 @@ implements Initializable {
         tCheckoutSellingOverview.getColumns().addAll(columnCheckoutInvNumber, columnCheckoutLabel, columnCheckoutType, columnCheckoutPrice, columnCheckoutAmount);
     }
 
+    /**
+     * Spalten der Verkaufsübersichtstabelle einfügen
+     * @author Robin Herder
+     */
     private void addColumnsTReportOverview() {
         TableColumn columnReportDate = Dialog.getColumn("Datum", "DATE", 100, true);
         TableColumn columnReportName = Dialog.getColumn("Name", "NAME", 200, true);
@@ -600,16 +626,31 @@ implements Initializable {
         tGoodsInventoryOverview.getItems().addAll(goods);
     }
 
+    /**
+     *
+     * @param deliveries
+     * @author Robin Herder
+     */
     public void addRowTFuelsFuelDelivery(ArrayList<FuelDocument> deliveries) {
         tFuelsFuelDeliveries.getItems().clear();
         tFuelsFuelDeliveries.getItems().addAll(deliveries);
     }
 
+    /**
+     *
+     * @param deliveries
+     * @author Robin Herder
+     */
     public void addRowTGoodsInventoryDelivery(ArrayList<GoodDocument> deliveries) {
         tGoodsInventoryDelivery.getItems().clear();
         tGoodsInventoryDelivery.getItems().addAll(deliveries);
     }
 
+    /**
+     *
+     * @param documents
+     * @author Robin Herder
+     */
     public void addRowTReportReportOverview(ArrayList<Document> documents) {
         tReportReportOverview.getItems().clear();
         tReportReportOverview.getItems().addAll(documents);
@@ -737,6 +778,12 @@ implements Initializable {
         logic.addItemType(label, type);
     }
 
+    /**
+     *
+     * @param pane
+     * @param type
+     * @author Robin Herder
+     */
     public void processExistingItemTypeInput(AnchorPane pane, InventoryType type) {
         int id = Integer.parseInt(((JFXTextField) pane.getChildren().get(0)).getText());
         String label = ((JFXTextField) pane.getChildren().get(1)).getText();
@@ -755,6 +802,11 @@ implements Initializable {
         logic.addFuelTank(capacity, level, index);
     }
 
+    /**
+     *
+     * @param pane
+     * @author Robin Herder
+     */
     public void processExistingFuelTank(AnchorPane pane) {
         int id = Integer.parseInt(((JFXTextField) pane.getChildren().get(0)).getText());
         float capacity = Float.parseFloat(((JFXTextField) pane.getChildren().get(1)).getText());
@@ -777,6 +829,12 @@ implements Initializable {
         logic.addGasPump(tanks);
     }
 
+    /**
+     *
+     * @param pane
+     * @param id
+     * @author Robin Herder
+     */
     public void processExistingGasPump(AnchorPane pane, int id) {
         TableView table = (TableView) pane.getChildren().get(1);
         ArrayList<FuelTank> tanks = new ArrayList<>();
@@ -813,6 +871,11 @@ implements Initializable {
         logic.addGood(iType, amount, price, currency, unit);
     }
 
+    /**
+     *
+     * @param pane
+     * @author Robin Herder
+     */
     public void processGoodCheckout(AnchorPane pane) {
         Item item = (Item) ((TableView) pane.getChildren().get(1)).getSelectionModel().getSelectedItem();
         item.setCheckoutAmount(1);
@@ -822,6 +885,11 @@ implements Initializable {
         updateCheckoutPrice();
     }
 
+    /**
+     *
+     * @param pane
+     * @author Robin Herder
+     */
     public void processGasPumpCheckout(AnchorPane pane) {
         GasPump selectedGasPump = (GasPump) ((TableView) pane.getChildren().get(1)).getSelectionModel().getSelectedItem();
         Item item = selectedGasPump.getCheckoutFuel();
@@ -833,6 +901,11 @@ implements Initializable {
         updateCheckoutPrice();
     }
 
+    /**
+     *
+     * @param pane
+     * @author Robin Herder
+     */
     public void processEmployee(AnchorPane pane) {
         String firstName = ((JFXTextField) pane.getChildren().get(1)).getText();
         String surName = ((JFXTextField) pane.getChildren().get(2)).getText();
@@ -842,6 +915,11 @@ implements Initializable {
         logic.addEmployee(firstName, surName, employmentDate, userRole, userPass);
     }
 
+    /**
+     *
+     * @param pane
+     * @author Robin Herder
+     */
     public void processExistingEmployee(AnchorPane pane) {
         String employeeNumber = ((JFXTextField) pane.getChildren().get(0)).getText();
         String firstName = ((JFXTextField) pane.getChildren().get(1)).getText();
@@ -853,6 +931,10 @@ implements Initializable {
 
     //===[CHECKOUT SPECIFIC]==================================================
 
+    /**
+     *
+     * @author Robin Herder
+     */
     private void updateCheckoutPrice() {
         float total = 0;
         for(Item item : (ObservableList<Item>) tCheckoutSellingOverview.getItems()) {
@@ -861,6 +943,10 @@ implements Initializable {
         lblTotalSalesOverview.setText(String.valueOf(Utility.round(total, 2)));
     }
 
+    /**
+     *
+     * @author Robin Herder
+     */
     private void incAmount() {
         if(tCheckoutSellingOverview.getSelectionModel().getSelectedItem() != null) {
             ArrayList<Item> items = new ArrayList<>();
@@ -874,6 +960,10 @@ implements Initializable {
         }
     }
 
+    /**
+     *
+     * @author Robin Herder
+     */
     private void decAmount() {
         if(tCheckoutSellingOverview.getSelectionModel().getSelectedItem() != null) {
             ArrayList<Item> items = new ArrayList<>();
@@ -891,6 +981,10 @@ implements Initializable {
         }
     }
 
+    /**
+     *
+     * @author Robin Herder
+     */
     private void removeElement() {
         if(tCheckoutSellingOverview.getSelectionModel().getSelectedItem() != null) {
             ArrayList<Item> items = new ArrayList<>();
@@ -904,6 +998,10 @@ implements Initializable {
         }
     }
 
+    /**
+     *
+     * @author Robin Herder
+     */
     private void createReceipt(){
         ArrayList<Item> items = new ArrayList<>();
         items.addAll(tCheckoutSellingOverview.getItems());
@@ -945,6 +1043,11 @@ implements Initializable {
         itemInputDialog.getTable().setItems(sortedItemType);
     }
 
+    /**
+     *
+     * @param goodsDialog
+     * @author Robin Herder
+     */
     public void createGoodsData(GoodsDialog goodsDialog) {
         ObservableList<Good> observableGoodsList = FXCollections.observableArrayList();
         observableGoodsList.addAll(logic.getGoods());
@@ -970,6 +1073,11 @@ implements Initializable {
         goodsDialog.getTable().setItems(goodSortedList);
     }
 
+    /**
+     *
+     * @param gasPumpDialog
+     * @author Robin Herder
+     */
     public void createGasPumpData(GasPumpDialog gasPumpDialog) {
         ObservableList<GasPump> observableGasPumpList = FXCollections.observableArrayList();
         observableGasPumpList.addAll(logic.getUsedGasPumps());
@@ -997,6 +1105,11 @@ implements Initializable {
 
     //===[GETTER]==================================================
 
+    /**
+     *
+     * @return
+     * @author Robin Herder
+     */
     public ArrayList<Date> getReportDates() {
         ArrayList<Date> dates = new ArrayList<>();
         dates.add(Date.from(dpTimespanReportOverview.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
@@ -1032,6 +1145,11 @@ implements Initializable {
         return logic.getFreeInvNumber(type);
     }
 
+    /**
+     *
+     * @return
+     * @author Robin Herder
+     */
     public int getFreeEmployeeNumber() {
         return logic.getFreeEmployeeNumber();
     }
@@ -1063,14 +1181,19 @@ implements Initializable {
         return rootPane;
     }
 
+    /**
+     *
+     * @return
+     * @author Robin Herder
+     */
     public ArrayList<String> getUserRoles() {
         return logic.getUserRoles();
     }
 
     /**
-     *
+     * GetFile
      * @param title
-     * @return ahja
+     * @return
      * @author Robin Herder
      */
     private String getFile(String title) {
@@ -1080,6 +1203,10 @@ implements Initializable {
         return fileChooser.showOpenDialog(rootPane.getScene().getWindow()).getAbsolutePath();
     }
 
+    /**
+     * Loginscreen initialisieren
+     * @author Robin Herder
+     */
     private void login() {
         hidePanes();
         hideSubPanes();
@@ -1117,6 +1244,14 @@ implements Initializable {
         }
     }
 
+    /**
+     * Bilanz aktualisieren
+     * @param documents
+     * @param cost
+     * @param sale
+     * @param balance
+     * @author Robin Herder
+     */
     public void updateBalance(ArrayList<Document> documents, float cost, float sale, float balance) {
         lblCostValueReportOverview.setText("- " + cost);
         lblSaleValueReportOverview.setText("+ " + sale);
@@ -1124,12 +1259,24 @@ implements Initializable {
         addRowTReportReportOverview(documents);
     }
 
+    /**
+     * Mitarbeiterbilanz aktualisieren
+     * @param day
+     * @param month
+     * @param year
+     * @author Robin Herder
+     */
     public void updateEmployeeBalance(float day, float month, float year) {
         lblSalesSumDailyUser.setText(String.valueOf(day));
         lblSalesSumMonthlyUser.setText(String.valueOf(month));
         lblSalesSumYearlyUser.setText(String.valueOf(year));
     }
 
+    /**
+     * Koin Zeit Span
+     * @return
+     * @author Robin Herder
+     */
     public boolean noTimeSpan() {
         return dpTimespanReportOverview.getValue() == null || dpTimespanReportOverview1.getValue() == null;
     }
