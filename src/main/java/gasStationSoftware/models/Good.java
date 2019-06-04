@@ -30,6 +30,11 @@ extends Item {
         return amount;
     }
 
+    /**
+     * Fügt der aktuellen Menge hinzu
+     * @param amount
+     * @author Robin Herder
+     */
     public void addAmount(int amount) {
         this.amount += amount;
     }
