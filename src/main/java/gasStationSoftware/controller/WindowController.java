@@ -325,12 +325,24 @@ implements Initializable {
         } else if (event.getTarget() == btnImportSettingsOverview) {
         } else if (event.getTarget() == btnNewSettingsFuel) {
             new ItemTypeInputDialog(rootPane, this, InventoryType.Fuel);
+        } else if (event.getTarget() == btnEditSettingsFuel) {
+            if (tFuelsSettingsFuel.getSelectionModel().getSelectedItem() != null) {
+                ItemType fuel = (ItemType) tFuelsSettingsFuel.getSelectionModel().getSelectedItem();
+                new ItemTypeInputDialog(rootPane, this, InventoryType.Fuel, fuel.getINVENTORY_NUMBER(),
+                fuel.getLABEL());
+            }
         } else if (event.getTarget() == btnNewSettingsTank) {
             new FuelTankInputDialog(rootPane, this);
         } else if (event.getTarget() == btnNewSettingsGasPump) {
             new GasPumpInputDialog(rootPane, this);
         } else if (event.getTarget() == btnNewSettingsGood) {
             new ItemTypeInputDialog(rootPane, this, InventoryType.Good);
+        } else if (event.getTarget() == btnEditSettingsGood) {
+            if (tGoodsSettingsGood.getSelectionModel().getSelectedItem() != null) {
+                ItemType good = (ItemType) tGoodsSettingsGood.getSelectionModel().getSelectedItem();
+                new ItemTypeInputDialog(rootPane, this, InventoryType.Good, good.getINVENTORY_NUMBER(),
+                good.getLABEL());
+            }
         }
     }
 
@@ -704,6 +716,12 @@ implements Initializable {
     public void processItemTypeInput(AnchorPane pane, InventoryType type) {
         String label = ((JFXTextField) pane.getChildren().get(1)).getText();
         logic.addItemType(label, type);
+    }
+
+    public void processExistingItemTypeInput(AnchorPane pane, InventoryType type) {
+        int id = Integer.parseInt(((JFXTextField) pane.getChildren().get(0)).getText());
+        String label = ((JFXTextField) pane.getChildren().get(1)).getText();
+        logic.editItemType(id, label, type);
     }
 
     /**
