@@ -75,6 +75,13 @@ public class Employee {
         return EMPLOYMENT_DATE_FORMATTED;
     }
 
+    /**
+     * Prüft ob der Mitarbeiter der einloggende Mitarbeiter ist
+     * @param employeeNumber
+     * @param pass
+     * @return boolean
+     * @author Robin Herder
+     */
     public boolean logIn(int employeeNumber, String pass) {
         if(EMPLOYEE_NUMBER == employeeNumber && this.pass.equals(pass)) {
             return true;
@@ -83,30 +90,65 @@ public class Employee {
         }
     }
 
+    /**
+     * Gibt die Rolle des Mitarbeiters zurück
+     * @return role
+     * @author Robin Herder
+     */
     public String getRole() {
         return role.getRole();
     }
 
+    /**
+     * Gibt die Rollen-ID zurück
+     * @return roleID
+     * @author Robin Herder
+     */
     public int getIRole() {
         return role.getId();
     }
 
+    /**
+     * Gibt den Pass zurück
+     * @return pass
+     * @author Robin Herder
+     */
     public String getPASS() {
         return pass;
     }
 
+    /**
+     * Den Pass einstellen
+     * @param pass
+     * @author Robin Herder
+     */
     public void setPass(String pass) {
         this.pass = pass;
     }
 
+    /**
+     * Den Vornamen festlegen
+     * @param firstName
+     * @author Robin Herder
+     */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
+    /**
+     * Den Nachnamen festlegen
+     * @param surName
+     * @author Robin Herder
+     */
     public void setSurName(String surName) {
         this.surName = surName;
     }
 
+    /**
+     * Die Mitarbeiterrolle festlegen
+     * @param role
+     * @author Robin Herder
+     */
     public void setRole(UserRole role) {
         this.role = role;
     }
