@@ -47,6 +47,8 @@ public class Logic {
     private static Logic logic;
     private static WindowController windowController;
 
+    private String title, theme;
+
     private final String DATA_FILE_PATH = System.getProperty("user.home") + "\\TANKWare\\";
     private final String[] DATA_SUB_PATHS = {
             DATA_FILE_PATH + "receipts\\",
@@ -265,8 +267,14 @@ public class Logic {
      */
     private void loadTheme() throws DataFileNotFoundException {
         ReadJSON read = new ReadJSON(DATA_FILE_PATH + DATA_FILE_NAMES[1]);
-        String theme = read.getItemString("theme");
-        windowController.setComboboxThemes(read.getItemStringArray("themes"), theme);
+        theme = read.getItemString("theme");
+        title = read.getItemString("title");
+        String[] themes = new String[new File(DATA_SUB_PATHS[5]).listFiles().length];
+        File[] files = new File(DATA_SUB_PATHS[5]).listFiles();
+        for(int i = 0; i < themes.length; i++) {
+            themes[i] = FilenameUtils.removeExtension(files[i].getName());
+        }
+        windowController.setComboboxThemes(themes, theme);
         read = new ReadJSON(DATA_SUB_PATHS[5] + theme + ".json");
         windowController.setTheme(
                 Utility.hex2Rgb(read.getItemString("menuBar")),
@@ -1580,11 +1588,21 @@ public class Logic {
         saveInventory();
     }
 
-    public void setTheme() {
+    public void setTheme(String theme) throws DataFileNotFoundException {
+        this.theme = theme;
+        saveSettings();
+        loadTheme();
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
         saveSettings();
     }
 
     private void saveSettings() {
-        WriteJSON wrtie = new WriteJSON(DATA_FILE_PATH + DATA_FILE_NAMES[]);
+        WriteJSON write = new WriteJSON(DATA_FILE_PATH + DATA_FILE_NAMES[1]);
+        write.addItem("theme", theme);
+        write.addItem("title", title);
+        write.write(true);
     }
 }
