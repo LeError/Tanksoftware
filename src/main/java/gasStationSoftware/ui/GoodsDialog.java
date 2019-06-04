@@ -13,6 +13,11 @@ public class GoodsDialog extends Dialog {
     private JFXTextField txtSearch;
     private TableView tItemList;
 
+    /**
+     * @param rootPane
+     * @param windowController
+     * @author Robin Herder
+     */
     public GoodsDialog(StackPane rootPane, WindowController windowController) {
         super(windowController);
 
@@ -32,15 +37,30 @@ public class GoodsDialog extends Dialog {
         inputDialog(rootPane, pane, "Produkt Auswahl");
     }
 
+    /**
+     *
+     * @param pane
+     * @author Robin Herder
+     */
     @Override
     protected void processSubmit(AnchorPane pane) {
         windowController.processGoodCheckout(pane);
     }
 
+    /**
+     *
+     * @return
+     * @author Robin Herder
+     */
     public JFXTextField getTxtSearch() {
         return txtSearch;
     }
 
+    /**
+     *
+     * @return
+     * @author Robin Herder
+     */
     public TableView getTable() {
         return tItemList;
     }

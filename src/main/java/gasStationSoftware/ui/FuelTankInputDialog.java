@@ -25,6 +25,16 @@ public class FuelTankInputDialog extends Dialog {
         inputDialog(rootPane, create(), "Erstellen Kraftstofftank");
     }
 
+    /**
+     *
+     * @param rootPane
+     * @param windowController
+     * @param tankID
+     * @param capacity
+     * @param level
+     * @param assignedFuel
+     * @author Robin Herder
+     */
     public FuelTankInputDialog(StackPane rootPane, WindowController windowController, int tankID, float capacity,
     float level, String assignedFuel) {
         super(windowController);
@@ -58,6 +68,11 @@ public class FuelTankInputDialog extends Dialog {
         }
     }
 
+    /**
+     *
+     * @return
+     * @author Robin Herder
+     */
     private AnchorPane create() {
         txtInventoryNumber = getTextfield(200, 30, true, 10d, 5d, 5d);
         txtInventoryNumber.setText(String.valueOf(windowController.getTankNumber()));

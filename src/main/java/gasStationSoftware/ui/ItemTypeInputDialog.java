@@ -38,6 +38,15 @@ public class ItemTypeInputDialog extends Dialog {
         }
     }
 
+    /**
+     *
+     * @param rootPane
+     * @param windowController
+     * @param type
+     * @param invNumber
+     * @param label
+     * @author Robin Herder
+     */
     public ItemTypeInputDialog(StackPane rootPane, WindowController windowController, InventoryType type, int invNumber,
     String label) {
         super(windowController);
@@ -77,6 +86,11 @@ public class ItemTypeInputDialog extends Dialog {
         }
     }
 
+    /**
+     *
+     * @return
+     * @author Robin Herder
+     */
     private AnchorPane create() {
         txtInventoryNumber = getTextfield(140, 30, true, 10d, 5d, 5d);
         txtInventoryNumber.setText(String.valueOf(windowController.getFreeInvNumber(type)));
