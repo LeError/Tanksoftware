@@ -356,6 +356,10 @@ implements Initializable {
         }
     }
 
+    @FXML private void handleTheme(ActionEvent event) {
+        logic.setTheme(cbThemeSettingsOverview.getSelectionModel().getSelectedItem());
+    }
+
     @FXML private void handleCloseAction(MouseEvent event) {
         System.exit(0);
     }
