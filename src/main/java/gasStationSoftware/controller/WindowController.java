@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
+import gasStationSoftware.exceptions.DataFileNotFoundException;
 import gasStationSoftware.models.Document;
 import gasStationSoftware.models.Employee;
 import gasStationSoftware.models.Fuel;
@@ -357,7 +358,11 @@ implements Initializable {
     }
 
     @FXML private void handleTheme(ActionEvent event) {
-        logic.setTheme(cbThemeSettingsOverview.getSelectionModel().getSelectedItem());
+        try {
+            logic.setTheme((String) cbThemeSettingsOverview.getSelectionModel().getSelectedItem());
+        } catch (DataFileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML private void handleCloseAction(MouseEvent event) {
