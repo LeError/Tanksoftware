@@ -135,4 +135,8 @@ public class GasPump {
     public String getLabel() {
         return checkoutFuel.getLABEL();
     }
+
+    public void setTanks(ArrayList<FuelTank> tanks) {
+        this.tanks = tanks;
+    }
 }
