@@ -34,6 +34,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -614,7 +615,7 @@ public class Logic {
                 fuels.add(fuel);
             }
         }
-        receipts.add(new CustomerOrder(0, new Date(), employees.get(0), fuels, goods));
+        receipts.add(new CustomerOrder(receipts.size(), new Date(), activeEmployee, fuels, goods));
         saveReceipt();
         windowController.addRowTFuelsFuelOverview(this.fuels);
         windowController.addRowTGoodsInventoryOverview(this.goods);
@@ -1127,16 +1128,65 @@ public class Logic {
 
     //===[UPDATE]==================================================
 
-    private void updateBalance() {
+    public void updateBalance() {
+        DateFormat format = new SimpleDateFormat("dd.MM.yyyy");
         ArrayList<Document> documents = new ArrayList<>();
-        for (Document document : this.documents) {
-            if (document instanceof FuelDocument || document instanceof GoodDocument) {
-                documents.add(document);
+        if (windowController.noTimeSpan()) {
+            for (Document document : this.documents) {
+                if (document instanceof FuelDocument || document instanceof GoodDocument) {
+                    documents.add(document);
+                }
+            }
+            documents.addAll(receipts);
+        } else {
+            ArrayList<Date> dates = windowController.getReportDates();
+            ArrayList<Document> tmpDocument = new ArrayList<>();
+            tmpDocument.addAll(receipts);
+            tmpDocument.addAll(this.documents);
+            if (dates.get(0).compareTo(dates.get(1)) < 0) {
+                for (Document document : tmpDocument) {
+                    Date oDate = null;
+                    try {
+                        oDate = format.parse(Utility.getDateFormatted(document.getODATE()));
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    if (dates.get(0).compareTo(oDate) <= 0 && dates.get(1).compareTo(oDate) >= 0) {
+                        documents.add(document);
+                    }
+                }
+
+            } else {
+                for (Document document : tmpDocument) {
+                    Date oDate = null;
+                    try {
+                        oDate = format.parse(Utility.getDateFormatted(document.getODATE()));
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    if (dates.get(1).compareTo(oDate) <= 0 && dates.get(0).compareTo(oDate) >= 0) {
+                        documents.add(document);
+                    }
+                }
             }
         }
-        documents.addAll(receipts);
-        Collections.sort(documents, Comparator.comparingInt(document -> document.getODATE().getDate()));
+        Collections.sort(documents, Comparator.comparing(Document::getODATE));
         windowController.updateBalance(documents, getDeliveryCosts(), getSales(), getBalance());
+        float today = 0, month = 0, year = 0;
+        if(activeEmployee != null) {
+            for(CustomerOrder document : receipts) {
+                if(Utility.getDateFormatted(new Date()).equals(Utility.getDateFormatted(document.getODATE())) && document.getEMPLOYEE().getEMPLOYEE_NUMBER() == activeEmployee.getEMPLOYEE_NUMBER()) {
+                    today += document.getTotal();
+                }
+                if(new Date().getYear() == document.getODATE().getYear() && new Date().getMonth() == document.getODATE().getMonth() && document.getEMPLOYEE().getEMPLOYEE_NUMBER() == activeEmployee.getEMPLOYEE_NUMBER()){
+                    month += document.getTotal();
+                }
+                if(new Date().getYear() == document.getODATE().getYear() && document.getEMPLOYEE().getEMPLOYEE_NUMBER() == activeEmployee.getEMPLOYEE_NUMBER()){
+                    year += document.getTotal();
+                }
+            }
+        }
+        windowController.updateEmployeeBalance(today, month, year);
     }
 
     //===[GETTER]==================================================
@@ -1443,9 +1493,90 @@ public class Logic {
         for(Employee employee : employees) {
             if(employee.logIn(id, passHash)) {
                 activeEmployee = employee;
+                updateBalance();
                 return true;
             }
         }
         return false;
+    }
+
+    public void editEmployee(int employeeNumber, String firstName, String surName, String userRole, String pass) {
+        Employee editEmployee = null;
+        for(Employee employee : employees) {
+            if(employee.getEMPLOYEE_NUMBER() == employeeNumber) {
+                editEmployee = employee;
+                break;
+            }
+        }
+        editEmployee.setFirstName(firstName);
+        editEmployee.setSurName(surName);
+        if(pass != null && !pass.equals("")) {
+            editEmployee.setPass(DigestUtils.sha256Hex(userRole));
+        }
+        UserRole role = null;
+        switch (userRole) {
+            case "Administrator":
+                role = UserRole.admin;
+                break;
+            case "Angestellter":
+                role = UserRole.employee;
+                break;
+            default:
+                role = UserRole.assistant;
+        }
+        editEmployee.setRole(role);
+        windowController.addRowTEmployeesEmployeeOverview(employees);
+        saveEmployees();
+    }
+
+    public void editItemType(int id, String label, InventoryType type) {
+        ArrayList<ItemType> types = Utility.getInventoryType(this.types, type);
+        ItemType editEntry = null;
+        for (ItemType typeEntry : types) {
+            if (id == typeEntry.getINVENTORY_NUMBER()) {
+                editEntry = typeEntry;
+                break;
+            }
+        }
+        editEntry.setLabel(label);
+        if (type == InventoryType.Fuel) {
+            windowController.addRowTFuelsSettingsFuel(Utility.getInventoryType(this.types, InventoryType.Fuel));
+        } else {
+            windowController.addRowTGoodsSettingsGood(Utility.getInventoryType(this.types, InventoryType.Good));
+        }
+        saveInventory();
+    }
+
+    public void editFuelTank(int id, float capacity, float level, int index) {
+        FuelTank editFuelTank = null;
+        for (FuelTank tank : tanks) {
+            if (tank.getTANK_NUMBER() == id) {
+                editFuelTank = tank;
+                break;
+            }
+        }
+        ArrayList<ItemType> types = Utility.getInventoryType(this.types, InventoryType.Fuel);
+        editFuelTank.setFuel(Utility.getInventoryType(types, InventoryType.Fuel).get(index));
+        editFuelTank.setCAPACITY(capacity);
+        try {
+            editFuelTank.setLevel(level);
+        } catch (NumberOutOfRangeException e) {
+            e.printStackTrace();
+        }
+        windowController.addRowTTanksSettingsTank(tanks);
+        saveInventory();
+    }
+
+    public void editGasPump(ArrayList<FuelTank> tanks, int id) {
+        GasPump editGasPump = null;
+        for(GasPump gasPump : gasPumps) {
+            if(gasPump.getGAS_PUMP_NUMBER() == id) {
+                editGasPump = gasPump;
+                break;
+            }
+        }
+        editGasPump.setTanks(tanks);
+        windowController.addRowTGasPumpsSettingsGasPump(gasPumps);
+        saveInventory();
     }
 }

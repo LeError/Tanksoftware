@@ -5,9 +5,8 @@ import gasStationSoftware.exceptions.NumberOutOfRangeException;
 public class FuelTank {
 
     private final int TANK_NUMBER;
-    private final float CAPACITY;
     private ItemType fuel;
-    private float level;
+    private float level, capacity;
     private float levelPercentage;
 
     /**
@@ -22,7 +21,7 @@ public class FuelTank {
     public FuelTank(int tankNumber, float capacity, float level, ItemType fuel)
     throws NumberOutOfRangeException {
         TANK_NUMBER = tankNumber;
-        CAPACITY = capacity;
+        this.capacity = capacity;
         this.fuel = fuel;
         this.level = level;
         levelPercentage = level / capacity;
@@ -42,11 +41,11 @@ public class FuelTank {
 
     /**
      * Gibt die Kapazität zurück
-     * @return CAPACITY
+     * @return capacity
      * @author Robin Herder
      */
     public float getCAPACITY() {
-        return CAPACITY;
+        return capacity;
     }
 
     /**
@@ -102,11 +101,23 @@ public class FuelTank {
      */
     public void addLevel(float level) throws NumberOutOfRangeException {
         this.level += level;
-        levelPercentage = level / CAPACITY;
-        System.out.println(levelPercentage + " = " + level);
+        levelPercentage = this.level / capacity;
         if(levelPercentage > 1 || levelPercentage < 0) {
             throw new NumberOutOfRangeException();
         }
+    }
+
+    public void setLevel(float level)
+    throws NumberOutOfRangeException {
+        this.level = level;
+        levelPercentage = this.level / capacity;
+        if (levelPercentage > 1 || levelPercentage < 0) {
+            throw new NumberOutOfRangeException();
+        }
+    }
+
+    public void setCAPACITY(float capacity) {
+        this.capacity = capacity;
     }
 
     /**
@@ -119,6 +130,6 @@ public class FuelTank {
     }
 
     public float getFreeSpace() {
-        return CAPACITY - level;
+        return capacity - level;
     }
 }

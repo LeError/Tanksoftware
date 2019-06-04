@@ -30,6 +30,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -211,13 +212,6 @@ implements Initializable {
      * @param event
      * @author Robin Herder
      */
-    @FXML private void handleUserAction(MouseEvent event) {}
-
-    /**
-     *
-     * @param event
-     * @author Robin Herder
-     */
     @FXML private void handleSaleAction(MouseEvent event) {
         if (event.getTarget() == btnGoodsSalesOverview) {
             new GoodsDialog(rootPane, this);
@@ -287,7 +281,10 @@ implements Initializable {
      */
     @FXML private void handleEmployeeAction(MouseEvent event) {
         if (event.getTarget() == btnEditEmployeeOverview) {
-
+            if(tEmployeesEmployeeOverview.getSelectionModel().getSelectedItem() != null) {
+                Employee selected = (Employee) tEmployeesEmployeeOverview.getSelectionModel().getSelectedItem();
+                new EmployeeInputDialog(rootPane , this, selected.getEMPLOYEE_NUMBER(), selected.getFIRST_NAME(), selected.getSUR_NAME(), selected.getEMPLOYMENT_DATE(), selected.getIRole());
+            }
         } else if (event.getTarget() == btnCreateEmployeeOverview) {
             new EmployeeInputDialog(rootPane, this);
         }
@@ -298,7 +295,9 @@ implements Initializable {
      * @param event
      * @author Robin Herder
      */
-    @FXML private void handleReportAction(MouseEvent event) {}
+    @FXML private void handleReportAction(ActionEvent event) {
+        logic.updateBalance();
+    }
 
     /**
      *
@@ -326,12 +325,34 @@ implements Initializable {
         } else if (event.getTarget() == btnImportSettingsOverview) {
         } else if (event.getTarget() == btnNewSettingsFuel) {
             new ItemTypeInputDialog(rootPane, this, InventoryType.Fuel);
+        } else if (event.getTarget() == btnEditSettingsFuel) {
+            if (tFuelsSettingsFuel.getSelectionModel().getSelectedItem() != null) {
+                ItemType fuel = (ItemType) tFuelsSettingsFuel.getSelectionModel().getSelectedItem();
+                new ItemTypeInputDialog(rootPane, this, InventoryType.Fuel, fuel.getINVENTORY_NUMBER(),
+                fuel.getLABEL());
+            }
         } else if (event.getTarget() == btnNewSettingsTank) {
             new FuelTankInputDialog(rootPane, this);
+        } else if (event.getTarget() == btnEditSettingsTank) {
+            if (tTanksSettingsTank.getSelectionModel().getSelectedItem() != null) {
+                FuelTank tank = (FuelTank) tTanksSettingsTank.getSelectionModel().getSelectedItem();
+                new FuelTankInputDialog(rootPane, this, tank.getTANK_NUMBER(), tank.getCAPACITY(), tank.getLevel(),
+                tank.getFuel().getINVENTORY_NUMBER() + ": " + tank.getFuel().getLABEL());
+            }
         } else if (event.getTarget() == btnNewSettingsGasPump) {
             new GasPumpInputDialog(rootPane, this);
+        } else if (event.getTarget() == btnEditSettingsGasPump) {
+            if (tGasPumpsSettingsGasPump.getSelectionModel().getSelectedItem() != null) {
+                GasPump pump = (GasPump) tGasPumpsSettingsGasPump.getSelectionModel().getSelectedItem();
+                new GasPumpInputDialog(rootPane, this, pump);
+            }
         } else if (event.getTarget() == btnNewSettingsGood) {
             new ItemTypeInputDialog(rootPane, this, InventoryType.Good);
+        } else if (event.getTarget() == btnEditSettingsGood) {
+            if (tGoodsSettingsGood.getSelectionModel().getSelectedItem() != null) {
+                ItemType good = (ItemType) tGoodsSettingsGood.getSelectionModel().getSelectedItem();
+                new ItemTypeInputDialog(rootPane, this, InventoryType.Good, good.getINVENTORY_NUMBER(), good.getLABEL());
+            }
         }
     }
 
@@ -707,6 +728,12 @@ implements Initializable {
         logic.addItemType(label, type);
     }
 
+    public void processExistingItemTypeInput(AnchorPane pane, InventoryType type) {
+        int id = Integer.parseInt(((JFXTextField) pane.getChildren().get(0)).getText());
+        String label = ((JFXTextField) pane.getChildren().get(1)).getText();
+        logic.editItemType(id, label, type);
+    }
+
     /**
      *
      * @param pane
@@ -717,6 +744,14 @@ implements Initializable {
         float level = Float.parseFloat(((JFXTextField) pane.getChildren().get(2)).getText());
         int index = ((JFXComboBox<String>) pane.getChildren().get(3)).getSelectionModel().getSelectedIndex();
         logic.addFuelTank(capacity, level, index);
+    }
+
+    public void processExistingFuelTank(AnchorPane pane) {
+        int id = Integer.parseInt(((JFXTextField) pane.getChildren().get(0)).getText());
+        float capacity = Float.parseFloat(((JFXTextField) pane.getChildren().get(1)).getText());
+        float level = Float.parseFloat(((JFXTextField) pane.getChildren().get(2)).getText());
+        int index = ((JFXComboBox<String>) pane.getChildren().get(3)).getSelectionModel().getSelectedIndex();
+        logic.editFuelTank(id, capacity, level, index);
     }
 
     /**
@@ -731,6 +766,15 @@ implements Initializable {
             tanks.add((FuelTank) table.getItems().get(i));
         }
         logic.addGasPump(tanks);
+    }
+
+    public void processExistingGasPump(AnchorPane pane, int id) {
+        TableView table = (TableView) pane.getChildren().get(1);
+        ArrayList<FuelTank> tanks = new ArrayList<>();
+        for(int i = 0; i < table.getItems().size(); i++) {
+            tanks.add((FuelTank) table.getItems().get(i));
+        }
+        logic.editGasPump(tanks, id);
     }
 
     /**
@@ -787,6 +831,15 @@ implements Initializable {
         String userRole = (String) ((JFXComboBox) pane.getChildren().get(4)).getSelectionModel().getSelectedItem();
         String userPass = ((JFXPasswordField) pane.getChildren().get(5)).getText();
         logic.addEmployee(firstName, surName, employmentDate, userRole, userPass);
+    }
+
+    public void processExistingEmployee(AnchorPane pane) {
+        String employeeNumber = ((JFXTextField) pane.getChildren().get(0)).getText();
+        String firstName = ((JFXTextField) pane.getChildren().get(1)).getText();
+        String surName = ((JFXTextField) pane.getChildren().get(2)).getText();
+        String userRole = (String) ((JFXComboBox) pane.getChildren().get(4)).getSelectionModel().getSelectedItem();
+        String userPass = ((JFXPasswordField) pane.getChildren().get(5)).getText();
+        logic.editEmployee(Integer.parseInt(employeeNumber), firstName, surName, userRole, userPass);
     }
 
     //===[CHECKOUT SPECIFIC]==================================================
@@ -935,6 +988,13 @@ implements Initializable {
 
     //===[GETTER]==================================================
 
+    public ArrayList<Date> getReportDates() {
+        ArrayList<Date> dates = new ArrayList<>();
+        dates.add(Date.from(dpTimespanReportOverview.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        dates.add(Date.from(dpTimespanReportOverview1.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        return dates;
+    }
+
     /**
      * Gibt dem Style aller Buttons zurück
      * @return buttensStyle
@@ -1053,6 +1113,16 @@ implements Initializable {
         lblSaleValueReportOverview.setText("+ " + sale);
         lblBalanceValueReportOverview.setText(String.valueOf(balance));
         addRowTReportReportOverview(documents);
+    }
+
+    public void updateEmployeeBalance(float day, float month, float year) {
+        lblSalesSumDailyUser.setText(String.valueOf(day));
+        lblSalesSumMonthlyUser.setText(String.valueOf(month));
+        lblSalesSumYearlyUser.setText(String.valueOf(year));
+    }
+
+    public boolean noTimeSpan() {
+        return dpTimespanReportOverview.getValue() == null || dpTimespanReportOverview1.getValue() == null;
     }
 
 }
