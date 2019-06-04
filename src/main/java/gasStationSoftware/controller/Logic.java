@@ -1528,4 +1528,22 @@ public class Logic {
         windowController.addRowTEmployeesEmployeeOverview(employees);
         saveEmployees();
     }
+
+    public void editItemType(int id, String label, InventoryType type) {
+        ArrayList<ItemType> types = Utility.getInventoryType(this.types, type);
+        ItemType editEntry = null;
+        for (ItemType typeEntry : types) {
+            if (id == typeEntry.getINVENTORY_NUMBER()) {
+                editEntry = typeEntry;
+                break;
+            }
+        }
+        editEntry.setLabel(label);
+        if (type == InventoryType.Fuel) {
+            windowController.addRowTFuelsSettingsFuel(Utility.getInventoryType(this.types, InventoryType.Fuel));
+        } else {
+            windowController.addRowTGoodsSettingsGood(Utility.getInventoryType(this.types, InventoryType.Good));
+        }
+        saveInventory();
+    }
 }
