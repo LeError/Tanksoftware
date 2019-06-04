@@ -1546,4 +1546,24 @@ public class Logic {
         }
         saveInventory();
     }
+
+    public void editFuelTank(int id, float capacity, float level, int index) {
+        FuelTank editFuelTank = null;
+        for (FuelTank tank : tanks) {
+            if (tank.getTANK_NUMBER() == id) {
+                editFuelTank = tank;
+                break;
+            }
+        }
+        ArrayList<ItemType> types = Utility.getInventoryType(this.types, InventoryType.Fuel);
+        editFuelTank.setFuel(Utility.getInventoryType(types, InventoryType.Fuel).get(index));
+        editFuelTank.setCAPACITY(capacity);
+        try {
+            editFuelTank.setLevel(level);
+        } catch (NumberOutOfRangeException e) {
+            e.printStackTrace();
+        }
+        windowController.addRowTTanksSettingsTank(tanks);
+        saveInventory();
+    }
 }
