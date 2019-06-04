@@ -9,6 +9,10 @@ import javafx.scene.layout.StackPane;
 
 public class FuelTankInputDialog extends Dialog {
 
+    private boolean newEntry = true;
+
+    private JFXTextField txtInventoryNumber, txtCapacity, txtLevel;
+    private JFXComboBox<String> cbFuels;
 
     /**
      * Constructor FuelTankInputDialog
@@ -18,21 +22,26 @@ public class FuelTankInputDialog extends Dialog {
      */
     public FuelTankInputDialog(StackPane rootPane, WindowController windowController) {
         super(windowController);
+        inputDialog(rootPane, create(), "Erstellen Kraftstofftank");
+    }
 
-        JFXTextField txtInventoryNumber = getTextfield(200, 30, true, 10d, 5d, 5d);
-        txtInventoryNumber.setText(String.valueOf(windowController.getTankNumber()));
+    public FuelTankInputDialog(StackPane rootPane, WindowController windowController, int tankID, float capacity,
+    float level, String assignedFuel) {
+        super(windowController);
 
-        JFXTextField txtCapacity = getTextfield(200, 30, false, 60d, 5d, 5d);
-        txtCapacity.setPromptText("Kapazität in l");
+        AnchorPane pane = create();
 
-        JFXTextField txtLevel = getTextfield(200, 30, false, 110d, 5d, 5d);
-        txtLevel.setPromptText("Füllstand in l");
+        txtInventoryNumber.setDisable(true);
+        txtInventoryNumber.setText(String.valueOf(tankID));
 
-        JFXComboBox<String> cbFuels = getComboBox(windowController.getFuel(), "Kraftstoff wählen", 140, 30, 160d, 5d, 5d);
+        txtCapacity.setText(String.valueOf(capacity));
+        txtLevel.setText(String.valueOf(level));
 
-        AnchorPane pane = getAnchorPane(210, 200);
-        pane.getChildren().addAll(txtInventoryNumber, txtCapacity, txtLevel, cbFuels);
-        inputDialog(rootPane, pane, "Erstellen Kraftstofftank");
+        cbFuels.getSelectionModel().select(assignedFuel);
+
+        newEntry = false;
+
+        inputDialog(rootPane, pane, "Bearbeite Tank");
     }
 
     /**
@@ -42,6 +51,28 @@ public class FuelTankInputDialog extends Dialog {
      */
     @Override
     protected void processSubmit(AnchorPane pane) {
-        windowController.processFuelTankInput(pane);
+        if (newEntry) {
+            windowController.processFuelTankInput(pane);
+        } else {
+            windowController.processExistingFuelTank(pane);
+        }
     }
+
+    private AnchorPane create() {
+        txtInventoryNumber = getTextfield(200, 30, true, 10d, 5d, 5d);
+        txtInventoryNumber.setText(String.valueOf(windowController.getTankNumber()));
+
+        txtCapacity = getTextfield(200, 30, false, 60d, 5d, 5d);
+        txtCapacity.setPromptText("Kapazität in l");
+
+        txtLevel = getTextfield(200, 30, false, 110d, 5d, 5d);
+        txtLevel.setPromptText("Füllstand in l");
+
+        cbFuels = getComboBox(windowController.getFuel(), "Kraftstoff wählen", 140, 30, 160d, 5d, 5d);
+
+        AnchorPane pane = getAnchorPane(210, 200);
+        pane.getChildren().addAll(txtInventoryNumber, txtCapacity, txtLevel, cbFuels);
+        return pane;
+    }
+
 }
