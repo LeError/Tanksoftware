@@ -35,6 +35,11 @@ public class Fuel extends Item {
         return tanks;
     }
 
+    /**
+     * Gibt die Tanks zurück
+     * @return
+     * @author Robin Herder
+     */
     private ArrayList<FuelTank> getOTanks() {
         ArrayList<FuelTank> tanks = new ArrayList<>();
         ArrayList<FuelTank> tankList = Logic.getInstance().getTanks();
@@ -59,6 +64,12 @@ public class Fuel extends Item {
         return amount;
     }
 
+    /**
+     * Überprüft die freie Kapazität
+     * @param amount
+     * @return
+     * @author Robin Herder
+     */
     public boolean checkSpace(float amount) {
         int free = 0;
         for(FuelTank tank : getOTanks()) {
@@ -128,10 +139,20 @@ public class Fuel extends Item {
         }
     }
 
+    /**
+     * Gibt den Checkouttank zurück
+     * @return
+     * @author Robin Herder
+     */
     public GasPump getCheckoutTank() {
         return checkoutTankNumber;
     }
 
+    /**
+     * Stellt den CheckoutTank ein
+     * @param checkoutTankNumber
+     * @author Robin Herder
+     */
     public void setCheckoutTank(GasPump checkoutTankNumber) {
         this.checkoutTankNumber = checkoutTankNumber;
     }
