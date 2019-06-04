@@ -16,6 +16,15 @@ extends Document {
     private final int RECEIPT_NUMBER;
     private final Employee EMPLOYEE;
 
+    /**
+     * Constructor CustomerOrder
+     * @param receiptNumber
+     * @param date
+     * @param employee
+     * @param fuels
+     * @param goods
+     * @author Robin Herder
+     */
     public CustomerOrder(int receiptNumber, Date date, Employee employee, ArrayList<Fuel> fuels,
     ArrayList<Good> goods) {
         super(DocumentType.receipt, "RECEIPT_" + receiptNumber, date);
@@ -31,10 +40,20 @@ extends Document {
         }
     }
 
+    /**
+     *
+     * @return
+     * @author Robin Herder
+     */
     public String[] getLinesForFile() {
         return null;
     }
 
+    /**
+     * Gibt Gesamtpreis zurück
+     * @return total
+     * @author Robin Herder
+     */
     public float getTotal() {
         Iterator<Fuel> fuelKey = fuels.keySet().iterator();
         Iterator<Good> goodKey = goods.keySet().iterator();
@@ -50,10 +69,20 @@ extends Document {
         return Utility.round(total, 2);
     }
 
+    /**
+     * Gibt Auftragsdatum zurück
+     * @return date
+     * @author Robin Herder
+     */
     public String getDate(){
         return Utility.getDateFormatted(getODATE());
     }
 
+    /**
+     *
+     * @return rFuels[]
+     * @author Robin Herder
+     */
     public ArrayList<Fuel> getFuels() {
         ArrayList<Fuel> rFuels = new ArrayList<>();
         Iterator<Fuel> fuelKey = fuels.keySet().iterator();
@@ -63,6 +92,11 @@ extends Document {
         return rFuels;
     }
 
+    /**
+     * Gibt die Kraftstoffmenge zurück
+     * @return amount[]
+     * @author Robin Herder
+     */
     public ArrayList<Float> getFuelsAmount() {
         ArrayList<Float> amount = new ArrayList<>();
         Iterator<Fuel> fuelKey = fuels.keySet().iterator();
@@ -72,6 +106,11 @@ extends Document {
         return amount;
     }
 
+    /**
+     * Gibt die Warenmenge zurück
+     * @return amount[]
+     * @author Robin Herder
+     */
     public ArrayList<Integer> getGoodsAmount() {
         ArrayList<Integer> amount = new ArrayList<>();
         Iterator<Good> goodKey = goods.keySet().iterator();
@@ -81,6 +120,11 @@ extends Document {
         return amount;
     }
 
+    /**
+     * Gibt die Menge zurück
+     * @return rGoods[]
+     * @author Robin Herder
+     */
     public ArrayList<Good> getGoods() {
         ArrayList<Good> rGoods = new ArrayList<>();
         Iterator<Good> goodKey = goods.keySet().iterator();
@@ -90,14 +134,29 @@ extends Document {
         return rGoods;
     }
 
+    /**
+     * Gibt die Quittungsnummer zurück
+     * @return recipt_number
+     * @author Robin Herder
+     */
     public int getRECEIPT_NUMBER() {
         return RECEIPT_NUMBER;
     }
 
+    /**
+     * Gibt den Mitarbeiter zurück
+     * @return employee
+     * @author Robin Herder
+     */
     public Employee getEMPLOYEE() {
         return EMPLOYEE;
     }
 
+    /**
+     *
+     * @return
+     * @author Robin Herder
+     */
     @Override public String getTotalForTab() {
         return "+ " + getTotal();
     }
