@@ -19,7 +19,9 @@
 <?import javafx.scene.text.Font?>
 <?import java.lang.Double?>
 <?import java.util.ArrayList?>
-<StackPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gasStationSoftware.controller.WindowController">
+<StackPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+           prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.172-ea"
+           xmlns:fx="http://javafx.com/fxml/1" fx:controller="gasStationSoftware.controller.WindowController">
     <children>
       <AnchorPane fx:id="loginPane" prefHeight="600.0" prefWidth="1000.0">
          <children>
@@ -514,7 +516,8 @@
                                     </font>
                                 </Label>
                                 <Separator fx:id="dividerThemesSettingsOverview" layoutX="65.0" layoutY="130.0" prefWidth="700.0" style="-fx-background-color: #212121;" />
-                                <JFXComboBox fx:id="cbThemeSettingsOverview" layoutX="140.0" layoutY="145.0" prefHeight="30.0" prefWidth="200.0" />
+                                <JFXComboBox fx:id="cbThemeSettingsOverview" layoutX="140.0" layoutY="145.0"
+                                             onAction="#handleTheme" prefHeight="30.0" prefWidth="200.0"/>
                                 <Label fx:id="lblThemeSettingsOverview" layoutX="65.0" layoutY="150.0" text="Theme:" textFill="#212121" />
                                 <JFXButton fx:id="btnEditThemeSettingsOverview" buttonType="RAISED" layoutX="455.0" layoutY="145.0" onMouseClicked="#handleSettingsAction" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Bearbeiten" textFill="WHITE">
                                     <graphic>

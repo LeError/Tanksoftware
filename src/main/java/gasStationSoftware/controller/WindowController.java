@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
+import gasStationSoftware.exceptions.DataFileNotFoundException;
 import gasStationSoftware.models.Document;
 import gasStationSoftware.models.Employee;
 import gasStationSoftware.models.Fuel;
@@ -353,6 +354,14 @@ implements Initializable {
                 ItemType good = (ItemType) tGoodsSettingsGood.getSelectionModel().getSelectedItem();
                 new ItemTypeInputDialog(rootPane, this, InventoryType.Good, good.getINVENTORY_NUMBER(), good.getLABEL());
             }
+        }
+    }
+
+    @FXML private void handleTheme(ActionEvent event) {
+        try {
+            logic.setTheme((String) cbThemeSettingsOverview.getSelectionModel().getSelectedItem());
+        } catch (DataFileNotFoundException e) {
+            e.printStackTrace();
         }
     }
 
