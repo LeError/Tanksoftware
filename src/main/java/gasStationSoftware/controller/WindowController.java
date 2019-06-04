@@ -1136,6 +1136,11 @@ implements Initializable {
         return logic.getFreeInvNumber(type);
     }
 
+    /**
+     *
+     * @return
+     * @author Robin Herder
+     */
     public int getFreeEmployeeNumber() {
         return logic.getFreeEmployeeNumber();
     }
@@ -1167,14 +1172,19 @@ implements Initializable {
         return rootPane;
     }
 
+    /**
+     *
+     * @return
+     * @author Robin Herder
+     */
     public ArrayList<String> getUserRoles() {
         return logic.getUserRoles();
     }
 
     /**
-     *
+     * GetFile
      * @param title
-     * @return ahja
+     * @return
      * @author Robin Herder
      */
     private String getFile(String title) {
