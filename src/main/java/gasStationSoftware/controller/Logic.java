@@ -1566,4 +1566,17 @@ public class Logic {
         windowController.addRowTTanksSettingsTank(tanks);
         saveInventory();
     }
+
+    public void editGasPump(ArrayList<FuelTank> tanks, int id) {
+        GasPump editGasPump = null;
+        for(GasPump gasPump : gasPumps) {
+            if(gasPump.getGAS_PUMP_NUMBER() == id) {
+                editGasPump = gasPump;
+                break;
+            }
+        }
+        editGasPump.setTanks(tanks);
+        windowController.addRowTGasPumpsSettingsGasPump(gasPumps);
+        saveInventory();
+    }
 }
