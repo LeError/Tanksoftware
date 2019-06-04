@@ -96,7 +96,7 @@ public class Utility {
     }
 
     /**
-     *
+     * Gibt den InventoryType zurück
      * @param iTypes
      * @param type
      * @return InventoryType
@@ -112,6 +112,13 @@ public class Utility {
         return result;
     }
 
+    /**
+     *
+     * @param documents
+     * @param docType
+     * @return result[]
+     * @author Robin Herder
+     */
     public static ArrayList<?> getDocument(ArrayList<Document> documents, DocumentType docType) {
         ArrayList<Document> result = new ArrayList<>();
         for(Document document : documents) {
@@ -122,6 +129,13 @@ public class Utility {
         return result;
     }
 
+    /**
+     * Rundet die eingebene Zahl
+     * @param number
+     * @param decimals
+     * @return float
+     * @author Robin Herder
+     */
     public static float round(float number, int decimals) {
         BigDecimal bd = new BigDecimal(Float.toString(number));
         bd = bd.setScale(decimals, BigDecimal.ROUND_HALF_UP);

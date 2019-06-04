@@ -24,10 +24,22 @@ public class WriteJSON {
             this.path.getParentFile().mkdir();
     }
 
+    /**
+     * Fügt ein Item hinzu
+     * @param name
+     * @param item
+     * @author Robin Herder
+     */
     public void addItem(String name, String item) {
         obj.put(name, item);
     }
 
+    /**
+     *
+     * @param name
+     * @param items
+     * @author Robin Herder
+     */
     public void addItemArray(String name, String[] items) {
         JSONArray list = new JSONArray();
         for (String item : items)
@@ -35,6 +47,12 @@ public class WriteJSON {
         obj.put(name, list);
     }
 
+    /**
+     *
+     * @param name
+     * @param items
+     * @author Robin Herder
+     */
     public void addItemArrayList(String name, ArrayList<String> items) {
         JSONArray list = new JSONArray();
         for (String item : items)
@@ -42,6 +60,13 @@ public class WriteJSON {
         obj.put(name, list);
     }
 
+    /**
+     *
+     * @param name
+     * @param subName
+     * @param items
+     * @author Robin Herder
+     */
     public void addItemArrayListArray(String name, String subName, ArrayList<String>[] items) {
         JSONArray list = new JSONArray();
         for (ArrayList<String> entry : items) {
@@ -56,6 +81,11 @@ public class WriteJSON {
         obj.put(name, list);
     }
 
+    /**
+     * Schreibt die JSON
+     * @param overwrite
+     * @author Robin Herder
+     */
     public void write(boolean overwrite) {
         if (overwrite && path.isFile() || !path.isFile()) {
             try (FileWriter file = new FileWriter(path)) {

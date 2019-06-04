@@ -14,6 +14,11 @@ public class ReadListFile {
     private String date;
     private final ArrayList<String> LINES = new ArrayList<>();
 
+    /**
+     * Constructor ReadListFile
+     * @param url
+     * @author Robin Herder
+     */
     public ReadListFile(String url) {
         FILE = new File(url);
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(FILE))) {
@@ -28,6 +33,11 @@ public class ReadListFile {
         }
     }
 
+    /**
+     *
+     * @return lines[]
+     * @author Robin Herder
+     */
     public String[][] getLINES() {
         String[][] lines = new String[LINES.size()][2];
         for(int i = 0; i < LINES.size(); i++) {
@@ -36,10 +46,21 @@ public class ReadListFile {
         return lines;
     }
 
+    /**
+     *
+     * @param line
+     * @return
+     * @author Robin Herder
+     */
     private String[] getLine(String line) {
         return line.trim().split("=");
     }
 
+    /**
+     * Gibt das Datum zurück
+     * @return date
+     * @author Robin Herder
+     */
     public Date getDate() {
         try {
             return new SimpleDateFormat("dd.MM.yyyy").parse(getLine(date)[1]);

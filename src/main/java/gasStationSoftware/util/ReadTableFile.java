@@ -87,6 +87,11 @@ public class ReadTableFile {
         return false;
     }
 
+    /**
+     * Gibt das Datum zurück
+     * @return date
+     * @author Robin Herder
+     */
     public Date getDate() {
         try {
             return new SimpleDateFormat("dd.MM.yyyy").parse(TOP_LINES.get(0).trim().split("=")[1]);
