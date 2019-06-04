@@ -2,7 +2,7 @@ package gasStationSoftware.models;
 
 public class ItemType {
 
-    private final String LABEL;
+    private String label;
     private final int INVENTORY_NUMBER;
     private final InventoryType TYPE;
 
@@ -14,18 +14,22 @@ public class ItemType {
      * @author Robin Herder
      */
     public ItemType(String label, int inventoryNumber, InventoryType iType) {
-        LABEL = label;
+        this.label = label;
         INVENTORY_NUMBER = inventoryNumber;
         TYPE = iType;
     }
 
     /**
      * Gibt das Label zurück
-     * @return LABEL
+     * @return label
      * @author Robin Herder
      */
     public String getLABEL() {
-        return LABEL;
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
     }
 
     /**
