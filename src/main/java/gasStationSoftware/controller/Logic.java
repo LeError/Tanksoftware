@@ -66,8 +66,7 @@ public class Logic {
             "employees.txt",
             "themes\\dark.json",
             "users.json",
-            "tankSimulation.json",
-            "allReceipts.json"
+            "tankSimulation.json", "allReceipts.json", "danielTheme.json"
     };
 
     private ArrayList<Employee> employees = new ArrayList<>();
@@ -186,6 +185,9 @@ public class Logic {
                 case "allReceipts.json":
                     exportJSONResources("allReceipts.json", "allReceipts.json");
                     break;
+                case "danielTheme.json":
+                    exportJSONResources("danielTheme.json", "themes\\daniel.json");
+                    break;
                 default:
                     throw new DataFileNotFoundException(file);
                 }
@@ -234,7 +236,7 @@ public class Logic {
      */
     public void loadFiles() {
         try {
-            loadTheme();
+            loadSettings();
         } catch (DataFileNotFoundException e) {
             displayError("Can't load theme save file!", e, true);
         }
@@ -265,7 +267,8 @@ public class Logic {
      * @throws DataFileNotFoundException
      * @author Robin Herder
      */
-    private void loadTheme() throws DataFileNotFoundException {
+    private void loadSettings()
+    throws DataFileNotFoundException {
         ReadJSON read = new ReadJSON(DATA_FILE_PATH + DATA_FILE_NAMES[1]);
         theme = read.getItemString("theme");
         title = read.getItemString("title");
@@ -286,6 +289,7 @@ public class Logic {
                 Utility.hex2Rgb(read.getItemString("buttonsFont")),
                 Utility.hex2Rgb(read.getItemString("dividerContent"))
         );
+        windowController.setTitle(title);
     }
 
     /**
@@ -784,6 +788,13 @@ public class Logic {
     }
 
     //===[SAVE FILES]==================================================
+
+    private void saveSettings() {
+        WriteJSON write = new WriteJSON(DATA_FILE_PATH + DATA_FILE_NAMES[1]);
+        write.addItem("theme", theme);
+        write.addItem("title", title);
+        write.write(true);
+    }
 
     /**
      * Inventar in JSON speichern
@@ -1295,6 +1306,10 @@ public class Logic {
 
     //===[GETTER]==================================================
 
+    public String getThemeTitle() {
+        return theme;
+    }
+
     /**
      * Gibt die Lieferkosten zurück
      * @return cost
@@ -1791,18 +1806,12 @@ public class Logic {
     public void setTheme(String theme) throws DataFileNotFoundException {
         this.theme = theme;
         saveSettings();
-        loadTheme();
+        loadSettings();
     }
 
-    public void setTitle(String title) {
+    public void setTitle(String title)
+    throws DataFileNotFoundException {
         this.title = title;
         saveSettings();
-    }
-
-    private void saveSettings() {
-        WriteJSON write = new WriteJSON(DATA_FILE_PATH + DATA_FILE_NAMES[1]);
-        write.addItem("theme", theme);
-        write.addItem("title", title);
-        write.write(true);
     }
 }
