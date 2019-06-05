@@ -12,8 +12,8 @@ extends Exception {
     }
 
     /**
-     * Constructor der Exeption
-     * @param message
+     * Constructor der Exeption mit fehlertext
+     * @param message felhlermeldung
      * @author Robin Herder
      */
     public DataFileNotFoundException(String message) {
