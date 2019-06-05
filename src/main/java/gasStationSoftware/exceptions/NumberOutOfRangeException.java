@@ -12,8 +12,8 @@ extends Exception {
     }
 
     /**
-     * Constructor der Exeption
-     * @param message
+     * Constructor der Exeption mit Fehlertext
+     * @param message fehlermeldung
      * @author Robin Herder
      */
     public NumberOutOfRangeException(String message) {
