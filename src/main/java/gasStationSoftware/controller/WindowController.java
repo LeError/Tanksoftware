@@ -25,6 +25,7 @@ import gasStationSoftware.ui.GasPumpInputDialog;
 import gasStationSoftware.ui.GoodsDialog;
 import gasStationSoftware.ui.ItemInputDialog;
 import gasStationSoftware.ui.ItemTypeInputDialog;
+import gasStationSoftware.ui.ThemeDialog;
 import gasStationSoftware.util.Dialog;
 import gasStationSoftware.util.Utility;
 import javafx.collections.FXCollections;
@@ -123,9 +124,10 @@ implements Initializable {
 
     @FXML private AnchorPane settingsPane, settingsOverviewPane, settingsFuelPane, settingsTankPane, settingsGasPumpPane, settingsGoodPane;
     @FXML private Polygon polygonSettings;
+    @FXML private JFXTextField txtTitleSettingsOverview;
     @FXML private JFXButton btnEditThemeSettingsOverview, btnCreateThemeSettingsOverview, btnFuelsSettingsOverview, btnTanksSettingsOverview, btnGasPumpsSettingsOverview;
     @FXML private JFXButton btnGoodsSettingsOverview, btnExportSettingsOverview, btnImportSettingsOverview, btnNewSettingsFuel, btnEditSettingsFuel, btnNewSettingsTank;
-    @FXML private JFXButton btnEditSettingsTank, btnNewSettingsGasPump, btnEditSettingsGasPump, btnNewSettingsGood, btnEditSettingsGood;
+    @FXML private JFXButton btnEditSettingsTank, btnNewSettingsGasPump, btnEditSettingsGasPump, btnNewSettingsGood, btnEditSettingsGood, btnTitleSettingsOverview;
     @FXML private JFXComboBox cbThemeSettingsOverview, cbTypeSettingsOverview;
     @FXML private TableView tFuelsSettingsFuel, tTanksSettingsTank, tGasPumpsSettingsGasPump, tGoodsSettingsGood;
 
@@ -312,9 +314,10 @@ implements Initializable {
      */
     @FXML private void handleSettingsAction(MouseEvent event) {
         if (event.getTarget() == btnEditThemeSettingsOverview) {
-
+            new ThemeDialog(rootPane, this, backgroundMenuBar, contentPaneBackground, icons, dividerMenuBar,
+            fontContent, buttonsBackground, buttonsFont, dividerContent, logic.getThemeTitle());
         } else if (event.getTarget() == btnCreateThemeSettingsOverview) {
-
+            new ThemeDialog(rootPane, this);
         } else if (event.getTarget() == btnFuelsSettingsOverview) {
             hideSubPanes();
             settingsFuelPane.setVisible(true);
@@ -358,6 +361,14 @@ implements Initializable {
             if (tGoodsSettingsGood.getSelectionModel().getSelectedItem() != null) {
                 ItemType good = (ItemType) tGoodsSettingsGood.getSelectionModel().getSelectedItem();
                 new ItemTypeInputDialog(rootPane, this, InventoryType.Good, good.getINVENTORY_NUMBER(), good.getLABEL());
+            }
+        } else if (event.getTarget() == btnTitleSettingsOverview) {
+            if (txtTitleSettingsOverview.getText() != "") {
+                try {
+                    logic.setTitle(txtTitleSettingsOverview.getText());
+                } catch (DataFileNotFoundException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -929,6 +940,14 @@ implements Initializable {
         logic.editEmployee(Integer.parseInt(employeeNumber), firstName, surName, userRole, userPass);
     }
 
+    public void processThemeInput(AnchorPane pane) {
+
+    }
+
+    public void processExistingTheme(AnchorPane pane, String title) {
+
+    }
+
     //===[CHECKOUT SPECIFIC]==================================================
 
     /**
@@ -1279,6 +1298,10 @@ implements Initializable {
      */
     public boolean noTimeSpan() {
         return dpTimespanReportOverview.getValue() == null || dpTimespanReportOverview1.getValue() == null;
+    }
+
+    public void setTitle(String title) {
+        txtTitleSettingsOverview.setText(title);
     }
 
 }
