@@ -1,6 +1,11 @@
 package gasStationSoftware.util;
 
-import com.jfoenix.controls.*;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXColorPicker;
+import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
+import com.jfoenix.controls.JFXTextField;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import gasStationSoftware.controller.WindowController;
@@ -185,6 +190,28 @@ public abstract class Dialog {
         column.setPrefWidth(prefWidth);
         column.setResizable(resizeable);
         return column;
+    }
+
+    public static Label getLabel(String text, double prefWidth, double prefHeight, double leftAnchor,
+    double topAnchor) {
+        Label label = new Label(text);
+        label.setPrefSize(prefWidth, prefHeight);
+        label.setMinSize(prefWidth, prefHeight);
+        label.setMaxSize(prefWidth, prefHeight);
+        AnchorPane.setLeftAnchor(label, leftAnchor);
+        AnchorPane.setTopAnchor(label, topAnchor);
+        return label;
+    }
+
+    public static JFXColorPicker getColorPicker(double prefWidth, double prefHeight, double leftAnchor,
+    double topAnchor) {
+        JFXColorPicker colorPicker = new JFXColorPicker();
+        colorPicker.setPrefSize(prefWidth, prefHeight);
+        colorPicker.setMinSize(prefWidth, prefHeight);
+        colorPicker.setMaxSize(prefWidth, prefHeight);
+        AnchorPane.setLeftAnchor(colorPicker, leftAnchor);
+        AnchorPane.setTopAnchor(colorPicker, topAnchor);
+        return colorPicker;
     }
 
     /**
