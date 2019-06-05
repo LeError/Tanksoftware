@@ -25,6 +25,7 @@ import gasStationSoftware.ui.GasPumpInputDialog;
 import gasStationSoftware.ui.GoodsDialog;
 import gasStationSoftware.ui.ItemInputDialog;
 import gasStationSoftware.ui.ItemTypeInputDialog;
+import gasStationSoftware.ui.ThemeDialog;
 import gasStationSoftware.util.Dialog;
 import gasStationSoftware.util.Utility;
 import javafx.collections.FXCollections;
@@ -39,6 +40,7 @@ import javafx.scene.control.Separator;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -123,9 +125,10 @@ implements Initializable {
 
     @FXML private AnchorPane settingsPane, settingsOverviewPane, settingsFuelPane, settingsTankPane, settingsGasPumpPane, settingsGoodPane;
     @FXML private Polygon polygonSettings;
+    @FXML private JFXTextField txtTitleSettingsOverview;
     @FXML private JFXButton btnEditThemeSettingsOverview, btnCreateThemeSettingsOverview, btnFuelsSettingsOverview, btnTanksSettingsOverview, btnGasPumpsSettingsOverview;
     @FXML private JFXButton btnGoodsSettingsOverview, btnExportSettingsOverview, btnImportSettingsOverview, btnNewSettingsFuel, btnEditSettingsFuel, btnNewSettingsTank;
-    @FXML private JFXButton btnEditSettingsTank, btnNewSettingsGasPump, btnEditSettingsGasPump, btnNewSettingsGood, btnEditSettingsGood;
+    @FXML private JFXButton btnEditSettingsTank, btnNewSettingsGasPump, btnEditSettingsGasPump, btnNewSettingsGood, btnEditSettingsGood, btnTitleSettingsOverview;
     @FXML private JFXComboBox cbThemeSettingsOverview, cbTypeSettingsOverview;
     @FXML private TableView tFuelsSettingsFuel, tTanksSettingsTank, tGasPumpsSettingsGasPump, tGoodsSettingsGood;
 
@@ -142,9 +145,9 @@ implements Initializable {
     //===[INIT]==================================================
 
     /**
-     * Initialisieren
-     * @param location
-     * @param resources
+     * Initialisieren des Kontrollers added Standart Content und Tabellenspalten
+     * @param location JavaFX Framework übergiebt
+     * @param resources JavaFX Framework übergiebt
      * @author Robin Herder
      */
     @Override public void initialize(URL location, ResourceBundle resources) {
@@ -167,8 +170,8 @@ implements Initializable {
     //===[HANDLE EVENT]==================================================
 
     /**
-     * Login-Handle
-     * @param event
+     * Login-Handle logt nutzer ein oder macht login felder rot
+     * @param event event auslöser
      * @author Robin Herder
      */
     @FXML private void handleLoginAction(MouseEvent event) {
@@ -184,7 +187,7 @@ implements Initializable {
 
     /**
      * Wechsel zwischen den Menus der linken menubar
-     * @param event
+     * @param event event auslöser
      * @author Robin Herder
      */
     @FXML private void handleMenuButtonAction(MouseEvent event) {
@@ -215,7 +218,7 @@ implements Initializable {
 
     /**
      * Handle Verkaufsaktion
-     * @param event
+     * @param event event auslöser
      * @author Robin Herder
      */
     @FXML private void handleSaleAction(MouseEvent event) {
@@ -236,7 +239,7 @@ implements Initializable {
 
     /**
      * Handle Inventoryaktion
-     * @param event
+     * @param event event auslöser
      * @author Robin Herder
      */
     @FXML private void handleInventoryAction(MouseEvent event) {
@@ -259,7 +262,7 @@ implements Initializable {
 
     /**
      * Handle Kraftstoffaktion
-     * @param event
+     * @param event event auslöser
      * @author Robin Herder
      */
     @FXML private void handleFuelAction(MouseEvent event) {
@@ -282,7 +285,7 @@ implements Initializable {
 
     /**
      * Handle Mitarbeiteraktion
-     * @param event
+     * @param event event auslöser
      * @author Robin Herder
      */
     @FXML private void handleEmployeeAction(MouseEvent event) {
@@ -298,7 +301,7 @@ implements Initializable {
 
     /**
      * Handle Statistikaktion
-     * @param event
+     * @param event event auslöser
      * @author Robin Herder
      */
     @FXML private void handleReportAction(ActionEvent event) {
@@ -307,14 +310,15 @@ implements Initializable {
 
     /**
      * Handle Einstellungsaktion
-     * @param event
+     * @param event event auslöser
      * @author Robin Herder
      */
     @FXML private void handleSettingsAction(MouseEvent event) {
         if (event.getTarget() == btnEditThemeSettingsOverview) {
-
+            new ThemeDialog(rootPane, this, backgroundMenuBar, contentPaneBackground, icons, dividerMenuBar,
+            fontContent, buttonsBackground, buttonsFont, dividerContent, logic.getThemeTitle());
         } else if (event.getTarget() == btnCreateThemeSettingsOverview) {
-
+            new ThemeDialog(rootPane, this);
         } else if (event.getTarget() == btnFuelsSettingsOverview) {
             hideSubPanes();
             settingsFuelPane.setVisible(true);
@@ -359,9 +363,18 @@ implements Initializable {
                 ItemType good = (ItemType) tGoodsSettingsGood.getSelectionModel().getSelectedItem();
                 new ItemTypeInputDialog(rootPane, this, InventoryType.Good, good.getINVENTORY_NUMBER(), good.getLABEL());
             }
+        } else if (event.getTarget() == btnTitleSettingsOverview) {
+            if (txtTitleSettingsOverview.getText() != "") {
+                logic.setTitle(txtTitleSettingsOverview.getText());
+            }
         }
     }
 
+    /**
+     * Handle Theme wechssel
+     * @param event event auslöser
+     * @author Robin Herder
+     */
     @FXML private void handleTheme(ActionEvent event) {
         try {
             logic.setTheme((String) cbThemeSettingsOverview.getSelectionModel().getSelectedItem());
@@ -533,7 +546,7 @@ implements Initializable {
     }
 
     /**
-     *
+     * Spalten der SettingsItemTypetablle einfügen
      * @return  colums[]
      * @author Robin Herder
      */
@@ -627,7 +640,7 @@ implements Initializable {
     }
 
     /**
-     *
+     * Lieferungen der Kraftstofflieferungstabelle hinzufügen
      * @param deliveries
      * @author Robin Herder
      */
@@ -927,6 +940,14 @@ implements Initializable {
         String userRole = (String) ((JFXComboBox) pane.getChildren().get(4)).getSelectionModel().getSelectedItem();
         String userPass = ((JFXPasswordField) pane.getChildren().get(5)).getText();
         logic.editEmployee(Integer.parseInt(employeeNumber), firstName, surName, userRole, userPass);
+    }
+
+    public void processThemeInput(AnchorPane pane) {
+
+    }
+
+    public void processExistingTheme(AnchorPane pane, String title) {
+
     }
 
     //===[CHECKOUT SPECIFIC]==================================================
@@ -1279,6 +1300,15 @@ implements Initializable {
      */
     public boolean noTimeSpan() {
         return dpTimespanReportOverview.getValue() == null || dpTimespanReportOverview1.getValue() == null;
+    }
+
+    public void setTitle(String title) {
+        txtTitleSettingsOverview.setText(title);
+    }
+
+    public void setProfilePicture(Image image) {
+        ivUserMenuBar.setImage(image);
+        ivUserProfilePictureUser.setImage(image);
     }
 
 }
