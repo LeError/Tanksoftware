@@ -14,8 +14,17 @@ import java.util.Date;
 
 public class Utility {
 
+    public static javafx.scene.paint.Color getFXColor(Color color) {
+        int r = color.getRed();
+        int g = color.getGreen();
+        int b = color.getBlue();
+        int a = color.getAlpha();
+        double opacity = a / 255.0;
+        return javafx.scene.paint.Color.rgb(r, g, b, opacity);
+    }
+
     /**
-     * Gibt eine Farbe des eingegebenen Hex-Codes zurück
+     * Gibt ein Farbobjekt des eingegebenen Hex-Codes zurück
      * @param colorStr
      * @return Color
      * @author Robin Herder
