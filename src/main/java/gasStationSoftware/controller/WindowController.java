@@ -569,7 +569,7 @@ implements Initializable {
 
     /**
      * Neuer Mitarbeiter der Mitarbeiterübersicht-Tabelle hinzufügen
-     * @param employee
+     * @param employee Angestelten objekt liste
      * @author Robin Herder
      */
     public void addRowTEmployeesEmployeeOverview(ArrayList<Employee> employee){
@@ -579,7 +579,7 @@ implements Initializable {
 
     /**
      * Neuer Kraftstoff der Kraftstoffeinstellungen-Tabelle hinzufügen
-     * @param types
+     * @param types Produkt/Kraftstofftype objekt liste
      * @author Robin Herder
      */
     public void addRowTFuelsSettingsFuel(ArrayList<ItemType> types) {
@@ -590,7 +590,7 @@ implements Initializable {
 
     /**
      * Neuer Tank der Tankeinstellungen-Tabelle hinzufügen
-     * @param tanks
+     * @param tanks Tank objekt liste
      * @author Robin Herder
      */
     public void addRowTTanksSettingsTank(ArrayList<FuelTank> tanks){
@@ -600,7 +600,7 @@ implements Initializable {
 
     /**
      * Neue Zapfsäuler der Zapfsäuleneinstellung-Tabelle hinzufügen
-     * @param gasPumps
+     * @param gasPumps Zapfsäulen objekt liste
      * @author Robin Herder
      */
     public void addRowTGasPumpsSettingsGasPump(ArrayList<GasPump> gasPumps) {
@@ -610,7 +610,7 @@ implements Initializable {
 
     /**
      * Neue Ware der Wareneinstellungen-Tabelle hinzufügen
-     * @param types
+     * @param types Produkt/Kraftstofftype objekt liste
      * @author Robin Herder
      */
     public void addRowTGoodsSettingsGood(ArrayList<ItemType> types) {
@@ -621,7 +621,7 @@ implements Initializable {
 
     /**
      * Kraftstoff der Kraftstoffübersichtstabelle hinzufügen
-     * @param fuels
+     * @param fuels Kraftstoff objekt liste
      * @author Robin Herder
      */
     public void addRowTFuelsFuelOverview(ArrayList<Fuel> fuels) {
@@ -631,7 +631,7 @@ implements Initializable {
 
     /**
      * Ware der Warenübersichtstabelle hinzufügen
-     * @param goods
+     * @param goods Produkt objekt liste
      * @author Robin Herder
      */
     public void addRowTGoodsInventoryOverview(ArrayList<Good> goods) {
@@ -641,7 +641,7 @@ implements Initializable {
 
     /**
      * Lieferungen der Kraftstofflieferungstabelle hinzufügen
-     * @param deliveries
+     * @param deliveries Kraftstofflieferung objekt liste
      * @author Robin Herder
      */
     public void addRowTFuelsFuelDelivery(ArrayList<FuelDocument> deliveries) {
@@ -650,8 +650,8 @@ implements Initializable {
     }
 
     /**
-     *
-     * @param deliveries
+     * Lieferungen der Produktlieferungstabelle hinzufügen
+     * @param deliveries Produktliefrungd objekt liste
      * @author Robin Herder
      */
     public void addRowTGoodsInventoryDelivery(ArrayList<GoodDocument> deliveries) {
@@ -660,8 +660,8 @@ implements Initializable {
     }
 
     /**
-     *
-     * @param documents
+     * Rechungen oder Quittungen zu Balancetabelle hinzufügen
+     * @param documents Dokument objekt liste
      * @author Robin Herder
      */
     public void addRowTReportReportOverview(ArrayList<Document> documents) {
@@ -672,8 +672,8 @@ implements Initializable {
     //===[LOGIC CALL]==================================================
 
     /**
-     *
-     * @param table
+     * Tabelle an logic weiterreichen
+     * @param table Tabelle der Tankansicht
      * @author Robin Herder
      */
     public void addTankTableRows(TableView table) {
@@ -683,7 +683,7 @@ implements Initializable {
     //===[DEFAULT CONTENT]==================================================
 
     /**
-     *
+     * Setzen von Standart elementen
      * @author Robin Herder
      */
     private void setDefaultContent() {
@@ -693,9 +693,9 @@ implements Initializable {
     }
 
     /**
-     *
-     * @param themes
-     * @param selected
+     * Combobox die themes übergeben und das aktive auswählen
+     * @param themes Array mit den möglichen themes
+     * @param selected ausgewähltes theme
      * @author Robin Herder
      */
     public void setComboboxThemes(String[] themes, String selected) {
@@ -706,15 +706,15 @@ implements Initializable {
     //===[THEME]==================================================
 
     /**
-     * Theme einstellen
-     * @param backgroundMenuBar
-     * @param contentPaneBackground
-     * @param icons
-     * @param dividerMenuBar
-     * @param fontContent
-     * @param buttonsBackground
-     * @param buttonsFont
-     * @param dividerContent
+     * Theme auf UI anwenden
+     * @param backgroundMenuBar Farb objekt für theme
+     * @param contentPaneBackground Farb objekt für theme
+     * @param icons Farb objekt für theme
+     * @param dividerMenuBar Farb objekt für theme
+     * @param fontContent Farb objekt für theme
+     * @param buttonsBackground Farb objekt für theme
+     * @param buttonsFont Farb objekt für theme
+     * @param dividerContent Farb objekt für theme
      * @author Robin Herder
      */
     public void setTheme(Color backgroundMenuBar, Color contentPaneBackground, Color icons, Color dividerMenuBar,
@@ -770,20 +770,12 @@ implements Initializable {
         menuBarPane.setStyle(backgroundMenuBarStyle);
     }
 
-    /**
-     *
-     * @author Robin Herder
-     */
-    private void applyTheme() {
-
-    }
-
     //===[PROCESS INPUT]==================================================
 
     /**
-     *
-     * @param pane
-     * @param type
+     * Auswerten des ItemTypeInputDialogs und daten weitergabe an logic
+     * @param pane Anchorpane des dialogs
+     * @param type InventoryType des dialogs
      * @author Robin Herder
      */
     public void processItemTypeInput(AnchorPane pane, InventoryType type) {
@@ -792,9 +784,9 @@ implements Initializable {
     }
 
     /**
-     *
-     * @param pane
-     * @param type
+     * Auswerten des ItemTypeInputDialogs und daten weitergabe an logic
+     * @param pane Anchorpane des dialogs
+     * @param type InventoryType des dialogs
      * @author Robin Herder
      */
     public void processExistingItemTypeInput(AnchorPane pane, InventoryType type) {
@@ -804,8 +796,8 @@ implements Initializable {
     }
 
     /**
-     *
-     * @param pane
+     * Auswerten des FuelTankInputDialogs und daten weitergabe an logic
+     * @param pane Anchorpane des dialogs
      * @author Robin Herder
      */
     public void processFuelTankInput(AnchorPane pane) {
@@ -816,8 +808,8 @@ implements Initializable {
     }
 
     /**
-     *
-     * @param pane
+     * Auswerten des FuelTankInputDialogs und daten weitergabe an logic
+     * @param pane Anchorpane des dialogs
      * @author Robin Herder
      */
     public void processExistingFuelTank(AnchorPane pane) {
@@ -829,8 +821,8 @@ implements Initializable {
     }
 
     /**
-     *
-     * @param pane
+     * Auswerten des GasPumpInputDialogs und daten weitergabe an logic
+     * @param pane Anchorpane des dialogs
      * @author Robin Herder
      */
     public void processGasPumpInput(AnchorPane pane) {
@@ -843,9 +835,9 @@ implements Initializable {
     }
 
     /**
-     *
-     * @param pane
-     * @param id
+     * Auswerten des GasPumpInputDialogs und daten weitergabe an logic
+     * @param pane Anchorpane des dialogs
+     * @param id id der zu Editierenden Zapfsäule
      * @author Robin Herder
      */
     public void processExistingGasPump(AnchorPane pane, int id) {
@@ -858,9 +850,9 @@ implements Initializable {
     }
 
     /**
-     *
-     * @param pane
-     * @param iType
+     * Auswerten des FuelInputDialogs und daten weitergabe an logic
+     * @param pane Anchorpane des dialogs
+     * @param iType ItemType des anzulegenden Kraftstoffes
      * @author Robin Herder
      */
     public void processFuel(AnchorPane pane, ItemType iType){
@@ -871,9 +863,9 @@ implements Initializable {
     }
 
     /**
-     *
-     * @param pane
-     * @param iType
+     * Auswerten des GoodInputDialogs und daten weitergabe an logic
+     * @param pane Anchorpane des dialogs
+     * @param iType ItemType des anzulegenden Produkts
      * @author Robin Herder
      */
     public void processGood(AnchorPane pane, ItemType iType) {
@@ -885,8 +877,8 @@ implements Initializable {
     }
 
     /**
-     *
-     * @param pane
+     * Auswerten des GoodsDialogs und daten weitergabe an logic
+     * @param pane Anchorpane des dialogs
      * @author Robin Herder
      */
     public void processGoodCheckout(AnchorPane pane) {
@@ -899,8 +891,8 @@ implements Initializable {
     }
 
     /**
-     *
-     * @param pane
+     * Auswerten des GasPumpsDialogs und daten weitergabe an logic
+     * @param pane Anchorpane des dialogs
      * @author Robin Herder
      */
     public void processGasPumpCheckout(AnchorPane pane) {
@@ -915,8 +907,8 @@ implements Initializable {
     }
 
     /**
-     *
-     * @param pane
+     * Auswerten des EmployeeInputDialogs und daten weitergabe an logic
+     * @param pane Anchorpane des dialogs
      * @author Robin Herder
      */
     public void processEmployee(AnchorPane pane) {
@@ -929,8 +921,8 @@ implements Initializable {
     }
 
     /**
-     *
-     * @param pane
+     * Auswerten des EmployeeInputDialogs und daten weitergabe an logic
+     * @param pane Anchorpane des dialogs
      * @author Robin Herder
      */
     public void processExistingEmployee(AnchorPane pane) {
@@ -942,10 +934,21 @@ implements Initializable {
         logic.editEmployee(Integer.parseInt(employeeNumber), firstName, surName, userRole, userPass);
     }
 
+    /**
+     * Auswerten des ThemeDialogs und daten weitergabe an logic
+     * @author Robin Herder
+     * @param pane Anchorpane des dialogs
+     */
     public void processThemeInput(AnchorPane pane) {
 
     }
 
+    /**
+     * Auswerten des ThemeDialogs und daten weitergabe an logic
+     * @param pane Anchorpane des dialogs
+     * @param title title des zu editierenden themes
+     * @author Robin Herder
+     */
     public void processExistingTheme(AnchorPane pane, String title) {
 
     }
@@ -953,7 +956,7 @@ implements Initializable {
     //===[CHECKOUT SPECIFIC]==================================================
 
     /**
-     *
+     * Aktualisierung des angezeigten Gesamtpreises
      * @author Robin Herder
      */
     private void updateCheckoutPrice() {
@@ -965,7 +968,7 @@ implements Initializable {
     }
 
     /**
-     *
+     * Erhöhen der anzahl des ausgewählten elements im checkout
      * @author Robin Herder
      */
     private void incAmount() {
@@ -982,7 +985,7 @@ implements Initializable {
     }
 
     /**
-     *
+     * Ernidirgen der anzahl des ausgewählten elements im checkout
      * @author Robin Herder
      */
     private void decAmount() {
@@ -1003,7 +1006,7 @@ implements Initializable {
     }
 
     /**
-     *
+     * Entfernen der anzahl des ausgewählten elements im checkout
      * @author Robin Herder
      */
     private void removeElement() {
@@ -1020,7 +1023,7 @@ implements Initializable {
     }
 
     /**
-     *
+     * Triggert das erstellen einer Quittung
      * @author Robin Herder
      */
     private void createReceipt(){
@@ -1065,8 +1068,8 @@ implements Initializable {
     }
 
     /**
-     *
-     * @param goodsDialog
+     * Ersetllen der filterfunktionalität des GoodsDialog
+     * @param goodsDialog der goodsDialog um zurück zugreifen zu können
      * @author Robin Herder
      */
     public void createGoodsData(GoodsDialog goodsDialog) {
@@ -1095,8 +1098,8 @@ implements Initializable {
     }
 
     /**
-     *
-     * @param gasPumpDialog
+     * Ersetllen der filterfunktionalität des GasPumpDialog
+     * @param gasPumpDialog der gasPumpDialog um zurück zugreifen zu können
      * @author Robin Herder
      */
     public void createGasPumpData(GasPumpDialog gasPumpDialog) {
@@ -1127,8 +1130,8 @@ implements Initializable {
     //===[GETTER]==================================================
 
     /**
-     *
-     * @return
+     * Getter für die Dates der DatePicker der Reportoberfläche
+     * @return dates
      * @author Robin Herder
      */
     public ArrayList<Date> getReportDates() {
@@ -1139,7 +1142,7 @@ implements Initializable {
     }
 
     /**
-     * Gibt dem Style aller Buttons zurück
+     * Gibt den Style aller Buttons zurück (CSS-String)
      * @return buttensStyle
      * @author Robin Herder
      */
@@ -1148,7 +1151,7 @@ implements Initializable {
     }
 
     /**
-     * Gibt den Style aller Icons zurück
+     * Gibt den Style aller Icons zurück (CSS-String)
      * @return iconsStyle
      * @author Robin Herder
      */
@@ -1157,7 +1160,7 @@ implements Initializable {
     }
 
     /**
-     * Gibt die nächste freie Inventarnummer des Types zurück
+     * Gibt die nächste freie Inventarnummer des InventoryTypes zurück
      * @param type
      * @return freeInvNumber
      * @author Robin Herder
@@ -1167,7 +1170,7 @@ implements Initializable {
     }
 
     /**
-     *
+     * Gibt die nächste freie Inventarnummer für Angestellte zurück zurück
      * @return
      * @author Robin Herder
      */
@@ -1194,7 +1197,7 @@ implements Initializable {
     }
 
     /**
-     *
+     * Gibt die StackPane (rootPane) der anwendung zurück
      * @return rootPane
      * @author Robin Herder
      */
@@ -1203,7 +1206,7 @@ implements Initializable {
     }
 
     /**
-     *
+     * Gibt die Nutzerrollen als String zurück
      * @return
      * @author Robin Herder
      */
@@ -1212,9 +1215,9 @@ implements Initializable {
     }
 
     /**
-     * GetFile
-     * @param title
-     * @return
+     * Gibt einen Pfad als String zurück über einen FileChooser
+     * @param title Title des FileChoosers
+     * @return path
      * @author Robin Herder
      */
     private String getFile(String title) {
@@ -1225,7 +1228,7 @@ implements Initializable {
     }
 
     /**
-     * Loginscreen initialisieren
+     * Loginscreen initialisieren je nach rechterolle
      * @author Robin Herder
      */
     private void login() {
@@ -1266,11 +1269,11 @@ implements Initializable {
     }
 
     /**
-     * Bilanz aktualisieren
-     * @param documents
-     * @param cost
-     * @param sale
-     * @param balance
+     * Bilanz aktualisieren (werte)
+     * @param documents liste der anzuzeigenden Dokumente
+     * @param cost Insgesamte ausgaben
+     * @param sale Insgesamte einnahmen
+     * @param balance einnahmen - ausgaben
      * @author Robin Herder
      */
     public void updateBalance(ArrayList<Document> documents, float cost, float sale, float balance) {
@@ -1282,9 +1285,9 @@ implements Initializable {
 
     /**
      * Mitarbeiterbilanz aktualisieren
-     * @param day
-     * @param month
-     * @param year
+     * @param day Tageseinnahmen des Angestelten
+     * @param month Monatseinnahmen des Angestellten
+     * @param year Jahreseinnahmen des Angestellten
      * @author Robin Herder
      */
     public void updateEmployeeBalance(float day, float month, float year) {
@@ -1294,18 +1297,26 @@ implements Initializable {
     }
 
     /**
-     * Koin Zeit Span
-     * @return
+     * Überprüft ob einer der DatePicker in der Bilanz kein Datum ausgewählt hat
+     * @return datePickerNotInitial
      * @author Robin Herder
      */
     public boolean noTimeSpan() {
         return dpTimespanReportOverview.getValue() == null || dpTimespanReportOverview1.getValue() == null;
     }
 
+    /**
+     * Titel auf UI setzen
+     * @author Robin Herder
+     */
     public void setTitle(String title) {
         txtTitleSettingsOverview.setText(title);
     }
 
+    /**
+     * Profibild in UI setzen
+     * @author Robin Herder
+     */
     public void setProfilePicture(Image image) {
         ivUserMenuBar.setImage(image);
         ivUserProfilePictureUser.setImage(image);
