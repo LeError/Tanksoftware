@@ -582,6 +582,22 @@
                               <MaterialDesignIconView glyphName="CLOSE" size="24" style="-fx-fill: #607D8B;" />
                            </graphic>
                         </JFXButton>
+                                <Label fx:id="lblGoodsSettingsOverview1" layoutX="65.0" layoutY="415.0"
+                                       prefHeight="20.0" prefWidth="200.0" text="Tankstellenname:" textFill="#212121"/>
+                                <JFXTextField fx:id="txtTitleSettingsOverview" layoutX="380.0" layoutY="410.0"
+                                              maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                                              minWidth="-Infinity" prefHeight="31.0" prefWidth="200.0"
+                                              promptText="Name"/>
+                                <JFXButton fx:id="btnTitleSettingsOverview" buttonType="RAISED" layoutX="615.0"
+                                           layoutY="410.0" onMouseClicked="#handleSettingsAction" prefHeight="30.0"
+                                           prefWidth="150.0"
+                                           style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;"
+                                           text="Speichern" textFill="WHITE">
+                                    <graphic>
+                                        <MaterialDesignIconView fx:id="icoTitleSettingsOverview" fill="WHITE"
+                                                                glyphName="CONTENT_SAVE" size="20" smooth="false"/>
+                                    </graphic>
+                                </JFXButton>
                             </children>
                         </AnchorPane>
                         <AnchorPane fx:id="settingsFuelPane" minHeight="600.0" minWidth="890.0" prefHeight="600.0" prefWidth="890.0" visible="false">
@@ -835,6 +851,7 @@
             <fx:reference source="icoRemoveAmountSalesOverview" />
             <fx:reference source="icoDeleteSalesOverview" />
             <fx:reference source="icoLogin" />
+            <fx:reference source="icoTitleSettingsOverview"/>
         </ArrayList>
         <ArrayList fx:id="allButtons">
             <fx:reference source="btnAddFuelOverview" />
@@ -878,6 +895,7 @@
             <fx:reference source="btnRemoveAmountSalesOverview" />
             <fx:reference source="btnDeleteSalesOverview" />
             <fx:reference source="btnLogin" />
+            <fx:reference source="btnTitleSettingsOverview"/>
         </ArrayList>
         <ArrayList fx:id="allCb">
             <fx:reference source="cbThemeSettingsOverview" />
