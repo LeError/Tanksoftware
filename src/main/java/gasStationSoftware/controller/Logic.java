@@ -24,16 +24,8 @@ import gasStationSoftware.util.ReadTableFile;
 import gasStationSoftware.util.Utility;
 import gasStationSoftware.util.WriteFile;
 import gasStationSoftware.util.WriteJSON;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
-import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.FilenameUtils;
-
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -43,6 +35,9 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 
 public class Logic {
 
@@ -87,7 +82,7 @@ public class Logic {
     //===[CONSTRUCTOR]==================================================
 
     /**
-     * Constructor für Logic
+     * Konstruktor für Logic (Modell). Ruft methoden zur Ordenerüberprüfung auf.
      * @author Robin Herder
      */
     private Logic() {
@@ -118,7 +113,7 @@ public class Logic {
 
     /**
      * Getter für die Logic Instance
-     * @param windowController
+     * @param windowController WindowController Instanz für Zugriffe aus der logic
      * @return logic
      * @author Robin Herder
      */
@@ -130,7 +125,7 @@ public class Logic {
     //===[CHECK DIRS AND FILES]==================================================
 
     /**
-     * Directory erstellen
+     * Directory erstellen wenn sie nicht schon existieren
      * @param dir Dateipfad als String
      * @author Robin Herder
      */
@@ -142,7 +137,7 @@ public class Logic {
     }
 
     /**
-     * Erstellt mehrere Directories
+     * Erstellt mehrere Directories / aufruf checkDir
      * @param dirs Array mit Dateipfaden
      * @author Robin Herder
      */
@@ -153,6 +148,7 @@ public class Logic {
     }
 
     /**
+     * Überprüft ob Datendatein vorhanden sind. Falls nicht exportiert er diese oder erstellt diese.
      * @throws IOException
      * @throws DataFileNotFoundException
      * @author Robin Herder
@@ -202,8 +198,9 @@ public class Logic {
     //===[JSON EXTRACTION]==================================================
 
     /**
-     * @param source
-     * @param file
+     * Kopiert json datei aus Resourcen ins Ziel
+     * @param source Pfad der Quelldatei
+     * @param file Pfad der Zieldatei
      * @author Robin Herder
      */
     private void exportJSONResources(String source, String file) {
@@ -219,10 +216,10 @@ public class Logic {
     //===[DISPLAY ERRORS]==================================================
 
     /**
-     * Zeigt Errors an
-     * @param error
-     * @param e
-     * @param end
+     * Zeigt Errors an nachdem ein try gescheitert ist
+     * @param error Titel des Fehlers
+     * @param e Geworfener fehler
+     * @param end ob es ein Programm kritischer fehler ist true -> Programmende
      * @author Robin Herder
      */
     public static void displayError(String error, Exception e, boolean end) { // TODO change to errorDialog
@@ -235,7 +232,7 @@ public class Logic {
     //===[LOAD SAVE FILES]==================================================
 
     /**
-     * Lädt Dateien
+     * Lädt alle Datein des Programms
      * @author Robin Herder
      */
     public void loadFiles() {
@@ -267,7 +264,7 @@ public class Logic {
     }
 
     /**
-     * Lädt Theme
+     * Lädt Settings datei und speißt diese ein. Führt zum setzen des Titels und setzen des Themes
      * @throws DataFileNotFoundException
      * @author Robin Herder
      */
@@ -297,7 +294,7 @@ public class Logic {
     }
 
     /**
-     * Lädt Angestellte
+     * Lädt Angestellte save datei und json und speißt diese in Objekte ein
      * @throws ParseException
      * @author Robin Herder
      */
@@ -335,7 +332,7 @@ public class Logic {
     }
 
     /**
-     * Lädt Inventar
+     * Lädt Inventar datei und erstellt daraus ItemTypes, Goods usw. Alle kerneelemente der Tankstelle
      * @throws DataFileNotFoundException
      * @throws NumberOutOfRangeException
      * @author Robin Herder
@@ -368,7 +365,7 @@ public class Logic {
     }
 
     /**
-     * Lädt die Kraftstofflieferungen
+     * Lädt die Kraftstofflieferungen die bereits registriert sind (Importiert)
      * @author Robin Herder
      */
     private void loadFuelDeliveries() {
@@ -379,7 +376,7 @@ public class Logic {
     }
 
     /**
-     * Lädt die Warenlieferungen
+     * Lädt die Warenlieferungen die bereits registriert sind (Importiert)
      * @author Robin Herder
      */
     private void loadGoodDeliveries() {
@@ -390,7 +387,7 @@ public class Logic {
     }
 
     /**
-     * Lädt Quittungen
+     * Lädt Quittungen die bereits registriert sind
      * @throws DataFileNotFoundException
      * @author Robin Herder
      */
@@ -445,10 +442,10 @@ public class Logic {
     //===[CREATE OBJECTS FROM JSON]==================================================
 
     /**
-     * Erstellt Item-Objekte aus der JSON
-     * @param label
-     * @param inventoryNumber
-     * @param type
+     * Erstellt Item-Objekte aus der Inventory.json
+     * @param label Die Bezeichner der ItemTypes
+     * @param inventoryNumber Die Inventarnummer der ItemTypes
+     * @param type Die type bezeeichnung equ InventoryType
      * @author Robin Herder
      */
     private void createItemTypeObjects(String[] label, String[] inventoryNumber, String[] type) {
@@ -466,11 +463,11 @@ public class Logic {
     }
 
     /**
-     * Erstellt Tanks
-     * @param tankID
-     * @param tankCapacity
-     * @param tankLevel
-     * @param tankAssignedFuels
+     * Erstellt Tankobjekte aus Inventory.json
+     * @param tankID Die ID der Kraftstofftanks
+     * @param tankCapacity Die Kapazität der Kraftstofftanks
+     * @param tankLevel Der Füllstand der Kraftstofftanks
+     * @param tankAssignedFuels Die ID der Kraftstoffs des zugewiesenen Tanks
      * @author Robin Herder
      */
     private void createFuelTankObjects(int[] tankID, float[] tankCapacity, float[] tankLevel, int[] tankAssignedFuels) {
@@ -492,8 +489,8 @@ public class Logic {
     }
 
     /**
-     * Erstellt Zapfsäulen
-     * @param gasPumps
+     * Erstellt Zapfsäulenobjekte aus Inventory.json
+     * @param gasPumps Die IDs der Angeschlossenen Tanks an die Zapfsäule
      * @author Robin Herder
      */
     private void createGasPumpObjects(ArrayList<String>[] gasPumps ) {
@@ -514,11 +511,11 @@ public class Logic {
     }
 
     /**
-     * Erstellt Kraftstoff
-     * @param invNumber
-     * @param price
-     * @param currency
-     * @param amount
+     * Erstellt Kraftstoffobjekte aus Inventory.json
+     * @param invNumber Die ID der Krafftstoffe
+     * @param price Der Preis der Krafftstoffe
+     * @param currency Die Währung der Krafftstoffe
+     * @param amount Die menge der Krafftstoffe
      * @author Robin Herder
      */
     private void createFuel(int[] invNumber, float[] price, String[] currency, float[] amount) {
@@ -536,11 +533,11 @@ public class Logic {
     }
 
     /**
-     * Erstellt Ware
-     * @param invNumber
-     * @param price
-     * @param currency
-     * @param amount
+     * Erstellt Warenobjekte aus Inventory.json
+     * @param invNumber Die ID der Produkte
+     * @param price Der Preis der Produkte
+     * @param currency Die Währung der Produkte
+     * @param amount Die Menge der Produkte
      * @author Robin Herder
      */
     private void createGood(int[] invNumber, float[] price, String[] currency, int[] amount, String[] unit) {
@@ -560,8 +557,8 @@ public class Logic {
     //===[GET FREE IDS]==================================================
 
     /**
-     * Gibt die nächste freie Inventarnummer zurück
-     * @param type
+     * Gibt die nächste freie Inventarnummer zurück des angegeben ItemTypes
+     * @param type InventoryType zur unterscheidung zwischen fuel und good
      * @return freeInvNumber
      * @author Robin Herder
      */
@@ -633,7 +630,7 @@ public class Logic {
 
     /**
      * Neue Quittung hinzufügen
-     * @param items
+     * @param items Die Items für die Quittung Good und Fuel möglich aufgrund von vererbung
      * @author Robin Herder
      */
     public void addReceipt(ArrayList<Item> items) {
@@ -662,9 +659,9 @@ public class Logic {
     }
 
     /**
-     * Neues Item hinzufügen
-     * @param label
-     * @param type
+     * Neues ItemType hinzufügen
+     * @param label Label des zu erstellenden ItemType
+     * @param type InventoryType des ItemTypes
      * @author Robin Herder
      */
     public void addItemType(String label, InventoryType type) {
@@ -678,9 +675,9 @@ public class Logic {
 
     /**
      * Neuen Tank hinzufügen
-     * @param capacity
-     * @param level
-     * @param fuel
+     * @param capacity Kapazität des zu erstellenden Tanks
+     * @param level Füllstand des zu erstellenden Tanks
+     * @param fuel Kraftstoffid des zu erstellenden Tanks
      * @author Robin Herder
      */
     public void addFuelTank(float capacity, float level, int fuel) {
@@ -698,7 +695,7 @@ public class Logic {
 
     /**
      * Neue Zapfsäule hinzufügen
-     * @param tanks
+     * @param tanks Liste aus Tank Objekten die an der Zapfsäule angeschlossen sind
      * @author Robin Herder
      */
     public void addGasPump(ArrayList<FuelTank> tanks) {
@@ -711,10 +708,10 @@ public class Logic {
 
     /**
      * Neuen Kraftstoff hinzufügen
-     * @param iType
-     * @param amount
-     * @param price
-     * @param currency
+     * @param iType ItemType des zu erstellenden Kraftstoffs
+     * @param amount Menge des zu erstellenden Kraftstoffs
+     * @param price Preis des zu erstellenden Kraftstoffs
+     * @param currency Währung des erstellenden Kraftstoffs
      * @author Robin Herder
      */
     public void addFuel(ItemType iType, float amount, float price, String currency) {
@@ -727,6 +724,11 @@ public class Logic {
 
         if(newEntry) {
             Fuel newFuel = new Fuel(iType, price, currency);
+            try {
+                newFuel.addAmount(amount);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             fuels.add(newFuel);
             Collections.sort(fuels, Comparator.comparingInt(fuel -> fuel.getINVENTORY_NUMBER()));
             windowController.addRowTFuelsFuelOverview(fuels);
@@ -738,11 +740,11 @@ public class Logic {
 
     /**
      * Neue Ware hinzufügen
-     * @param iType
-     * @param amount
-     * @param price
-     * @param currency
-     * @param unit
+     * @param iType ItemType des zu erstellenden Produkts
+     * @param amount Menge des zu erstellenden Produkts
+     * @param price Preis des zu erstellenden Produkts
+     * @param currency currency Währung des erstellenden Produkts
+     * @param unit Einheit des zu erstellenden Produkts
      * @author Robin Herder
      */
     public void addGood(ItemType iType, int amount, float price, String currency, String unit) {
@@ -766,11 +768,11 @@ public class Logic {
 
     /**
      * Neuer Mitarbeiter hinzufügen
-     * @param firstName
-     * @param surName
-     * @param employeeDate
-     * @param userRole
-     * @param userPass
+     * @param firstName Vorname des zu erstellenden Mitarbeiters
+     * @param surName Nachname des zu erstellenden Mitarbeiters
+     * @param employeeDate Einstellungsdatum des zu erstellenden Mitarbeiters
+     * @param userRole Rechterolle des zu erstellenden Mitarbeiters
+     * @param userPass Nutzerpasswort des zu erstellenden Mitarbeiters wird gehashed
      * @author Robin Herder
      */
     public void addEmployee(String firstName, String surName, Date employeeDate, String userRole, String userPass) {
@@ -793,6 +795,10 @@ public class Logic {
 
     //===[SAVE FILES]==================================================
 
+    /**
+     * Speichert aktuelle werte in Settings.json
+     * @author Robin Herder
+     */
     private void saveSettings() {
         WriteJSON write = new WriteJSON(DATA_FILE_PATH + DATA_FILE_NAMES[1]);
         write.addItem("theme", theme);
@@ -801,7 +807,7 @@ public class Logic {
     }
 
     /**
-     * Inventar in JSON speichern
+     * Speichert aktuelle werte in Inventory.json
      * @author Robin Herder
      */
     private void saveInventory() {
@@ -828,7 +834,7 @@ public class Logic {
     }
 
     /**
-     * Mitarbeiter in JOSN speichern
+     * Speichert aktuelle werte in Employees.txt und Users.json
      * @author Robin Herder
      */
     private void saveEmployees() {
@@ -852,7 +858,7 @@ public class Logic {
     }
 
     /**
-     * Quittungen in JSON speichern
+     * Speichert aktuelle werte in receipts.json
      * @author Robin Herder
      */
     private void saveReceipt() {
@@ -871,8 +877,8 @@ public class Logic {
     //===[GET STRINGS FOR JSON]==================================================
 
     /**
-     * Gibt den Titel einer Quittung zurück
-     * @return reciptTile[]
+     * Gibt den Titel aller Quittung zurück für json
+     * @return receipt
      * @author Robin Herder
      */
     private String[] getReceiptTitle() {
@@ -884,8 +890,8 @@ public class Logic {
     }
 
     /**
-     *
-     * @return reciept[]
+     * Gibt den Employeenummer einer aller zurück für json
+     * @return receipt
      * @author Robin Herder
      */
     private String[] getReceiptEmployeeNumber() {
@@ -897,7 +903,7 @@ public class Logic {
     }
 
     /**
-     * Gibt die Daten der Quittungen zurück
+     * Gibt die Daten aller Quittung zurück für json
      * @return recipeDate[]
      * @author Robin Herder
      */
@@ -910,7 +916,7 @@ public class Logic {
     }
 
     /**
-     * Git die verkaufte Kraftstoffmenge der Quittungen zurück
+     * Gibt die mengen allerKraftstoffe aller Quittung zurück für json
      * @return receiptGoods[]
      * @author Robin Herder
      */
@@ -927,7 +933,7 @@ public class Logic {
     }
 
     /**
-     * Gibt die Menge der verkauften Waren zurück
+     * Gibt die mengen aller Produkte aller Quittung zurück für json
      * @return receiptGoods[]
      * @author Robin Herder
      */
@@ -944,7 +950,7 @@ public class Logic {
     }
 
     /**
-     * Gibt die Kraftstoffe der Quittungen zurück
+     * Gibt die Kraftstoffe aller Quittung zurück für json
      * @return receiptFuels[]
      * @author Robin Herder
      */
@@ -961,7 +967,7 @@ public class Logic {
     }
 
     /**
-     * Gibt die verkauften Waren der Quittungen zurück
+     * Gibt die Produkte aller Quittung zurück für json
      * @return receiptGoods[]
      * @author Robin Herder
      */
@@ -978,7 +984,7 @@ public class Logic {
     }
 
     /**
-     * Gibt Tankkapazität aller Tanks zurück
+     * Gibt Tankkapazität aller Tanks zurück für json
      * @return tankCapacity[]
      * @author Robin Herder
      */
@@ -991,7 +997,7 @@ public class Logic {
     }
 
     /**
-     * Gibt Füllstand aller Tanks zurück
+     * Gibt Füllstand aller Tanks zurück json
      * @return tankLevel[]
      * @author Robin Herder
      */
@@ -1004,7 +1010,7 @@ public class Logic {
     }
 
     /**
-     * Gibt die Kraftstoffarten der Tanks zurück
+     * Gibt die Kraftstoffarten der Tanks zurück für json
      * @return tankAssignedFuels[]
      * @author Robin Herder
      */
@@ -1017,7 +1023,7 @@ public class Logic {
     }
 
     /**
-     * Gibt die ID des Tanks zurück
+     * Gibt die ID des Tanks zurück für json
      * @return tankID[]
      * @author Robin Herder
      */
@@ -1030,7 +1036,7 @@ public class Logic {
     }
 
     /**
-     * Gibt die Bezeichnung aller Items zurück
+     * Gibt die Bezeichnung aller Items zurück für json
      * @return itemLabel[]
      * @author Robin Herder
      */
@@ -1043,7 +1049,7 @@ public class Logic {
     }
 
     /**
-     * Gibt die Inventarnummer aller Items zurück
+     * Gibt die Inventarnummer aller Items zurück für json
      * @return itemInventoryNumber[]
      * @author Robin Herder
      */
@@ -1056,7 +1062,7 @@ public class Logic {
     }
 
     /**
-     * Gibt den Itemtyp aller Items zurück
+     * Gibt den Itemtyp aller Items zurück für json
      * @return itemType[]
      * @author Robin Herder
      */
@@ -1069,7 +1075,7 @@ public class Logic {
     }
 
     /**
-     * Gibt die Tanks einer Zapfsäule zurück
+     * Gibt die Tanks einer Zapfsäule zurück für json
      * @return gasPumpAssignedTanks[]
      * @author Robin Herder
      */
@@ -1086,7 +1092,7 @@ public class Logic {
     }
 
     /**
-     * Gibt die Inventarnummer aller Kraftstoffe zurück
+     * Gibt die Inventarnummer aller Kraftstoffe zurück für json
      * @return invNum[]
      * @author Robin Herder
      */
@@ -1099,7 +1105,7 @@ public class Logic {
     }
 
     /**
-     * Gibt den Preis aller Kraftstoffe zurück
+     * Gibt den Preis aller Kraftstoffe zurück für json
      * @return price[]
      * @author Robin Herder
      */
@@ -1112,7 +1118,7 @@ public class Logic {
     }
 
     /**
-     *
+     * Gibt die Währung der Kraftstoff preise zurück für json
      * @return currency[]
      * @author Robin Herder
      */
@@ -1125,7 +1131,7 @@ public class Logic {
     }
 
     /**
-     * Gibt die Menge an Kraftstoff zurück
+     * Gibt die Menge an Kraftstoff zurück für json
      * @return amount[]
      * @author Robin Herder
      */
@@ -1138,7 +1144,7 @@ public class Logic {
     }
 
     /**
-     * Gibt die Inventarnummer aller Waren zurück
+     * Gibt die Inventarnummer aller Waren zurück für json
      * @return invNum[]
      * @author Robin Herder
      */
@@ -1151,7 +1157,7 @@ public class Logic {
     }
 
     /**
-     * Gibt den Preis aller Waren zurück
+     * Gibt den Preis aller Waren zurück für json
      * @return price[]
      * @author Robin Herder
      */
@@ -1164,7 +1170,7 @@ public class Logic {
     }
 
     /**
-     *
+     * Gibt die Währung der Produkte preise zurück für json
      * @return currency[]
      * @author Robin Herder
      */
@@ -1177,7 +1183,7 @@ public class Logic {
     }
 
     /**
-     * Gibt die menge aller Waren zurück
+     * Gibt die menge aller Waren zurück für json
      * @return amount[]
      * @author Robin Herder
      */
@@ -1190,7 +1196,7 @@ public class Logic {
     }
 
     /**
-     * Gibt die Laereinheiten zurück
+     * Gibt die Einheit zurück für json
      * @return unit[]
      * @author Robin Herder
      */
@@ -1203,7 +1209,7 @@ public class Logic {
     }
 
     /**
-     * Gibt die Mitarbeiternummern zurück
+     * Gibt die Mitarbeiternummern zurück für json
      * @return employeeNumber[]
      * @author Robin Herder
      */
@@ -1216,7 +1222,7 @@ public class Logic {
     }
 
     /**
-     * Gibt den Mitarbeiterpass zurück
+     * Gibt den Mitarbeiterpass zurück für json
      * @return employeePass[]
      * @author Robin Herder
      */
@@ -1229,7 +1235,7 @@ public class Logic {
     }
 
     /**
-     * Gibt die Mitarbeiterrollen zurück
+     * Gibt die Mitarbeiterrollen zurück für json
      * @return employeeRole[]
      * @author Robin Herder
      */
@@ -1244,7 +1250,7 @@ public class Logic {
     //===[UPDATE]==================================================
 
     /**
-     * Update die Bilanz
+     * Updatet die Bilanz / fügt alle einkäufe und verkäufe der bilanz hinzu und berechnet einnahmen usw
      * @author Robin Herder
      */
     public void updateBalance() {
@@ -1310,6 +1316,10 @@ public class Logic {
 
     //===[GETTER]==================================================
 
+    /**
+     * Gibt den titel des theme zurück
+     * @author Robin Herder
+     */
     public String getThemeTitle() {
         return theme;
     }
@@ -1368,8 +1378,8 @@ public class Logic {
     }
 
     /**
-     * Gibt alle Itemtypes zurück
-     * @param type
+     * Gibt alle Itemtypes zurück fuel oder good
+     * @param type InventoryType um good und fuel zu unterscheiden
      * @return types[]
      * @author Robin Herder
      */
@@ -1379,6 +1389,7 @@ public class Logic {
     }
 
     /**
+     * Gibt alle Good Objekte zurück
      * @return goods[]
      * @author Robin Herder
      */
@@ -1396,7 +1407,7 @@ public class Logic {
     }
 
     /**
-     * Gibt den Name des Mitarbeiter zurück
+     * Gibt den Name des angemeldeten Mitarbeiter zurück
      * @return employeeName
      * @author Robin Herder
      */
@@ -1405,7 +1416,7 @@ public class Logic {
     }
 
     /**
-     * Gibt die Rolle des Mitarbeiter zurück
+     * Gibt die Rolle des angemeldeten Mitarbeiter zurück als Zeichenkette
      * @return employeeRole
      * @author Robin Herder
      */
@@ -1414,8 +1425,8 @@ public class Logic {
     }
 
     /**
-     *
-     * @return
+     * Gibt die Rolle des angemeldeten Mitarbeiters zurück
+     * @return employeeRole
      * @author Robin Herder
      */
     public int getRoleID() {
@@ -1423,7 +1434,7 @@ public class Logic {
     }
 
     /**
-     *
+     * Gibt nutzerrollen als Liste zurück
      * @return userRoles[]
      * @author Robin Herder
      */
@@ -1484,8 +1495,8 @@ public class Logic {
 
     /**
      * Importier die Kraftstofflieferung
-     * @param path
-     * @param newDelivery
+     * @param path pfad der datei
+     * @param newDelivery Wahrheitswert ob es eine neue oder bereits abgerechnete lieferung ist
      * @author Robin Herder
      */
     public void importFuelDelivery(String path, boolean newDelivery) {
@@ -1522,7 +1533,7 @@ public class Logic {
 
     /**
      * Fügt die gelieferten Kraftstoffe hinzu
-     * @param deliveredFuels
+     * @param deliveredFuels die geliferten Kraftstoffe
      * @author Robin Herder
      */
     public void addDeliveredFuels(ArrayList<DeliveredFuel> deliveredFuels) {
@@ -1555,8 +1566,8 @@ public class Logic {
 
     /**
      * Importiert eine Warenlieferung
-     * @param path
-     * @param newDelivery
+     * @param path pfad der datei
+     * @param newDelivery Wahrheitswert ob es eine neue oder bereits abgerechnete lieferung ist
      * @author Robin Herder
      */
     public void importGoodDelivery(String path, boolean newDelivery) {
@@ -1600,7 +1611,7 @@ public class Logic {
 
     /**
      * Fügt die gelieferten Warem hinzu
-     * @param deliveredGoods
+     * @param deliveredGoods liste der ggeliferten Produkte
      * @author Robin Herder
      */
     private void addDeliveredGoods(ArrayList<Good> deliveredGoods) {
@@ -1634,9 +1645,9 @@ public class Logic {
 
     /**
      * Impotiert eine Datei
-     * @param path
-     * @param dir
-     * @param theme
+     * @param path pfad der zu kopierenden datei
+     * @param dir int des verzeichnisses in das die Datei Kopiert werden sollen
+     * @param theme falls es ein theme ist der titel des themes
      * @throws IOException
      * @author Robin Herder
      */
@@ -1679,9 +1690,9 @@ public class Logic {
     }
 
     /**
-     * Überprüft Mitarbeiternummer und Passwort
-     * @param id
-     * @param pass
+     * Überprüft Mitarbeiternummer und Passwort und gibt zurück ob es ein valider login ist und setzt angeeldeten nutzer
+     * @param id eingegebene Persnummer
+     * @param pass eingegebenes nutzerpasswort
      * @return boolean
      * @author Robin Herder
      */
@@ -1700,11 +1711,11 @@ public class Logic {
 
     /**
      * Mitarbeiter bearbeiten
-     * @param employeeNumber
-     * @param firstName
-     * @param surName
-     * @param userRole
-     * @param pass
+     * @param employeeNumber persnummer der zu edditierenden  mitarbeiters
+     * @param firstName vorname der zu edditierenden  mitarbeiters
+     * @param surName nachname der zu edditierenden  mitarbeiters
+     * @param userRole nutzerrolle der zu edditierenden  mitarbeiters
+     * @param pass passwort der zu edditierenden  mitarbeiters
      * @author Robin Herder
      */
     public void editEmployee(int employeeNumber, String firstName, String surName, String userRole, String pass) {
@@ -1738,9 +1749,9 @@ public class Logic {
 
     /**
      * ItemType bearbeiten
-     * @param id
-     * @param label
-     * @param type
+     * @param id id des zu bearbeitenden ItemTypes
+     * @param label label des zu bearbeitenden ItemTypes
+     * @param type InventoryType des zu bearbeitenden ItemTypes
      * @author Robin Herder
      */
     public void editItemType(int id, String label, InventoryType type) {
@@ -1763,10 +1774,10 @@ public class Logic {
 
     /**
      * Kraftstofftank bearbeiten
-     * @param id
-     * @param capacity
-     * @param level
-     * @param index
+     * @param id id des zu bearbeitenden Kraftstofftanks
+     * @param capacity kapazität des zu bearbeitenden Kraftstofftanks
+     * @param level level des zu bearbeitenden Kraftstofftanks
+     * @param index id des krafftstoffs des zu bearbeitenden Kraftstofftanks
      * @author Robin Herder
      */
     public void editFuelTank(int id, float capacity, float level, int index) {
@@ -1791,8 +1802,8 @@ public class Logic {
 
     /**
      * Zapfsäule bearbeiten
-     * @param tanks
-     * @param id
+     * @param tanks angeschlossene tanks der zu bearbeitenden Zapfsäule
+     * @param id id der zu berabeitenden Zapfsäule
      * @author Robin Herder
      */
     public void editGasPump(ArrayList<FuelTank> tanks, int id) {
@@ -1808,17 +1819,32 @@ public class Logic {
         saveInventory();
     }
 
+    /**
+     * Titel des themes setzen
+     * @param theme titel des themes
+     * @exception DataFileNotFoundException
+     * @author Robin Herder
+     */
     public void setTheme(String theme) throws DataFileNotFoundException {
         this.theme = theme;
         saveSettings();
         loadSettings();
     }
 
+    /**
+     * Titel der Tankstelle setzen
+     * @param title titel der Tankstelle
+     * @author Robin Herder
+     */
     public void setTitle(String title) {
         this.title = title;
         saveSettings();
     }
 
+    /**
+     * laden der Profilbilder auf grund eines Random (1 von 5 noicen Pics)
+     * @author Robin Herder
+     */
     private void loadProfilePicture() {
         Random rand = new Random();
         int pic = rand.nextInt(5);
