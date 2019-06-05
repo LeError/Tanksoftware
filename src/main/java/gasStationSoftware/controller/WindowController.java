@@ -364,11 +364,7 @@ implements Initializable {
             }
         } else if (event.getTarget() == btnTitleSettingsOverview) {
             if (txtTitleSettingsOverview.getText() != "") {
-                try {
-                    logic.setTitle(txtTitleSettingsOverview.getText());
-                } catch (DataFileNotFoundException e) {
-                    e.printStackTrace();
-                }
+                logic.setTitle(txtTitleSettingsOverview.getText());
             }
         }
     }

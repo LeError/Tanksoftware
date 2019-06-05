@@ -1809,8 +1809,7 @@ public class Logic {
         loadSettings();
     }
 
-    public void setTitle(String title)
-    throws DataFileNotFoundException {
+    public void setTitle(String title) {
         this.title = title;
         saveSettings();
     }
