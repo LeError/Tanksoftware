@@ -145,9 +145,9 @@ implements Initializable {
     //===[INIT]==================================================
 
     /**
-     * Initialisieren
-     * @param location
-     * @param resources
+     * Initialisieren des Kontrollers added Standart Content und Tabellenspalten
+     * @param location JavaFX Framework übergiebt
+     * @param resources JavaFX Framework übergiebt
      * @author Robin Herder
      */
     @Override public void initialize(URL location, ResourceBundle resources) {
@@ -170,8 +170,8 @@ implements Initializable {
     //===[HANDLE EVENT]==================================================
 
     /**
-     * Login-Handle
-     * @param event
+     * Login-Handle logt nutzer ein oder macht login felder rot
+     * @param event event auslöser
      * @author Robin Herder
      */
     @FXML private void handleLoginAction(MouseEvent event) {
@@ -187,7 +187,7 @@ implements Initializable {
 
     /**
      * Wechsel zwischen den Menus der linken menubar
-     * @param event
+     * @param event event auslöser
      * @author Robin Herder
      */
     @FXML private void handleMenuButtonAction(MouseEvent event) {
@@ -218,7 +218,7 @@ implements Initializable {
 
     /**
      * Handle Verkaufsaktion
-     * @param event
+     * @param event event auslöser
      * @author Robin Herder
      */
     @FXML private void handleSaleAction(MouseEvent event) {
@@ -239,7 +239,7 @@ implements Initializable {
 
     /**
      * Handle Inventoryaktion
-     * @param event
+     * @param event event auslöser
      * @author Robin Herder
      */
     @FXML private void handleInventoryAction(MouseEvent event) {
@@ -262,7 +262,7 @@ implements Initializable {
 
     /**
      * Handle Kraftstoffaktion
-     * @param event
+     * @param event event auslöser
      * @author Robin Herder
      */
     @FXML private void handleFuelAction(MouseEvent event) {
@@ -285,7 +285,7 @@ implements Initializable {
 
     /**
      * Handle Mitarbeiteraktion
-     * @param event
+     * @param event event auslöser
      * @author Robin Herder
      */
     @FXML private void handleEmployeeAction(MouseEvent event) {
@@ -301,7 +301,7 @@ implements Initializable {
 
     /**
      * Handle Statistikaktion
-     * @param event
+     * @param event event auslöser
      * @author Robin Herder
      */
     @FXML private void handleReportAction(ActionEvent event) {
@@ -310,7 +310,7 @@ implements Initializable {
 
     /**
      * Handle Einstellungsaktion
-     * @param event
+     * @param event event auslöser
      * @author Robin Herder
      */
     @FXML private void handleSettingsAction(MouseEvent event) {
@@ -370,6 +370,11 @@ implements Initializable {
         }
     }
 
+    /**
+     * Handle Theme wechssel
+     * @param event event auslöser
+     * @author Robin Herder
+     */
     @FXML private void handleTheme(ActionEvent event) {
         try {
             logic.setTheme((String) cbThemeSettingsOverview.getSelectionModel().getSelectedItem());
@@ -541,7 +546,7 @@ implements Initializable {
     }
 
     /**
-     *
+     * Spalten der SettingsItemTypetablle einfügen
      * @return  colums[]
      * @author Robin Herder
      */
@@ -635,7 +640,7 @@ implements Initializable {
     }
 
     /**
-     *
+     * Lieferungen der Kraftstofflieferungstabelle hinzufügen
      * @param deliveries
      * @author Robin Herder
      */
