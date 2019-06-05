@@ -24,11 +24,16 @@ import gasStationSoftware.util.ReadTableFile;
 import gasStationSoftware.util.Utility;
 import gasStationSoftware.util.WriteFile;
 import gasStationSoftware.util.WriteJSON;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.control.TableView;
+import javafx.scene.image.Image;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -37,10 +42,7 @@ import java.nio.file.Path;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
+import java.util.*;
 
 public class Logic {
 
@@ -68,6 +70,8 @@ public class Logic {
             "users.json",
             "tankSimulation.json", "allReceipts.json", "danielTheme.json"
     };
+
+    private final String PROFILE_PICTURE = "/images/profile";
 
     private ArrayList<Employee> employees = new ArrayList<>();
     private ArrayList<ItemType> types = new ArrayList<>();
@@ -1682,6 +1686,7 @@ public class Logic {
      * @author Robin Herder
      */
     public boolean checkLogin(int id, String pass) {
+        loadProfilePicture();
         String passHash = DigestUtils.sha256Hex(pass);
         for(Employee employee : employees) {
             if(employee.logIn(id, passHash)) {
@@ -1812,5 +1817,12 @@ public class Logic {
     public void setTitle(String title) {
         this.title = title;
         saveSettings();
+    }
+
+    private void loadProfilePicture() {
+        Random rand = new Random();
+        int pic = rand.nextInt(5);
+        Image image = new Image(getClass().getResourceAsStream(PROFILE_PICTURE + pic + ".png"));
+        windowController.setProfilePicture(image);
     }
 }
