@@ -40,6 +40,7 @@ import javafx.scene.control.Separator;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -1298,6 +1299,11 @@ implements Initializable {
 
     public void setTitle(String title) {
         txtTitleSettingsOverview.setText(title);
+    }
+
+    public void setProfilePicture(Image image) {
+        ivUserMenuBar.setImage(image);
+        ivUserProfilePictureUser.setImage(image);
     }
 
 }
