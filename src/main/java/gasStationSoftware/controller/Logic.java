@@ -1456,12 +1456,12 @@ public class Logic {
         ArrayList<GasPump> gasPumps = new ArrayList<>();
         try {
             read = new ReadJSON(DATA_FILE_PATH + DATA_FILE_NAMES[6]);
-            String[] gasPumpNumber = read.getItemStringArray("gasPumpNumber");
+            String[] gasPumpNumber = read.getItemStringArray("gasPumpID");
             String[] fuelType = read.getItemStringArray("fuelType");
             String[] fuelAmount = read.getItemStringArray("fuelAmount");
             for(int i = 0; i < gasPumpNumber.length; i++) {
                 for(GasPump gasPump : this.gasPumps) {
-                    if(gasPump.getGAS_PUMP_NUMBER() == Integer.parseInt(gasPumpNumber[i])) {
+                    if(gasPump.getGAS_PUMP_NUMBER() == Integer.parseInt(gasPumpNumber[i]) && !fuelType[i].equals("null")) {
                         gasPumps.add(gasPump);
                         gasPumps.get(gasPumps.size() - 1).setCheckoutAmount(Float.parseFloat(fuelAmount[i]));
                         for(Fuel fuel : fuels) {
