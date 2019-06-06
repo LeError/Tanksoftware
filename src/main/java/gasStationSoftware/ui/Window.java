@@ -20,8 +20,8 @@ extends Application {
     }
 
     /**
-     * Startet die UI
-     * @param stage
+     * Startet die UI und legt verhalten der Anwendung fest
+     * @param stage Übergebene Stage
      * @throws Exception
      * @author Robin Herder
      */
