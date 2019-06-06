@@ -6,6 +6,7 @@
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import java.lang.Double?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
@@ -17,17 +18,14 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Polygon?>
 <?import javafx.scene.text.Font?>
-<?import java.lang.Double?>
+
 <?import java.util.ArrayList?>
-<StackPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-           prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.172-ea"
-           xmlns:fx="http://javafx.com/fxml/1" fx:controller="gasStationSoftware.controller.WindowController">
+<StackPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gasStationSoftware.controller.WindowController">
     <children>
       <AnchorPane fx:id="loginPane" prefHeight="600.0" prefWidth="1000.0">
          <children>
             <JFXTextField fx:id="txtIDLogin" layoutX="413.0" layoutY="302.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="175.0" promptText="Personalnummer" />
-             <JFXPasswordField fx:id="txtPassLogin" layoutX="413.0" layoutY="347.0" minHeight="-Infinity"
-                               minWidth="-Infinity" prefHeight="25.0" prefWidth="175.0" promptText="Passwort"/>
+             <JFXPasswordField fx:id="txtPassLogin" layoutX="413.0" layoutY="347.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="175.0" promptText="Passwort" />
             <JFXButton fx:id="btnLogin" buttonType="RAISED" layoutX="413.0" layoutY="392.0" onMousePressed="#handleLoginAction" prefHeight="25.0" prefWidth="175.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Einloggen" textFill="WHITE">
                <graphic>
                   <MaterialDesignIconView fx:id="icoLogin" fill="WHITE" glyphName="LOCK_OPEN" size="16" />
@@ -47,15 +45,10 @@
       </AnchorPane>
         <AnchorPane fx:id="mainPane" prefHeight="200.0" prefWidth="200.0" visible="false">
             <children>
-                <AnchorPane fx:id="menuBarPane" maxHeight="600.0" maxWidth="110.0" minHeight="600.0" minWidth="110.0"
-                            prefHeight="600.0" prefWidth="110.0" style="-fx-background-color: #607D8B;" visible="false">
+                <AnchorPane fx:id="menuBarPane" maxHeight="600.0" maxWidth="110.0" minHeight="600.0" minWidth="110.0" prefHeight="600.0" prefWidth="110.0" style="-fx-background-color: #607D8B;" visible="false">
                     <children>
                         <Line fx:id="lineMenuBar" endX="100.0" layoutY="105.0" startX="10.0" stroke="#bdbdbd" />
-                        <ImageView fx:id="ivUserMenuBar" fitHeight="80.0" fitWidth="80.0" layoutX="15.0" layoutY="14.0" onMousePressed="#handleMenuButtonAction" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@images/icons8-male-user-100.png" />
-                            </image>
-                        </ImageView>
+                        <ImageView fx:id="ivUserMenuBar" fitHeight="80.0" fitWidth="80.0" layoutX="15.0" layoutY="14.0" onMousePressed="#handleMenuButtonAction" pickOnBounds="true" preserveRatio="true" />
                         <MaterialDesignIconView fx:id="icoSellingMenuBar" fill="WHITE" glyphName="CART" layoutX="20.0" layoutY="180.0" onMousePressed="#handleMenuButtonAction" size="70" />
                         <MaterialDesignIconView fx:id="icoTanksMenuBar" fill="WHITE" glyphName="BARREL" layoutX="20.0" layoutY="340.0" onMousePressed="#handleMenuButtonAction" size="70" />
                         <MaterialDesignIconView fx:id="icoSettingsMenuBar" fill="WHITE" glyphName="SETTINGS" layoutX="19.0" layoutY="580.0" onMousePressed="#handleMenuButtonAction" size="70" />
@@ -64,14 +57,9 @@
                         <MaterialDesignIconView fx:id="icoReportsMenuBar" fill="WHITE" glyphName="CHART_LINE" layoutX="19.0" layoutY="500.0" onMousePressed="#handleMenuButtonAction" size="70" />
                     </children>
                 </AnchorPane>
-                <AnchorPane fx:id="userPane" layoutX="110.0" minHeight="600.0" minWidth="890.0" prefHeight="600.0"
-                            prefWidth="890.0" style="-fx-background-color: #CFD8DC;" visible="false">
+                <AnchorPane fx:id="userPane" layoutX="110.0" minHeight="600.0" minWidth="890.0" prefHeight="600.0" prefWidth="890.0" style="-fx-background-color: #CFD8DC;" visible="false">
                     <children>
-                        <ImageView fx:id="ivUserProfilePictureUser" fitHeight="150.0" fitWidth="150.0" layoutX="65.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@images/icons8-male-user-100.png" />
-                            </image>
-                        </ImageView>
+                        <ImageView fx:id="ivUserProfilePictureUser" fitHeight="150.0" fitWidth="150.0" layoutX="65.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true" />
                         <Polygon fx:id="polygonUser" fill="#607d8a" layoutX="25.0" layoutY="65.0" rotate="90.0" scaleX="0.5" scaleY="0.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-background-color: #607D8B;">
                             <points>
                                 <Double fx:value="-50.0" />
@@ -98,8 +86,7 @@
                             </font>
                         </Label>
                         <Separator fx:id="dividerUser" layoutX="65.0" layoutY="325.0" minHeight="2.0" prefWidth="700.0" style="-fx-background-color: #212121;" />
-                        <Label fx:id="subtitleSalesUser" layoutX="65.0" layoutY="300.0" text="Gesamteinnahmen"
-                               textFill="#212121">
+                        <Label fx:id="subtitleSalesUser" layoutX="65.0" layoutY="300.0" text="Gesamteinnahmen" textFill="#212121">
                             <font>
                                 <Font name="System Bold" size="15.0" />
                             </font>
@@ -358,6 +345,11 @@
                                     </graphic>
                                 </JFXButton>
                                 <TableView fx:id="tFuelsFuelOverview" layoutX="65.0" layoutY="100.0" prefHeight="400.0" prefWidth="760.0" />
+                        <JFXButton fx:id="btnGoToTanks" buttonType="RAISED" layoutX="195.0" layoutY="520.0" onMousePressed="#handleFuelAction" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Tankübersicht" textFill="WHITE">
+                           <graphic>
+                              <MaterialDesignIconView fx:id="icoGoToTanks" fill="WHITE" glyphName="PLUS" size="20" smooth="false" />
+                           </graphic>
+                        </JFXButton>
                         <JFXButton layoutX="830.0" layoutY="15.0" onMousePressed="#handleCloseAction" prefHeight="40.0" prefWidth="40.0" style="-jfx-disable-visual-focus: true;">
                            <graphic>
                               <MaterialDesignIconView glyphName="CLOSE" size="24" style="-fx-fill: #607D8B;" />
@@ -399,6 +391,21 @@
                         </JFXButton>
                             </children>
                         </AnchorPane>
+                  <AnchorPane fx:id="tankStatusPane" prefHeight="600.0" prefWidth="890.0" visible="false">
+                     <children>
+                        <Label fx:id="titleTanksStatus" layoutX="65.0" layoutY="30.0" text="Tank übersicht" textFill="#212121">
+                           <font>
+                              <Font name="System Bold" size="30.0" />
+                           </font>
+                        </Label>
+                        <TableView fx:id="tTanksStatus" layoutX="65.0" layoutY="100.0" prefHeight="400.0" prefWidth="760.0" />
+                        <JFXButton layoutX="830.0" layoutY="15.0" onMousePressed="#handleCloseAction" prefHeight="40.0" prefWidth="40.0" style="-jfx-disable-visual-focus: true;">
+                           <graphic>
+                              <MaterialDesignIconView glyphName="CLOSE" size="24" style="-fx-fill: #607D8B;" />
+                           </graphic>
+                        </JFXButton>
+                     </children>
+                  </AnchorPane>
                     </children>
                 </AnchorPane>
                 <AnchorPane fx:id="employeePane" layoutX="110.0" minHeight="600.0" minWidth="890.0" prefHeight="600.0" prefWidth="890.0" style="-fx-background-color: #CFD8DC;" visible="false">
@@ -425,14 +432,8 @@
                                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                     </columnResizePolicy>
                                 </TableView>
-                                <JFXButton fx:id="btnEditEmployeeOverview" layoutX="515.0" layoutY="520.0"
-                                           onMousePressed="#handleEmployeeAction" prefHeight="30.0" prefWidth="150.0"
-                                           style="-fx-background-color: #607D8B;" text="Mitarbeiter bearbeiten"
-                                           textFill="#f8f8f8"/>
-                                <JFXButton fx:id="btnCreateEmployeeOverview" layoutX="675.0" layoutY="520.0"
-                                           onMousePressed="#handleEmployeeAction" prefHeight="30.0" prefWidth="150.0"
-                                           style="-fx-background-color: #607D8B;" text="Mitarbeiter anlegen"
-                                           textFill="#f8f8f8"/>
+                                <JFXButton fx:id="btnEditEmployeeOverview" layoutX="515.0" layoutY="520.0" onMousePressed="#handleEmployeeAction" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B;" text="Mitarbeiter bearbeiten" textFill="#f8f8f8" />
+                                <JFXButton fx:id="btnCreateEmployeeOverview" layoutX="675.0" layoutY="520.0" onMousePressed="#handleEmployeeAction" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B;" text="Mitarbeiter anlegen" textFill="#f8f8f8" />
                         <JFXButton layoutX="830.0" layoutY="15.0" onMousePressed="#handleCloseAction" prefHeight="40.0" prefWidth="40.0" style="-jfx-disable-visual-focus: true;">
                            <graphic>
                               <MaterialDesignIconView glyphName="CLOSE" size="24" style="-fx-fill: #607D8B;" />
@@ -445,8 +446,7 @@
                 <AnchorPane fx:id="reportPane" layoutX="110.0" minHeight="600.0" minWidth="890.0" prefHeight="600.0" prefWidth="890.0" style="-fx-background-color: #CFD8DC;" visible="false">
                     <children>
                         <Polygon fx:id="polygonReport" fill="#607d8a" layoutX="31.0" layoutY="410.0" points="-35.0, 91.0, 20.0, 60.0, -35.0, 31.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-background-color: #607D8B;" />
-                        <AnchorPane fx:id="reportOverviewPane" minHeight="600.0" minWidth="890.0" prefHeight="600.0"
-                                    prefWidth="890.0" visible="false">
+                        <AnchorPane fx:id="reportOverviewPane" minHeight="600.0" minWidth="890.0" prefHeight="600.0" prefWidth="890.0" visible="false">
                             <children>
                                 <Label fx:id="titleReportOverview" layoutX="65.0" layoutY="30.0" text="Reporting">
                                     <font>
@@ -469,24 +469,16 @@
                                 <Label fx:id="lblResultReportOverview" layoutX="85.0" layoutY="540.0" text="Differenz:" />
                                 <Line fx:id="dividerReportOverview" endX="730.0" layoutX="65.0" layoutY="410.0" />
                                 <Line fx:id="dividerBalanceReportOverview" endX="250.0" layoutX="85.0" layoutY="530.0" />
-                                <JFXDatePicker fx:id="dpTimespanReportOverview" layoutX="150.0" layoutY="425.0"
-                                               onAction="#handleReportAction"/>
-                                <JFXDatePicker fx:id="dpTimespanReportOverview1" layoutX="400.0" layoutY="425.0"
-                                               onAction="#handleReportAction"/>
+                                <JFXDatePicker fx:id="dpTimespanReportOverview" layoutX="150.0" layoutY="425.0" onAction="#handleReportAction" />
+                                <JFXDatePicker fx:id="dpTimespanReportOverview1" layoutX="400.0" layoutY="425.0" onAction="#handleReportAction" />
                         <JFXButton layoutX="830.0" layoutY="15.0" onMousePressed="#handleCloseAction" prefHeight="40.0" prefWidth="40.0" style="-jfx-disable-visual-focus: true;">
                            <graphic>
                               <MaterialDesignIconView glyphName="CLOSE" size="24" style="-fx-fill: #607D8B;" />
                            </graphic>
                         </JFXButton>
-                                <Label fx:id="lblCostValueReportOverview" alignment="CENTER_RIGHT" layoutX="210.0"
-                                       layoutY="475.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0"
-                                       prefWidth="100.0" text="0.00"/>
-                                <Label fx:id="lblBalanceValueReportOverview" alignment="CENTER_RIGHT" layoutX="210.0"
-                                       layoutY="540.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0"
-                                       prefWidth="100.0" text="0.00"/>
-                                <Label fx:id="lblSaleValueReportOverview" alignment="CENTER_RIGHT" layoutX="210.0"
-                                       layoutY="500.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0"
-                                       prefWidth="100.0" text="0.00"/>
+                                <Label fx:id="lblCostValueReportOverview" alignment="CENTER_RIGHT" layoutX="210.0" layoutY="475.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="100.0" text="0.00" />
+                                <Label fx:id="lblBalanceValueReportOverview" alignment="CENTER_RIGHT" layoutX="210.0" layoutY="540.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="100.0" text="0.00" />
+                                <Label fx:id="lblSaleValueReportOverview" alignment="CENTER_RIGHT" layoutX="210.0" layoutY="500.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="100.0" text="0.00" />
                             </children>
                         </AnchorPane>
                     </children>
@@ -516,8 +508,7 @@
                                     </font>
                                 </Label>
                                 <Separator fx:id="dividerThemesSettingsOverview" layoutX="65.0" layoutY="130.0" prefWidth="700.0" style="-fx-background-color: #212121;" />
-                                <JFXComboBox fx:id="cbThemeSettingsOverview" layoutX="140.0" layoutY="145.0"
-                                             onAction="#handleTheme" prefHeight="30.0" prefWidth="200.0"/>
+                                <JFXComboBox fx:id="cbThemeSettingsOverview" layoutX="140.0" layoutY="145.0" onAction="#handleTheme" prefHeight="30.0" prefWidth="200.0" />
                                 <Label fx:id="lblThemeSettingsOverview" layoutX="65.0" layoutY="150.0" text="Theme:" textFill="#212121" />
                                 <JFXButton fx:id="btnEditThemeSettingsOverview" buttonType="RAISED" layoutX="455.0" layoutY="145.0" onMouseClicked="#handleSettingsAction" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Bearbeiten" textFill="WHITE">
                                     <graphic>
@@ -582,20 +573,11 @@
                               <MaterialDesignIconView glyphName="CLOSE" size="24" style="-fx-fill: #607D8B;" />
                            </graphic>
                         </JFXButton>
-                                <Label fx:id="lblGoodsSettingsOverview1" layoutX="65.0" layoutY="415.0"
-                                       prefHeight="20.0" prefWidth="200.0" text="Tankstellenname:" textFill="#212121"/>
-                                <JFXTextField fx:id="txtTitleSettingsOverview" layoutX="380.0" layoutY="410.0"
-                                              maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                                              minWidth="-Infinity" prefHeight="31.0" prefWidth="200.0"
-                                              promptText="Name"/>
-                                <JFXButton fx:id="btnTitleSettingsOverview" buttonType="RAISED" layoutX="615.0"
-                                           layoutY="410.0" onMouseClicked="#handleSettingsAction" prefHeight="30.0"
-                                           prefWidth="150.0"
-                                           style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;"
-                                           text="Speichern" textFill="WHITE">
+                                <Label fx:id="lblGoodsSettingsOverview1" layoutX="65.0" layoutY="415.0" prefHeight="20.0" prefWidth="200.0" text="Tankstellenname:" textFill="#212121" />
+                                <JFXTextField fx:id="txtTitleSettingsOverview" layoutX="380.0" layoutY="410.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="200.0" promptText="Name" />
+                                <JFXButton fx:id="btnTitleSettingsOverview" buttonType="RAISED" layoutX="615.0" layoutY="410.0" onMouseClicked="#handleSettingsAction" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Speichern" textFill="WHITE">
                                     <graphic>
-                                        <MaterialDesignIconView fx:id="icoTitleSettingsOverview" fill="WHITE"
-                                                                glyphName="CONTENT_SAVE" size="20" smooth="false"/>
+                                        <MaterialDesignIconView fx:id="icoTitleSettingsOverview" fill="WHITE" glyphName="CONTENT_SAVE" size="20" smooth="false" />
                                     </graphic>
                                 </JFXButton>
                             </children>
@@ -730,6 +712,7 @@
             <fx:reference source="settingsTankPane" />
             <fx:reference source="settingsGasPumpPane" />
             <fx:reference source="settingsGoodPane" />
+            <fx:reference source="tankStatusPane" />
         </ArrayList>
         <ArrayList fx:id="icoMenuBar">
             <fx:reference source="icoSellingMenuBar" />
@@ -781,9 +764,9 @@
             <fx:reference source="lblThemeSettingsOverview" />
             <fx:reference source="lblTanksSettingsOverview" />
             <fx:reference source="lblCopyrightLogin" />
-            <fx:reference source="lblCostValueReportOverview"/>
-            <fx:reference source="lblBalanceValueReportOverview"/>
-            <fx:reference source="lblSaleValueReportOverview"/>
+            <fx:reference source="lblCostValueReportOverview" />
+            <fx:reference source="lblBalanceValueReportOverview" />
+            <fx:reference source="lblSaleValueReportOverview" />
         </ArrayList>
         <ArrayList fx:id="allTableViews">
             <fx:reference source="tEmployeesEmployeeOverview" />
@@ -814,6 +797,7 @@
             <fx:reference source="titleSettingsOverview" />
             <fx:reference source="titleSettingsTank" />
             <fx:reference source="titleUser" />
+            <fx:reference source="titleTanksStatus" />
         </ArrayList>
         <ArrayList fx:id="allSubTitles">
             <fx:reference source="subtitleGasStationAdministrationSettingsOverview" />
@@ -851,7 +835,8 @@
             <fx:reference source="icoRemoveAmountSalesOverview" />
             <fx:reference source="icoDeleteSalesOverview" />
             <fx:reference source="icoLogin" />
-            <fx:reference source="icoTitleSettingsOverview"/>
+            <fx:reference source="icoTitleSettingsOverview" />
+            <fx:reference source="icoGoToTanks" />
         </ArrayList>
         <ArrayList fx:id="allButtons">
             <fx:reference source="btnAddFuelOverview" />
@@ -895,7 +880,8 @@
             <fx:reference source="btnRemoveAmountSalesOverview" />
             <fx:reference source="btnDeleteSalesOverview" />
             <fx:reference source="btnLogin" />
-            <fx:reference source="btnTitleSettingsOverview"/>
+            <fx:reference source="btnTitleSettingsOverview" />
+            <fx:reference source="btnGoToTanks" />
         </ArrayList>
         <ArrayList fx:id="allCb">
             <fx:reference source="cbThemeSettingsOverview" />
