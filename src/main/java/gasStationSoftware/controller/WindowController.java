@@ -65,30 +65,23 @@ implements Initializable {
     @FXML private AnchorPane loginPane, mainPane;
     @FXML private JFXTextField txtIDLogin;
     @FXML private JFXPasswordField txtPassLogin;
-    @FXML private JFXButton btnLogin;
     @FXML private Label lblCopyrightLogin;
 
     @FXML private AnchorPane menuBarPane;
-    @FXML private Line lineMenuBar;
     @FXML private ImageView ivUserMenuBar;
     @FXML private MaterialDesignIconView icoSellingMenuBar, icoInventoryMenuBar, icoTanksMenuBar, icoEmployeesMenuBar, icoReportsMenuBar, icoSettingsMenuBar;
 
     @FXML private AnchorPane userPane;
-    @FXML private Polygon polygonUser;
     @FXML private ImageView ivUserProfilePictureUser;
-    @FXML private Label titleUser, lblUserNameUser, lblUserRoleUser, subtitleSalesUser, lblDailySalesUser, lblMontlySalesUser, lblYearlySalesUser;
-    @FXML private Label lblSalesSumDailyUser, lblSalesSumMonthlyUser, lblSalesSumYearlyUser, lblSalesSumDayCurrencyUser, lblSalesSumMonthCurrencyUser, lblSalesSumYearCurrencyUser;
-    @FXML private Separator dividerUser;
+    @FXML private Label lblUserNameUser, lblUserRoleUser, lblSalesSumDailyUser, lblSalesSumMonthlyUser, lblSalesSumYearlyUser;
 
     @FXML private AnchorPane sellingPane, sellingOverviewPane;
-    @FXML private Polygon polygonSales;
     @FXML private Label titleSalesOverview, lblOrderSumSalesOverview, lblTotalSalesOverview, lblTotalCurrencySalesOverview;
     @FXML private JFXButton btnCheckOutSalesOverview, btnGoodsSalesOverview, btnGasPumpsSalesOverview, btnAddAmountSalesOverview, btnRemoveAmountSalesOverview, btnDeleteSalesOverview;
     @FXML private MaterialDesignIconView icoCheckOutSalesOverview, icoGoodsSalesOverview, icoGasPumpsSalesOverview;
     @FXML private TableView tCheckoutSellingOverview;
 
     @FXML private AnchorPane inventoryPane, inventoryOverviewPane, inventoryOrderPane, inventoryDeliveryPane;
-    @FXML private Polygon polygonInventory;
     @FXML private Label titleInventoryOverview, titleInventoryOrder, titleInventoryDelivery;
     @FXML private JFXButton btnOrderInventoryOverview, btnDeliveriesInventoryOverview, btnGroceriesInventoryOrder, btnOtherInventoryOrder, btnAdultInventoryOrder, btnAddGoodOverview;
     @FXML private JFXButton btnCanelInventoryOrder, btnSubmitInventoryOrder, btnOpeInventoryDelivery, btnImportInventoryDelivery;
@@ -96,27 +89,21 @@ implements Initializable {
     @FXML private TableView tGoodsInventoryOverview, tGoodsInventoryOrder, tGoodsInventoryDelivery;
 
     @FXML private AnchorPane fuelPane, fuelOverviewPane, fuelOrderPane, fuelDeliveryPane, tankStatusPane;
-    @FXML private Polygon polygonFuel;
     @FXML private Label titleFuelOverview, titleFuelOrder, titleFuelDeliveries, titleTanksStatus;
     @FXML private JFXButton btnDeliveriesFuelOverview, btnOrdersFuelOverview, btnSubmitFuelOrder, btnCancelFuelOrder, btnOpenFuelDeliveries, btnImportFuelDeliveries, btnAddFuelOverview, btnGoToTanks;
     @FXML private MaterialDesignIconView icoDeiveriesFuelOverview, icoOrdersFuelOverview, icoGoToTanks;
     @FXML private TableView tFuelsFuelOverview, tFuelsFuelOrder, tFuelsFuelDeliveries, tTanksStatus;
 
-    @FXML private AnchorPane employeePane, employeeOverviewPane, employeeCreatePane;
-    @FXML private Polygon polygonEmployee;
-    @FXML private Label titleEmployeeOverview;
+    @FXML private AnchorPane employeePane, employeeOverviewPane;
     @FXML private JFXButton btnCreateEmployeeOverview, btnEditEmployeeOverview;
     @FXML private TableView tEmployeesEmployeeOverview;
 
     @FXML private AnchorPane reportPane, reportOverviewPane;
-    @FXML private Polygon polygonReport;
-    @FXML private Label titleReportOverview, lblBalanceReportOverview, lblTimespanReportOverview, lblSalesReportOverview, lblCostsReportOverview, lblResultReportOverview, lblCostValueReportOverview, lblBalanceValueReportOverview, lblSaleValueReportOverview;
-    @FXML private Line dividerReportOverview, dividerBalanceReportOverview;
+    @FXML private Label lblCostValueReportOverview, lblBalanceValueReportOverview, lblSaleValueReportOverview;
     @FXML private JFXDatePicker dpTimespanReportOverview, dpTimespanReportOverview1;
     @FXML private TableView tReportReportOverview;
 
     @FXML private AnchorPane settingsPane, settingsOverviewPane, settingsFuelPane, settingsTankPane, settingsGasPumpPane, settingsGoodPane;
-    @FXML private Polygon polygonSettings;
     @FXML private JFXTextField txtTitleSettingsOverview;
     @FXML private JFXButton btnEditThemeSettingsOverview, btnCreateThemeSettingsOverview, btnFuelsSettingsOverview, btnTanksSettingsOverview, btnGasPumpsSettingsOverview;
     @FXML private JFXButton btnGoodsSettingsOverview, btnExportSettingsOverview, btnImportSettingsOverview, btnNewSettingsFuel, btnEditSettingsFuel, btnNewSettingsTank;
