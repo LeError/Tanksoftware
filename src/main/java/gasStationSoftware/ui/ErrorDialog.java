@@ -18,8 +18,8 @@ public class ErrorDialog {
      * @param exit Wahrheitswert ob programm beendet wird
      * @author Robin Herder
      */
-    public ErrorDialog(StackPane rootPane, String title, Exception e, boolean exit) {
-        inputDialog(rootPane, title, e.getStackTrace().toString(), exit);
+    public ErrorDialog(StackPane rootPane, String title, String e, boolean exit) {
+        inputDialog(rootPane, title, e, exit);
     }
 
     /**
