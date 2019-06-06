@@ -8,9 +8,9 @@ public class ItemType {
 
     /**
      * Constructor ItemType
-     * @param label
-     * @param inventoryNumber
-     * @param iType
+     * @param label Bezeichnung des Items
+     * @param inventoryNumber Invnummer des Items
+     * @param iType abgrenzung fuel / good
      * @author Robin Herder
      */
     public ItemType(String label, int inventoryNumber, InventoryType iType) {
@@ -42,7 +42,7 @@ public class ItemType {
     }
 
     /**
-     *
+     * gibt den InventoryType zurück good / fuel
      * @return TYPE
      * @author Robin Herder
      */
@@ -51,7 +51,7 @@ public class ItemType {
     }
 
     /**
-     *
+     * gib die InventoryType bezeichnung zurück
      * @return TYPE_LABEL
      * @author Robin Herder
      */

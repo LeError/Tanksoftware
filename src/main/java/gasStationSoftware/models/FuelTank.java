@@ -11,10 +11,10 @@ public class FuelTank {
 
     /**
      * Constructor Kraftstofftank
-     * @param tankNumber
-     * @param capacity
-     * @param level
-     * @param fuel
+     * @param tankNumber nummer des tanks
+     * @param capacity kapazität des tanks
+     * @param level stand des tanks
+     * @param fuel kraftstoff in tank
      * @throws NumberOutOfRangeException
      * @author Robin Herder
      */
@@ -49,7 +49,7 @@ public class FuelTank {
     }
 
     /**
-     *
+     * gibt label des kraftstoffs zurück
      * @return fuelLabel
      * @author Robin Herder
      */

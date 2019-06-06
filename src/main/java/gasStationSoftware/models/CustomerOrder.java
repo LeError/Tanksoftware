@@ -18,11 +18,11 @@ extends Document {
 
     /**
      * Constructor CustomerOrder
-     * @param receiptNumber
-     * @param date
-     * @param employee
-     * @param fuels
-     * @param goods
+     * @param receiptNumber quittungsnummer
+     * @param date kaufdatum
+     * @param employee verkäufer
+     * @param fuels kraftstoffe
+     * @param goods produkte
      * @author Robin Herder
      */
     public CustomerOrder(int receiptNumber, Date date, Employee employee, ArrayList<Fuel> fuels,
@@ -41,8 +41,8 @@ extends Document {
     }
 
     /**
-     *
-     * @return
+     * Zeilen für datei
+     * @return lines
      * @author Robin Herder
      */
     public String[] getLinesForFile() {
@@ -79,7 +79,7 @@ extends Document {
     }
 
     /**
-     *
+     * Fuels auf quittung returnen
      * @return rFuels[]
      * @author Robin Herder
      */
@@ -153,8 +153,8 @@ extends Document {
     }
 
     /**
-     *
-     * @return
+     * Total formatiert für tabelle
+     * @return total
      * @author Robin Herder
      */
     @Override public String getTotalForTab() {

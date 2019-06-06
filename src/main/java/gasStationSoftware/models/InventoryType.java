@@ -8,7 +8,7 @@ public enum InventoryType {
 
     /**
      * Constructor InventoryType
-     * @param type
+     * @param type type des items
      * @author Robin Herder
      */
     private InventoryType(String type) {

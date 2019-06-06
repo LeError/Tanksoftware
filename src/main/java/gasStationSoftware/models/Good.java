@@ -23,7 +23,7 @@ extends Item {
 
     /**
      * Gibt die Menge der Ware zurück
-     * @return
+     * @return amount
      * @author Robin Herder
      */
     public int getAmount() {
@@ -32,7 +32,7 @@ extends Item {
 
     /**
      * Fügt der aktuellen Menge hinzu
-     * @param amount
+     * @param amount aount die hinzugefügt wird
      * @author Robin Herder
      */
     public void addAmount(int amount) {
@@ -40,8 +40,8 @@ extends Item {
     }
 
     /**
-     *
-     * @return
+     * gibt die einheit zurück
+     * @return unit
      * @author Robin Herder
      */
     public String getUNIT() {

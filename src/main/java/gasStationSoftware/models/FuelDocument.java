@@ -9,10 +9,10 @@ public class FuelDocument extends Document {
 
     /**
      * Constructor FuelDocument
-     * @param docType
-     * @param name
-     * @param date
-     * @param fuels
+     * @param docType  DocumentType
+     * @param name name des doc
+     * @param date erstelungsdatum
+     * @param fuels kraftstoffe die gelivert wurden
      * @author Robin Herder
      */
     public FuelDocument(DocumentType docType, String name, Date date, ArrayList<DeliveredFuel> fuels) {
@@ -21,8 +21,8 @@ public class FuelDocument extends Document {
     }
 
     /**
-     *
-     * @return
+     * Zeilen für datei
+     * @return lines
      * @author Robin Herder
      */
     @Override
@@ -32,7 +32,7 @@ public class FuelDocument extends Document {
 
     /**
      * Gibt die Kraftstoffe zurück
-     * @return
+     * @return fuels
      * @author Robin Herder
      */
     public ArrayList<?> getFuels() {
@@ -41,7 +41,7 @@ public class FuelDocument extends Document {
 
     /**
      * Gibt die Gesamtsumme zurück
-     * @return
+     * @return total
      * @author Robin Herder
      */
     public float getTotal() {
@@ -53,8 +53,8 @@ public class FuelDocument extends Document {
     }
 
     /**
-     *
-     * @return
+     * Summe formatiert für Tab
+     * @return total
      * @author Robin Herder
      */
     @Override public String getTotalForTab() {

@@ -12,9 +12,9 @@ public abstract class Document {
 
     /**
      * Constructor Document
-     * @param docType
-     * @param name
-     * @param date
+     * @param docType Documenttype
+     * @param name name des dokuments
+     * @param date erstellungsdatum des dokuments
      * @author Robin Herder
      */
     public Document(DocumentType docType, String name, Date date) {
@@ -33,7 +33,7 @@ public abstract class Document {
     }
 
     /**
-     *
+     * DocType formatiert für tabelle
      * @return
      * @author Robin Herder
      */
@@ -75,15 +75,13 @@ public abstract class Document {
     }
 
     /**
-     *
-     * @return
+     * Zeilen für datei returnen
      * @author Robin Herder
      */
     public abstract String[] getLinesForFile();
 
     /**
-     *
-     * @return
+     * Total für tabelle formatieren
      * @author Robin Herder
      */
     public abstract String getTotalForTab();

@@ -84,9 +84,9 @@ public abstract class Dialog {
      * @param prefWidth Breite des Controls
      * @param prefHeight Höhe des Controls
      * @param topAnchor Abstand zur oberkante der AnchorPane
-     * @param rightAnchor
-     * @param leftAnchor
-     * @return
+     * @param rightAnchor Abstand zur rechtenkante der AnchorPane
+     * @param leftAnchor Abstand zur linkenkante der AnchorPane
+     * @return combobox
      * @author Robin Herder
      */
     public static JFXComboBox<String> getComboBox(ArrayList<String> content, String promptText, int prefWidth, int prefHeight, double topAnchor, double rightAnchor, double leftAnchor) {
@@ -104,13 +104,13 @@ public abstract class Dialog {
 
     /**
      * Erstellung eines Textfeldes als oneliner
-     * @param prefWidth
-     * @param prefHeight
-     * @param disable
-     * @param topAnchor
-     * @param rightAnchor
-     * @param leftAnchor
-     * @return
+     * @param prefWidth Breite des Controls
+     * @param prefHeight Höhe des Controls
+     * @param disable Wahreitswert o das feld aktiviert oder deaktiviert ist
+     * @param topAnchor Abstand zur oberkante der AnchorPane
+     * @param rightAnchor Abstand zur rechtenkante der AnchorPane
+     * @param leftAnchor Abstand zur linkenkante der AnchorPane
+     * @return textField
      * @author Robin Herder
      */
     public static JFXTextField getTextfield(int prefWidth, int prefHeight, boolean disable, double topAnchor, double rightAnchor, double leftAnchor) {
@@ -127,11 +127,11 @@ public abstract class Dialog {
 
     /**
      * Erstellung eines Buttons als oneliner
-     * @param prefWidth
-     * @param prefHeight
-     * @param topAnchor
-     * @param leftAnchor
-     * @return
+     * @param prefWidth Breite des Controls
+     * @param prefHeight Höhe des Controls
+     * @param topAnchor Abstand zur oberkante der AnchorPane
+     * @param leftAnchor Abstand zur linkenkante der AnchorPane
+     * @return button
      * @author Robin Herder
      */
     public static JFXButton getButton(int prefWidth, int prefHeight, double topAnchor, double leftAnchor) {
@@ -147,8 +147,8 @@ public abstract class Dialog {
 
     /**
      * Erstellung einer MaterialDesignIconVIew als oneliner
-     * @param ico
-     * @return
+     * @param ico Das icon was angezeigt werden soll
+     * @return iconView
      * @author Robin Herder
      */
     public static MaterialDesignIconView getICO(MaterialDesignIcon ico) {
@@ -159,10 +159,10 @@ public abstract class Dialog {
 
     /**
      * Erstellung einer TableView als oneliner
-     * @param prefWidth
-     * @param prefHeight
-     * @param topAnchor
-     * @param leftAnchor
+     * @param prefWidth Breite des Controls
+     * @param prefHeight Höhe des Controls
+     * @param topAnchor Abstand zur oberkante der AnchorPane
+     * @param leftAnchor Abstand zur linkenkante der AnchorPane
      * @return
      * @author Robin Herder
      */
@@ -178,10 +178,10 @@ public abstract class Dialog {
 
     /**
      * Erstellung eines TableColumns als oneliner
-     * @param title
-     * @param property
-     * @param prefWidth
-     * @param resizeable
+     * @param title Titel des colums
+     * @param property property die er in ojekten sucht
+     * @param prefWidth bevorzugte breite
+     * @param resizeable Wahrheitswert ob man die breite verändern kann
      * @return TableColumn
      * @author Robin Herder
      */
@@ -193,8 +193,18 @@ public abstract class Dialog {
         return column;
     }
 
-    public static Label getLabel(String text, double prefWidth, double prefHeight, double leftAnchor,
-    double topAnchor) {
+    /**
+     * Erstellung eines Labels als oneliner
+     *
+     * @param text       text des labels
+     * @param prefWidth  Breite des Controls
+     * @param prefHeight Höhe des Controls
+     * @param topAnchor  Abstand zur oberkante der AnchorPane
+     * @param leftAnchor Abstand zur linkenkante der AnchorPane
+     * @return label
+     * @author Robin Herder
+     */
+    public static Label getLabel(String text, double prefWidth, double prefHeight, double leftAnchor, double topAnchor) {
         Label label = new Label(text);
         label.setPrefSize(prefWidth, prefHeight);
         label.setMinSize(prefWidth, prefHeight);
@@ -204,8 +214,16 @@ public abstract class Dialog {
         return label;
     }
 
-    public static JFXColorPicker getColorPicker(double prefWidth, double prefHeight, double leftAnchor,
-    double topAnchor) {
+    /**
+     * Erstellung eines colorpickers als oneliner
+     * @param prefWidth Breite des Controls
+     * @param prefHeight Höhe des Controls
+     * @param topAnchor Abstand zur oberkante der AnchorPane
+     * @param leftAnchor Abstand zur linkenkante der AnchorPane
+     * @return AnchorPane
+     * @author Robin Herder
+     */
+    public static JFXColorPicker getColorPicker(double prefWidth, double prefHeight, double leftAnchor, double topAnchor) {
         JFXColorPicker colorPicker = new JFXColorPicker();
         colorPicker.setPrefSize(prefWidth, prefHeight);
         colorPicker.setMinSize(prefWidth, prefHeight);
@@ -217,8 +235,8 @@ public abstract class Dialog {
 
     /**
      * Erstellung einer AnchorPane als oneliner
-     * @param prefWidth
-     * @param prefHeight
+     * @param prefWidth Breite des Controls
+     * @param prefHeight Höhe des Controls
      * @return AnchorPane
      * @author Robin Herder
      */
