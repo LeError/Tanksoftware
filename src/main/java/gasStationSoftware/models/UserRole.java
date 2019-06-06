@@ -10,8 +10,8 @@ public enum UserRole {
 
     /**
      * Constructor UserRole
-     * @param id
-     * @param role
+     * @param id id der rolle
+     * @param role bezeichnung der rolle
      * @author Robin Herder
      */
     UserRole(int id, String role) {
