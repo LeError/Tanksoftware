@@ -9,9 +9,9 @@ public abstract class Item {
 
     /**
      * Constructor Item
-     * @param type
-     * @param price
-     * @param currency
+     * @param type ItemType des Items
+     * @param price Preis des Items
+     * @param currency Währung des Preises des Items
      * @author Robin Herder
      */
     public Item(ItemType type, float price, String currency) {
@@ -39,7 +39,7 @@ public abstract class Item {
     }
 
     /**
-     *
+     * Gibt das Label des ItemType zurück
      * @return LABEL
      * @author Robin Herder
      */
@@ -48,7 +48,7 @@ public abstract class Item {
     }
 
     /**
-     *
+     * Gibt die Währung zurück
      * @return currency
      * @author Robin Herder
      */
@@ -67,7 +67,7 @@ public abstract class Item {
 
     /**
      * Stellt den Preis des Items ein
-     * @param price
+     * @param price preis des items
      * @author Robin Herder
      */
     public void setPrice(float price) {
@@ -84,8 +84,8 @@ public abstract class Item {
     }
 
     /**
-     *
-     * @param amount
+     * setzt die menge des produkts im wahrenkorb
+     * @param amount menge im  wk
      * @author Robin Herder
      */
     public void setCheckoutAmount(float amount) {
@@ -93,8 +93,8 @@ public abstract class Item {
     }
 
     /**
-     *
-     * @param amount
+     * erhöht die mänge des produkts im wahrenkorb
+     * @param amount menge im wk
      * @author Robin Herder
      */
     public void addCheckoutAmount(float amount) {
@@ -102,8 +102,8 @@ public abstract class Item {
     }
 
     /**
-     *
-     * @return
+     * gibt die menge des produkts im warenkorb zurück
+     * @return checkoutAmount
      * @author Robin Herder
      */
     public float getCheckoutAmount() {
