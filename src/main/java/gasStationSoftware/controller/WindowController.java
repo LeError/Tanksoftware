@@ -23,6 +23,7 @@ import gasStationSoftware.ui.ItemInputDialog;
 import gasStationSoftware.ui.ItemTypeInputDialog;
 import gasStationSoftware.ui.ThemeDialog;
 import gasStationSoftware.util.Dialog;
+import gasStationSoftware.util.ProgressBarCustom;
 import gasStationSoftware.util.Utility;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -31,10 +32,9 @@ import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.*;
 import javafx.scene.control.Label;
-import javafx.scene.control.Separator;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.cell.ProgressBarTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -44,6 +44,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
 import javafx.stage.FileChooser;
+import javafx.util.Callback;
 
 import java.awt.*;
 import java.io.IOException;
@@ -99,12 +100,12 @@ implements Initializable {
     @FXML private MaterialDesignIconView icoOrderInventoryOverview, icoDeliveryInventoryOverview, icoAddFuelOverview;
     @FXML private TableView tGoodsInventoryOverview, tGoodsInventoryOrder, tGoodsInventoryDelivery;
 
-    @FXML private AnchorPane fuelPane, fuelOverviewPane, fuelOrderPane, fuelDeliveryPane;
+    @FXML private AnchorPane fuelPane, fuelOverviewPane, fuelOrderPane, fuelDeliveryPane, tankStatusPane;
     @FXML private Polygon polygonFuel;
-    @FXML private Label titleFuelOverview, titleFuelOrder, titleFuelDeliveries;
-    @FXML private JFXButton btnDeliveriesFuelOverview, btnOrdersFuelOverview, btnSubmitFuelOrder, btnCancelFuelOrder, btnOpenFuelDeliveries, btnImportFuelDeliveries, btnAddFuelOverview;
-    @FXML private MaterialDesignIconView icoDeiveriesFuelOverview, icoOrdersFuelOverview;
-    @FXML private TableView tFuelsFuelOverview, tFuelsFuelOrder, tFuelsFuelDeliveries;
+    @FXML private Label titleFuelOverview, titleFuelOrder, titleFuelDeliveries, titleTanksStatus;
+    @FXML private JFXButton btnDeliveriesFuelOverview, btnOrdersFuelOverview, btnSubmitFuelOrder, btnCancelFuelOrder, btnOpenFuelDeliveries, btnImportFuelDeliveries, btnAddFuelOverview, btnGoToTanks;
+    @FXML private MaterialDesignIconView icoDeiveriesFuelOverview, icoOrdersFuelOverview, icoGoToTanks;
+    @FXML private TableView tFuelsFuelOverview, tFuelsFuelOrder, tFuelsFuelDeliveries, tTanksStatus;
 
     @FXML private AnchorPane employeePane, employeeOverviewPane, employeeCreatePane;
     @FXML private Polygon polygonEmployee;
@@ -160,6 +161,7 @@ implements Initializable {
         addColumnsTGoodsInventoryDelivery();
         addColumnsTCheckoutSellingOverview();
         addColumnsTReportOverview();
+        addColumnsTTanksStatus();
         setDefaultContent();
     }
 
@@ -278,6 +280,9 @@ implements Initializable {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        } else if(event.getTarget() == btnGoToTanks) {
+            hideSubPanes();
+            tankStatusPane.setVisible(true);
         }
     }
 
@@ -539,8 +544,25 @@ implements Initializable {
         TableColumn columnReportName = Dialog.getColumn("Name", "NAME", 200, true);
         TableColumn columnReportType = Dialog.getColumn("Type", "DOC_TYPEForTab", 200, true);
         TableColumn columnReportTotal = Dialog.getColumn("Wert", "totalForTab", 100, true);
-        tReportReportOverview.getColumns()
-        .addAll(columnReportDate, columnReportName, columnReportType, columnReportTotal);
+        tReportReportOverview.getColumns().addAll(columnReportDate, columnReportName, columnReportType, columnReportTotal);
+    }
+
+    /**
+     * Spalten der Tankübersicht einfügen
+     * @author Robin Herder
+     */
+    private void addColumnsTTanksStatus() {
+        TableColumn columnTankNumber = Dialog.getColumn("Tank #", "TANK_NUMBER", 100, true);
+        TableColumn columnTankFuel = Dialog.getColumn("Kraftstoff #", "fuelLabel", 200, true);
+        TableColumn columnLevel = Dialog.getColumn("Füllstand in %", "levelPercentage", 100, true);
+        TableColumn<FuelTank, Double> columnTankProgress= Dialog.getColumn("Tank #", "levelPercentageProgress", 300, true);
+        columnTankProgress.setCellFactory(new Callback<TableColumn<FuelTank, Double>, TableCell<FuelTank, Double>>() {
+            @Override
+            public TableCell<FuelTank, Double> call(TableColumn<FuelTank, Double> param) {
+                return new ProgressBarCustom();
+            }
+        });
+        tTanksStatus.getColumns().addAll(columnTankNumber, columnTankFuel, columnLevel, columnTankProgress);
     }
 
     /**
@@ -594,6 +616,7 @@ implements Initializable {
     public void addRowTTanksSettingsTank(ArrayList<FuelTank> tanks){
         tTanksSettingsTank.getItems().clear();
         tTanksSettingsTank.getItems().addAll(tanks);
+        addRowTTankStatus(tanks);
     }
 
     /**
@@ -665,6 +688,11 @@ implements Initializable {
     public void addRowTReportReportOverview(ArrayList<Document> documents) {
         tReportReportOverview.getItems().clear();
         tReportReportOverview.getItems().addAll(documents);
+    }
+
+    public void addRowTTankStatus(ArrayList<FuelTank> tanks) {
+        tTanksStatus.getItems().clear();
+        tTanksStatus.getItems().addAll(tanks);
     }
 
     //===[LOGIC CALL]==================================================
