@@ -26,7 +26,7 @@ public class ReadListFile {
             boolean firstLine = true;
             date = bufferedReader.readLine();
             while((line = bufferedReader.readLine()) != null) {
-                LINES.add(line);
+                LINES.add(line.toLowerCase());
             }
         }catch(Exception e) {
             e.printStackTrace();
