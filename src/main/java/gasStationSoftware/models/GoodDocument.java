@@ -26,8 +26,14 @@ extends Document {
      * @return zeilen für datei
      * @author Robin Herder
      */
-    @Override public String[] getLinesForFile() {
-        return new String[0];
+    @Override public ArrayList<String> getLinesForFile() {
+        ArrayList<String> lines = new ArrayList<>();
+        lines.add("Lieferdatum=" + getDATE());
+        lines.add("Warennummer;Bezeichnung;Lagereinheit;Menge;Einkaufspreis");
+        for(Good good : GOODS) {
+            lines.add(good.getINVENTORY_NUMBER() + ";" + good.getLABEL() + ";" + good.getUNIT() + ";" + good.getAmount() + ";" + good.getPrice());
+        }
+        return lines;
     }
 
     /**
