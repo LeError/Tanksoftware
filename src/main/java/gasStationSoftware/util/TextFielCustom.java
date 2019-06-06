@@ -21,7 +21,7 @@ public class TextFielCustom extends TableCell<Item, Double> {
     }
 
     /**
-     * setzt progress und styling
+     * setzt größe und wert
      * @author Robin Herder
      */
     public void setAmount(Double value) {
