@@ -26,8 +26,14 @@ public class FuelDocument extends Document {
      * @author Robin Herder
      */
     @Override
-    public String[] getLinesForFile() {
-        return new String[0];
+    public ArrayList<String> getLinesForFile() {
+        ArrayList<String> lines = new ArrayList<>();
+        lines.add("LIEFERDATUM=" + getDATE());
+        for(DeliveredFuel fuel : FUELS) {
+            lines.add(fuel.getLABEL() + "=" + fuel.getAmountDelivered());
+            lines.add(fuel.getLABEL() + "_PREIS=" + fuel.getPrice());
+        }
+        return lines;
     }
 
     /**
