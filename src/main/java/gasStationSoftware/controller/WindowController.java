@@ -73,10 +73,10 @@ implements Initializable {
     @FXML private ImageView ivUserProfilePictureUser;
     @FXML private Label lblUserNameUser, lblUserRoleUser, lblSalesSumDailyUser, lblSalesSumMonthlyUser, lblSalesSumYearlyUser;
 
-    @FXML private AnchorPane sellingPane, sellingOverviewPane;
+    @FXML private AnchorPane sellingPane, sellingOverviewPane, sellingReceiptPane;
     @FXML private Label lblTotalSalesOverview;
-    @FXML private JFXButton btnCheckOutSalesOverview, btnGoodsSalesOverview, btnGasPumpsSalesOverview, btnAddAmountSalesOverview, btnRemoveAmountSalesOverview, btnDeleteSalesOverview;
-    @FXML private TableView tCheckoutSellingOverview;
+    @FXML private JFXButton btnCheckOutSalesOverview, btnGoodsSalesOverview, btnGasPumpsSalesOverview, btnAddAmountSalesOverview, btnRemoveAmountSalesOverview, btnDeleteSalesOverview, btnOpenSellingReceipt;
+    @FXML private TableView tCheckoutSellingOverview, tSellingReceipt;
 
     @FXML private AnchorPane inventoryPane, inventoryOverviewPane, inventoryOrderPane, inventoryDeliveryPane;
     @FXML private JFXButton btnOrderInventoryOverview, btnDeliveriesInventoryOverview, btnAddGoodOverview;
