@@ -16,10 +16,10 @@ public class ItemTypeInputDialog extends Dialog {
     private JFXTextField txtInventoryNumber, txtLabel, txtType;
 
     /**
-     * Constructor ItemTypeInputDialog
-     * @param rootPane
-     * @param windowController
-     * @param type
+     * Konstruktor zur erstellung des Dialogs
+     * @param rootPane StackPane der Anwendung
+     * @param windowController Kontroller der UI
+     * @param type IventoryType zur differenzierung GOOD / FUEL
      * @author Robin Herder
      */
     public ItemTypeInputDialog(StackPane rootPane, WindowController windowController, InventoryType type) {
@@ -39,12 +39,12 @@ public class ItemTypeInputDialog extends Dialog {
     }
 
     /**
-     *
-     * @param rootPane
-     * @param windowController
-     * @param type
-     * @param invNumber
-     * @param label
+     * Konstruktor zur erstellung des Dialogs mit werten
+     * @param rootPane StackPane der Anwendung
+     * @param windowController Kontroller der UI
+     * @param type IventoryType zur differenzierung GOOD / FUEL
+     * @param invNumber Invnummer des zu editierenden ItemTypes
+     * @param label Label des zu editierenden ItemTypes
      * @author Robin Herder
      */
     public ItemTypeInputDialog(StackPane rootPane, WindowController windowController, InventoryType type, int invNumber,
@@ -73,8 +73,8 @@ public class ItemTypeInputDialog extends Dialog {
     }
 
     /**
-     *
-     * @param pane
+     * Startet auswertung des Dialogs
+     * @param pane AnchorPane des Dialogs
      * @author Robin Herder
      */
     @Override
@@ -87,8 +87,8 @@ public class ItemTypeInputDialog extends Dialog {
     }
 
     /**
-     *
-     * @return
+     * Erstellen der UI Elemente des Dialogs
+     * @return pane
      * @author Robin Herder
      */
     private AnchorPane create() {
