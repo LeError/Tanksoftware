@@ -8,10 +8,18 @@ public class ProgressBarCustom extends TableCell<FuelTank, Double> {
 
     private ProgressBar progress = new ProgressBar();
 
+    /**
+     * Setzt größe
+     * @author Robin Herder
+     */
     public ProgressBarCustom() {
         progress.setMinWidth(280);
     }
 
+    /**
+     * Setzt grafik und wert
+     * @author Robin Herder
+     */
     @Override
     protected void updateItem(Double item, boolean empty) {
         super.updateItem(item, empty);
@@ -21,6 +29,10 @@ public class ProgressBarCustom extends TableCell<FuelTank, Double> {
         }
     }
 
+    /**
+     * setzt progress und styling
+     * @author Robin Herder
+     */
     public void setProgress(Double value) {
         progress.setProgress(value);
         if(value > 0.5) {
