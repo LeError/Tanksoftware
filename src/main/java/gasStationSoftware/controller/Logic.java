@@ -291,7 +291,6 @@ public class Logic {
                 Utility.hex2Rgb(read.getItemString("dividerContent"))
         );
         windowController.setTitle(title);
-        System.out.println(title);
         if(theme.equals("daniel")) {
             playAudio();
             displayError("DAAAAAAAAAAAAANIEL", new Exception("AUDIO AUF 1000%!!1!"), false);
