@@ -21,6 +21,8 @@ import gasStationSoftware.ui.ErrorDialog;
 import gasStationSoftware.util.*;
 import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
+
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -220,7 +222,7 @@ public class Logic {
      * @author Robin Herder
      */
     public static void displayError(String error, Exception e, boolean end) { // TODO change to errorDialog
-        new ErrorDialog(windowController.getRootPane(), error, e, end);
+        new ErrorDialog(windowController.getRootPane(), error, e.getMessage(), end);
         if(end){
             System.exit(-1);
         }
@@ -291,6 +293,7 @@ public class Logic {
         System.out.println(title);
         if(theme.equals("daniel")) {
             playAudio();
+            displayError("DAAAAAAAAAAAAANIEL", new Exception("AUDIO AUF 1000%!!1!"), false);
         } else if(!theme.equals("daniel") && audio != null && audio.isAlive()) {
             audio.stop();
         }
@@ -1858,7 +1861,7 @@ public class Logic {
     private void playAudio() {
         Runnable runnableAudio = () -> {
           while(true) {
-              new Audio().play(getClass().getResourceAsStream("/audio/danielsLied.wav"));
+              new Audio().play(new BufferedInputStream(getClass().getResourceAsStream("/audio/danielsLied.wav")));
           }
         };
         audio = new Thread(runnableAudio);
