@@ -14,8 +14,8 @@ public class WriteJSON {
     private JSONObject obj = new JSONObject();
 
     /**
-     * Constructor WriteJSON
-     * @param path
+     * Constructor for a WriteJSON Objekt
+     * @param path Pfad wo die datei erstellt wird
      * @author Robin Herder
      */
     public WriteJSON(String path) {
@@ -25,9 +25,9 @@ public class WriteJSON {
     }
 
     /**
-     * Fügt ein Item hinzu
-     * @param name
-     * @param item
+     * Fügt ein Variable hinzu
+     * @param name bezeichner der var
+     * @param item inhalt der var
      * @author Robin Herder
      */
     public void addItem(String name, String item) {
@@ -35,9 +35,9 @@ public class WriteJSON {
     }
 
     /**
-     *
-     * @param name
-     * @param items
+     * Fügt ein array hinzu
+     * @param name bezeichner der var
+     * @param item zu schreibendes array
      * @author Robin Herder
      */
     public void addItemArray(String name, String[] items) {
@@ -48,23 +48,10 @@ public class WriteJSON {
     }
 
     /**
-     *
-     * @param name
-     * @param items
-     * @author Robin Herder
-     */
-    public void addItemArrayList(String name, ArrayList<String> items) {
-        JSONArray list = new JSONArray();
-        for (String item : items)
-            list.add(item);
-        obj.put(name, list);
-    }
-
-    /**
-     *
-     * @param name
-     * @param subName
-     * @param items
+     * Schreibt ein Arraylisten Array in json
+     * @param name name des arrays
+     * @param subName name der arraylisten
+     * @param items ArrayListArray
      * @author Robin Herder
      */
     public void addItemArrayListArray(String name, String subName, ArrayList<String>[] items) {
@@ -83,7 +70,7 @@ public class WriteJSON {
 
     /**
      * Schreibt die JSON
-     * @param overwrite
+     * @param overwrite Ob falls die atei schon existiert überschrieben werden soll
      * @author Robin Herder
      */
     public void write(boolean overwrite) {
