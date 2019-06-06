@@ -22,6 +22,7 @@ import gasStationSoftware.util.*;
 import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
 
+import java.awt.*;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
@@ -878,6 +879,28 @@ public class Logic {
         write.addItemArrayListArray("receiptFuels", "fuels", getReceiptFuels());
         write.write(true);
         updateBalance();
+    }
+
+    /**
+     * Speichert ein neues theme ab
+     * @author Robin Herder
+     */
+    public void saveTheme( Color menuBar, Color contentPaneBackground, Color icons, Color dividerMenuBar, Color fontContent, Color buttonBackground, Color buttonFont, Color dividerContent, String title) {
+        WriteJSON write = new WriteJSON(DATA_SUB_PATHS[5] + title + ".json");
+        write.addItem("menuBar", Utility.Rgb2Hex(menuBar));
+        write.addItem("contentPaneBackground", Utility.Rgb2Hex(contentPaneBackground));
+        write.addItem("icons", Utility.Rgb2Hex(icons));
+        write.addItem("dividerMenuBar", Utility.Rgb2Hex(dividerMenuBar));
+        write.addItem("fontContent", Utility.Rgb2Hex(fontContent));
+        write.addItem("buttonsBackground", Utility.Rgb2Hex(buttonBackground));
+        write.addItem("buttonsFont", Utility.Rgb2Hex(buttonFont));
+        write.addItem("dividerContent", Utility.Rgb2Hex(dividerContent));
+        write.write(true);
+        try {
+            loadSettings();
+        } catch (DataFileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     //===[GET STRINGS FOR JSON]==================================================
@@ -1858,6 +1881,10 @@ public class Logic {
         windowController.setProfilePicture(image);
     }
 
+    /**
+     * Abspielen von Audio
+     * @author Robin Herder
+     */
     private void playAudio() {
         Runnable runnableAudio = () -> {
           while(true) {
