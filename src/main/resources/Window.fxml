@@ -227,6 +227,22 @@
                         </JFXButton>
                             </children>
                         </AnchorPane>
+                  <AnchorPane fx:id="sellingReceiptPane" layoutX="10.0" layoutY="10.0" prefHeight="600.0" prefWidth="890.0" visible="false">
+                     <children>
+                        <Label fx:id="titleSellingReceipt" layoutX="65.0" layoutY="30.0" text="Waren-Lieferungen" textFill="#212121">
+                           <font>
+                              <Font name="System Bold" size="30.0" />
+                           </font>
+                        </Label>
+                        <TableView fx:id="tSellingReceipt" layoutX="65.0" layoutY="100.0" prefHeight="400.0" prefWidth="760.0" />
+                        <JFXButton fx:id="btnOpenSellingReceipt" buttonType="RAISED" layoutX="675.0" layoutY="520.0" onMousePressed="#handleSaleAction" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Importieren" textAlignment="CENTER" textFill="WHITE" />
+                        <JFXButton layoutX="830.0" layoutY="15.0" onMousePressed="#handleCloseAction" prefHeight="40.0" prefWidth="40.0" style="-jfx-disable-visual-focus: true;">
+                           <graphic>
+                              <MaterialDesignIconView glyphName="CLOSE" size="24" style="-fx-fill: #607D8B;" />
+                           </graphic>
+                        </JFXButton>
+                     </children>
+                  </AnchorPane>
                     </children>
                 </AnchorPane>
                 <AnchorPane fx:id="inventoryPane" layoutX="110.0" minHeight="600.0" minWidth="890.0" prefHeight="600.0" prefWidth="890.0" style="-fx-background-color: #CFD8DC;" visible="false">
@@ -710,6 +726,7 @@
             <fx:reference source="settingsGasPumpPane" />
             <fx:reference source="settingsGoodPane" />
             <fx:reference source="tankStatusPane" />
+            <fx:reference source="sellingReceiptPane" />
         </ArrayList>
         <ArrayList fx:id="icoMenuBar">
             <fx:reference source="icoSellingMenuBar" />
@@ -795,6 +812,7 @@
             <fx:reference source="titleSettingsTank" />
             <fx:reference source="titleUser" />
             <fx:reference source="titleTanksStatus" />
+            <fx:reference source="titleSellingReceipt" />
         </ArrayList>
         <ArrayList fx:id="allSubTitles">
             <fx:reference source="subtitleGasStationAdministrationSettingsOverview" />
@@ -877,6 +895,7 @@
             <fx:reference source="btnLogin" />
             <fx:reference source="btnTitleSettingsOverview" />
             <fx:reference source="btnGoToTanks" />
+            <fx:reference source="btnOpenSellingReceipt" />
         </ArrayList>
         <ArrayList fx:id="allCb">
             <fx:reference source="cbThemeSettingsOverview" />
