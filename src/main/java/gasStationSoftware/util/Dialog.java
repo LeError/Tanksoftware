@@ -26,8 +26,8 @@ public abstract class Dialog {
     protected static String buttonsStyle;
 
     /**
-     * Constructor Dialog
-     * @param windowController
+     * Konstruktor / Setup
+     * @param windowController Kontroller der UI
      * @author Robin Herder
      */
     protected Dialog(WindowController windowController) {
@@ -37,10 +37,10 @@ public abstract class Dialog {
     }
 
     /**
-     *
-     * @param rootPane
-     * @param dialogBodyContent
-     * @param title
+     * Anzeigen des Dialogs und Setup
+     * @param rootPane StackPane der Anwendung
+     * @param dialogBodyContent AnchorPane die im Dialog angezeigt wird
+     * @param title Title des Dialogs
      * @author Robin Herder
      */
     @FXML
@@ -71,19 +71,19 @@ public abstract class Dialog {
     }
 
     /**
-     *
-     * @param pane
+     * Abstracte Methode für die auswertung des Dialogs
+     * @param pane AnchorPane des Dialogs
      * @author Robin Herder
      */
     protected abstract void processSubmit(AnchorPane pane);
 
     /**
-     *
-     * @param content
-     * @param promptText
-     * @param prefWidth
-     * @param prefHeight
-     * @param topAnchor
+     * Erstellung einer Combobox als oneliner
+     * @param content Liste mit anzuzeigenden inhalten
+     * @param promptText anzuzeigender Prompttext
+     * @param prefWidth Breite des Controls
+     * @param prefHeight Höhe des Controls
+     * @param topAnchor Abstand zur oberkante der AnchorPane
      * @param rightAnchor
      * @param leftAnchor
      * @return
@@ -103,7 +103,7 @@ public abstract class Dialog {
     }
 
     /**
-     *
+     * Erstellung eines Textfeldes als oneliner
      * @param prefWidth
      * @param prefHeight
      * @param disable
@@ -126,6 +126,7 @@ public abstract class Dialog {
     }
 
     /**
+     * Erstellung eines Buttons als oneliner
      * @param prefWidth
      * @param prefHeight
      * @param topAnchor
@@ -145,7 +146,7 @@ public abstract class Dialog {
     }
 
     /**
-     *
+     * Erstellung einer MaterialDesignIconVIew als oneliner
      * @param ico
      * @return
      * @author Robin Herder
@@ -157,7 +158,7 @@ public abstract class Dialog {
     }
 
     /**
-     *
+     * Erstellung einer TableView als oneliner
      * @param prefWidth
      * @param prefHeight
      * @param topAnchor
@@ -176,7 +177,7 @@ public abstract class Dialog {
     }
 
     /**
-     *
+     * Erstellung eines TableColumns als oneliner
      * @param title
      * @param property
      * @param prefWidth
@@ -215,7 +216,7 @@ public abstract class Dialog {
     }
 
     /**
-     *
+     * Erstellung einer AnchorPane als oneliner
      * @param prefWidth
      * @param prefHeight
      * @return AnchorPane
