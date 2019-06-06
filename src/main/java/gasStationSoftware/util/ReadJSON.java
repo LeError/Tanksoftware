@@ -17,7 +17,7 @@ public class ReadJSON {
 
     /**
      * Constructor ReadJSON
-     * @param path
+     * @param path pfad der datei
      * @throws DataFileNotFoundException
      * @author Robin Herder
      */
@@ -32,7 +32,7 @@ public class ReadJSON {
     }
 
     /**
-     *
+     * datei lesen
      * @author Robin Herder
      */
     public void read() { //TODO add canRead & canWrite
@@ -55,8 +55,8 @@ public class ReadJSON {
     }
 
     /**
-     *
-     * @param name
+     * Array aus JSON lesen
+     * @param name name des eintrags
      * @return items[]
      * @author Robin Herder
      */
@@ -69,8 +69,9 @@ public class ReadJSON {
     }
 
     /**
-     *
-     * @param name
+     * Lies ArrayListArray ein
+     * @param name name des eintrags
+     * @param subName name der listen
      * @return items[]
      * @author Robin Herder
      */
