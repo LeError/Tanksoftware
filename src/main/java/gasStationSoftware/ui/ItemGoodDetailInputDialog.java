@@ -15,9 +15,9 @@ extends Dialog {
 
     /**
      * Constructor ItemGoodDetailInputDialog
-     * @param rootPane
-     * @param windowController
-     * @param iType
+     * @param rootPane Stackpane det Application
+     * @param windowController Controller der UI
+     * @param iType ItemType mit dem gearbeitet wird
      * @author Robin Herder
      */
     public ItemGoodDetailInputDialog(StackPane rootPane, WindowController windowController, ItemType iType) {
@@ -45,8 +45,8 @@ extends Dialog {
     }
 
     /**
-     *
-     * @param pane
+     * Startet auswertung des Dialogs
+     * @param pane AnchorPane des Dialogs
      * @author Robin Herder
      */
     @Override protected void processSubmit(AnchorPane pane) {
