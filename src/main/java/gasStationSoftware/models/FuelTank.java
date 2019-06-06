@@ -90,7 +90,7 @@ public class FuelTank {
      * @author Robin Herder
      */
     public float getLevelPercentage() {
-        return levelPercentage;
+        return levelPercentage * 100;
     }
 
     /**
@@ -145,5 +145,14 @@ public class FuelTank {
      */
     public float getFreeSpace() {
         return capacity - level;
+    }
+
+    /**
+     * Gibt prozentfüllstand für tabelle zurück
+     * @return freeSpace
+     * @author Robin Herder
+     */
+    public double getLevelPercentageProgress() {
+        return levelPercentage;
     }
 }
