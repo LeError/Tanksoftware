@@ -17,7 +17,7 @@ public class ReadTableFile {
 
     /**
      * Constructor ReadFile
-     * @param url
+     * @param url pfad der zu lesenden Datei
      * @author Robin Herder
      */
     public ReadTableFile(String url) { //TODO add canRead & canWrite
@@ -39,7 +39,7 @@ public class ReadTableFile {
     }
 
     /**
-     *
+     * 2D Array des Zerlegten Inhalts
      * @return lines[][]
      * @author Robin Herder
      */
@@ -52,7 +52,7 @@ public class ReadTableFile {
     }
 
     /**
-     *
+     * Liste der Legende
      * @return TOP_LINES[]
      * @author Robin Herder
      */
@@ -61,30 +61,12 @@ public class ReadTableFile {
     }
 
     /**
-     *
-     * @param line
+     * Zeile an ; zerlegen
+     * @param line Zeile die getrennt werden soll
      * @return Line[]
      */
     private String[] getLine(String line) {
         return line.trim().split(";");
-    }
-
-    /**
-     *
-     * @param path
-     * @return boolean
-     * @author Robin Herder
-     */
-    public static boolean isEmpty(String path) {
-        File file = new File(path);
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            if (br.readLine() == null) {
-                return true;
-            }
-        } catch (IOException e) {
-            return true;
-        }
-        return false;
     }
 
     /**

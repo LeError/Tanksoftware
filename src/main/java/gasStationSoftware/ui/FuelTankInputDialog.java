@@ -15,9 +15,9 @@ public class FuelTankInputDialog extends Dialog {
     private JFXComboBox<String> cbFuels;
 
     /**
-     * Constructor FuelTankInputDialog
-     * @param rootPane
-     * @param windowController
+     * Konstruktor zur erstellung des Dialogs
+     * @param rootPane StackPane der Anwendung
+     * @param windowController Controller der UI
      * @author Robin Herder
      */
     public FuelTankInputDialog(StackPane rootPane, WindowController windowController) {
@@ -26,13 +26,13 @@ public class FuelTankInputDialog extends Dialog {
     }
 
     /**
-     *
-     * @param rootPane
-     * @param windowController
-     * @param tankID
-     * @param capacity
-     * @param level
-     * @param assignedFuel
+     * Konstruktor zur erstellung des Dialogs mit werten
+     * @param rootPane StackPane der Anwendung
+     * @param windowController Controller der UI
+     * @param tankID ID des zu editierenden Tanks
+     * @param capacity Kapazität des zu editierenden Tanks
+     * @param level füllstand des zu editierenden Tanks
+     * @param assignedFuel ID des Kraftstoffes des zu editierenden Tanks
      * @author Robin Herder
      */
     public FuelTankInputDialog(StackPane rootPane, WindowController windowController, int tankID, float capacity,
@@ -55,8 +55,8 @@ public class FuelTankInputDialog extends Dialog {
     }
 
     /**
-     *
-     * @param pane
+     * Startet auswertung des Dialogs
+     * @param pane AnchorPane des Dialogs
      * @author Robin Herder
      */
     @Override
@@ -69,8 +69,8 @@ public class FuelTankInputDialog extends Dialog {
     }
 
     /**
-     *
-     * @return
+     * Erstellen der UI Elemente des Dialogs
+     * @return pane
      * @author Robin Herder
      */
     private AnchorPane create() {

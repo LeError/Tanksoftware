@@ -16,7 +16,7 @@ public class ReadListFile {
 
     /**
      * Constructor ReadListFile
-     * @param url
+     * @param url pfad der Datei
      * @author Robin Herder
      */
     public ReadListFile(String url) {
@@ -34,7 +34,7 @@ public class ReadListFile {
     }
 
     /**
-     *
+     * 2D Array mit zerlegtem inhalt der datei
      * @return lines[]
      * @author Robin Herder
      */
@@ -47,8 +47,8 @@ public class ReadListFile {
     }
 
     /**
-     *
-     * @param line
+     * Zerlegt inhal anhand von =
+     * @param line Zu zerlegende Zeile
      * @return
      * @author Robin Herder
      */

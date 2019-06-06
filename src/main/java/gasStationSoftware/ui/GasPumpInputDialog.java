@@ -23,9 +23,10 @@ public class GasPumpInputDialog extends Dialog {
     private GasPump pump;
 
     /**
+     * Konstruktor zur erstellung des Dialogs
      * Constructor GasPumpDialog
-     * @param rootPane
-     * @param windowController
+     * @param rootPane StackPane der Anwendung
+     * @param windowController Kontroller der UI
      * @author Robin Herder
      */
     public GasPumpInputDialog(StackPane rootPane, WindowController windowController) {
@@ -34,10 +35,10 @@ public class GasPumpInputDialog extends Dialog {
     }
 
     /**
-     *
-     * @param rootPane
-     * @param windowController
-     * @param gasPump
+     * Konstruktor zur erstellung des Dialogs mit werten
+     * @param rootPane StackPane der Anwendung
+     * @param windowController Kontroller der UI
+     * @param gasPump die zu editierende Zapfsäule
      * @author Robin Herder
      */
     public GasPumpInputDialog(StackPane rootPane, WindowController windowController, GasPump gasPump) {
@@ -58,8 +59,8 @@ public class GasPumpInputDialog extends Dialog {
 
 
     /**
-     *
-     * @param pane
+     * Startet auswertung des Dialogs
+     * @param pane AnchorPane des Dialogs
      * @author Robin Herder
      */
     @Override
@@ -72,8 +73,8 @@ public class GasPumpInputDialog extends Dialog {
     }
 
     /**
-     *
-     * @return
+     * Erstellen der UI Elemente des Dialogs
+     * @return pane
      * @author Robin Herder
      */
     private AnchorPane create() {

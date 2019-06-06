@@ -11,11 +11,11 @@ import javafx.scene.layout.StackPane;
 public class ErrorDialog {
 
     /**
-     * Constructor ErrorDialog
-     * @param rootPane
-     * @param title
-     * @param e
-     * @param exit
+     * Constructor zur erzeugung des Dialogs
+     * @param rootPane StackPane der Anwendung
+     * @param title Title des Dialogs
+     * @param e Fehler der Angezeigt wird
+     * @param exit Wahrheitswert ob programm beendet wird
      * @author Robin Herder
      */
     public ErrorDialog(StackPane rootPane, String title, Exception e, boolean exit) {
@@ -23,11 +23,11 @@ public class ErrorDialog {
     }
 
     /**
-     *
-     * @param rootPane
-     * @param title
-     * @param errorText
-     * @param exit
+     * Erstellung des Elemente des Dialogs
+     * @param rootPane StackPane der Anwendung
+     * @param title Title des Dialogs
+     * @param errorText Fehler der Angezeigt wird
+     * @param exit Wahrheitswert ob programm beendet wird
      * @author Robin Herder
      */
     @FXML

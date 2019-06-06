@@ -14,10 +14,10 @@ public class Employee {
 
     /**
      * Constuctor Employee
-     * @param employeeNumber
-     * @param firstName
-     * @param surname
-     * @param employmentDate
+     * @param employeeNumber Persnummer des angestelten
+     * @param firstName vorname des angestelten
+     * @param surname nachname des angestelten
+     * @param employmentDate einstellungsdatum des angestellten
      * @author Robin Herder
      */
     public Employee(int employeeNumber, String firstName, String surname, Date employmentDate, UserRole role, String pass) {
@@ -68,7 +68,7 @@ public class Employee {
 
     /**
      * Gibt das Datum als String zurück
-     * @return
+     * @return datum
      * @author Robin Herder
      */
     public String getEMPLOYMENT_DATE_FORMATTED() {
@@ -77,8 +77,8 @@ public class Employee {
 
     /**
      * Prüft ob der Mitarbeiter der einloggende Mitarbeiter ist
-     * @param employeeNumber
-     * @param pass
+     * @param employeeNumber Persnummer
+     * @param pass Angestellten password
      * @return boolean
      * @author Robin Herder
      */

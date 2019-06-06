@@ -10,9 +10,9 @@ public class Fuel extends Item {
 
     /**
      * Constuctor Fuel
-     * @param type
-     * @param price
-     * @param currency
+     * @param type ItemType des Krafrstoffes
+     * @param price Preis des Kraftstoffes
+     * @param currency Währung des Preises des Kraftstoffes
      * @author Robin Herder
      */
     public Fuel(ItemType type, float price, String currency) {
@@ -20,8 +20,8 @@ public class Fuel extends Item {
     }
 
     /**
-     *
-     * @return
+     * Liefert Tanks formatiert für Table
+     * @return tanks
      * @author Robin Herder
      */
     public String getTanks() {
@@ -36,8 +36,8 @@ public class Fuel extends Item {
     }
 
     /**
-     * Gibt die Tanks zurück
-     * @return
+     * Gibt die Tanks zurück als liste
+     * @return tanks
      * @author Robin Herder
      */
     private ArrayList<FuelTank> getOTanks() {
@@ -66,8 +66,8 @@ public class Fuel extends Item {
 
     /**
      * Überprüft die freie Kapazität
-     * @param amount
-     * @return
+     * @param amount menge die in tank soll
+     * @return Wahrheitswert
      * @author Robin Herder
      */
     public boolean checkSpace(float amount) {
@@ -84,7 +84,7 @@ public class Fuel extends Item {
 
     /**
      * Neuen Kraftstoff hinzufügen
-     * @param amount
+     * @param amount menge hhinzufügen
      * @author Robin Herder
      */
     public void addAmount(float amount) throws Exception {
@@ -111,7 +111,7 @@ public class Fuel extends Item {
 
     /**
      * Kraftstoff entnehmen
-     * @param amount
+     * @param amount menge entfernen
      * @author Robin Herder
      */
     public void removeAmount(float amount, GasPump gasPump) throws Exception {
@@ -141,7 +141,7 @@ public class Fuel extends Item {
 
     /**
      * Gibt den Checkouttank zurück
-     * @return
+     * @return pump
      * @author Robin Herder
      */
     public GasPump getCheckoutTank() {
@@ -150,7 +150,7 @@ public class Fuel extends Item {
 
     /**
      * Stellt den CheckoutTank ein
-     * @param checkoutTankNumber
+     * @param checkoutTankNumber setzten der säule für checkout
      * @author Robin Herder
      */
     public void setCheckoutTank(GasPump checkoutTankNumber) {

@@ -12,7 +12,7 @@ public enum DocumentType {
 
     /**
      * Constructor DocumentType
-     * @param type
+     * @param type type des dokuments
      * @author Robin Herder
      */
     private DocumentType(String type) {

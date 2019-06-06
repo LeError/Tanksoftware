@@ -22,9 +22,9 @@ public class EmployeeInputDialog extends Dialog {
     private JFXPasswordField employeePass;
 
     /**
-     *
-     * @param rootPane
-     * @param windowController
+     * Konstruktor zur erstellung des Dialogs
+     * @param rootPane Stackpane det Application
+     * @param windowController Controller der UI
      * @author Robin Herder
      */
     public EmployeeInputDialog(StackPane rootPane, WindowController windowController) {
@@ -34,13 +34,14 @@ public class EmployeeInputDialog extends Dialog {
     }
 
     /**
-     * @param rootPane
-     * @param windowController
-     * @param employeeNumber
-     * @param firstName
-     * @param surName
-     * @param employmentDate
-     * @param employeeRoleIdx
+     * Konstruktor zur erstellung des Dialogs mit werten
+     * @param rootPane Stackpane det Application
+     * @param windowController Controller der UI
+     * @param employeeNumber Persnummer der zu editierenden Angestelten
+     * @param firstName Vorname der zu editierenden Angestelten
+     * @param surName Nachname der zu editierenden Angestelten
+     * @param employmentDate Einstellungsdatum der zu editierenden Angestelten
+     * @param employeeRoleIdx Rolle der zu editierenden Angestelten
      * @author Robin Herder
      */
     public EmployeeInputDialog(StackPane rootPane, WindowController windowController, int employeeNumber, String firstName, String surName, Date employmentDate, int employeeRoleIdx) {
@@ -75,8 +76,8 @@ public class EmployeeInputDialog extends Dialog {
     }
 
     /**
-     *
-     * @param pane
+     * Startet auswertung des Dialogs
+     * @param pane AnchorPane des Dialogs
      * @author Robin Herder
      */
     @Override
@@ -89,8 +90,8 @@ public class EmployeeInputDialog extends Dialog {
     }
 
     /**
-     *
-     * @return
+     * Erstellen der UI Elemente des Dialogs
+     * @return pane
      * @author Robin Herder
      */
     private AnchorPane create() {

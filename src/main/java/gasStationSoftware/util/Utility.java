@@ -48,7 +48,7 @@ public class Utility {
     }
 
     /**
-     * Gibt das Datum als String zurück
+     * Gibt das aktuelle Datum als String zurück
      * @return String
      * @author Robin Herder
      */
@@ -58,7 +58,7 @@ public class Utility {
 
     /**
      * Gibt das eingegebene Datum als String zurück
-     * @param date
+     * @param date zu convetierendes datum
      * @return String
      * @author Robin Herder
      */
@@ -69,8 +69,8 @@ public class Utility {
     }
 
     /**
-     *
-     * @param array
+     * String Array zu Integer Array
+     * @param array zu parsender Array
      * @return IntArray
      * @author Robin Herder
      */
@@ -87,8 +87,8 @@ public class Utility {
     }
 
     /**
-     *
-     * @param array
+     * String Array zu Float Array
+     * @param array zu parsender Array
      * @return FloatArray
      * @author Robin Herder
      */
@@ -105,9 +105,9 @@ public class Utility {
     }
 
     /**
-     * Gibt den InventoryType zurück
-     * @param iTypes
-     * @param type
+     * Gibt eine Arraylist mit allen elementen der Ursprünglichen ArrayList mit dem entsprechenden InventoryType
+     * @param iTypes Liste der ItemTypen
+     * @param type IventoryType zur selektierung
      * @return InventoryType
      * @author Robin Herder
      */
@@ -122,9 +122,9 @@ public class Utility {
     }
 
     /**
-     *
-     * @param documents
-     * @param docType
+     * Gibt ArrayList mit Document des Ausgewählten typs zurück
+     * @param documents Liste der Documente
+     * @param docType Documenttyp der selektiert werden soll
      * @return result[]
      * @author Robin Herder
      */
@@ -140,8 +140,8 @@ public class Utility {
 
     /**
      * Rundet die eingebene Zahl
-     * @param number
-     * @param decimals
+     * @param number Zu rundende Zahl
+     * @param decimals nachkommastellen
      * @return float
      * @author Robin Herder
      */

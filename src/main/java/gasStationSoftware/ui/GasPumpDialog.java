@@ -14,9 +14,9 @@ public class GasPumpDialog extends Dialog {
     private TableView tItemList;
 
     /**
-     *
-     * @param rootPane
-     * @param windowController
+     * Konstruktor zur erstellung des Dialogs
+     * @param rootPane Stackpane det Application
+     * @param windowController Controller der UI
      * @author Robin Herder
      */
     public GasPumpDialog(StackPane rootPane, WindowController windowController) {
@@ -40,8 +40,8 @@ public class GasPumpDialog extends Dialog {
     }
 
     /**
-     *
-     * @param pane
+     * Startet auswertung des Dialogs
+     * @param pane AnchorPane des Dialogs
      * @author Robin Herder
      */
     @Override
@@ -50,8 +50,8 @@ public class GasPumpDialog extends Dialog {
     }
 
     /**
-     *
-     * @return
+     * Getter für das Suche Textfeld
+     * @return txtSearch
      * @author Robin Herder
      */
     public JFXTextField getTxtSearch() {
@@ -59,8 +59,8 @@ public class GasPumpDialog extends Dialog {
     }
 
     /**
-     *
-     * @return
+     * Getter für Tableview mit items
+     * @return tableViewItemList
      * @author Robin Herder
      */
     public TableView getTable() {

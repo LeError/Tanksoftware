@@ -13,8 +13,8 @@ public class GasPump {
 
     /**
      * Constructor Zapfsäule
-     * @param gasPumpNumber
-     * @param tanks
+     * @param gasPumpNumber nummer der Säule
+     * @param tanks liste der angeschlossenen tanks
      * @author Robin Herder
      */
     public GasPump(int gasPumpNumber, ArrayList<FuelTank> tanks) {
@@ -29,7 +29,7 @@ public class GasPump {
 
     /**
      * Kraftstoff der Zapfsäule hinzufügen
-     * @param fuel
+     * @param fuel fuel hinzufügen
      * @author Robin Herder
      */
     public void addFuel(ItemType fuel) {
@@ -38,7 +38,7 @@ public class GasPump {
 
     /**
      * Kraftstoff der Zapfsäule entfernen
-     * @param fuel
+     * @param fuel fuel entfernen
      * @author Robin Herder
      */
     public void removeFuel(ItemType fuel) {
@@ -56,7 +56,7 @@ public class GasPump {
 
     /**
      * Tank der Zapfsäule hinzufügen
-     * @param tank
+     * @param tank tank hinzufügen
      * @author Robin Herder
      */
     public void addTank(FuelTank tank) {
@@ -65,7 +65,7 @@ public class GasPump {
 
     /**
      * Tank der Zapfsäule entfernen
-     * @param tank
+     * @param tank tank entfernen
      * @author Robin Herder
      */
     public void removeTank(FuelTank tank){
@@ -117,8 +117,8 @@ public class GasPump {
     }
 
     /**
-     *
-     * @param amount
+     * Setzen der amount im warenkorb
+     * @param amount menge des kraftstoffs
      * @author Robin Herder
      */
     public void setCheckoutAmount(float amount) {
@@ -126,8 +126,8 @@ public class GasPump {
     }
 
     /**
-     *
-     * @return
+     * gibt menge des kraftstoffs in wk zurück
+     * @return amount
      * @author Robin Herder
      */
     public float getCheckoutAmount() {
@@ -135,7 +135,7 @@ public class GasPump {
     }
 
     /**
-     *
+     * gibt das fuel im wk zurück
      * @return
      * @author Robin Herder
      */
@@ -144,8 +144,8 @@ public class GasPump {
     }
 
     /**
-     *
-     * @param checkoutFuel
+     * setzt das fuel im wk
+     * @param checkoutFuel kraftstoff
      * @author Robin Herder
      */
     public void setCheckoutFuel(Fuel checkoutFuel) {
@@ -153,8 +153,8 @@ public class GasPump {
     }
 
     /**
-     *
-     * @return
+     * gibt label des kraftstoffs im warenkorb zurück
+     * @return label
      * @author Robin Herder
      */
     public String getLabel() {
@@ -163,7 +163,7 @@ public class GasPump {
 
     /**
      * Stellt die Tanks der Zapfsäule ein
-     * @param tanks
+     * @param tanks die angeschlossenen tanks setzen
      * @author Robin Herder
      */
     public void setTanks(ArrayList<FuelTank> tanks) {

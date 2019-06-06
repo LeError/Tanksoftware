@@ -14,7 +14,7 @@ public class WriteFile {
 
     /**
      * Constructor WriteFile
-     * @param path
+     * @param path Pfad der zu schreibenden datei
      * @author Robin Herder
      */
     public WriteFile(String path){
@@ -23,7 +23,7 @@ public class WriteFile {
 
     /**
      * Fügt eine neue Linie der ArrayListe hinzu
-     * @param line
+     * @param line String der zu schreiben ist
      * @author Robin Herder
      */
     public void addLine(String line) {

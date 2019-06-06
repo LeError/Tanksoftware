@@ -20,6 +20,12 @@ extends Dialog {
     private boolean newEntry = true;
     private String title;
 
+    /**
+     * Konstruktor zur erstellung des Dialogs
+     * @param rootPane StackPane der Anwendung
+     * @param windowController Kontroller der UI
+     * @author Robin Herder
+     */
     public ThemeDialog(StackPane rootPane, WindowController windowController) {
         super(windowController);
 
@@ -30,6 +36,21 @@ extends Dialog {
         inputDialog(rootPane, pane, "Theme erstellen");
     }
 
+    /**
+     * Konstruktor zur erstellung des Dialogs mit werten
+     * @param rootPane StackPane der Anwendung
+     * @param windowController Kontroller der UI
+     * @param menuBar Farbelement des Themes
+     * @param contentPaneBackground Farbelement des Themes
+     * @param icons Farbelement des Themes
+     * @param dividerMenuBar Farbelement des Themes
+     * @param fontContent Farbelement des Themes
+     * @param buttonBackground Farbelement des Themes
+     * @param buttonFont Farbelement des Themes
+     * @param dividerContent Farbelement des Themes
+     * @param title titel des zu editierenden themes
+     * @author Robin Herder
+     */
     public ThemeDialog(StackPane rootPane, WindowController windowController, Color menuBar,
     Color contentPaneBackground, Color icons, Color dividerMenuBar, Color fontContent, Color buttonBackground,
     Color buttonFont, Color dividerContent, String title) {
@@ -54,6 +75,11 @@ extends Dialog {
         inputDialog(rootPane, pane, "Theme bearbeiten");
     }
 
+    /**
+     * Startet auswertung des Dialogs
+     * @param pane AnchorPane des Dialogs
+     * @author Robin Herder
+     */
     @Override protected void processSubmit(AnchorPane pane) {
         if (newEntry) {
             windowController.processThemeInput(pane);
@@ -62,6 +88,11 @@ extends Dialog {
         }
     }
 
+    /**
+     * Erstellen der UI Elemente des Dialogs
+     * @return pane
+     * @author Robin Herder
+     */
     private AnchorPane create() {
         lblMenuBar = getLabel("Menüleiste:", 150, 30, 5, 10);
         lblContentPaneBackground = getLabel("Hintergrund:", 150, 30, 5, 50);

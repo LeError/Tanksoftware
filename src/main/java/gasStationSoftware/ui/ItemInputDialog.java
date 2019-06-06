@@ -20,9 +20,9 @@ public class ItemInputDialog extends Dialog {
 
     /**
      * Constructor ItemInputDialog
-     * @param rootPane
-     * @param windowController
-     * @param type
+     * @param rootPane Stackpane det Application
+     * @param windowController Controller der UI
+     * @param type InventoryType zur differenzierung Fuel / Good
      * @author Robin Herder
      */
     public ItemInputDialog(StackPane rootPane, WindowController windowController, InventoryType type) {
@@ -51,9 +51,9 @@ public class ItemInputDialog extends Dialog {
     }
 
     /**
-     *
-     * @param pane
-     * ItemInputDialog
+     * Startet auswertung des Dialogs
+     * @param pane AnchorPane des Dialogs
+     * @author Robin Herder
      */
     @Override
     protected void processSubmit(AnchorPane pane) {
@@ -66,8 +66,8 @@ public class ItemInputDialog extends Dialog {
     }
 
     /**
-     *
-     * @return
+     * Getter Textfeld Suche
+     * @return txtSearch
      * @author Robin Herder
      */
     public JFXTextField getTxtSearch() {
@@ -75,8 +75,8 @@ public class ItemInputDialog extends Dialog {
     }
 
     /**
-     *
-     * @return
+     * Getter TableView
+     * @return tableView ItemDialog
      * @author Robin Herder
      */
     public TableView getTable() {
