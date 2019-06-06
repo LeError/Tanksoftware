@@ -556,12 +556,7 @@ implements Initializable {
         TableColumn columnTankFuel = Dialog.getColumn("Kraftstoff #", "fuelLabel", 200, true);
         TableColumn columnLevel = Dialog.getColumn("Füllstand in %", "levelPercentage", 100, true);
         TableColumn<FuelTank, Double> columnTankProgress= Dialog.getColumn("Tank #", "levelPercentageProgress", 300, true);
-        columnTankProgress.setCellFactory(new Callback<TableColumn<FuelTank, Double>, TableCell<FuelTank, Double>>() {
-            @Override
-            public TableCell<FuelTank, Double> call(TableColumn<FuelTank, Double> param) {
-                return new ProgressBarCustom();
-            }
-        });
+        columnTankProgress.setCellFactory(param -> new ProgressBarCustom());
         tTanksStatus.getColumns().addAll(columnTankNumber, columnTankFuel, columnLevel, columnTankProgress);
     }
 
@@ -909,11 +904,13 @@ implements Initializable {
      */
     public void processGoodCheckout(AnchorPane pane) {
         Item item = (Item) ((TableView) pane.getChildren().get(1)).getSelectionModel().getSelectedItem();
-        item.setCheckoutAmount(1);
-        if(!tCheckoutSellingOverview.getItems().contains(item)) {
-            tCheckoutSellingOverview.getItems().add(item);
+        if(((Good) item).getAmount() > 0) {
+            item.setCheckoutAmount(1);
+            if(!tCheckoutSellingOverview.getItems().contains(item)) {
+                tCheckoutSellingOverview.getItems().add(item);
+            }
+            updateCheckoutPrice();
         }
-        updateCheckoutPrice();
     }
 
     /**
@@ -1015,7 +1012,7 @@ implements Initializable {
      * @author Robin Herder
      */
     private void incAmount() {
-        if(tCheckoutSellingOverview.getSelectionModel().getSelectedItem() != null) {
+        if(tCheckoutSellingOverview.getSelectionModel().getSelectedItem() != null && ((Good) tCheckoutSellingOverview.getSelectionModel().getSelectedItem()).getAmount() > ((Good) tCheckoutSellingOverview.getSelectionModel().getSelectedItem()).getCheckoutAmount()) {
             if((tCheckoutSellingOverview.getSelectionModel().getSelectedItem()) instanceof Good) {
                 ArrayList<Item> items = new ArrayList<>();
                 items.addAll(tCheckoutSellingOverview.getItems());
