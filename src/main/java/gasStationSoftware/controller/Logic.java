@@ -662,6 +662,7 @@ public class Logic {
         saveReceipt();
         windowController.addRowTFuelsFuelOverview(this.fuels);
         windowController.addRowTGoodsInventoryOverview(this.goods);
+        windowController.addRowTTanksSettingsTank(tanks);
         saveInventory();
     }
 
