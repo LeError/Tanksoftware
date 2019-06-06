@@ -18,12 +18,7 @@ import gasStationSoftware.models.Item;
 import gasStationSoftware.models.ItemType;
 import gasStationSoftware.models.UserRole;
 import gasStationSoftware.ui.ErrorDialog;
-import gasStationSoftware.util.ReadJSON;
-import gasStationSoftware.util.ReadListFile;
-import gasStationSoftware.util.ReadTableFile;
-import gasStationSoftware.util.Utility;
-import gasStationSoftware.util.WriteFile;
-import gasStationSoftware.util.WriteJSON;
+import gasStationSoftware.util.*;
 import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
 import java.io.File;
@@ -45,6 +40,8 @@ public class Logic {
     private static WindowController windowController;
 
     private String title, theme;
+
+    private Thread audio;
 
     private final String DATA_FILE_PATH = System.getProperty("user.home") + "\\TANKWare\\";
     private final String[] DATA_SUB_PATHS = {
@@ -291,6 +288,12 @@ public class Logic {
                 Utility.hex2Rgb(read.getItemString("dividerContent"))
         );
         windowController.setTitle(title);
+        System.out.println(title);
+        if(theme.equals("daniel")) {
+            playAudio();
+        } else if(!theme.equals("daniel") && audio != null && audio.isAlive()) {
+            audio.stop();
+        }
     }
 
     /**
@@ -1851,4 +1854,15 @@ public class Logic {
         Image image = new Image(getClass().getResourceAsStream(PROFILE_PICTURE + pic + ".png"));
         windowController.setProfilePicture(image);
     }
+
+    private void playAudio() {
+        Runnable runnableAudio = () -> {
+          while(true) {
+              new Audio().play(getClass().getResourceAsStream("/audio/danielsLied.wav"));
+          }
+        };
+        audio = new Thread(runnableAudio);
+        audio.start();
+    }
+
 }
