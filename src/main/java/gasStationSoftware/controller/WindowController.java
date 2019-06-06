@@ -227,7 +227,9 @@ implements Initializable {
         } else if(event.getTarget() == btnGasPumpsSalesOverview) {
             new GasPumpDialog(rootPane, this);
         } else if(event.getTarget() == btnCheckOutSalesOverview) {
-            createReceipt();
+            if(tCheckoutSellingOverview.getItems().size() > 0) {
+                createReceipt();
+            }
         } else if (event.getTarget() == btnAddAmountSalesOverview) {
             incAmount();
         } else if (event.getTarget() == btnRemoveAmountSalesOverview) {
@@ -973,14 +975,16 @@ implements Initializable {
      */
     private void incAmount() {
         if(tCheckoutSellingOverview.getSelectionModel().getSelectedItem() != null) {
-            ArrayList<Item> items = new ArrayList<>();
-            items.addAll(tCheckoutSellingOverview.getItems());
-            Item item = (Item) tCheckoutSellingOverview.getSelectionModel().getSelectedItem();
-            tCheckoutSellingOverview.getItems().clear();
-            items.get(items.indexOf(item)).addCheckoutAmount(1);
-            tCheckoutSellingOverview.getItems().addAll(items);
-            tCheckoutSellingOverview.getSelectionModel().select(item);
-            updateCheckoutPrice();
+            if((tCheckoutSellingOverview.getSelectionModel().getSelectedItem()) instanceof Good) {
+                ArrayList<Item> items = new ArrayList<>();
+                items.addAll(tCheckoutSellingOverview.getItems());
+                Item item = (Item) tCheckoutSellingOverview.getSelectionModel().getSelectedItem();
+                tCheckoutSellingOverview.getItems().clear();
+                items.get(items.indexOf(item)).addCheckoutAmount(1);
+                tCheckoutSellingOverview.getItems().addAll(items);
+                tCheckoutSellingOverview.getSelectionModel().select(item);
+                updateCheckoutPrice();
+            }
         }
     }
 
@@ -990,18 +994,20 @@ implements Initializable {
      */
     private void decAmount() {
         if(tCheckoutSellingOverview.getSelectionModel().getSelectedItem() != null) {
-            ArrayList<Item> items = new ArrayList<>();
-            items.addAll(tCheckoutSellingOverview.getItems());
-            Item item = (Item) tCheckoutSellingOverview.getSelectionModel().getSelectedItem();
-            tCheckoutSellingOverview.getItems().clear();
-            if(items.get(items.indexOf(item)).getCheckoutAmount() > 1) {
-                items.get(items.indexOf(item)).addCheckoutAmount(- 1);
-            } else {
-                items.remove(item);
+            if((tCheckoutSellingOverview.getSelectionModel().getSelectedItem()) instanceof Good) {
+                ArrayList<Item> items = new ArrayList<>();
+                items.addAll(tCheckoutSellingOverview.getItems());
+                Item item = (Item) tCheckoutSellingOverview.getSelectionModel().getSelectedItem();
+                tCheckoutSellingOverview.getItems().clear();
+                if(items.get(items.indexOf(item)).getCheckoutAmount() > 1) {
+                    items.get(items.indexOf(item)).addCheckoutAmount(- 1);
+                } else {
+                    items.remove(item);
+                }
+                tCheckoutSellingOverview.getItems().addAll(items);
+                tCheckoutSellingOverview.getSelectionModel().select(item);
+                updateCheckoutPrice();
             }
-            tCheckoutSellingOverview.getItems().addAll(items);
-            tCheckoutSellingOverview.getSelectionModel().select(item);
-            updateCheckoutPrice();
         }
     }
 
