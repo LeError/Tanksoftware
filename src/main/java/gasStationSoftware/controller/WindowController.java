@@ -14,17 +14,11 @@ import gasStationSoftware.models.GoodDocument;
 import gasStationSoftware.models.InventoryType;
 import gasStationSoftware.models.Item;
 import gasStationSoftware.models.ItemType;
-import gasStationSoftware.ui.EmployeeInputDialog;
-import gasStationSoftware.ui.FuelTankInputDialog;
-import gasStationSoftware.ui.GasPumpDialog;
-import gasStationSoftware.ui.GasPumpInputDialog;
-import gasStationSoftware.ui.GoodsDialog;
-import gasStationSoftware.ui.ItemInputDialog;
-import gasStationSoftware.ui.ItemTypeInputDialog;
-import gasStationSoftware.ui.ThemeDialog;
+import gasStationSoftware.ui.*;
 import gasStationSoftware.util.Dialog;
 import gasStationSoftware.util.ProgressBarCustom;
 import gasStationSoftware.util.Utility;
+import gasStationSoftware.util.WriteFile;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -46,6 +40,7 @@ import javafx.scene.shape.Polygon;
 import javafx.stage.FileChooser;
 import javafx.util.Callback;
 
+import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
@@ -257,6 +252,11 @@ implements Initializable {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        } else if(event.getTarget() == btnOpeInventoryDelivery) {
+            if(tGoodsInventoryDelivery.getSelectionModel().getSelectedItem() != null) {
+                Document doc = (Document) tGoodsInventoryDelivery.getSelectionModel().getSelectedItem();
+                new ContentDialog(rootPane, this, doc.getNAME(), doc.getLinesForFile(), doc);
+            }
         }
     }
 
@@ -283,6 +283,11 @@ implements Initializable {
         } else if(event.getTarget() == btnGoToTanks) {
             hideSubPanes();
             tankStatusPane.setVisible(true);
+        } else if(event.getTarget() == btnOpenFuelDeliveries) {
+            if(tFuelsFuelDeliveries.getSelectionModel().getSelectedItem() != null) {
+                Document doc = (Document) tFuelsFuelDeliveries.getSelectionModel().getSelectedItem();
+                new ContentDialog(rootPane, this, doc.getNAME(), doc.getLinesForFile(), doc);
+            }
         }
     }
 
@@ -1272,6 +1277,19 @@ implements Initializable {
     }
 
     /**
+     * Gibt einen Pfad als String zurück über einen FileChooser
+     * @param title Title des FileChoosers
+     * @return path
+     * @author Robin Herder
+     */
+    private String getFileSave(String title) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle(title);
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text Files", "*.txt"));
+        return fileChooser.showSaveDialog(rootPane.getScene().getWindow()).getAbsolutePath();
+    }
+
+    /**
      * Loginscreen initialisieren je nach rechterolle
      * @author Robin Herder
      */
@@ -1364,6 +1382,14 @@ implements Initializable {
     public void setProfilePicture(Image image) {
         ivUserMenuBar.setImage(image);
         ivUserProfilePictureUser.setImage(image);
+    }
+
+    public void export(Document doc) throws IOException {
+        WriteFile write = new WriteFile(getFileSave("Exportieren"));
+        for(String line : doc.getLinesForFile()) {
+            write.addLine(line);
+        }
+        write.write();
     }
 
 }
