@@ -1,10 +1,6 @@
 package gasStationSoftware.controller;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXDatePicker;
-import com.jfoenix.controls.JFXPasswordField;
-import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.*;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import gasStationSoftware.exceptions.DataFileNotFoundException;
 import gasStationSoftware.models.Document;
@@ -942,7 +938,16 @@ implements Initializable {
      * @param pane Anchorpane des dialogs
      */
     public void processThemeInput(AnchorPane pane) {
-
+        Color menuBar = new Color((float) ((JFXColorPicker) pane.getChildren().get(8)).getValue().getRed(), (float) ((JFXColorPicker) pane.getChildren().get(8)).getValue().getGreen(), (float) ((JFXColorPicker) pane.getChildren().get(8)).getValue().getBlue(), (float) ((JFXColorPicker) pane.getChildren().get(8)).getValue().getOpacity());
+        Color contentPaneBackground = new Color((float) ((JFXColorPicker) pane.getChildren().get(9)).getValue().getRed(), (float) ((JFXColorPicker) pane.getChildren().get(9)).getValue().getGreen(), (float) ((JFXColorPicker) pane.getChildren().get(9)).getValue().getBlue(), (float) ((JFXColorPicker) pane.getChildren().get(9)).getValue().getOpacity());
+        Color icons = new Color((float) ((JFXColorPicker) pane.getChildren().get(10)).getValue().getRed(), (float) ((JFXColorPicker) pane.getChildren().get(10)).getValue().getGreen(), (float) ((JFXColorPicker) pane.getChildren().get(10)).getValue().getBlue(), (float) ((JFXColorPicker) pane.getChildren().get(10)).getValue().getOpacity());
+        Color dividerMenuBar = new Color((float) ((JFXColorPicker) pane.getChildren().get(11)).getValue().getRed(), (float) ((JFXColorPicker) pane.getChildren().get(11)).getValue().getGreen(), (float) ((JFXColorPicker) pane.getChildren().get(11)).getValue().getBlue(), (float) ((JFXColorPicker) pane.getChildren().get(11)).getValue().getOpacity());
+        Color fontContent = new Color((float) ((JFXColorPicker) pane.getChildren().get(12)).getValue().getRed(), (float) ((JFXColorPicker) pane.getChildren().get(12)).getValue().getGreen(), (float) ((JFXColorPicker) pane.getChildren().get(12)).getValue().getBlue(), (float) ((JFXColorPicker) pane.getChildren().get(12)).getValue().getOpacity());
+        Color buttonBackground = new Color((float) ((JFXColorPicker) pane.getChildren().get(13)).getValue().getRed(), (float) ((JFXColorPicker) pane.getChildren().get(13)).getValue().getGreen(), (float) ((JFXColorPicker) pane.getChildren().get(13)).getValue().getBlue(), (float) ((JFXColorPicker) pane.getChildren().get(13)).getValue().getOpacity());
+        Color buttonFont = new Color((float) ((JFXColorPicker) pane.getChildren().get(14)).getValue().getRed(), (float) ((JFXColorPicker) pane.getChildren().get(14)).getValue().getGreen(), (float) ((JFXColorPicker) pane.getChildren().get(14)).getValue().getBlue(), (float) ((JFXColorPicker) pane.getChildren().get(14)).getValue().getOpacity());
+        Color dividerContent = new Color((float) ((JFXColorPicker) pane.getChildren().get(15)).getValue().getRed(), (float) ((JFXColorPicker) pane.getChildren().get(15)).getValue().getGreen(), (float) ((JFXColorPicker) pane.getChildren().get(15)).getValue().getBlue(), (float) ((JFXColorPicker) pane.getChildren().get(15)).getValue().getOpacity());
+        String themeTitle = ((JFXTextField) pane.getChildren().get(16)).getText();
+        logic.saveTheme(menuBar, contentPaneBackground, icons, dividerMenuBar, fontContent, buttonBackground, buttonFont, dividerContent, themeTitle);
     }
 
     /**
@@ -952,7 +957,15 @@ implements Initializable {
      * @author Robin Herder
      */
     public void processExistingTheme(AnchorPane pane, String title) {
-
+        Color menuBar = new Color((float) ((JFXColorPicker) pane.getChildren().get(8)).getValue().getRed(), (float) ((JFXColorPicker) pane.getChildren().get(8)).getValue().getGreen(), (float) ((JFXColorPicker) pane.getChildren().get(8)).getValue().getBlue(), (float) ((JFXColorPicker) pane.getChildren().get(8)).getValue().getOpacity());
+        Color contentPaneBackground = new Color((float) ((JFXColorPicker) pane.getChildren().get(9)).getValue().getRed(), (float) ((JFXColorPicker) pane.getChildren().get(9)).getValue().getGreen(), (float) ((JFXColorPicker) pane.getChildren().get(9)).getValue().getBlue(), (float) ((JFXColorPicker) pane.getChildren().get(9)).getValue().getOpacity());
+        Color icons = new Color((float) ((JFXColorPicker) pane.getChildren().get(10)).getValue().getRed(), (float) ((JFXColorPicker) pane.getChildren().get(10)).getValue().getGreen(), (float) ((JFXColorPicker) pane.getChildren().get(10)).getValue().getBlue(), (float) ((JFXColorPicker) pane.getChildren().get(10)).getValue().getOpacity());
+        Color dividerMenuBar = new Color((float) ((JFXColorPicker) pane.getChildren().get(11)).getValue().getRed(), (float) ((JFXColorPicker) pane.getChildren().get(11)).getValue().getGreen(), (float) ((JFXColorPicker) pane.getChildren().get(11)).getValue().getBlue(), (float) ((JFXColorPicker) pane.getChildren().get(11)).getValue().getOpacity());
+        Color fontContent = new Color((float) ((JFXColorPicker) pane.getChildren().get(12)).getValue().getRed(), (float) ((JFXColorPicker) pane.getChildren().get(12)).getValue().getGreen(), (float) ((JFXColorPicker) pane.getChildren().get(12)).getValue().getBlue(), (float) ((JFXColorPicker) pane.getChildren().get(12)).getValue().getOpacity());
+        Color buttonBackground = new Color((float) ((JFXColorPicker) pane.getChildren().get(13)).getValue().getRed(), (float) ((JFXColorPicker) pane.getChildren().get(13)).getValue().getGreen(), (float) ((JFXColorPicker) pane.getChildren().get(13)).getValue().getBlue(), (float) ((JFXColorPicker) pane.getChildren().get(13)).getValue().getOpacity());
+        Color buttonFont = new Color((float) ((JFXColorPicker) pane.getChildren().get(14)).getValue().getRed(), (float) ((JFXColorPicker) pane.getChildren().get(14)).getValue().getGreen(), (float) ((JFXColorPicker) pane.getChildren().get(14)).getValue().getBlue(), (float) ((JFXColorPicker) pane.getChildren().get(14)).getValue().getOpacity());
+        Color dividerContent = new Color((float) ((JFXColorPicker) pane.getChildren().get(15)).getValue().getRed(), (float) ((JFXColorPicker) pane.getChildren().get(15)).getValue().getGreen(), (float) ((JFXColorPicker) pane.getChildren().get(15)).getValue().getBlue(), (float) ((JFXColorPicker) pane.getChildren().get(15)).getValue().getOpacity());
+        logic.saveTheme(menuBar, contentPaneBackground, icons, dividerMenuBar, fontContent, buttonBackground, buttonFont, dividerContent, title);
     }
 
     //===[CHECKOUT SPECIFIC]==================================================
