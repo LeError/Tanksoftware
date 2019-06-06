@@ -26,6 +26,8 @@ public class TextFielCustom extends TableCell<Item, Double> {
      */
     public void setAmount(Double value) {
         amount.setText(String.valueOf(value));
-        amount.setMinSize(100, 30);
+        amount.setMinSize(50, 30);
+        amount.setPrefSize(50, 30);
+        amount.setMaxSize(50, 30);
     }
 }
