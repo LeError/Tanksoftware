@@ -273,17 +273,14 @@
                         </AnchorPane>
                         <AnchorPane fx:id="inventoryOrderPane" prefHeight="600.0" prefWidth="890.0" visible="false">
                             <children>
-                                <TableView fx:id="tGoodsInventoryOrder" layoutX="65.0" layoutY="100.0" prefHeight="384.0" prefWidth="446.0" />
+                                <TableView fx:id="tGoodsInventoryOrder" layoutX="65.0" layoutY="100.0" prefHeight="400.0" prefWidth="760.0" />
                                 <Label fx:id="titleInventoryOrder" layoutX="65.0" layoutY="30.0" text="Waren-Bestellen" textFill="#212121">
                                     <font>
                                         <Font name="System Bold" size="30.0" />
                                     </font>
                                 </Label>
-                                <JFXButton fx:id="btnGroceriesInventoryOrder" buttonType="RAISED" layoutX="530.0" layoutY="100.0" prefHeight="200.0" prefWidth="325.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Lebensmittel" textFill="WHITE" />
-                                <JFXButton fx:id="btnOtherInventoryOrder" buttonType="RAISED" layoutX="702.0" layoutY="315.0" prefHeight="170.0" prefWidth="152.5" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Sonstiges" textFill="WHITE" />
-                                <JFXButton fx:id="btnAdultInventoryOrder" buttonType="RAISED" layoutX="529.0" layoutY="315.0" prefHeight="170.0" prefWidth="152.5" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Artikel ab 18" textFill="WHITE" />
-                                <JFXButton fx:id="btnCanelInventoryOrder" buttonType="RAISED" layoutX="530.0" layoutY="520.0" prefHeight="30.0" prefWidth="152.5" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Abbrechen" textFill="WHITE" />
-                                <JFXButton fx:id="btnSubmitInventoryOrder" buttonType="RAISED" layoutX="702.0" layoutY="520.0" prefHeight="30.0" prefWidth="152.5" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Abschicken" textFill="WHITE" />
+                                <JFXButton fx:id="btnOpenInventoryOrder" buttonType="RAISED" layoutX="515.0" layoutY="520.0" onMousePressed="#handleInventoryAction" prefHeight="30.0" prefWidth="152.5" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Öffnen" textFill="WHITE" />
+                                <JFXButton fx:id="btnCreateInventoryOrder" buttonType="RAISED" layoutX="675.0" layoutY="520.0" onMousePressed="#handleInventoryAction" prefHeight="30.0" prefWidth="152.5" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Erstellen" textFill="WHITE" />
                         <JFXButton layoutX="830.0" layoutY="15.0" onMousePressed="#handleCloseAction" prefHeight="40.0" prefWidth="40.0" style="-jfx-disable-visual-focus: true;">
                            <graphic>
                               <MaterialDesignIconView glyphName="CLOSE" size="24" style="-fx-fill: #607D8B;" />
@@ -364,8 +361,8 @@
                                         <Font name="System Bold" size="30.0" />
                                     </font>
                                 </Label>
-                                <JFXButton fx:id="btnSubmitFuelOrder" buttonType="RAISED" layoutX="675.0" layoutY="520.0" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Abschicken" textFill="WHITE" />
-                                <JFXButton fx:id="btnCancelFuelOrder" buttonType="RAISED" layoutX="515.0" layoutY="520.0" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Abbrechen" textFill="WHITE" />
+                                <JFXButton fx:id="btnCreateFuelOrder" buttonType="RAISED" layoutX="675.0" layoutY="520.0" onMousePressed="#handleFuelAction" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Abschicken" textFill="WHITE" />
+                                <JFXButton fx:id="btnOpenFuelOrder" buttonType="RAISED" layoutX="515.0" layoutY="520.0" onMousePressed="#handleFuelAction" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Abbrechen" textFill="WHITE" />
                                 <TableView fx:id="tFuelsFuelOrder" layoutX="65.0" layoutY="100.0" prefHeight="400.0" prefWidth="760.0" />
                         <JFXButton layoutX="830.0" layoutY="15.0" onMousePressed="#handleCloseAction" prefHeight="40.0" prefWidth="40.0" style="-jfx-disable-visual-focus: true;">
                            <graphic>
@@ -841,11 +838,10 @@
         <ArrayList fx:id="allButtons">
             <fx:reference source="btnAddFuelOverview" />
             <fx:reference source="btnAddGoodOverview" />
-            <fx:reference source="btnAdultInventoryOrder" />
             <fx:reference source="btnOpenFuelDeliveries" />
-            <fx:reference source="btnCancelFuelOrder" />
+            <fx:reference source="btnOpenFuelOrder" />
             <fx:reference source="btnOpeInventoryDelivery" />
-            <fx:reference source="btnCanelInventoryOrder" />
+            <fx:reference source="btnOpenInventoryOrder" />
             <fx:reference source="btnCheckOutSalesOverview" />
             <fx:reference source="btnCreateEmployeeOverview" />
             <fx:reference source="btnCreateThemeSettingsOverview" />
@@ -872,9 +868,8 @@
             <fx:reference source="btnNewSettingsTank" />
             <fx:reference source="btnOrderInventoryOverview" />
             <fx:reference source="btnOrdersFuelOverview" />
-            <fx:reference source="btnOtherInventoryOrder" />
-            <fx:reference source="btnSubmitFuelOrder" />
-            <fx:reference source="btnSubmitInventoryOrder" />
+            <fx:reference source="btnCreateFuelOrder" />
+            <fx:reference source="btnCreateInventoryOrder" />
             <fx:reference source="btnTanksSettingsOverview" />
             <fx:reference source="btnAddAmountSalesOverview" />
             <fx:reference source="btnRemoveAmountSalesOverview" />
