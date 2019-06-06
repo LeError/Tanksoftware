@@ -1,7 +1,6 @@
 package gasStationSoftware.util;
 
 import javax.sound.sampled.*;
-import java.io.IOException;
 import java.io.InputStream;
 
 public class Audio {
