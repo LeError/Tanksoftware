@@ -15,10 +15,8 @@ import gasStationSoftware.models.InventoryType;
 import gasStationSoftware.models.Item;
 import gasStationSoftware.models.ItemType;
 import gasStationSoftware.ui.*;
+import gasStationSoftware.util.*;
 import gasStationSoftware.util.Dialog;
-import gasStationSoftware.util.ProgressBarCustom;
-import gasStationSoftware.util.Utility;
-import gasStationSoftware.util.WriteFile;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -76,22 +74,17 @@ implements Initializable {
     @FXML private Label lblUserNameUser, lblUserRoleUser, lblSalesSumDailyUser, lblSalesSumMonthlyUser, lblSalesSumYearlyUser;
 
     @FXML private AnchorPane sellingPane, sellingOverviewPane;
-    @FXML private Label titleSalesOverview, lblOrderSumSalesOverview, lblTotalSalesOverview, lblTotalCurrencySalesOverview;
+    @FXML private Label lblTotalSalesOverview;
     @FXML private JFXButton btnCheckOutSalesOverview, btnGoodsSalesOverview, btnGasPumpsSalesOverview, btnAddAmountSalesOverview, btnRemoveAmountSalesOverview, btnDeleteSalesOverview;
-    @FXML private MaterialDesignIconView icoCheckOutSalesOverview, icoGoodsSalesOverview, icoGasPumpsSalesOverview;
     @FXML private TableView tCheckoutSellingOverview;
 
     @FXML private AnchorPane inventoryPane, inventoryOverviewPane, inventoryOrderPane, inventoryDeliveryPane;
-    @FXML private Label titleInventoryOverview, titleInventoryOrder, titleInventoryDelivery;
-    @FXML private JFXButton btnOrderInventoryOverview, btnDeliveriesInventoryOverview, btnGroceriesInventoryOrder, btnOtherInventoryOrder, btnAdultInventoryOrder, btnAddGoodOverview;
-    @FXML private JFXButton btnCanelInventoryOrder, btnSubmitInventoryOrder, btnOpeInventoryDelivery, btnImportInventoryDelivery;
-    @FXML private MaterialDesignIconView icoOrderInventoryOverview, icoDeliveryInventoryOverview, icoAddFuelOverview;
+    @FXML private JFXButton btnOrderInventoryOverview, btnDeliveriesInventoryOverview, btnAddGoodOverview;
+    @FXML private JFXButton btnOpenInventoryOrder, btnCreateInventoryOrder, btnOpeInventoryDelivery, btnImportInventoryDelivery;
     @FXML private TableView tGoodsInventoryOverview, tGoodsInventoryOrder, tGoodsInventoryDelivery;
 
     @FXML private AnchorPane fuelPane, fuelOverviewPane, fuelOrderPane, fuelDeliveryPane, tankStatusPane;
-    @FXML private Label titleFuelOverview, titleFuelOrder, titleFuelDeliveries, titleTanksStatus;
-    @FXML private JFXButton btnDeliveriesFuelOverview, btnOrdersFuelOverview, btnSubmitFuelOrder, btnCancelFuelOrder, btnOpenFuelDeliveries, btnImportFuelDeliveries, btnAddFuelOverview, btnGoToTanks;
-    @FXML private MaterialDesignIconView icoDeiveriesFuelOverview, icoOrdersFuelOverview, icoGoToTanks;
+    @FXML private JFXButton btnDeliveriesFuelOverview, btnOrdersFuelOverview, btnCreateFuelOrder, btnOpenFuelOrder, btnOpenFuelDeliveries, btnImportFuelDeliveries, btnAddFuelOverview, btnGoToTanks;
     @FXML private TableView tFuelsFuelOverview, tFuelsFuelOrder, tFuelsFuelDeliveries, tTanksStatus;
 
     @FXML private AnchorPane employeePane, employeeOverviewPane;
@@ -244,6 +237,13 @@ implements Initializable {
                 Document doc = (Document) tGoodsInventoryDelivery.getSelectionModel().getSelectedItem();
                 new ContentDialog(rootPane, this, doc.getNAME(), doc.getLinesForFile(), doc);
             }
+        } else if(event.getTarget() == btnOpenInventoryOrder) {
+            if(tGoodsInventoryOrder.getSelectionModel().getSelectedItem() != null) {
+                Document doc = (Document) tGoodsInventoryOrder.getSelectionModel().getSelectedItem();
+                new ContentDialog(rootPane, this, doc.getNAME(), doc.getLinesForFile(), doc);
+            }
+        } else if(event.getTarget() == btnCreateInventoryOrder) {
+
         }
     }
 
@@ -275,6 +275,13 @@ implements Initializable {
                 Document doc = (Document) tFuelsFuelDeliveries.getSelectionModel().getSelectedItem();
                 new ContentDialog(rootPane, this, doc.getNAME(), doc.getLinesForFile(), doc);
             }
+        } else if(event.getTarget() == btnOpenFuelOrder) {
+            if(tFuelsFuelOrder.getSelectionModel().getSelectedItem() != null) {
+                Document doc = (Document) tFuelsFuelOrder.getSelectionModel().getSelectedItem();
+                new ContentDialog(rootPane, this, doc.getNAME(), doc.getLinesForFile(), doc);
+            }
+        } else if(event.getTarget() == btnCreateFuelOrder) {
+
         }
     }
 
