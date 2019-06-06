@@ -45,7 +45,7 @@ extends Document {
      * @return lines
      * @author Robin Herder
      */
-    public String[] getLinesForFile() {
+    public ArrayList<String> getLinesForFile() {
         return null;
     }
 
