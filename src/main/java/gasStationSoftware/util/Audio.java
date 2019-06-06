@@ -1,7 +1,8 @@
 package gasStationSoftware.util;
 
 import javax.sound.sampled.*;
-import java.io.InputStream;
+import javax.swing.*;
+import java.io.BufferedInputStream;
 
 public class Audio {
 
@@ -13,7 +14,7 @@ public class Audio {
      * @exception Exception
      * @author Robin Herder
      */
-    public void play(InputStream audio) {
+    public void play(BufferedInputStream audio) {
         try {
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(audio);
             AudioFormat format = audioStream.getFormat();
@@ -30,7 +31,7 @@ public class Audio {
             audioLine.close();
             audioStream.close();
         } catch (Exception e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
 }
