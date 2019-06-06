@@ -10,10 +10,10 @@ extends Document {
 
     /**
      * Constructor GoodDocument
-     * @param docType
-     * @param name
-     * @param date
-     * @param goods
+     * @param docType art des dokuments
+     * @param name name des dokuments
+     * @param date erstellungsdatum
+     * @param goods wahhren im doc
      * @author Robin Herder
      */
     public GoodDocument(DocumentType docType, String name, Date date, ArrayList<Good> goods) {
@@ -22,8 +22,8 @@ extends Document {
     }
 
     /**
-     *
-     * @return
+     * Gibt inhalt zum schrieben der datei zurück
+     * @return zeilen für datei
      * @author Robin Herder
      */
     @Override public String[] getLinesForFile() {
@@ -31,8 +31,8 @@ extends Document {
     }
 
     /**
-     *
-     * @return
+     * gibt die wahren in lieferung zurück
+     * @return goods
      * @author Robin Herder
      */
     public ArrayList<Good> getGoods() {
@@ -41,7 +41,7 @@ extends Document {
 
     /**
      * Gibt den Gesamtpreis des Waren zurück
-     * @return
+     * @return total
      * @author Robin Herder
      */
     public float getTotal() {
@@ -53,8 +53,8 @@ extends Document {
     }
 
     /**
-     *
-     * @return
+     * Total formatiert für tab
+     * @return total
      * @author Robin Herder
      */
     @Override public String getTotalForTab() {
