@@ -347,7 +347,7 @@
                                 <TableView fx:id="tFuelsFuelOverview" layoutX="65.0" layoutY="100.0" prefHeight="400.0" prefWidth="760.0" />
                         <JFXButton fx:id="btnGoToTanks" buttonType="RAISED" layoutX="195.0" layoutY="520.0" onMousePressed="#handleFuelAction" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Tankübersicht" textFill="WHITE">
                            <graphic>
-                              <MaterialDesignIconView fx:id="icoGoToTanks" fill="WHITE" glyphName="PLUS" size="20" smooth="false" />
+                              <MaterialDesignIconView fx:id="icoGoToTanks" fill="WHITE" glyphName="WATER" size="20" smooth="false" />
                            </graphic>
                         </JFXButton>
                         <JFXButton layoutX="830.0" layoutY="15.0" onMousePressed="#handleCloseAction" prefHeight="40.0" prefWidth="40.0" style="-jfx-disable-visual-focus: true;">
