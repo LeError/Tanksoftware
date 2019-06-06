@@ -2,6 +2,7 @@ package gasStationSoftware.models;
 
 import gasStationSoftware.util.Utility;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public abstract class Document {
@@ -78,7 +79,7 @@ public abstract class Document {
      * Zeilen für datei returnen
      * @author Robin Herder
      */
-    public abstract String[] getLinesForFile();
+    public abstract ArrayList<String> getLinesForFile();
 
     /**
      * Total für tabelle formatieren
