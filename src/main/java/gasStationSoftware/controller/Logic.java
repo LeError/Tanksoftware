@@ -1547,7 +1547,7 @@ public class Logic {
         for (int i = 0; i < label.size(); i++) {
             int idxItemType = 0;
             for (int ii = 0; ii < types.size(); ii++) {
-                if (types.get(ii).getLABEL().equals(label.get(i))) {
+                if (types.get(ii).getLABEL().toLowerCase().equals(label.get(i))) {
                     idxItemType = ii;
                 }
             }
