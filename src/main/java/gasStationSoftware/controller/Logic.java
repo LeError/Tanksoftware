@@ -8,11 +8,11 @@ import gasStationSoftware.models.Document;
 import gasStationSoftware.models.DocumentType;
 import gasStationSoftware.models.Employee;
 import gasStationSoftware.models.Fuel;
-import gasStationSoftware.models.FuelDocument;
+import gasStationSoftware.models.FuelDeliveryDocument;
 import gasStationSoftware.models.FuelTank;
 import gasStationSoftware.models.GasPump;
 import gasStationSoftware.models.Good;
-import gasStationSoftware.models.GoodDocument;
+import gasStationSoftware.models.GoodDeliveryDocument;
 import gasStationSoftware.models.InventoryType;
 import gasStationSoftware.models.Item;
 import gasStationSoftware.models.ItemType;
@@ -271,6 +271,26 @@ public class Logic {
             e.printStackTrace();
         }
         updateBalance();
+        try {
+            ReadJSON read = new ReadJSON(DATA_FILE_PATH + DATA_FILE_NAMES[6]);
+            if (read.getItemStringArray("gasPumpID").length < gasPumps.size()) {
+                WriteJSON write = new WriteJSON(DATA_FILE_PATH + DATA_FILE_NAMES[6]);
+                String[] gasPumpID = new String[gasPumps.size()];
+                String[] gasPumpFuelType = new String[gasPumps.size()];
+                String[] gasPumpAmount = new String[gasPumps.size()];
+                for (int i = 0; i < gasPumpAmount.length; i++) {
+                    gasPumpID[i] = String.valueOf(i);
+                    gasPumpAmount[i] = String.valueOf(0);
+                    gasPumpFuelType[i] = "null";
+                }
+                write.addItemArray("gasPumpID", gasPumpID);
+                write.addItemArray("fuelType", gasPumpFuelType);
+                write.addItemArray("fuelAmount", gasPumpAmount);
+                write.write(true);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -675,6 +695,27 @@ public class Logic {
         windowController.addRowTTanksSettingsTank(tanks);
         windowController.addRowTSellingReceipt(receipts);
         saveInventory();
+        try {
+            ReadJSON read = new ReadJSON(DATA_FILE_PATH + DATA_FILE_NAMES[6]);
+            String[] gasPumpNumber = read.getItemStringArray("gasPumpID");
+            String[] fuelType = read.getItemStringArray("fuelType");
+            String[] fuelAmount = read.getItemStringArray("fuelAmount");
+            for (Fuel fuel : fuels) {
+                for (int i = 0; i < gasPumpNumber.length; i++) {
+                    if (fuel.getCheckoutTank().getGAS_PUMP_NUMBER() == Integer.parseInt(gasPumpNumber[i])) {
+                        fuelType[i] = "null";
+                        fuelAmount[i] = String.valueOf(0);
+                    }
+                }
+            }
+            WriteJSON write = new WriteJSON(DATA_FILE_PATH + DATA_FILE_NAMES[6]);
+            write.addItemArray("gasPumpID", gasPumpNumber);
+            write.addItemArray("fuelType", fuelType);
+            write.addItemArray("fuelAmount", fuelAmount);
+            write.write(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -1299,7 +1340,7 @@ public class Logic {
         ArrayList<Document> documents = new ArrayList<>();
         if (windowController.noTimeSpan()) {
             for (Document document : this.documents) {
-                if (document instanceof FuelDocument || document instanceof GoodDocument) {
+                if (document instanceof FuelDeliveryDocument || document instanceof GoodDeliveryDocument) {
                     documents.add(document);
                 }
             }
@@ -1382,10 +1423,10 @@ public class Logic {
     private float getDeliveryCosts() {
         float cost = 0;
         for (Document document : documents) {
-            if (document instanceof FuelDocument) {
-                cost += ((FuelDocument) document).getTotal();
-            } else if (document instanceof GoodDocument) {
-                cost += ((GoodDocument) document).getTotal();
+            if (document instanceof FuelDeliveryDocument) {
+                cost += ((FuelDeliveryDocument) document).getTotal();
+            } else if (document instanceof GoodDeliveryDocument) {
+                cost += ((GoodDeliveryDocument) document).getTotal();
             }
         }
         return cost;
@@ -1574,10 +1615,12 @@ public class Logic {
             }
             fuel.add(new DeliveredFuel(types.get(idxItemType), price.get(i), "EUR", amount.get(i)));
         }
-        documents.add(new FuelDocument(DocumentType.fuelDelivery, filename, read.getDate(), fuel));
-        windowController.addRowTFuelsFuelDelivery((ArrayList<FuelDocument>) Utility.getDocument(documents, DocumentType.fuelDelivery));
+        documents.add(new FuelDeliveryDocument(DocumentType.fuelDelivery, filename, read.getDate(), fuel));
+        windowController.addRowTFuelsFuelDelivery(
+        (ArrayList<FuelDeliveryDocument>) Utility.getDocument(documents, DocumentType.fuelDelivery));
         if(newDelivery) {
-            addDeliveredFuels((ArrayList<DeliveredFuel>) ((FuelDocument) documents.get(documents.size() - 1)).getFuels());
+            addDeliveredFuels(
+            (ArrayList<DeliveredFuel>) ((FuelDeliveryDocument) documents.get(documents.size() - 1)).getFuels());
         }
     }
 
@@ -1651,10 +1694,11 @@ public class Logic {
             }
             good.add(new Good(types.get(idxItemType), price.get(i), "EUR", amount.get(i), unit.get(i)));
         }
-        documents.add(new GoodDocument(DocumentType.goodDelivery, filename, read.getDate(), good));
-        windowController.addRowTGoodsInventoryDelivery((ArrayList<GoodDocument>) Utility.getDocument(documents, DocumentType.goodDelivery));
+        documents.add(new GoodDeliveryDocument(DocumentType.goodDelivery, filename, read.getDate(), good));
+        windowController.addRowTGoodsInventoryDelivery(
+        (ArrayList<GoodDeliveryDocument>) Utility.getDocument(documents, DocumentType.goodDelivery));
         if(newDelivery) {
-            addDeliveredGoods(((GoodDocument) documents.get(documents.size() - 1)).getGoods());
+            addDeliveredGoods(((GoodDeliveryDocument) documents.get(documents.size() - 1)).getGoods());
         }
 
     }
