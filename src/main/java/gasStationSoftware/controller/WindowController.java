@@ -27,6 +27,7 @@ import gasStationSoftware.ui.GasPumpDialog;
 import gasStationSoftware.ui.GasPumpInputDialog;
 import gasStationSoftware.ui.GoodsDialog;
 import gasStationSoftware.ui.ItemInputDialog;
+import gasStationSoftware.ui.ItemOrderDialog;
 import gasStationSoftware.ui.ItemTypeInputDialog;
 import gasStationSoftware.ui.ThemeDialog;
 import gasStationSoftware.util.Dialog;
@@ -266,7 +267,9 @@ implements Initializable {
                 new ContentDialog(rootPane, this, doc.getNAME(), doc.getLinesForFile(), doc);
             }
         } else if(event.getTarget() == btnCreateInventoryOrder) {
-
+            ArrayList<Item> items = new ArrayList<>();
+            items.addAll(logic.getGoods());
+            new ItemOrderDialog(rootPane, this, items, InventoryType.Good);
         }
     }
 
@@ -304,7 +307,9 @@ implements Initializable {
                 new ContentDialog(rootPane, this, doc.getNAME(), doc.getLinesForFile(), doc);
             }
         } else if(event.getTarget() == btnCreateFuelOrder) {
-
+            ArrayList<Item> items = new ArrayList<>();
+            items.addAll(logic.getFuels());
+            new ItemOrderDialog(rootPane, this, items, InventoryType.Fuel);
         }
     }
 
