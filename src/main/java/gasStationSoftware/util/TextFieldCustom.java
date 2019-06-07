@@ -4,14 +4,14 @@ import com.jfoenix.controls.JFXTextField;
 import gasStationSoftware.models.Item;
 import javafx.scene.control.TableCell;
 
-public class TextFielCustom
+public class TextFieldCustom
 extends TableCell<Item, Float> {
     private JFXTextField amount = new JFXTextField();
 
     private float item = -1;
     private boolean empty;
 
-    public TextFielCustom() {
+    public TextFieldCustom() {
         amount.setMinSize(50, 30);
         amount.setPrefSize(50, 30);
         amount.setMaxSize(50, 30);
@@ -19,7 +19,6 @@ extends TableCell<Item, Float> {
             Float valueSet = Float.parseFloat(newValue);
             item = valueSet;
             updateItem(valueSet, empty);
-            System.out.println(valueSet);
         });
     }
 
