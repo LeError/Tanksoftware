@@ -13,7 +13,7 @@ public enum DocumentType {
     /**
      * Constructor DocumentType
      * @param type type des dokuments
-     * @author Robin Herder
+     * @author Lea Buchhold
      */
     private DocumentType(String type) {
         TYPE = type;
@@ -22,7 +22,7 @@ public enum DocumentType {
     /**
      * Gibt den Type zurück
      * @return TYPE
-     * @author Robin Herder
+     * @author Lea Buchhold
      */
     public String getTYPE() {
         return TYPE;

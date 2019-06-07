@@ -33,7 +33,7 @@ public class FuelTank {
     /**
      * Gibt die Tanknummer zurück
      * @return TANK_NUMBER
-     * @author Robin Herder
+     * @author Lea Buchhold
      */
     public int getTANK_NUMBER() {
         return TANK_NUMBER;
@@ -42,7 +42,7 @@ public class FuelTank {
     /**
      * Gibt die Kapazität zurück
      * @return capacity
-     * @author Robin Herder
+     * @author Lea Buchhold
      */
     public float getCAPACITY() {
         return capacity;
@@ -51,7 +51,7 @@ public class FuelTank {
     /**
      * gibt label des kraftstoffs zurück
      * @return fuelLabel
-     * @author Robin Herder
+     * @author Lea Buchhold
      */
     public String getFuelLabel() {
         return fuel.getLABEL();
@@ -60,7 +60,7 @@ public class FuelTank {
     /**
      * Gibt den Kraftstoff des Tanks zurück
      * @return fuel
-     * @author Robin Herder
+     * @author Lea Buchhold
      */
     public ItemType getFuel() {
         return fuel;
@@ -69,7 +69,7 @@ public class FuelTank {
     /**
      * Kraftstoff des Tanks einstellen
      * @param fuel
-     * @author Robin Herder
+     * @author Lea Buchhold
      */
     public void setFuel(ItemType fuel) {
         this.fuel = fuel;
@@ -78,7 +78,7 @@ public class FuelTank {
     /**
      * Gibt den Füllstand zurück
      * @return level
-     * @author Robin Herder
+     * @author Lea Buchhold
      */
     public float getLevel() {
         return level;
@@ -87,7 +87,7 @@ public class FuelTank {
     /**
      * Gibt den Füllstand in Prozent zurück
      * @return levelPercentage
-     * @author Robin Herder
+     * @author Lea Buchhold
      */
     public float getLevelPercentage() {
         return levelPercentage * 100;
@@ -111,6 +111,7 @@ public class FuelTank {
      * Stellt das Füllstandlevel des Tanks ein
      * @param level
      * @throws NumberOutOfRangeException
+     * @author Robin Herder
      */
     public void setLevel(float level)
     throws NumberOutOfRangeException {
@@ -124,6 +125,7 @@ public class FuelTank {
     /**
      * Stellt die Kapazität ein
      * @param capacity
+     * @author Lea Buchhold
      */
     public void setCAPACITY(float capacity) {
         this.capacity = capacity;
@@ -132,7 +134,7 @@ public class FuelTank {
     /**
      * Gibt InvNumber des Tanks zurück
      * @return invNumber
-     * @author Robin Herder
+     * @author Lea Buchhold
      */
     public int getInvNumber() {
         return fuel.getINVENTORY_NUMBER();
@@ -141,7 +143,7 @@ public class FuelTank {
     /**
      * Gibt die freie Kapazität des Tanks zurück
      * @return freeSpace
-     * @author Robin Herder
+     * @author Lea Buchhold
      */
     public float getFreeSpace() {
         return capacity - level;

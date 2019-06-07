@@ -13,7 +13,7 @@ extends Item {
      * @param currency
      * @param amount
      * @param unit
-     * @author Robin Herder
+     * @author Lea Buchhold
      */
     public Good(ItemType type, float price, String currency, int amount, String unit) {
         super(type, price, currency);
@@ -24,7 +24,7 @@ extends Item {
     /**
      * Gibt die Menge der Ware zurück
      * @return amount
-     * @author Robin Herder
+     * @author Lea Buchhold
      */
     public int getAmount() {
         return amount;
@@ -33,7 +33,7 @@ extends Item {
     /**
      * Fügt der aktuellen Menge hinzu
      * @param amount aount die hinzugefügt wird
-     * @author Robin Herder
+     * @author Lea Buchhold
      */
     public void addAmount(int amount) {
         this.amount += amount;
@@ -42,7 +42,7 @@ extends Item {
     /**
      * gibt die einheit zurück
      * @return unit
-     * @author Robin Herder
+     * @author Lea Buchhold
      */
     public String getUNIT() {
         return UNIT;

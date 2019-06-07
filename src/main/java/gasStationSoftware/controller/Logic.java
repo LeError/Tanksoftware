@@ -98,7 +98,7 @@ public class Logic {
     /**
      * Getter für die Logic Instance
      * @return logic
-     * @author Robin Herder
+     * @author Lukas Tobias Fink
      */
     public static Logic getInstance() {
         if (logic == null) {
@@ -111,7 +111,7 @@ public class Logic {
      * Getter für die Logic Instance
      * @param windowController WindowController Instanz für Zugriffe aus der logic
      * @return logic
-     * @author Robin Herder
+     * @author Lukas Tobias Fink
      */
     public static Logic getInstance(WindowController windowController) {
         Logic.windowController = windowController;
@@ -410,6 +410,10 @@ public class Logic {
         }
     }
 
+    /**
+     * Lädt die Kraftstofforder die bereits registriert sind (Importiert)
+     * @author Robin Herder
+     */
     public void loadFuelOrder() {
         File[] files = new File(DATA_SUB_PATHS[1]).listFiles();
         for (File file : files) {
@@ -417,6 +421,10 @@ public class Logic {
         }
     }
 
+    /**
+     * Lädt die Warenorder die bereits registriert sind (Importiert)
+     * @author Robin Herder
+     */
     public void loadGoodOrder() {
         File[] files = new File(DATA_SUB_PATHS[3]).listFiles();
         for (File file : files) {
@@ -988,7 +996,7 @@ public class Logic {
     /**
      * Gibt den Titel aller Quittung zurück für json
      * @return receipt
-     * @author Robin Herder
+     * @author Lukas Tobias Fink
      */
     private String[] getReceiptTitle() {
         String[] receipt = new String[receipts.size()];
@@ -1001,7 +1009,7 @@ public class Logic {
     /**
      * Gibt den Employeenummer einer aller zurück für json
      * @return receipt
-     * @author Robin Herder
+     * @author Lukas Tobias Fink
      */
     private String[] getReceiptEmployeeNumber() {
         String[] receipt = new String[receipts.size()];
@@ -1014,7 +1022,7 @@ public class Logic {
     /**
      * Gibt die Daten aller Quittung zurück für json
      * @return recipeDate[]
-     * @author Robin Herder
+     * @author Lukas Tobias Fink
      */
     private String[] getReceiptDate() {
         String[] receipt = new String[receipts.size()];
@@ -1095,7 +1103,7 @@ public class Logic {
     /**
      * Gibt Tankkapazität aller Tanks zurück für json
      * @return tankCapacity[]
-     * @author Robin Herder
+     * @author Lukas Tobias Fink
      */
     private String[] getTankCapacity() {
         String[] tankCapacity = new String[tanks.size()];
@@ -1108,7 +1116,7 @@ public class Logic {
     /**
      * Gibt Füllstand aller Tanks zurück json
      * @return tankLevel[]
-     * @author Robin Herder
+     * @author Lukas Tobias Fink
      */
     private String[] getTankLevel() {
         String[] tankLevel = new String[tanks.size()];
@@ -1121,7 +1129,7 @@ public class Logic {
     /**
      * Gibt die Kraftstoffarten der Tanks zurück für json
      * @return tankAssignedFuels[]
-     * @author Robin Herder
+     * @author Lukas Tobias Fink
      */
     private String[] getTankAssignedFuels() {
         String[] tankAssignedFuels = new String[tanks.size()];
@@ -1134,7 +1142,7 @@ public class Logic {
     /**
      * Gibt die ID des Tanks zurück für json
      * @return tankID[]
-     * @author Robin Herder
+     * @author Lukas Tobias Fink
      */
     private String[] getTankID() {
         String[] tankID = new String[tanks.size()];
@@ -1147,7 +1155,7 @@ public class Logic {
     /**
      * Gibt die Bezeichnung aller Items zurück für json
      * @return itemLabel[]
-     * @author Robin Herder
+     * @author Lukas Tobias Fink
      */
     private String[] getItemLabel() {
         String[] itemLabel = new String[types.size()];
@@ -1160,7 +1168,7 @@ public class Logic {
     /**
      * Gibt die Inventarnummer aller Items zurück für json
      * @return itemInventoryNumber[]
-     * @author Robin Herder
+     * @author Lukas Tobias Fink
      */
     private String[] getItemInventoryNumber() {
         String[] itemInventoryNumber = new String[types.size()];
@@ -1173,7 +1181,7 @@ public class Logic {
     /**
      * Gibt den Itemtyp aller Items zurück für json
      * @return itemType[]
-     * @author Robin Herder
+     * @author Lukas Tobias Fink
      */
     private String[] getItemType() {
         String[] itemType = new String[types.size()];
@@ -1203,7 +1211,7 @@ public class Logic {
     /**
      * Gibt die Inventarnummer aller Kraftstoffe zurück für json
      * @return invNum[]
-     * @author Robin Herder
+     * @author Lukas Tobias Fink
      */
     private String[] getInvNumberFuel() {
         String[] invNum = new String[fuels.size()];
@@ -1216,7 +1224,7 @@ public class Logic {
     /**
      * Gibt den Preis aller Kraftstoffe zurück für json
      * @return price[]
-     * @author Robin Herder
+     * @author Lukas Tobias Fink
      */
     private String[] getPriceFuel() {
         String[] price = new String[fuels.size()];
@@ -1229,7 +1237,7 @@ public class Logic {
     /**
      * Gibt die Währung der Kraftstoff preise zurück für json
      * @return currency[]
-     * @author Robin Herder
+     * @author Lukas Tobias Fink
      */
     private String[] getCurrencyFuel() {
         String[] currency = new String[fuels.size()];
@@ -1242,7 +1250,7 @@ public class Logic {
     /**
      * Gibt die Menge an Kraftstoff zurück für json
      * @return amount[]
-     * @author Robin Herder
+     * @author Lukas Tobias Fink
      */
     private String[] getAmountFuel() {
         String[] amount = new String[fuels.size()];
@@ -1255,7 +1263,7 @@ public class Logic {
     /**
      * Gibt die Inventarnummer aller Waren zurück für json
      * @return invNum[]
-     * @author Robin Herder
+     * @author Lukas Tobias Fink
      */
     private String[] getInvNumberGood() {
         String[] invNum = new String[goods.size()];
@@ -1268,7 +1276,7 @@ public class Logic {
     /**
      * Gibt den Preis aller Waren zurück für json
      * @return price[]
-     * @author Robin Herder
+     * @author Lukas Tobias Fink
      */
     private String[] getPriceGood() {
         String[] price = new String[goods.size()];
@@ -1281,7 +1289,7 @@ public class Logic {
     /**
      * Gibt die Währung der Produkte preise zurück für json
      * @return currency[]
-     * @author Robin Herder
+     * @author Lukas Tobias Fink
      */
     private String[] getCurrencyGood() {
         String[] currency = new String[goods.size()];
@@ -1294,7 +1302,7 @@ public class Logic {
     /**
      * Gibt die menge aller Waren zurück für json
      * @return amount[]
-     * @author Robin Herder
+     * @author Lukas Tobias Fink
      */
     private String[] getAmountGood() {
         String[] amount = new String[goods.size()];
@@ -1307,7 +1315,7 @@ public class Logic {
     /**
      * Gibt die Einheit zurück für json
      * @return unit[]
-     * @author Robin Herder
+     * @author Lukas Tobias Fink
      */
     private String[] getUnit() {
         String[] unit = new String[goods.size()];
@@ -1320,7 +1328,7 @@ public class Logic {
     /**
      * Gibt die Mitarbeiternummern zurück für json
      * @return employeeNumber[]
-     * @author Robin Herder
+     * @author Lukas Tobias Fink
      */
     private String[] getEmployeeNumber() {
         String[] employeeNumber = new String[employees.size()];
@@ -1333,7 +1341,7 @@ public class Logic {
     /**
      * Gibt den Mitarbeiterpass zurück für json
      * @return employeePass[]
-     * @author Robin Herder
+     * @author Lukas Tobias Fink
      */
     private String[] getEmployeePass() {
         String[] employeePass = new String[employees.size()];
@@ -1346,7 +1354,7 @@ public class Logic {
     /**
      * Gibt die Mitarbeiterrollen zurück für json
      * @return employeeRole[]
-     * @author Robin Herder
+     * @author Lukas Tobias Fink
      */
     private String[] getEmployeeRoles() {
         String[] employeeRole = new String[employees.size()];
@@ -1427,7 +1435,7 @@ public class Logic {
 
     /**
      * Gibt alle fuel objekte zurück
-     * @author Robin Herder
+     * @author Lukas Tobias Fink
      */
     public ArrayList<Fuel> getFuels() {
         return fuels;
@@ -1435,8 +1443,7 @@ public class Logic {
 
     /**
      * Gibt den titel des theme zurück
-     *
-     * @author Robin Herder
+     * @author Lukas Tobias Fink
      */
     public String getThemeTitle() {
         return theme;
@@ -1444,8 +1451,7 @@ public class Logic {
 
     /**
      * Gibt den titel der Tankstelle zurück
-     *
-     * @author Robin Herder
+     * @author Lukas Tobias Fink
      */
     public String getTitle() {
         return title;
@@ -1508,7 +1514,7 @@ public class Logic {
      * Gibt alle Itemtypes zurück fuel oder good
      * @param type InventoryType um good und fuel zu unterscheiden
      * @return types[]
-     * @author Robin Herder
+     * @author Lukas Tobias Fink
      */
     public ArrayList<ItemType> getItemTypes(InventoryType type) {
         ArrayList<ItemType> types = Utility.getInventoryType(this.types, type);
@@ -1518,7 +1524,7 @@ public class Logic {
     /**
      * Gibt alle Good Objekte zurück
      * @return goods[]
-     * @author Robin Herder
+     * @author Lukas Tobias Fink
      */
     public ArrayList<Good> getGoods() {
         return goods;
@@ -1527,7 +1533,7 @@ public class Logic {
     /**
      * Gibt alle Tanks zurpck
      * @return tanks[]
-     * @author Robin Herder
+     * @author Lukas Tobias Fink
      */
     public ArrayList<FuelTank> getTanks() {
         return tanks;
@@ -1536,7 +1542,7 @@ public class Logic {
     /**
      * Gibt den Name des angemeldeten Mitarbeiter zurück
      * @return employeeName
-     * @author Robin Herder
+     * @author Lukas Tobias Fink
      */
     public String getEmployeeName() {
         return activeEmployee.getFIRST_NAME() + " " + activeEmployee.getSUR_NAME();
@@ -1545,7 +1551,7 @@ public class Logic {
     /**
      * Gibt die Rolle des angemeldeten Mitarbeiter zurück als Zeichenkette
      * @return employeeRole
-     * @author Robin Herder
+     * @author Lukas Tobias Fink
      */
     public String getEmployeeRole() {
         return activeEmployee.getRole();
@@ -1554,7 +1560,7 @@ public class Logic {
     /**
      * Gibt die Rolle des angemeldeten Mitarbeiters zurück
      * @return employeeRole
-     * @author Robin Herder
+     * @author Lukas Tobias Fink
      */
     public int getRoleID() {
         return activeEmployee.getIRole();
@@ -1563,7 +1569,7 @@ public class Logic {
     /**
      * Gibt nutzerrollen als Liste zurück
      * @return userRoles[]
-     * @author Robin Herder
+     * @author Lukas Tobias Fink
      */
     public ArrayList<String> getUserRoles() {
         ArrayList<String> userRoles = new ArrayList<>();
@@ -1610,15 +1616,13 @@ public class Logic {
     /**
      *
      * @param table
-     * @author Robin Herder
+     * @author Lukas Tobias Fink
      */
     public void addTankTableRows(TableView table) {
         for(FuelTank tank : tanks) {
             table.getItems().add(tank);
         }
     }
-
-    //===[GET ROWS FOR INPUT DIALOGS]==================================================
 
     /**
      * Importier die Kraftstofflieferung
@@ -1781,7 +1785,7 @@ public class Logic {
      * @throws IOException
      * @author Robin Herder
      */
-    public String importFile(String path, int dir, String theme)
+    public String importFile(String path, int dir)
     throws IOException {
         String file;
         String extension;
@@ -1798,18 +1802,6 @@ public class Logic {
             file = "FUEL_DELIVERY_";
             extension = ".txt";
             break;
-        case 3:
-            file = "GOOD_ORDER_";
-            extension = ".txt";
-            break;
-        case 4:
-            file = "GOOD_DELIVERY_";
-            extension = ".txt";
-            break;
-        case 5:
-            file = theme;
-            extension = ".json";
-            break;
         default:
             throw new IOException();
         }
@@ -1819,6 +1811,12 @@ public class Logic {
         return newPath.toString();
     }
 
+    /**
+     * Impotiert eine Datei
+     * @param type Typ der zu importierenden Bestellung
+     * @param file zu importierende datei
+     * @author Robin Herder
+     */
     private void importOrder(DocumentType type, File file) {
         ReadListFile read = new ReadListFile(file.getAbsolutePath(), ";");
         String filename = FilenameUtils.removeExtension(file.getName());
@@ -1981,7 +1979,7 @@ public class Logic {
      * Titel des themes setzen
      * @param theme titel des themes
      * @exception DataFileNotFoundException
-     * @author Robin Herder
+     * @author Lukas Tobias Fink
      */
     public void setTheme(String theme) throws DataFileNotFoundException {
         this.theme = theme;
@@ -1992,7 +1990,7 @@ public class Logic {
     /**
      * Titel der Tankstelle setzen
      * @param title titel der Tankstelle
-     * @author Robin Herder
+     * @author Lukas Tobias Fink
      */
     public void setTitle(String title) {
         this.title = title;

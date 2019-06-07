@@ -9,16 +9,16 @@ public enum InventoryType {
     /**
      * Constructor InventoryType
      * @param type type des items
-     * @author Robin Herder
+     * @author Lea Buchhold
      */
-    private InventoryType(String type) {
+    InventoryType(String type) {
         TYPE = type;
     }
 
     /**
      * Gibt den Type zurück
      * @return
-     * @author Robin Herder
+     * @author Lea Buchhold
      */
     public String getTYPE() {
         return TYPE;

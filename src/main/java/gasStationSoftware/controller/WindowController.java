@@ -239,7 +239,7 @@ implements Initializable {
             inventoryOrderPane.setVisible(true);
         } else if (event.getTarget() == btnImportInventoryDelivery) {
             try {
-                logic.importGoodDelivery(logic.importFile(getFile("Lieferung importieren"), 4, null), true);
+                logic.importGoodDelivery(logic.importFile(getFile("Lieferung importieren"), 4), true);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -276,7 +276,7 @@ implements Initializable {
             fuelOrderPane.setVisible(true);
         } else if(event.getTarget() == btnImportFuelDeliveries) {
             try {
-                logic.importFuelDelivery(logic.importFile(getFile("Kraftstofflieferung importieren"), 2, null), true);
+                logic.importFuelDelivery(logic.importFile(getFile("Kraftstofflieferung importieren"), 2), true);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -627,7 +627,7 @@ implements Initializable {
     /**
      * Neuer Mitarbeiter der Mitarbeiterübersicht-Tabelle hinzufügen
      * @param employee Angestelten objekt liste
-     * @author Robin Herder
+     * @author Lukas Tobias Fink
      */
     public void addRowTEmployeesEmployeeOverview(ArrayList<Employee> employee){
         tEmployeesEmployeeOverview.getItems().clear();
@@ -637,7 +637,7 @@ implements Initializable {
     /**
      * Neuer Kraftstoff der Kraftstoffeinstellungen-Tabelle hinzufügen
      * @param types Produkt/Kraftstofftype objekt liste
-     * @author Robin Herder
+     * @author Lukas Tobias Fink
      */
     public void addRowTFuelsSettingsFuel(ArrayList<ItemType> types) {
         types = Utility.getInventoryType(types, InventoryType.Fuel);
@@ -648,7 +648,7 @@ implements Initializable {
     /**
      * Neuer Tank der Tankeinstellungen-Tabelle hinzufügen
      * @param tanks Tank objekt liste
-     * @author Robin Herder
+     * @author Lukas Tobias Fink
      */
     public void addRowTTanksSettingsTank(ArrayList<FuelTank> tanks){
         tTanksSettingsTank.getItems().clear();
@@ -659,7 +659,7 @@ implements Initializable {
     /**
      * Neue Zapfsäuler der Zapfsäuleneinstellung-Tabelle hinzufügen
      * @param gasPumps Zapfsäulen objekt liste
-     * @author Robin Herder
+     * @author Lukas Tobias Fink
      */
     public void addRowTGasPumpsSettingsGasPump(ArrayList<GasPump> gasPumps) {
         tGasPumpsSettingsGasPump.getItems().clear();
@@ -669,7 +669,7 @@ implements Initializable {
     /**
      * Neue Ware der Wareneinstellungen-Tabelle hinzufügen
      * @param types Produkt/Kraftstofftype objekt liste
-     * @author Robin Herder
+     * @author Lukas Tobias Fink
      */
     public void addRowTGoodsSettingsGood(ArrayList<ItemType> types) {
         types = Utility.getInventoryType(types, InventoryType.Good);
@@ -680,7 +680,7 @@ implements Initializable {
     /**
      * Kraftstoff der Kraftstoffübersichtstabelle hinzufügen
      * @param fuels Kraftstoff objekt liste
-     * @author Robin Herder
+     * @author Lukas Tobias Fink
      */
     public void addRowTFuelsFuelOverview(ArrayList<Fuel> fuels) {
         tFuelsFuelOverview.getItems().clear();
@@ -690,7 +690,7 @@ implements Initializable {
     /**
      * Ware der Warenübersichtstabelle hinzufügen
      * @param goods Produkt objekt liste
-     * @author Robin Herder
+     * @author Lukas Tobias Fink
      */
     public void addRowTGoodsInventoryOverview(ArrayList<Good> goods) {
         tGoodsInventoryOverview.getItems().clear();
@@ -700,7 +700,7 @@ implements Initializable {
     /**
      * Lieferungen der Kraftstofflieferungstabelle hinzufügen
      * @param deliveries Kraftstofflieferung objekt liste
-     * @author Robin Herder
+     * @author Lukas Tobias Fink
      */
     public void addRowTFuelsFuelDelivery(ArrayList<FuelDeliveryDocument> deliveries) {
         tFuelsFuelDeliveries.getItems().clear();
@@ -710,7 +710,7 @@ implements Initializable {
     /**
      * Lieferungen der Produktlieferungstabelle hinzufügen
      * @param deliveries Produktliefrungd objekt liste
-     * @author Robin Herder
+     * @author Lukas Tobias Fink
      */
     public void addRowTGoodsInventoryDelivery(ArrayList<GoodDeliveryDocument> deliveries) {
         tGoodsInventoryDelivery.getItems().clear();
@@ -720,7 +720,7 @@ implements Initializable {
     /**
      * Rechungen oder Quittungen zu Balancetabelle hinzufügen
      * @param documents Dokument objekt liste
-     * @author Robin Herder
+     * @author Lukas Tobias Fink
      */
     public void addRowTReportReportOverview(ArrayList<Document> documents) {
         tReportReportOverview.getItems().clear();
@@ -730,7 +730,7 @@ implements Initializable {
     /**
      * Füllstandmenge
      * @param tanks Tank objekt liste
-     * @author Robin Herder
+     * @author Lukas Tobias Fink
      */
     public void addRowTTankStatus(ArrayList<FuelTank> tanks) {
         tTanksStatus.getItems().clear();
@@ -740,7 +740,7 @@ implements Initializable {
     /**
      * Quittungen zu Quittungstabelle hinzufügen
      * @param receipt liste der quittungen
-     * @author Robin Herder
+     * @author Lukas Tobias Fink
      */
     public void addRowTSellingReceipt(ArrayList<CustomerOrder> receipt) {
         tSellingReceipt.getItems().clear();
@@ -750,7 +750,7 @@ implements Initializable {
     /**
      * Bestellung zu Bestellungstabelle hinzufügen
      * @param fuelOrders liste der quittungen
-     * @author Robin Herder
+     * @author Lukas Tobias Fink
      */
     public void addRowTFuelsFuelOrder(ArrayList<FuelOrderDocument> fuelOrders) {
         tFuelsFuelOrder.getItems().clear();
@@ -760,7 +760,7 @@ implements Initializable {
     /**
      * Bestellung zu Bestellungstabelle hinzufügen
      * @param goodOrders liste der quittungen
-     * @author Robin Herder
+     * @author Lukas Tobias Fink
      */
     public void addRowTGoodsInventoryOrder(ArrayList<GoodOrderDocument> goodOrders) {
         tGoodsInventoryOrder.getItems().clear();
@@ -772,7 +772,7 @@ implements Initializable {
     /**
      * Tabelle an logic weiterreichen
      * @param table Tabelle der Tankansicht
-     * @author Robin Herder
+     * @author Lukas Tobias Fink
      */
     public void addTankTableRows(TableView table) {
         logic.addTankTableRows(table);
@@ -1275,7 +1275,7 @@ implements Initializable {
     /**
      * Gibt den Style aller Buttons zurück (CSS-String)
      * @return buttensStyle
-     * @author Robin Herder
+     * @author Lea Buchhold
      */
     public static String getButtonStyle() {
         return buttonsStyle;
@@ -1284,7 +1284,7 @@ implements Initializable {
     /**
      * Gibt den Style aller Icons zurück (CSS-String)
      * @return iconsStyle
-     * @author Robin Herder
+     * @author Lea Buchhold
      */
     public static String getIconStyle() {
         return iconsStyle;
@@ -1294,7 +1294,7 @@ implements Initializable {
      * Gibt die nächste freie Inventarnummer des InventoryTypes zurück
      * @param type
      * @return freeInvNumber
-     * @author Robin Herder
+     * @author Lea Buchhold
      */
     public int getFreeInvNumber(InventoryType type) {
         return logic.getFreeInvNumber(type);
@@ -1302,8 +1302,8 @@ implements Initializable {
 
     /**
      * Gibt die nächste freie Inventarnummer für Angestellte zurück zurück
-     * @return
-     * @author Robin Herder
+     * @return freie angestellten nummer
+     * @author Lea Buchhold
      */
     public int getFreeEmployeeNumber() {
         return logic.getFreeEmployeeNumber();
@@ -1312,7 +1312,7 @@ implements Initializable {
     /**
      * Gibt die nächste freie Tanknummer zurück
      * @return freeTankNumber
-     * @author Robin Herder
+     * @author Lea Buchhold
      */
     public int getTankNumber() {
         return logic.getFreeTankNumber();
@@ -1321,7 +1321,7 @@ implements Initializable {
     /**
      * Gibt die Kraftstoffe zurück
      * @return fuel[]
-     * @author Robin Herder
+     * @author Lea Buchhold
      */
     public ArrayList<String> getFuel() {
         return logic.getFuel();
@@ -1330,7 +1330,7 @@ implements Initializable {
     /**
      * Gibt die StackPane (rootPane) der anwendung zurück
      * @return rootPane
-     * @author Robin Herder
+     * @author Lea Buchhold
      */
     public StackPane getRootPane() {
         return rootPane;
@@ -1338,8 +1338,8 @@ implements Initializable {
 
     /**
      * Gibt die Nutzerrollen als String zurück
-     * @return
-     * @author Robin Herder
+     * @return Nutzerroller
+     * @author Lea Buchhold
      */
     public ArrayList<String> getUserRoles() {
         return logic.getUserRoles();
@@ -1432,7 +1432,7 @@ implements Initializable {
      * @param day Tageseinnahmen des Angestelten
      * @param month Monatseinnahmen des Angestellten
      * @param year Jahreseinnahmen des Angestellten
-     * @author Robin Herder
+     * @author Lea Buchhold
      */
     public void updateEmployeeBalance(float day, float month, float year) {
         lblSalesSumDailyUser.setText(String.valueOf(day));
@@ -1451,7 +1451,7 @@ implements Initializable {
 
     /**
      * Titel auf UI setzen
-     * @author Robin Herder
+     * @author Lea Buchhold
      */
     public void setTitle(String title) {
         txtTitleSettingsOverview.setText(title);
