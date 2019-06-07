@@ -271,6 +271,8 @@ public class Logic {
             e.printStackTrace();
         }
         updateBalance();
+        loadFuelOrder();
+        loadGoodOrder();
         try {
             ReadJSON read = new ReadJSON(DATA_FILE_PATH + DATA_FILE_NAMES[6]);
             if (read.getItemStringArray("gasPumpID").length < gasPumps.size()) {
@@ -419,6 +421,20 @@ public class Logic {
         File[] files = new File(DATA_SUB_PATHS[4]).listFiles();
         for (File file : files) {
             importGoodDelivery(file.getAbsolutePath(), false);
+        }
+    }
+
+    public void loadFuelOrder() {
+        File[] files = new File(DATA_SUB_PATHS[1]).listFiles();
+        for (File file : files) {
+
+        }
+    }
+
+    public void loadGoodOrder() {
+        File[] files = new File(DATA_SUB_PATHS[3]).listFiles();
+        for (File file : files) {
+
         }
     }
 
@@ -1399,7 +1415,16 @@ public class Logic {
     //===[GETTER]==================================================
 
     /**
+     * Gibt alle fuel objekte zurück
+     * @author Robin Herder
+     */
+    public ArrayList<Fuel> getFuels() {
+        return fuels;
+    }
+
+    /**
      * Gibt den titel des theme zurück
+     *
      * @author Robin Herder
      */
     public String getThemeTitle() {
@@ -1591,7 +1616,7 @@ public class Logic {
      * @author Robin Herder
      */
     public void importFuelDelivery(String path, boolean newDelivery) {
-        ReadListFile read = new ReadListFile(path);
+        ReadListFile read = new ReadListFile(path, "=");
         String filename = FilenameUtils.removeExtension(new File(path).getName());
         String[][] lines = read.getLINES();
         ArrayList<String> label = new ArrayList<>();
@@ -1782,6 +1807,44 @@ public class Logic {
         Files.copy(new File(path).toPath(), newPath);
         return newPath.toString();
     }
+
+    /*private void importOrder(DocumentType type, File file) {
+        ReadListFile read = new ReadListFile(file.getAbsolutePath(), ";");
+        String filename = FilenameUtils.removeExtension(file.getName());
+        String[][] lines = read.getLINES();
+        ArrayList<Item> items = new ArrayList<>();
+        ArrayList<Item> orderItem = new ArrayList<>();
+        for(int i = 0; i < lines.length; i++) {
+            InventoryType iType = null;
+            ArrayList<Item> items = new ArrayList<>();
+            if(type == DocumentType.fuelOrder) {
+                iType = InventoryType.Fuel;
+                items.addAll(fuels);
+            } else {
+                iType = InventoryType.Good;
+                items.addAll(goods);
+            }
+            for(Item item : items) {
+                if(item.getINVENTORY_NUMBER() == Integer.parseInt(lines[i][0])) {
+                    if(type == DocumentType.fuelOrder) {
+                        Item tmpItem = new Fuel(item.getTYPE(), item.getPrice(), item.getCurrency());
+                        tmpItem.setCheckoutAmount(Float.parseFloat(lines[i][1]));
+                        orderItem.add(tmpItem);
+                    }else{
+                        Item tmpItem = new Good(item.getTYPE(), item.getPrice(), item.getCurrency(), ((Good) item).getAmount(), ((Good) item).getUNIT());
+                        tmpItem.setCheckoutAmount(Float.parseFloat(lines[i][1]));
+                        orderItem.add(tmpItem);
+                    }
+                }
+            }
+        }
+        if(type == DocumentType.fuelOrder) {
+            documents.add(new FuelOrderDocument(type, filename, read.getDate(), orderItem));
+        } else {
+            documents.add(new GoodOrderDocument(type, filename, read.getDate(), orderItem));
+        }
+        //todo
+    }*/
 
     /**
      * Überprüft Mitarbeiternummer und Passwort und gibt zurück ob es ein valider login ist und setzt angeeldeten nutzer
