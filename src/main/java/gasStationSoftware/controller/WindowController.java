@@ -1,8 +1,14 @@
 package gasStationSoftware.controller;
 
-import com.jfoenix.controls.*;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXColorPicker;
+import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXTextField;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import gasStationSoftware.exceptions.DataFileNotFoundException;
+import gasStationSoftware.models.CustomerOrder;
 import gasStationSoftware.models.Document;
 import gasStationSoftware.models.Employee;
 import gasStationSoftware.models.Fuel;
@@ -14,9 +20,19 @@ import gasStationSoftware.models.GoodDocument;
 import gasStationSoftware.models.InventoryType;
 import gasStationSoftware.models.Item;
 import gasStationSoftware.models.ItemType;
-import gasStationSoftware.ui.*;
-import gasStationSoftware.util.*;
+import gasStationSoftware.ui.ContentDialog;
+import gasStationSoftware.ui.EmployeeInputDialog;
+import gasStationSoftware.ui.FuelTankInputDialog;
+import gasStationSoftware.ui.GasPumpDialog;
+import gasStationSoftware.ui.GasPumpInputDialog;
+import gasStationSoftware.ui.GoodsDialog;
+import gasStationSoftware.ui.ItemInputDialog;
+import gasStationSoftware.ui.ItemTypeInputDialog;
+import gasStationSoftware.ui.ThemeDialog;
 import gasStationSoftware.util.Dialog;
+import gasStationSoftware.util.ProgressBarCustom;
+import gasStationSoftware.util.Utility;
+import gasStationSoftware.util.WriteFile;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -24,21 +40,19 @@ import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
 import javafx.scene.control.Label;
-import javafx.scene.control.cell.ProgressBarTableCell;
+import javafx.scene.control.Separator;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
 import javafx.stage.FileChooser;
-import javafx.util.Callback;
 
-import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
@@ -75,7 +89,7 @@ implements Initializable {
 
     @FXML private AnchorPane sellingPane, sellingOverviewPane, sellingReceiptPane;
     @FXML private Label lblTotalSalesOverview;
-    @FXML private JFXButton btnCheckOutSalesOverview, btnGoodsSalesOverview, btnGasPumpsSalesOverview, btnAddAmountSalesOverview, btnRemoveAmountSalesOverview, btnDeleteSalesOverview, btnOpenSellingReceipt;
+    @FXML private JFXButton btnCheckOutSalesOverview, btnGoodsSalesOverview, btnGasPumpsSalesOverview, btnAddAmountSalesOverview, btnRemoveAmountSalesOverview, btnDeleteSalesOverview, btnOpenSellingReceipt, btnReceiptSalesOverview;
     @FXML private TableView tCheckoutSellingOverview, tSellingReceipt;
 
     @FXML private AnchorPane inventoryPane, inventoryOverviewPane, inventoryOrderPane, inventoryDeliveryPane;
@@ -138,6 +152,7 @@ implements Initializable {
         addColumnsTReportOverview();
         addColumnsTTanksStatus();
         setDefaultContent();
+        addColumnsTSellingReceipt();
     }
 
     //===[HANDLE EVENT]==================================================
@@ -209,6 +224,14 @@ implements Initializable {
             decAmount();
         } else if (event.getTarget() == btnDeleteSalesOverview) {
             removeElement();
+        } else if (event.getTarget() == btnReceiptSalesOverview) {
+            hideSubPanes();
+            sellingReceiptPane.setVisible(true);
+        } else if (event.getTarget() == btnOpenSellingReceipt) {
+            if (tSellingReceipt.getSelectionModel().getSelectedItem() != null) {
+                Document doc = (Document) tSellingReceipt.getSelectionModel().getSelectedItem();
+                new ContentDialog(rootPane, this, doc.getNAME(), doc.getLinesForFile(), doc);
+            }
         }
     }
 
@@ -560,6 +583,17 @@ implements Initializable {
     }
 
     /**
+     * Spalten der Warenlieferungstabelle einfügen
+     *
+     * @author Robin Herder
+     */
+    private void addColumnsTSellingReceipt() {
+        TableColumn columnGoodDeliveryName = Dialog.getColumn("Quittung", "NAME", 200, true);
+        TableColumn columnGoodDeliveryDate = Dialog.getColumn("Datum", "DATE", 200, true);
+        tSellingReceipt.getColumns().addAll(columnGoodDeliveryName, columnGoodDeliveryDate);
+    }
+
+    /**
      * Spalten der SettingsItemTypetablle einfügen
      * @return  colums[]
      * @author Robin Herder
@@ -684,9 +718,25 @@ implements Initializable {
         tReportReportOverview.getItems().addAll(documents);
     }
 
+    /**
+     * Füllstandmenge
+     * @param tanks Tank objekt liste
+     * @author Robin Herder
+     */
     public void addRowTTankStatus(ArrayList<FuelTank> tanks) {
         tTanksStatus.getItems().clear();
         tTanksStatus.getItems().addAll(tanks);
+    }
+
+    /**
+     * Füllstandmenge
+     *
+     * @param tanks Tank objekt liste
+     * @author Robin Herder
+     */
+    public void addRowTSellingReceipt(ArrayList<CustomerOrder> receipt) {
+        tSellingReceipt.getItems().clear();
+        tSellingReceipt.getItems().addAll(receipt);
     }
 
     //===[LOGIC CALL]==================================================
