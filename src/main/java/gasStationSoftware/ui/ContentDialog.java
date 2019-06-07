@@ -1,6 +1,9 @@
 package gasStationSoftware.ui;
 
-import com.jfoenix.controls.*;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
+import com.jfoenix.controls.JFXTextArea;
 import gasStationSoftware.controller.WindowController;
 import gasStationSoftware.models.Document;
 import gasStationSoftware.util.Dialog;
@@ -27,7 +30,7 @@ public class ContentDialog {
      */
     public ContentDialog(StackPane rootPane, WindowController windowController, String title, ArrayList<String> content, Document doc) {
         String line = "";
-        for(String contentLine :content) {
+        for (String contentLine : content) {
             line += contentLine + "\n";
         }
         inputDialog(rootPane, title, line);
