@@ -44,7 +44,6 @@ extends Document {
 
     /**
      * gibt Total zurück hier null
-     *
      * @return null
      * @author Robin Herder
      */
