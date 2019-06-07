@@ -75,11 +75,10 @@ public class Fuel extends Item {
         for(FuelTank tank : getOTanks()) {
             free += tank.getCAPACITY() - tank.getLevel();
         }
-        if(amount > free) {
-            return false;
-        } else {
+        if(amount <= free) {
             return true;
         }
+        return false;
     }
 
     /**

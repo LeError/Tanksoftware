@@ -85,9 +85,8 @@ public class Employee {
     public boolean logIn(int employeeNumber, String pass) {
         if(EMPLOYEE_NUMBER == employeeNumber && this.pass.equals(pass)) {
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     /**

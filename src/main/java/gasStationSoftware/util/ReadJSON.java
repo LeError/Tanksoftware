@@ -35,12 +35,12 @@ public class ReadJSON {
      * datei lesen
      * @author Robin Herder
      */
-    public void read() { //TODO add canRead & canWrite
+    public void read() {
         try (FileReader fileReader = new FileReader(path)) {
             Object obj = parser.parse(fileReader);
             jsonObject = (JSONObject) obj;
         } catch (Exception e) {
-            //TODO
+            e.printStackTrace();
         }
     }
 
