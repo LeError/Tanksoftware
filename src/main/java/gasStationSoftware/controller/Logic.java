@@ -1402,7 +1402,7 @@ public class Logic {
                     try {
                         oDate = format.parse(Utility.getDateFormatted(document.getODATE()));
                     } catch (ParseException e) {
-                        Logic.displayError("Datum Fehlerhaft", e, false);;
+                        Logic.displayError("Datum Fehlerhaft", e, false);
                     }
                     if (dates.get(1).compareTo(oDate) <= 0 && dates.get(0).compareTo(oDate) >= 0) {
                         documents.add(document);
