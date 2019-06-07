@@ -40,6 +40,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
 import javafx.stage.FileChooser;
 
@@ -56,9 +57,6 @@ implements Initializable {
 
     private Logic logic;
 
-    private final static String[] CB_SETTINGS_TYPE_OPTIONS = { "Settings", "Theme", "Inventory" };
-    private final static String CB_SETTINGS_TYPE_PROMT = "Type auswählen";
-
     private static Color backgroundMenuBar, contentPaneBackground, icons, dividerMenuBar, fontContent, buttonsBackground, buttonsFont, dividerContent;
     private static String backgroundPolygon, backgroundMenuBarStyle, contentPaneBackgroundStyle, iconsStyle, dividerMenuBarStyle, fontStyle, buttonsStyle, dividerContentStyle;
 
@@ -72,6 +70,7 @@ implements Initializable {
     @FXML private AnchorPane menuBarPane;
     @FXML private ImageView ivUserMenuBar;
     @FXML private MaterialDesignIconView icoSellingMenuBar, icoInventoryMenuBar, icoTanksMenuBar, icoEmployeesMenuBar, icoReportsMenuBar, icoSettingsMenuBar;
+    @FXML private Line lineMenuBar;
 
     @FXML private AnchorPane userPane;
     @FXML private ImageView ivUserProfilePictureUser;
@@ -114,9 +113,6 @@ implements Initializable {
     @FXML private ArrayList<Polygon> allPolygons;
     @FXML private ArrayList<Separator> allDivider;
     @FXML private ArrayList<Label> allLabels, allTitles, allSubTitles;
-    @FXML private ArrayList<TableView> allTableViews;
-    @FXML private ArrayList<JFXComboBox> allCb;
-    @FXML private ArrayList<ImageView> allIv;
 
     //===[INIT]==================================================
 
@@ -868,6 +864,7 @@ implements Initializable {
             icon.setStyle(iconsStyle);
         }
         menuBarPane.setStyle(backgroundMenuBarStyle);
+        lineMenuBar.setStyle(dividerMenuBarStyle);
     }
 
     //===[PROCESS INPUT]==================================================
