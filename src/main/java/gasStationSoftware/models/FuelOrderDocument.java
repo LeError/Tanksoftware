@@ -23,15 +23,13 @@ extends Document {
     }
 
     /**
-     * Gibt inhalt zum schrieben der datei zurück
-     *
+     * Gibt inhalt zum schrieben der datei zurück man beachte unterschied zu GoodOrderDocument wie in vorlage
      * @return zeilen für datei
      * @author Robin Herder
      */
     @Override public ArrayList<String> getLinesForFile() {
         ArrayList<String> lines = new ArrayList<>();
         lines.add("Bestelldatum=" + getDATE());
-        lines.add("Warennummer;Bestellmenge");
         for (int i = 0; i < FUELS.size(); i++) {
             lines.add(FUELS.get(i).getINVENTORY_NUMBER() + ";" + FUELS.get(i).getCheckoutAmount());
         }
