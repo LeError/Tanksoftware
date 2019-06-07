@@ -413,14 +413,14 @@ public class Logic {
     public void loadFuelOrder() {
         File[] files = new File(DATA_SUB_PATHS[1]).listFiles();
         for (File file : files) {
-
+            importOrder(DocumentType.fuelOrder, file);
         }
     }
 
     public void loadGoodOrder() {
         File[] files = new File(DATA_SUB_PATHS[3]).listFiles();
         for (File file : files) {
-
+            importOrder(DocumentType.goodOrder, file);
         }
     }
 
@@ -673,7 +673,7 @@ public class Logic {
         if(type == InventoryType.Good) {
             docType = DocumentType.goodOrder;
             int idx = new File(DATA_SUB_PATHS[3]).listFiles().length;
-            doc = new GoodOrderDocument(docType, "GOOD_ORDER_" + idx, new Date(), items);
+            doc = new GoodOrderDocument(docType, "GOOD_ORDER_" + idx + ".txt", new Date(), items);
             WriteFile write = new WriteFile(DATA_SUB_PATHS[3] + doc.getNAME());
             for(String line : doc.getLinesForFile()) {
                 write.addLine(line);
@@ -686,8 +686,8 @@ public class Logic {
         } else {
             docType = DocumentType.fuelOrder;
             int idx = new File(DATA_SUB_PATHS[1]).listFiles().length;
-            doc = new FuelOrderDocument(docType, "FUEL_ORDER_" + idx, new Date(), items);
-            WriteFile write = new WriteFile(DATA_SUB_PATHS[3] + doc.getNAME());
+            doc = new FuelOrderDocument(docType, "FUEL_ORDER_" + idx + ".txt", new Date(), items);
+            WriteFile write = new WriteFile(DATA_SUB_PATHS[1] + doc.getNAME());
             for(String line : doc.getLinesForFile()) {
                 write.addLine(line);
             }
@@ -1829,32 +1829,31 @@ public class Logic {
         return newPath.toString();
     }
 
-    /*private void importOrder(DocumentType type, File file) {
+    private void importOrder(DocumentType type, File file) {
         ReadListFile read = new ReadListFile(file.getAbsolutePath(), ";");
         String filename = FilenameUtils.removeExtension(file.getName());
         String[][] lines = read.getLINES();
         ArrayList<Item> items = new ArrayList<>();
         ArrayList<Item> orderItem = new ArrayList<>();
         for(int i = 0; i < lines.length; i++) {
-            InventoryType iType = null;
-            ArrayList<Item> items = new ArrayList<>();
             if(type == DocumentType.fuelOrder) {
-                iType = InventoryType.Fuel;
                 items.addAll(fuels);
             } else {
-                iType = InventoryType.Good;
                 items.addAll(goods);
             }
             for(Item item : items) {
+                if(lines[i][0].toLowerCase().equals("warennummer")) {
+                    continue;
+                }
                 if(item.getINVENTORY_NUMBER() == Integer.parseInt(lines[i][0])) {
                     if(type == DocumentType.fuelOrder) {
-                        Item tmpItem = new Fuel(item.getTYPE(), item.getPrice(), item.getCurrency());
-                        tmpItem.setCheckoutAmount(Float.parseFloat(lines[i][1]));
-                        orderItem.add(tmpItem);
-                    }else{
-                        Item tmpItem = new Good(item.getTYPE(), item.getPrice(), item.getCurrency(), ((Good) item).getAmount(), ((Good) item).getUNIT());
-                        tmpItem.setCheckoutAmount(Float.parseFloat(lines[i][1]));
-                        orderItem.add(tmpItem);
+                        item.setCheckoutAmount(Float.parseFloat(lines[i][1]));
+                        orderItem.add(item);
+                        break;
+                    } else {
+                        item.setCheckoutAmount(Float.parseFloat(lines[i][1]));
+                        orderItem.add(item);
+                        break;
                     }
                 }
             }
@@ -1864,8 +1863,9 @@ public class Logic {
         } else {
             documents.add(new GoodOrderDocument(type, filename, read.getDate(), orderItem));
         }
-        //todo
-    }*/
+        windowController.addRowTFuelsFuelOrder((ArrayList<FuelOrderDocument>) Utility.getDocument(documents, DocumentType.fuelOrder));
+        windowController.addRowTGoodsInventoryOrder((ArrayList<GoodOrderDocument>) Utility.getDocument(documents, DocumentType.goodOrder));
+    }
 
     /**
      * Überprüft Mitarbeiternummer und Passwort und gibt zurück ob es ein valider login ist und setzt angeeldeten nutzer
