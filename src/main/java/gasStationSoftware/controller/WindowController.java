@@ -103,9 +103,9 @@ implements Initializable {
     @FXML private AnchorPane settingsPane, settingsOverviewPane, settingsFuelPane, settingsTankPane, settingsGasPumpPane, settingsGoodPane;
     @FXML private JFXTextField txtTitleSettingsOverview;
     @FXML private JFXButton btnEditThemeSettingsOverview, btnCreateThemeSettingsOverview, btnFuelsSettingsOverview, btnTanksSettingsOverview, btnGasPumpsSettingsOverview;
-    @FXML private JFXButton btnGoodsSettingsOverview, btnExportSettingsOverview, btnImportSettingsOverview, btnNewSettingsFuel, btnEditSettingsFuel, btnNewSettingsTank;
+    @FXML private JFXButton btnGoodsSettingsOverview, btnNewSettingsFuel, btnEditSettingsFuel, btnNewSettingsTank;
     @FXML private JFXButton btnEditSettingsTank, btnNewSettingsGasPump, btnEditSettingsGasPump, btnNewSettingsGood, btnEditSettingsGood, btnTitleSettingsOverview;
-    @FXML private JFXComboBox cbThemeSettingsOverview, cbTypeSettingsOverview;
+    @FXML private JFXComboBox cbThemeSettingsOverview;
     @FXML private TableView tFuelsSettingsFuel, tTanksSettingsTank, tGasPumpsSettingsGasPump, tGoodsSettingsGood;
 
     @FXML private ArrayList<AnchorPane> panes, subPanes;
@@ -352,8 +352,6 @@ implements Initializable {
         } else if (event.getTarget() == btnGoodsSettingsOverview) {
             hideSubPanes();
             settingsGoodPane.setVisible(true);
-        } else if (event.getTarget() == btnExportSettingsOverview) {
-        } else if (event.getTarget() == btnImportSettingsOverview) {
         } else if (event.getTarget() == btnNewSettingsFuel) {
             new ItemTypeInputDialog(rootPane, this, InventoryType.Fuel);
         } else if (event.getTarget() == btnEditSettingsFuel) {
@@ -791,8 +789,6 @@ implements Initializable {
      * @author Robin Herder
      */
     private void setDefaultContent() {
-        cbTypeSettingsOverview.getItems().setAll((Object[]) CB_SETTINGS_TYPE_OPTIONS);
-        cbTypeSettingsOverview.setPromptText(CB_SETTINGS_TYPE_PROMT);
         lblCopyrightLogin.setText("\u00a9 Lea Buchhold, Lukas Fink, Malik Press, Robin Herder 2019");
     }
 
