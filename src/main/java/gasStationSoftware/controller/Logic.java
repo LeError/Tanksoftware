@@ -18,9 +18,18 @@ import gasStationSoftware.models.Item;
 import gasStationSoftware.models.ItemType;
 import gasStationSoftware.models.UserRole;
 import gasStationSoftware.ui.ErrorDialog;
-import gasStationSoftware.util.*;
+import gasStationSoftware.util.Audio;
+import gasStationSoftware.util.ReadJSON;
+import gasStationSoftware.util.ReadListFile;
+import gasStationSoftware.util.ReadTableFile;
+import gasStationSoftware.util.Utility;
+import gasStationSoftware.util.WriteFile;
+import gasStationSoftware.util.WriteJSON;
 import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
+import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 
 import java.awt.*;
 import java.io.BufferedInputStream;
@@ -32,10 +41,11 @@ import java.nio.file.Path;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
-import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.FilenameUtils;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.Random;
 
 public class Logic {
 
@@ -443,6 +453,7 @@ public class Logic {
             }
             receipts.add(new CustomerOrder(Integer.parseInt(receiptNumber[i]), date, employee, fuels, goods));
         }
+        windowController.addRowTSellingReceipt(receipts);
     }
 
     //===[CREATE OBJECTS FROM JSON]==================================================
@@ -662,6 +673,7 @@ public class Logic {
         windowController.addRowTFuelsFuelOverview(this.fuels);
         windowController.addRowTGoodsInventoryOverview(this.goods);
         windowController.addRowTTanksSettingsTank(tanks);
+        windowController.addRowTSellingReceipt(receipts);
         saveInventory();
     }
 
@@ -1351,6 +1363,15 @@ public class Logic {
      */
     public String getThemeTitle() {
         return theme;
+    }
+
+    /**
+     * Gibt den titel der Tankstelle zurück
+     *
+     * @author Robin Herder
+     */
+    public String getTitle() {
+        return title;
     }
 
     /**
