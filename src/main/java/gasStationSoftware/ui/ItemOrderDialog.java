@@ -6,7 +6,7 @@ import gasStationSoftware.controller.WindowController;
 import gasStationSoftware.models.InventoryType;
 import gasStationSoftware.models.Item;
 import gasStationSoftware.util.Dialog;
-import gasStationSoftware.util.TextFielCustom;
+import gasStationSoftware.util.TextFieldCustom;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
@@ -47,7 +47,7 @@ public class ItemOrderDialog extends Dialog {
         TableColumn columnInvNumberSelected = getColumn("INV #", "INVENTORY_NUMBER", 60d, false);
         TableColumn columnLabelSelected = getColumn("Item", "LABEL", 138d, false);
         TableColumn<Item, Float> columnAmountSelected = getColumn("Menge", "checkoutAmount", 60d, false);
-        columnAmountSelected.setCellFactory(param -> new TextFielCustom());
+        columnAmountSelected.setCellFactory(param -> new TextFieldCustom());
 
         tItemsSelected = getTable(260, 300, 10d, 285d);
         tItemsSelected.getColumns().addAll(columnInvNumberSelected, columnLabelSelected, columnAmountSelected);
