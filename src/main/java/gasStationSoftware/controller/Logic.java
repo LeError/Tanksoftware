@@ -2,21 +2,7 @@ package gasStationSoftware.controller;
 
 import gasStationSoftware.exceptions.DataFileNotFoundException;
 import gasStationSoftware.exceptions.NumberOutOfRangeException;
-import gasStationSoftware.models.CustomerOrder;
-import gasStationSoftware.models.DeliveredFuel;
-import gasStationSoftware.models.Document;
-import gasStationSoftware.models.DocumentType;
-import gasStationSoftware.models.Employee;
-import gasStationSoftware.models.Fuel;
-import gasStationSoftware.models.FuelDeliveryDocument;
-import gasStationSoftware.models.FuelTank;
-import gasStationSoftware.models.GasPump;
-import gasStationSoftware.models.Good;
-import gasStationSoftware.models.GoodDeliveryDocument;
-import gasStationSoftware.models.InventoryType;
-import gasStationSoftware.models.Item;
-import gasStationSoftware.models.ItemType;
-import gasStationSoftware.models.UserRole;
+import gasStationSoftware.models.*;
 import gasStationSoftware.ui.ErrorDialog;
 import gasStationSoftware.util.Audio;
 import gasStationSoftware.util.ReadJSON;
@@ -680,6 +666,41 @@ public class Logic {
     }
 
     //===[ADD NEW OBJECT]==================================================
+
+    public void addOrder(ArrayList<Item> items, InventoryType type) {
+        DocumentType docType;
+        Document doc;
+        if(type == InventoryType.Good) {
+            docType = DocumentType.goodOrder;
+            int idx = new File(DATA_SUB_PATHS[3]).listFiles().length;
+            doc = new GoodOrderDocument(docType, "GOOD_ORDER_" + idx, new Date(), items);
+            WriteFile write = new WriteFile(DATA_SUB_PATHS[3] + doc.getNAME());
+            for(String line : doc.getLinesForFile()) {
+                write.addLine(line);
+            }
+            try {
+                write.write();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            docType = DocumentType.fuelOrder;
+            int idx = new File(DATA_SUB_PATHS[1]).listFiles().length;
+            doc = new FuelOrderDocument(docType, "FUEL_ORDER_" + idx, new Date(), items);
+            WriteFile write = new WriteFile(DATA_SUB_PATHS[3] + doc.getNAME());
+            for(String line : doc.getLinesForFile()) {
+                write.addLine(line);
+            }
+            try {
+                write.write();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        documents.add(doc);
+        windowController.addRowTFuelsFuelOrder((ArrayList<FuelOrderDocument>) Utility.getDocument(documents, DocumentType.fuelOrder));
+        windowController.addRowTGoodsInventoryOrder((ArrayList<GoodOrderDocument>) Utility.getDocument(documents, DocumentType.goodOrder));
+    }
 
     /**
      * Neue Quittung hinzufügen
