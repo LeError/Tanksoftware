@@ -1,6 +1,9 @@
 package gasStationSoftware.ui;
 
-import com.jfoenix.controls.*;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
+import com.jfoenix.controls.JFXTextArea;
 import gasStationSoftware.controller.WindowController;
 import gasStationSoftware.util.Dialog;
 import javafx.fxml.FXML;
@@ -35,7 +38,7 @@ public class ErrorDialog {
         JFXDialogLayout dialogContent = new JFXDialogLayout();
         JFXDialog dialog = new JFXDialog(rootPane, dialogContent, JFXDialog.DialogTransition.CENTER);
 
-        JFXTextField txtErrorText = new JFXTextField(errorText);
+        JFXTextArea txtErrorText = new JFXTextArea(errorText);
         txtErrorText.setEditable(false);
         txtErrorText.setMinSize(490, 80);
         txtErrorText.setMaxSize(490, 80);
