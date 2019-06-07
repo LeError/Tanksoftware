@@ -1,6 +1,5 @@
 package gasStationSoftware.ui;
 
-import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import gasStationSoftware.controller.WindowController;
 import gasStationSoftware.models.ItemType;
