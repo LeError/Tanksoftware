@@ -20,7 +20,7 @@ public class ReadTableFile {
      * @param url pfad der zu lesenden Datei
      * @author Robin Herder
      */
-    public ReadTableFile(String url) { //TODO add canRead & canWrite
+    public ReadTableFile(String url) {
         FILE = new File(url);
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(FILE))) {
             String line;
