@@ -6,7 +6,6 @@
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
-<?import java.lang.Double?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
@@ -18,9 +17,11 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Polygon?>
 <?import javafx.scene.text.Font?>
-
+<?import java.lang.Double?>
 <?import java.util.ArrayList?>
-<StackPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gasStationSoftware.controller.WindowController">
+<StackPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+           prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.172-ea"
+           xmlns:fx="http://javafx.com/fxml/1" fx:controller="gasStationSoftware.controller.WindowController">
     <children>
       <AnchorPane fx:id="loginPane" prefHeight="600.0" prefWidth="1000.0">
          <children>
@@ -178,9 +179,13 @@
                                         <Font size="20.0" />
                                     </font>
                                 </Label>
-                                <JFXButton fx:id="btnCheckOutSalesOverview" buttonType="RAISED" layoutX="580.0" layoutY="430.0" onMousePressed="#handleSaleAction" prefHeight="130.0" prefWidth="260.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Bezahlen" textFill="WHITE">
+                                <JFXButton fx:id="btnCheckOutSalesOverview" buttonType="RAISED" layoutX="580.0"
+                                           layoutY="430.0" onMousePressed="#handleSaleAction" prefHeight="130.0"
+                                           prefWidth="120.0"
+                                           style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;"
+                                           text="Zahlen" textFill="WHITE">
                                     <font>
-                                        <Font name="System Bold" size="20.0" />
+                                        <Font name="System Bold" size="16.0"/>
                                     </font>
                                     <opaqueInsets>
                                         <Insets />
@@ -225,9 +230,25 @@
                               <MaterialDesignIconView glyphName="CLOSE" size="24" style="-fx-fill: #607D8B;" />
                            </graphic>
                         </JFXButton>
+                                <JFXButton fx:id="btnReceiptSalesOverview" buttonType="RAISED" layoutX="720.0"
+                                           layoutY="430.0" onMousePressed="#handleSaleAction" prefHeight="130.0"
+                                           prefWidth="120.0"
+                                           style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;"
+                                           text="Bong" textFill="WHITE">
+                                    <font>
+                                        <Font name="System Bold" size="16.0"/>
+                                    </font>
+                                    <opaqueInsets>
+                                        <Insets/>
+                                    </opaqueInsets>
+                                    <graphic>
+                                        <MaterialDesignIconView fx:id="icoReceiptSalesOverview" fill="WHITE"
+                                                                glyphName="RECEIPT" size="30" smooth="false"/>
+                                    </graphic>
+                                </JFXButton>
                             </children>
                         </AnchorPane>
-                  <AnchorPane fx:id="sellingReceiptPane" layoutX="10.0" layoutY="10.0" prefHeight="600.0" prefWidth="890.0" visible="false">
+                        <AnchorPane fx:id="sellingReceiptPane" prefHeight="600.0" prefWidth="890.0" visible="false">
                      <children>
                         <Label fx:id="titleSellingReceipt" layoutX="65.0" layoutY="30.0" text="Waren-Lieferungen" textFill="#212121">
                            <font>
@@ -235,7 +256,10 @@
                            </font>
                         </Label>
                         <TableView fx:id="tSellingReceipt" layoutX="65.0" layoutY="100.0" prefHeight="400.0" prefWidth="760.0" />
-                        <JFXButton fx:id="btnOpenSellingReceipt" buttonType="RAISED" layoutX="675.0" layoutY="520.0" onMousePressed="#handleSaleAction" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Importieren" textAlignment="CENTER" textFill="WHITE" />
+                         <JFXButton fx:id="btnOpenSellingReceipt" buttonType="RAISED" layoutX="675.0" layoutY="520.0"
+                                    onMousePressed="#handleSaleAction" prefHeight="30.0" prefWidth="150.0"
+                                    style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;"
+                                    text="Öffnen" textAlignment="CENTER" textFill="WHITE"/>
                         <JFXButton layoutX="830.0" layoutY="15.0" onMousePressed="#handleCloseAction" prefHeight="40.0" prefWidth="40.0" style="-jfx-disable-visual-focus: true;">
                            <graphic>
                               <MaterialDesignIconView glyphName="CLOSE" size="24" style="-fx-fill: #607D8B;" />
@@ -852,6 +876,7 @@
             <fx:reference source="icoLogin" />
             <fx:reference source="icoTitleSettingsOverview" />
             <fx:reference source="icoGoToTanks" />
+            <fx:reference source="icoReceiptSalesOverview"/>
         </ArrayList>
         <ArrayList fx:id="allButtons">
             <fx:reference source="btnAddFuelOverview" />
@@ -896,6 +921,7 @@
             <fx:reference source="btnTitleSettingsOverview" />
             <fx:reference source="btnGoToTanks" />
             <fx:reference source="btnOpenSellingReceipt" />
+            <fx:reference source="btnReceiptSalesOverview"/>
         </ArrayList>
         <ArrayList fx:id="allCb">
             <fx:reference source="cbThemeSettingsOverview" />
