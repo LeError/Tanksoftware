@@ -6,8 +6,7 @@ import java.util.Date;
 public class FuelOrderDocument
 extends Document {
 
-    private final ArrayList<Fuel> FUELS;
-    private final ArrayList<Float> FUELS_AMOUNT;
+    private final ArrayList<Item> FUELS;
 
     /**
      * Constructor GoodOrderDocument
@@ -16,14 +15,11 @@ extends Document {
      * @param name        name des dokuments
      * @param date        erstellungsdatum
      * @param fuels       Kraftstoff im doc
-     * @param fuelsAmount Kraftstoff im doc
      * @author Robin Herder
      */
-    public FuelOrderDocument(DocumentType docType, String name, Date date, ArrayList<Fuel> fuels,
-    ArrayList<Float> fuelsAmount) {
+    public FuelOrderDocument(DocumentType docType, String name, Date date, ArrayList<Item> fuels) {
         super(docType, name, date);
         FUELS = fuels;
-        FUELS_AMOUNT = fuelsAmount;
     }
 
     /**
@@ -37,7 +33,7 @@ extends Document {
         lines.add("Bestelldatum=" + getDATE());
         lines.add("Warennummer;Bestellmenge");
         for (int i = 0; i < FUELS.size(); i++) {
-            lines.add(FUELS.get(i).getINVENTORY_NUMBER() + ";" + FUELS_AMOUNT.get(i));
+            lines.add(FUELS.get(i).getINVENTORY_NUMBER() + ";" + FUELS.get(i).getCheckoutAmount());
         }
         return lines;
     }
