@@ -3,19 +3,20 @@ package gasStationSoftware.models;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class FuelDocument extends Document {
+public class FuelDeliveryDocument
+extends Document {
 
     private final ArrayList<DeliveredFuel> FUELS;
 
     /**
-     * Constructor FuelDocument
+     * Constructor FuelDeliveryDocument
      * @param docType  DocumentType
      * @param name name des doc
      * @param date erstelungsdatum
      * @param fuels kraftstoffe die gelivert wurden
      * @author Robin Herder
      */
-    public FuelDocument(DocumentType docType, String name, Date date, ArrayList<DeliveredFuel> fuels) {
+    public FuelDeliveryDocument(DocumentType docType, String name, Date date, ArrayList<DeliveredFuel> fuels) {
         super(docType, name, date);
         FUELS = fuels;
     }
@@ -26,8 +27,14 @@ public class FuelDocument extends Document {
      * @author Robin Herder
      */
     @Override
-    public String[] getLinesForFile() {
-        return new String[0];
+    public ArrayList<String> getLinesForFile() {
+        ArrayList<String> lines = new ArrayList<>();
+        lines.add("LIEFERDATUM=" + getDATE());
+        for(DeliveredFuel fuel : FUELS) {
+            lines.add(fuel.getLABEL() + "=" + fuel.getAmountDelivered());
+            lines.add(fuel.getLABEL() + "_PREIS=" + fuel.getPrice());
+        }
+        return lines;
     }
 
     /**

@@ -2,22 +2,9 @@ package gasStationSoftware.controller;
 
 import gasStationSoftware.exceptions.DataFileNotFoundException;
 import gasStationSoftware.exceptions.NumberOutOfRangeException;
-import gasStationSoftware.models.CustomerOrder;
-import gasStationSoftware.models.DeliveredFuel;
-import gasStationSoftware.models.Document;
-import gasStationSoftware.models.DocumentType;
-import gasStationSoftware.models.Employee;
-import gasStationSoftware.models.Fuel;
-import gasStationSoftware.models.FuelDocument;
-import gasStationSoftware.models.FuelTank;
-import gasStationSoftware.models.GasPump;
-import gasStationSoftware.models.Good;
-import gasStationSoftware.models.GoodDocument;
-import gasStationSoftware.models.InventoryType;
-import gasStationSoftware.models.Item;
-import gasStationSoftware.models.ItemType;
-import gasStationSoftware.models.UserRole;
+import gasStationSoftware.models.*;
 import gasStationSoftware.ui.ErrorDialog;
+import gasStationSoftware.util.Audio;
 import gasStationSoftware.util.ReadJSON;
 import gasStationSoftware.util.ReadListFile;
 import gasStationSoftware.util.ReadTableFile;
@@ -26,6 +13,12 @@ import gasStationSoftware.util.WriteFile;
 import gasStationSoftware.util.WriteJSON;
 import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
+import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
+
+import java.awt.*;
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -34,10 +27,11 @@ import java.nio.file.Path;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
-import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.FilenameUtils;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.Random;
 
 public class Logic {
 
@@ -45,6 +39,8 @@ public class Logic {
     private static WindowController windowController;
 
     private String title, theme;
+
+    private Thread audio;
 
     private final String DATA_FILE_PATH = System.getProperty("user.home") + "\\TANKWare\\";
     private final String[] DATA_SUB_PATHS = {
@@ -223,7 +219,7 @@ public class Logic {
      * @author Robin Herder
      */
     public static void displayError(String error, Exception e, boolean end) { // TODO change to errorDialog
-        new ErrorDialog(windowController.getRootPane(), error, e, end);
+        new ErrorDialog(windowController.getRootPane(), error, e.getMessage(), end);
         if(end){
             System.exit(-1);
         }
@@ -261,6 +257,28 @@ public class Logic {
             e.printStackTrace();
         }
         updateBalance();
+        loadFuelOrder();
+        loadGoodOrder();
+        try {
+            ReadJSON read = new ReadJSON(DATA_FILE_PATH + DATA_FILE_NAMES[6]);
+            if (read.getItemStringArray("gasPumpID").length < gasPumps.size()) {
+                WriteJSON write = new WriteJSON(DATA_FILE_PATH + DATA_FILE_NAMES[6]);
+                String[] gasPumpID = new String[gasPumps.size()];
+                String[] gasPumpFuelType = new String[gasPumps.size()];
+                String[] gasPumpAmount = new String[gasPumps.size()];
+                for (int i = 0; i < gasPumpAmount.length; i++) {
+                    gasPumpID[i] = String.valueOf(i);
+                    gasPumpAmount[i] = String.valueOf(0);
+                    gasPumpFuelType[i] = "null";
+                }
+                write.addItemArray("gasPumpID", gasPumpID);
+                write.addItemArray("fuelType", gasPumpFuelType);
+                write.addItemArray("fuelAmount", gasPumpAmount);
+                write.write(true);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -291,6 +309,12 @@ public class Logic {
                 Utility.hex2Rgb(read.getItemString("dividerContent"))
         );
         windowController.setTitle(title);
+        if(theme.equals("daniel")) {
+            playAudio();
+            displayError("DAAAAAAAAAAAAANIEL", new Exception("AUDIO AUF 1000%!!1!"), false);
+        } else if(!theme.equals("daniel") && audio != null && audio.isAlive()) {
+            audio.stop();
+        }
     }
 
     /**
@@ -386,6 +410,20 @@ public class Logic {
         }
     }
 
+    public void loadFuelOrder() {
+        File[] files = new File(DATA_SUB_PATHS[1]).listFiles();
+        for (File file : files) {
+            importOrder(DocumentType.fuelOrder, file);
+        }
+    }
+
+    public void loadGoodOrder() {
+        File[] files = new File(DATA_SUB_PATHS[3]).listFiles();
+        for (File file : files) {
+            importOrder(DocumentType.goodOrder, file);
+        }
+    }
+
     /**
      * Lädt Quittungen die bereits registriert sind
      * @throws DataFileNotFoundException
@@ -437,6 +475,7 @@ public class Logic {
             }
             receipts.add(new CustomerOrder(Integer.parseInt(receiptNumber[i]), date, employee, fuels, goods));
         }
+        windowController.addRowTSellingReceipt(receipts);
     }
 
     //===[CREATE OBJECTS FROM JSON]==================================================
@@ -628,6 +667,41 @@ public class Logic {
 
     //===[ADD NEW OBJECT]==================================================
 
+    public void addOrder(ArrayList<Item> items, InventoryType type) {
+        DocumentType docType;
+        Document doc;
+        if(type == InventoryType.Good) {
+            docType = DocumentType.goodOrder;
+            int idx = new File(DATA_SUB_PATHS[3]).listFiles().length;
+            doc = new GoodOrderDocument(docType, "GOOD_ORDER_" + idx + ".txt", new Date(), items);
+            WriteFile write = new WriteFile(DATA_SUB_PATHS[3] + doc.getNAME());
+            for(String line : doc.getLinesForFile()) {
+                write.addLine(line);
+            }
+            try {
+                write.write();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            docType = DocumentType.fuelOrder;
+            int idx = new File(DATA_SUB_PATHS[1]).listFiles().length;
+            doc = new FuelOrderDocument(docType, "FUEL_ORDER_" + idx + ".txt", new Date(), items);
+            WriteFile write = new WriteFile(DATA_SUB_PATHS[1] + doc.getNAME());
+            for(String line : doc.getLinesForFile()) {
+                write.addLine(line);
+            }
+            try {
+                write.write();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        documents.add(doc);
+        windowController.addRowTFuelsFuelOrder((ArrayList<FuelOrderDocument>) Utility.getDocument(documents, DocumentType.fuelOrder));
+        windowController.addRowTGoodsInventoryOrder((ArrayList<GoodOrderDocument>) Utility.getDocument(documents, DocumentType.goodOrder));
+    }
+
     /**
      * Neue Quittung hinzufügen
      * @param items Die Items für die Quittung Good und Fuel möglich aufgrund von vererbung
@@ -655,7 +729,30 @@ public class Logic {
         saveReceipt();
         windowController.addRowTFuelsFuelOverview(this.fuels);
         windowController.addRowTGoodsInventoryOverview(this.goods);
+        windowController.addRowTTanksSettingsTank(tanks);
+        windowController.addRowTSellingReceipt(receipts);
         saveInventory();
+        try {
+            ReadJSON read = new ReadJSON(DATA_FILE_PATH + DATA_FILE_NAMES[6]);
+            String[] gasPumpNumber = read.getItemStringArray("gasPumpID");
+            String[] fuelType = read.getItemStringArray("fuelType");
+            String[] fuelAmount = read.getItemStringArray("fuelAmount");
+            for (Fuel fuel : fuels) {
+                for (int i = 0; i < gasPumpNumber.length; i++) {
+                    if (fuel.getCheckoutTank().getGAS_PUMP_NUMBER() == Integer.parseInt(gasPumpNumber[i])) {
+                        fuelType[i] = "null";
+                        fuelAmount[i] = String.valueOf(0);
+                    }
+                }
+            }
+            WriteJSON write = new WriteJSON(DATA_FILE_PATH + DATA_FILE_NAMES[6]);
+            write.addItemArray("gasPumpID", gasPumpNumber);
+            write.addItemArray("fuelType", fuelType);
+            write.addItemArray("fuelAmount", fuelAmount);
+            write.write(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -872,6 +969,28 @@ public class Logic {
         write.addItemArrayListArray("receiptFuels", "fuels", getReceiptFuels());
         write.write(true);
         updateBalance();
+    }
+
+    /**
+     * Speichert ein neues theme ab
+     * @author Robin Herder
+     */
+    public void saveTheme( Color menuBar, Color contentPaneBackground, Color icons, Color dividerMenuBar, Color fontContent, Color buttonBackground, Color buttonFont, Color dividerContent, String title) {
+        WriteJSON write = new WriteJSON(DATA_SUB_PATHS[5] + title + ".json");
+        write.addItem("menuBar", Utility.Rgb2Hex(menuBar));
+        write.addItem("contentPaneBackground", Utility.Rgb2Hex(contentPaneBackground));
+        write.addItem("icons", Utility.Rgb2Hex(icons));
+        write.addItem("dividerMenuBar", Utility.Rgb2Hex(dividerMenuBar));
+        write.addItem("fontContent", Utility.Rgb2Hex(fontContent));
+        write.addItem("buttonsBackground", Utility.Rgb2Hex(buttonBackground));
+        write.addItem("buttonsFont", Utility.Rgb2Hex(buttonFont));
+        write.addItem("dividerContent", Utility.Rgb2Hex(dividerContent));
+        write.write(true);
+        try {
+            loadSettings();
+        } catch (DataFileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     //===[GET STRINGS FOR JSON]==================================================
@@ -1258,7 +1377,7 @@ public class Logic {
         ArrayList<Document> documents = new ArrayList<>();
         if (windowController.noTimeSpan()) {
             for (Document document : this.documents) {
-                if (document instanceof FuelDocument || document instanceof GoodDocument) {
+                if (document instanceof FuelDeliveryDocument || document instanceof GoodDeliveryDocument) {
                     documents.add(document);
                 }
             }
@@ -1317,11 +1436,29 @@ public class Logic {
     //===[GETTER]==================================================
 
     /**
+     * Gibt alle fuel objekte zurück
+     * @author Robin Herder
+     */
+    public ArrayList<Fuel> getFuels() {
+        return fuels;
+    }
+
+    /**
      * Gibt den titel des theme zurück
+     *
      * @author Robin Herder
      */
     public String getThemeTitle() {
         return theme;
+    }
+
+    /**
+     * Gibt den titel der Tankstelle zurück
+     *
+     * @author Robin Herder
+     */
+    public String getTitle() {
+        return title;
     }
 
     /**
@@ -1332,10 +1469,10 @@ public class Logic {
     private float getDeliveryCosts() {
         float cost = 0;
         for (Document document : documents) {
-            if (document instanceof FuelDocument) {
-                cost += ((FuelDocument) document).getTotal();
-            } else if (document instanceof GoodDocument) {
-                cost += ((GoodDocument) document).getTotal();
+            if (document instanceof FuelDeliveryDocument) {
+                cost += ((FuelDeliveryDocument) document).getTotal();
+            } else if (document instanceof GoodDeliveryDocument) {
+                cost += ((GoodDeliveryDocument) document).getTotal();
             }
         }
         return cost;
@@ -1456,12 +1593,12 @@ public class Logic {
         ArrayList<GasPump> gasPumps = new ArrayList<>();
         try {
             read = new ReadJSON(DATA_FILE_PATH + DATA_FILE_NAMES[6]);
-            String[] gasPumpNumber = read.getItemStringArray("gasPumpNumber");
+            String[] gasPumpNumber = read.getItemStringArray("gasPumpID");
             String[] fuelType = read.getItemStringArray("fuelType");
             String[] fuelAmount = read.getItemStringArray("fuelAmount");
             for(int i = 0; i < gasPumpNumber.length; i++) {
                 for(GasPump gasPump : this.gasPumps) {
-                    if(gasPump.getGAS_PUMP_NUMBER() == Integer.parseInt(gasPumpNumber[i])) {
+                    if(gasPump.getGAS_PUMP_NUMBER() == Integer.parseInt(gasPumpNumber[i]) && !fuelType[i].equals("null")) {
                         gasPumps.add(gasPump);
                         gasPumps.get(gasPumps.size() - 1).setCheckoutAmount(Float.parseFloat(fuelAmount[i]));
                         for(Fuel fuel : fuels) {
@@ -1500,7 +1637,7 @@ public class Logic {
      * @author Robin Herder
      */
     public void importFuelDelivery(String path, boolean newDelivery) {
-        ReadListFile read = new ReadListFile(path);
+        ReadListFile read = new ReadListFile(path, "=");
         String filename = FilenameUtils.removeExtension(new File(path).getName());
         String[][] lines = read.getLINES();
         ArrayList<String> label = new ArrayList<>();
@@ -1518,16 +1655,18 @@ public class Logic {
         for (int i = 0; i < label.size(); i++) {
             int idxItemType = 0;
             for (int ii = 0; ii < types.size(); ii++) {
-                if (types.get(ii).getLABEL().equals(label.get(i))) {
+                if (types.get(ii).getLABEL().toLowerCase().equals(label.get(i))) {
                     idxItemType = ii;
                 }
             }
             fuel.add(new DeliveredFuel(types.get(idxItemType), price.get(i), "EUR", amount.get(i)));
         }
-        documents.add(new FuelDocument(DocumentType.fuelDelivery, filename, read.getDate(), fuel));
-        windowController.addRowTFuelsFuelDelivery((ArrayList<FuelDocument>) Utility.getDocument(documents, DocumentType.fuelDelivery));
+        documents.add(new FuelDeliveryDocument(DocumentType.fuelDelivery, filename, read.getDate(), fuel));
+        windowController.addRowTFuelsFuelDelivery(
+        (ArrayList<FuelDeliveryDocument>) Utility.getDocument(documents, DocumentType.fuelDelivery));
         if(newDelivery) {
-            addDeliveredFuels((ArrayList<DeliveredFuel>) ((FuelDocument) documents.get(documents.size() - 1)).getFuels());
+            addDeliveredFuels(
+            (ArrayList<DeliveredFuel>) ((FuelDeliveryDocument) documents.get(documents.size() - 1)).getFuels());
         }
     }
 
@@ -1601,10 +1740,11 @@ public class Logic {
             }
             good.add(new Good(types.get(idxItemType), price.get(i), "EUR", amount.get(i), unit.get(i)));
         }
-        documents.add(new GoodDocument(DocumentType.goodDelivery, filename, read.getDate(), good));
-        windowController.addRowTGoodsInventoryDelivery((ArrayList<GoodDocument>) Utility.getDocument(documents, DocumentType.goodDelivery));
+        documents.add(new GoodDeliveryDocument(DocumentType.goodDelivery, filename, read.getDate(), good));
+        windowController.addRowTGoodsInventoryDelivery(
+        (ArrayList<GoodDeliveryDocument>) Utility.getDocument(documents, DocumentType.goodDelivery));
         if(newDelivery) {
-            addDeliveredGoods(((GoodDocument) documents.get(documents.size() - 1)).getGoods());
+            addDeliveredGoods(((GoodDeliveryDocument) documents.get(documents.size() - 1)).getGoods());
         }
 
     }
@@ -1687,6 +1827,44 @@ public class Logic {
         Path newPath = new File(DATA_SUB_PATHS[dir] + file + number + extension).toPath();
         Files.copy(new File(path).toPath(), newPath);
         return newPath.toString();
+    }
+
+    private void importOrder(DocumentType type, File file) {
+        ReadListFile read = new ReadListFile(file.getAbsolutePath(), ";");
+        String filename = FilenameUtils.removeExtension(file.getName());
+        String[][] lines = read.getLINES();
+        ArrayList<Item> items = new ArrayList<>();
+        ArrayList<Item> orderItem = new ArrayList<>();
+        for(int i = 0; i < lines.length; i++) {
+            if(type == DocumentType.fuelOrder) {
+                items.addAll(fuels);
+            } else {
+                items.addAll(goods);
+            }
+            for(Item item : items) {
+                if(lines[i][0].toLowerCase().equals("warennummer")) {
+                    continue;
+                }
+                if(item.getINVENTORY_NUMBER() == Integer.parseInt(lines[i][0])) {
+                    if(type == DocumentType.fuelOrder) {
+                        item.setCheckoutAmount(Float.parseFloat(lines[i][1]));
+                        orderItem.add(item);
+                        break;
+                    } else {
+                        item.setCheckoutAmount(Float.parseFloat(lines[i][1]));
+                        orderItem.add(item);
+                        break;
+                    }
+                }
+            }
+        }
+        if(type == DocumentType.fuelOrder) {
+            documents.add(new FuelOrderDocument(type, filename, read.getDate(), orderItem));
+        } else {
+            documents.add(new GoodOrderDocument(type, filename, read.getDate(), orderItem));
+        }
+        windowController.addRowTFuelsFuelOrder((ArrayList<FuelOrderDocument>) Utility.getDocument(documents, DocumentType.fuelOrder));
+        windowController.addRowTGoodsInventoryOrder((ArrayList<GoodOrderDocument>) Utility.getDocument(documents, DocumentType.goodOrder));
     }
 
     /**
@@ -1851,4 +2029,19 @@ public class Logic {
         Image image = new Image(getClass().getResourceAsStream(PROFILE_PICTURE + pic + ".png"));
         windowController.setProfilePicture(image);
     }
+
+    /**
+     * Abspielen von Audio
+     * @author Robin Herder
+     */
+    private void playAudio() {
+        Runnable runnableAudio = () -> {
+          while(true) {
+              new Audio().play(new BufferedInputStream(getClass().getResourceAsStream("/audio/danielsLied.wav")));
+          }
+        };
+        audio = new Thread(runnableAudio);
+        audio.start();
+    }
+
 }

@@ -1,33 +1,28 @@
 package gasStationSoftware.controller;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXColorPicker;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import gasStationSoftware.exceptions.DataFileNotFoundException;
-import gasStationSoftware.models.Document;
-import gasStationSoftware.models.Employee;
-import gasStationSoftware.models.Fuel;
-import gasStationSoftware.models.FuelDocument;
-import gasStationSoftware.models.FuelTank;
-import gasStationSoftware.models.GasPump;
-import gasStationSoftware.models.Good;
-import gasStationSoftware.models.GoodDocument;
-import gasStationSoftware.models.InventoryType;
-import gasStationSoftware.models.Item;
-import gasStationSoftware.models.ItemType;
+import gasStationSoftware.models.*;
+import gasStationSoftware.ui.ContentDialog;
 import gasStationSoftware.ui.EmployeeInputDialog;
 import gasStationSoftware.ui.FuelTankInputDialog;
 import gasStationSoftware.ui.GasPumpDialog;
 import gasStationSoftware.ui.GasPumpInputDialog;
 import gasStationSoftware.ui.GoodsDialog;
 import gasStationSoftware.ui.ItemInputDialog;
+import gasStationSoftware.ui.ItemOrderDialog;
 import gasStationSoftware.ui.ItemTypeInputDialog;
 import gasStationSoftware.ui.ThemeDialog;
 import gasStationSoftware.util.Dialog;
+import gasStationSoftware.util.ProgressBarCustom;
 import gasStationSoftware.util.Utility;
+import gasStationSoftware.util.WriteFile;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -62,9 +57,6 @@ implements Initializable {
 
     private Logic logic;
 
-    private final static String[] CB_SETTINGS_TYPE_OPTIONS = { "Settings", "Theme", "Inventory" };
-    private final static String CB_SETTINGS_TYPE_PROMT = "Type auswählen";
-
     private static Color backgroundMenuBar, contentPaneBackground, icons, dividerMenuBar, fontContent, buttonsBackground, buttonsFont, dividerContent;
     private static String backgroundPolygon, backgroundMenuBarStyle, contentPaneBackgroundStyle, iconsStyle, dividerMenuBarStyle, fontStyle, buttonsStyle, dividerContentStyle;
 
@@ -73,63 +65,46 @@ implements Initializable {
     @FXML private AnchorPane loginPane, mainPane;
     @FXML private JFXTextField txtIDLogin;
     @FXML private JFXPasswordField txtPassLogin;
-    @FXML private JFXButton btnLogin;
     @FXML private Label lblCopyrightLogin;
 
     @FXML private AnchorPane menuBarPane;
-    @FXML private Line lineMenuBar;
     @FXML private ImageView ivUserMenuBar;
     @FXML private MaterialDesignIconView icoSellingMenuBar, icoInventoryMenuBar, icoTanksMenuBar, icoEmployeesMenuBar, icoReportsMenuBar, icoSettingsMenuBar;
+    @FXML private Line lineMenuBar;
 
     @FXML private AnchorPane userPane;
-    @FXML private Polygon polygonUser;
     @FXML private ImageView ivUserProfilePictureUser;
-    @FXML private Label titleUser, lblUserNameUser, lblUserRoleUser, subtitleSalesUser, lblDailySalesUser, lblMontlySalesUser, lblYearlySalesUser;
-    @FXML private Label lblSalesSumDailyUser, lblSalesSumMonthlyUser, lblSalesSumYearlyUser, lblSalesSumDayCurrencyUser, lblSalesSumMonthCurrencyUser, lblSalesSumYearCurrencyUser;
-    @FXML private Separator dividerUser;
+    @FXML private Label lblUserNameUser, lblUserRoleUser, lblSalesSumDailyUser, lblSalesSumMonthlyUser, lblSalesSumYearlyUser;
 
-    @FXML private AnchorPane sellingPane, sellingOverviewPane;
-    @FXML private Polygon polygonSales;
-    @FXML private Label titleSalesOverview, lblOrderSumSalesOverview, lblTotalSalesOverview, lblTotalCurrencySalesOverview;
-    @FXML private JFXButton btnCheckOutSalesOverview, btnGoodsSalesOverview, btnGasPumpsSalesOverview, btnAddAmountSalesOverview, btnRemoveAmountSalesOverview, btnDeleteSalesOverview;
-    @FXML private MaterialDesignIconView icoCheckOutSalesOverview, icoGoodsSalesOverview, icoGasPumpsSalesOverview;
-    @FXML private TableView tCheckoutSellingOverview;
+    @FXML private AnchorPane sellingPane, sellingOverviewPane, sellingReceiptPane;
+    @FXML private Label lblTotalSalesOverview;
+    @FXML private JFXButton btnCheckOutSalesOverview, btnGoodsSalesOverview, btnGasPumpsSalesOverview, btnAddAmountSalesOverview, btnRemoveAmountSalesOverview, btnDeleteSalesOverview, btnOpenSellingReceipt, btnReceiptSalesOverview;
+    @FXML private TableView tCheckoutSellingOverview, tSellingReceipt;
 
     @FXML private AnchorPane inventoryPane, inventoryOverviewPane, inventoryOrderPane, inventoryDeliveryPane;
-    @FXML private Polygon polygonInventory;
-    @FXML private Label titleInventoryOverview, titleInventoryOrder, titleInventoryDelivery;
-    @FXML private JFXButton btnOrderInventoryOverview, btnDeliveriesInventoryOverview, btnGroceriesInventoryOrder, btnOtherInventoryOrder, btnAdultInventoryOrder, btnAddGoodOverview;
-    @FXML private JFXButton btnCanelInventoryOrder, btnSubmitInventoryOrder, btnOpeInventoryDelivery, btnImportInventoryDelivery;
-    @FXML private MaterialDesignIconView icoOrderInventoryOverview, icoDeliveryInventoryOverview, icoAddFuelOverview;
+    @FXML private JFXButton btnOrderInventoryOverview, btnDeliveriesInventoryOverview, btnAddGoodOverview;
+    @FXML private JFXButton btnOpenInventoryOrder, btnCreateInventoryOrder, btnOpeInventoryDelivery, btnImportInventoryDelivery;
     @FXML private TableView tGoodsInventoryOverview, tGoodsInventoryOrder, tGoodsInventoryDelivery;
 
-    @FXML private AnchorPane fuelPane, fuelOverviewPane, fuelOrderPane, fuelDeliveryPane;
-    @FXML private Polygon polygonFuel;
-    @FXML private Label titleFuelOverview, titleFuelOrder, titleFuelDeliveries;
-    @FXML private JFXButton btnDeliveriesFuelOverview, btnOrdersFuelOverview, btnSubmitFuelOrder, btnCancelFuelOrder, btnOpenFuelDeliveries, btnImportFuelDeliveries, btnAddFuelOverview;
-    @FXML private MaterialDesignIconView icoDeiveriesFuelOverview, icoOrdersFuelOverview;
-    @FXML private TableView tFuelsFuelOverview, tFuelsFuelOrder, tFuelsFuelDeliveries;
+    @FXML private AnchorPane fuelPane, fuelOverviewPane, fuelOrderPane, fuelDeliveryPane, tankStatusPane;
+    @FXML private JFXButton btnDeliveriesFuelOverview, btnOrdersFuelOverview, btnCreateFuelOrder, btnOpenFuelOrder, btnOpenFuelDeliveries, btnImportFuelDeliveries, btnAddFuelOverview, btnGoToTanks;
+    @FXML private TableView tFuelsFuelOverview, tFuelsFuelOrder, tFuelsFuelDeliveries, tTanksStatus;
 
-    @FXML private AnchorPane employeePane, employeeOverviewPane, employeeCreatePane;
-    @FXML private Polygon polygonEmployee;
-    @FXML private Label titleEmployeeOverview;
+    @FXML private AnchorPane employeePane, employeeOverviewPane;
     @FXML private JFXButton btnCreateEmployeeOverview, btnEditEmployeeOverview;
     @FXML private TableView tEmployeesEmployeeOverview;
 
     @FXML private AnchorPane reportPane, reportOverviewPane;
-    @FXML private Polygon polygonReport;
-    @FXML private Label titleReportOverview, lblBalanceReportOverview, lblTimespanReportOverview, lblSalesReportOverview, lblCostsReportOverview, lblResultReportOverview, lblCostValueReportOverview, lblBalanceValueReportOverview, lblSaleValueReportOverview;
-    @FXML private Line dividerReportOverview, dividerBalanceReportOverview;
+    @FXML private Label lblCostValueReportOverview, lblBalanceValueReportOverview, lblSaleValueReportOverview;
     @FXML private JFXDatePicker dpTimespanReportOverview, dpTimespanReportOverview1;
     @FXML private TableView tReportReportOverview;
 
     @FXML private AnchorPane settingsPane, settingsOverviewPane, settingsFuelPane, settingsTankPane, settingsGasPumpPane, settingsGoodPane;
-    @FXML private Polygon polygonSettings;
     @FXML private JFXTextField txtTitleSettingsOverview;
     @FXML private JFXButton btnEditThemeSettingsOverview, btnCreateThemeSettingsOverview, btnFuelsSettingsOverview, btnTanksSettingsOverview, btnGasPumpsSettingsOverview;
-    @FXML private JFXButton btnGoodsSettingsOverview, btnExportSettingsOverview, btnImportSettingsOverview, btnNewSettingsFuel, btnEditSettingsFuel, btnNewSettingsTank;
+    @FXML private JFXButton btnGoodsSettingsOverview, btnNewSettingsFuel, btnEditSettingsFuel, btnNewSettingsTank;
     @FXML private JFXButton btnEditSettingsTank, btnNewSettingsGasPump, btnEditSettingsGasPump, btnNewSettingsGood, btnEditSettingsGood, btnTitleSettingsOverview;
-    @FXML private JFXComboBox cbThemeSettingsOverview, cbTypeSettingsOverview;
+    @FXML private JFXComboBox cbThemeSettingsOverview;
     @FXML private TableView tFuelsSettingsFuel, tTanksSettingsTank, tGasPumpsSettingsGasPump, tGoodsSettingsGood;
 
     @FXML private ArrayList<AnchorPane> panes, subPanes;
@@ -138,9 +113,6 @@ implements Initializable {
     @FXML private ArrayList<Polygon> allPolygons;
     @FXML private ArrayList<Separator> allDivider;
     @FXML private ArrayList<Label> allLabels, allTitles, allSubTitles;
-    @FXML private ArrayList<TableView> allTableViews;
-    @FXML private ArrayList<JFXComboBox> allCb;
-    @FXML private ArrayList<ImageView> allIv;
 
     //===[INIT]==================================================
 
@@ -164,6 +136,10 @@ implements Initializable {
         addColumnsTGoodsInventoryDelivery();
         addColumnsTCheckoutSellingOverview();
         addColumnsTReportOverview();
+        addColumnsTTanksStatus();
+        addColumnsTSellingReceipt();
+        addColumnsTFuelsFuelOrder();
+        addColumnsTGoodsInventoryOrder();
         setDefaultContent();
     }
 
@@ -227,13 +203,23 @@ implements Initializable {
         } else if(event.getTarget() == btnGasPumpsSalesOverview) {
             new GasPumpDialog(rootPane, this);
         } else if(event.getTarget() == btnCheckOutSalesOverview) {
-            createReceipt();
+            if(tCheckoutSellingOverview.getItems().size() > 0) {
+                createReceipt();
+            }
         } else if (event.getTarget() == btnAddAmountSalesOverview) {
             incAmount();
         } else if (event.getTarget() == btnRemoveAmountSalesOverview) {
             decAmount();
         } else if (event.getTarget() == btnDeleteSalesOverview) {
             removeElement();
+        } else if (event.getTarget() == btnReceiptSalesOverview) {
+            hideSubPanes();
+            sellingReceiptPane.setVisible(true);
+        } else if (event.getTarget() == btnOpenSellingReceipt) {
+            if (tSellingReceipt.getSelectionModel().getSelectedItem() != null) {
+                Document doc = (Document) tSellingReceipt.getSelectionModel().getSelectedItem();
+                new ContentDialog(rootPane, this, doc.getNAME(), doc.getLinesForFile(), doc);
+            }
         }
     }
 
@@ -257,6 +243,20 @@ implements Initializable {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        } else if(event.getTarget() == btnOpeInventoryDelivery) {
+            if(tGoodsInventoryDelivery.getSelectionModel().getSelectedItem() != null) {
+                Document doc = (Document) tGoodsInventoryDelivery.getSelectionModel().getSelectedItem();
+                new ContentDialog(rootPane, this, doc.getNAME(), doc.getLinesForFile(), doc);
+            }
+        } else if(event.getTarget() == btnOpenInventoryOrder) {
+            if(tGoodsInventoryOrder.getSelectionModel().getSelectedItem() != null) {
+                Document doc = (Document) tGoodsInventoryOrder.getSelectionModel().getSelectedItem();
+                new ContentDialog(rootPane, this, doc.getNAME(), doc.getLinesForFile(), doc);
+            }
+        } else if(event.getTarget() == btnCreateInventoryOrder) {
+            ArrayList<Item> items = new ArrayList<>();
+            items.addAll(logic.getGoods());
+            new ItemOrderDialog(rootPane, this, items, InventoryType.Good);
         }
     }
 
@@ -280,6 +280,23 @@ implements Initializable {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        } else if(event.getTarget() == btnGoToTanks) {
+            hideSubPanes();
+            tankStatusPane.setVisible(true);
+        } else if(event.getTarget() == btnOpenFuelDeliveries) {
+            if(tFuelsFuelDeliveries.getSelectionModel().getSelectedItem() != null) {
+                Document doc = (Document) tFuelsFuelDeliveries.getSelectionModel().getSelectedItem();
+                new ContentDialog(rootPane, this, doc.getNAME(), doc.getLinesForFile(), doc);
+            }
+        } else if(event.getTarget() == btnOpenFuelOrder) {
+            if(tFuelsFuelOrder.getSelectionModel().getSelectedItem() != null) {
+                Document doc = (Document) tFuelsFuelOrder.getSelectionModel().getSelectedItem();
+                new ContentDialog(rootPane, this, doc.getNAME(), doc.getLinesForFile(), doc);
+            }
+        } else if(event.getTarget() == btnCreateFuelOrder) {
+            ArrayList<Item> items = new ArrayList<>();
+            items.addAll(logic.getFuels());
+            new ItemOrderDialog(rootPane, this, items, InventoryType.Fuel);
         }
     }
 
@@ -331,8 +348,6 @@ implements Initializable {
         } else if (event.getTarget() == btnGoodsSettingsOverview) {
             hideSubPanes();
             settingsGoodPane.setVisible(true);
-        } else if (event.getTarget() == btnExportSettingsOverview) {
-        } else if (event.getTarget() == btnImportSettingsOverview) {
         } else if (event.getTarget() == btnNewSettingsFuel) {
             new ItemTypeInputDialog(rootPane, this, InventoryType.Fuel);
         } else if (event.getTarget() == btnEditSettingsFuel) {
@@ -541,8 +556,50 @@ implements Initializable {
         TableColumn columnReportName = Dialog.getColumn("Name", "NAME", 200, true);
         TableColumn columnReportType = Dialog.getColumn("Type", "DOC_TYPEForTab", 200, true);
         TableColumn columnReportTotal = Dialog.getColumn("Wert", "totalForTab", 100, true);
-        tReportReportOverview.getColumns()
-        .addAll(columnReportDate, columnReportName, columnReportType, columnReportTotal);
+        tReportReportOverview.getColumns().addAll(columnReportDate, columnReportName, columnReportType, columnReportTotal);
+    }
+
+    /**
+     * Spalten der Tankübersicht einfügen
+     * @author Robin Herder
+     */
+    private void addColumnsTTanksStatus() {
+        TableColumn columnTankNumber = Dialog.getColumn("Tank #", "TANK_NUMBER", 100, true);
+        TableColumn columnTankFuel = Dialog.getColumn("Kraftstoff #", "fuelLabel", 200, true);
+        TableColumn columnLevel = Dialog.getColumn("Füllstand in %", "levelPercentage", 100, true);
+        TableColumn<FuelTank, Double> columnTankProgress= Dialog.getColumn("Tank #", "levelPercentageProgress", 300, true);
+        columnTankProgress.setCellFactory(param -> new ProgressBarCustom());
+        tTanksStatus.getColumns().addAll(columnTankNumber, columnTankFuel, columnLevel, columnTankProgress);
+    }
+
+    /**
+     * Spalten der Quittungstabelle
+     * @author Robin Herder
+     */
+    private void addColumnsTSellingReceipt() {
+        TableColumn columnReceiptName = Dialog.getColumn("Quittung", "NAME", 200, true);
+        TableColumn columnReceiptDate = Dialog.getColumn("Datum", "DATE", 200, true);
+        tSellingReceipt.getColumns().addAll(columnReceiptName, columnReceiptDate);
+    }
+
+    /**
+     * Spalten der Kraftstoffbestellungstabelle
+     * @author Robin Herder
+     */
+    public void addColumnsTFuelsFuelOrder() {
+        TableColumn columnFuelOrderName = Dialog.getColumn("Bestellung", "NAME", 200, true);
+        TableColumn columnFuelOrderDate = Dialog.getColumn("Datum", "DATE", 200, true);
+        tFuelsFuelOrder.getColumns().addAll(columnFuelOrderName, columnFuelOrderDate);
+    }
+
+    /**
+     * Spalten der Produktbestellungstabelle
+     * @author Robin Herder
+     */
+    public void addColumnsTGoodsInventoryOrder() {
+        TableColumn columnGoodOrderName = Dialog.getColumn("Bestellung", "NAME", 200, true);
+        TableColumn columnGoodOrderDate = Dialog.getColumn("Datum", "DATE", 200, true);
+        tGoodsInventoryOrder.getColumns().addAll(columnGoodOrderName, columnGoodOrderDate);
     }
 
     /**
@@ -596,6 +653,7 @@ implements Initializable {
     public void addRowTTanksSettingsTank(ArrayList<FuelTank> tanks){
         tTanksSettingsTank.getItems().clear();
         tTanksSettingsTank.getItems().addAll(tanks);
+        addRowTTankStatus(tanks);
     }
 
     /**
@@ -644,7 +702,7 @@ implements Initializable {
      * @param deliveries Kraftstofflieferung objekt liste
      * @author Robin Herder
      */
-    public void addRowTFuelsFuelDelivery(ArrayList<FuelDocument> deliveries) {
+    public void addRowTFuelsFuelDelivery(ArrayList<FuelDeliveryDocument> deliveries) {
         tFuelsFuelDeliveries.getItems().clear();
         tFuelsFuelDeliveries.getItems().addAll(deliveries);
     }
@@ -654,7 +712,7 @@ implements Initializable {
      * @param deliveries Produktliefrungd objekt liste
      * @author Robin Herder
      */
-    public void addRowTGoodsInventoryDelivery(ArrayList<GoodDocument> deliveries) {
+    public void addRowTGoodsInventoryDelivery(ArrayList<GoodDeliveryDocument> deliveries) {
         tGoodsInventoryDelivery.getItems().clear();
         tGoodsInventoryDelivery.getItems().addAll(deliveries);
     }
@@ -667,6 +725,46 @@ implements Initializable {
     public void addRowTReportReportOverview(ArrayList<Document> documents) {
         tReportReportOverview.getItems().clear();
         tReportReportOverview.getItems().addAll(documents);
+    }
+
+    /**
+     * Füllstandmenge
+     * @param tanks Tank objekt liste
+     * @author Robin Herder
+     */
+    public void addRowTTankStatus(ArrayList<FuelTank> tanks) {
+        tTanksStatus.getItems().clear();
+        tTanksStatus.getItems().addAll(tanks);
+    }
+
+    /**
+     * Quittungen zu Quittungstabelle hinzufügen
+     * @param receipt liste der quittungen
+     * @author Robin Herder
+     */
+    public void addRowTSellingReceipt(ArrayList<CustomerOrder> receipt) {
+        tSellingReceipt.getItems().clear();
+        tSellingReceipt.getItems().addAll(receipt);
+    }
+
+    /**
+     * Bestellung zu Bestellungstabelle hinzufügen
+     * @param fuelOrders liste der quittungen
+     * @author Robin Herder
+     */
+    public void addRowTFuelsFuelOrder(ArrayList<FuelOrderDocument> fuelOrders) {
+        tFuelsFuelOrder.getItems().clear();
+        tFuelsFuelOrder.getItems().addAll(fuelOrders);
+    }
+
+    /**
+     * Bestellung zu Bestellungstabelle hinzufügen
+     * @param goodOrders liste der quittungen
+     * @author Robin Herder
+     */
+    public void addRowTGoodsInventoryOrder(ArrayList<GoodOrderDocument> goodOrders) {
+        tGoodsInventoryOrder.getItems().clear();
+        tGoodsInventoryOrder.getItems().addAll(goodOrders);
     }
 
     //===[LOGIC CALL]==================================================
@@ -687,8 +785,6 @@ implements Initializable {
      * @author Robin Herder
      */
     private void setDefaultContent() {
-        cbTypeSettingsOverview.getItems().setAll((Object[]) CB_SETTINGS_TYPE_OPTIONS);
-        cbTypeSettingsOverview.setPromptText(CB_SETTINGS_TYPE_PROMT);
         lblCopyrightLogin.setText("\u00a9 Lea Buchhold, Lukas Fink, Malik Press, Robin Herder 2019");
     }
 
@@ -768,6 +864,7 @@ implements Initializable {
             icon.setStyle(iconsStyle);
         }
         menuBarPane.setStyle(backgroundMenuBarStyle);
+        lineMenuBar.setStyle(dividerMenuBarStyle);
     }
 
     //===[PROCESS INPUT]==================================================
@@ -883,11 +980,13 @@ implements Initializable {
      */
     public void processGoodCheckout(AnchorPane pane) {
         Item item = (Item) ((TableView) pane.getChildren().get(1)).getSelectionModel().getSelectedItem();
-        item.setCheckoutAmount(1);
-        if(!tCheckoutSellingOverview.getItems().contains(item)) {
-            tCheckoutSellingOverview.getItems().add(item);
+        if(((Good) item).getAmount() > 0) {
+            item.setCheckoutAmount(1);
+            if(!tCheckoutSellingOverview.getItems().contains(item)) {
+                tCheckoutSellingOverview.getItems().add(item);
+            }
+            updateCheckoutPrice();
         }
-        updateCheckoutPrice();
     }
 
     /**
@@ -940,7 +1039,16 @@ implements Initializable {
      * @param pane Anchorpane des dialogs
      */
     public void processThemeInput(AnchorPane pane) {
-
+        Color menuBar = new Color((float) ((JFXColorPicker) pane.getChildren().get(8)).getValue().getRed(), (float) ((JFXColorPicker) pane.getChildren().get(8)).getValue().getGreen(), (float) ((JFXColorPicker) pane.getChildren().get(8)).getValue().getBlue(), (float) ((JFXColorPicker) pane.getChildren().get(8)).getValue().getOpacity());
+        Color contentPaneBackground = new Color((float) ((JFXColorPicker) pane.getChildren().get(9)).getValue().getRed(), (float) ((JFXColorPicker) pane.getChildren().get(9)).getValue().getGreen(), (float) ((JFXColorPicker) pane.getChildren().get(9)).getValue().getBlue(), (float) ((JFXColorPicker) pane.getChildren().get(9)).getValue().getOpacity());
+        Color icons = new Color((float) ((JFXColorPicker) pane.getChildren().get(10)).getValue().getRed(), (float) ((JFXColorPicker) pane.getChildren().get(10)).getValue().getGreen(), (float) ((JFXColorPicker) pane.getChildren().get(10)).getValue().getBlue(), (float) ((JFXColorPicker) pane.getChildren().get(10)).getValue().getOpacity());
+        Color dividerMenuBar = new Color((float) ((JFXColorPicker) pane.getChildren().get(11)).getValue().getRed(), (float) ((JFXColorPicker) pane.getChildren().get(11)).getValue().getGreen(), (float) ((JFXColorPicker) pane.getChildren().get(11)).getValue().getBlue(), (float) ((JFXColorPicker) pane.getChildren().get(11)).getValue().getOpacity());
+        Color fontContent = new Color((float) ((JFXColorPicker) pane.getChildren().get(12)).getValue().getRed(), (float) ((JFXColorPicker) pane.getChildren().get(12)).getValue().getGreen(), (float) ((JFXColorPicker) pane.getChildren().get(12)).getValue().getBlue(), (float) ((JFXColorPicker) pane.getChildren().get(12)).getValue().getOpacity());
+        Color buttonBackground = new Color((float) ((JFXColorPicker) pane.getChildren().get(13)).getValue().getRed(), (float) ((JFXColorPicker) pane.getChildren().get(13)).getValue().getGreen(), (float) ((JFXColorPicker) pane.getChildren().get(13)).getValue().getBlue(), (float) ((JFXColorPicker) pane.getChildren().get(13)).getValue().getOpacity());
+        Color buttonFont = new Color((float) ((JFXColorPicker) pane.getChildren().get(14)).getValue().getRed(), (float) ((JFXColorPicker) pane.getChildren().get(14)).getValue().getGreen(), (float) ((JFXColorPicker) pane.getChildren().get(14)).getValue().getBlue(), (float) ((JFXColorPicker) pane.getChildren().get(14)).getValue().getOpacity());
+        Color dividerContent = new Color((float) ((JFXColorPicker) pane.getChildren().get(15)).getValue().getRed(), (float) ((JFXColorPicker) pane.getChildren().get(15)).getValue().getGreen(), (float) ((JFXColorPicker) pane.getChildren().get(15)).getValue().getBlue(), (float) ((JFXColorPicker) pane.getChildren().get(15)).getValue().getOpacity());
+        String themeTitle = ((JFXTextField) pane.getChildren().get(16)).getText();
+        logic.saveTheme(menuBar, contentPaneBackground, icons, dividerMenuBar, fontContent, buttonBackground, buttonFont, dividerContent, themeTitle);
     }
 
     /**
@@ -950,7 +1058,27 @@ implements Initializable {
      * @author Robin Herder
      */
     public void processExistingTheme(AnchorPane pane, String title) {
+        Color menuBar = new Color((float) ((JFXColorPicker) pane.getChildren().get(8)).getValue().getRed(), (float) ((JFXColorPicker) pane.getChildren().get(8)).getValue().getGreen(), (float) ((JFXColorPicker) pane.getChildren().get(8)).getValue().getBlue(), (float) ((JFXColorPicker) pane.getChildren().get(8)).getValue().getOpacity());
+        Color contentPaneBackground = new Color((float) ((JFXColorPicker) pane.getChildren().get(9)).getValue().getRed(), (float) ((JFXColorPicker) pane.getChildren().get(9)).getValue().getGreen(), (float) ((JFXColorPicker) pane.getChildren().get(9)).getValue().getBlue(), (float) ((JFXColorPicker) pane.getChildren().get(9)).getValue().getOpacity());
+        Color icons = new Color((float) ((JFXColorPicker) pane.getChildren().get(10)).getValue().getRed(), (float) ((JFXColorPicker) pane.getChildren().get(10)).getValue().getGreen(), (float) ((JFXColorPicker) pane.getChildren().get(10)).getValue().getBlue(), (float) ((JFXColorPicker) pane.getChildren().get(10)).getValue().getOpacity());
+        Color dividerMenuBar = new Color((float) ((JFXColorPicker) pane.getChildren().get(11)).getValue().getRed(), (float) ((JFXColorPicker) pane.getChildren().get(11)).getValue().getGreen(), (float) ((JFXColorPicker) pane.getChildren().get(11)).getValue().getBlue(), (float) ((JFXColorPicker) pane.getChildren().get(11)).getValue().getOpacity());
+        Color fontContent = new Color((float) ((JFXColorPicker) pane.getChildren().get(12)).getValue().getRed(), (float) ((JFXColorPicker) pane.getChildren().get(12)).getValue().getGreen(), (float) ((JFXColorPicker) pane.getChildren().get(12)).getValue().getBlue(), (float) ((JFXColorPicker) pane.getChildren().get(12)).getValue().getOpacity());
+        Color buttonBackground = new Color((float) ((JFXColorPicker) pane.getChildren().get(13)).getValue().getRed(), (float) ((JFXColorPicker) pane.getChildren().get(13)).getValue().getGreen(), (float) ((JFXColorPicker) pane.getChildren().get(13)).getValue().getBlue(), (float) ((JFXColorPicker) pane.getChildren().get(13)).getValue().getOpacity());
+        Color buttonFont = new Color((float) ((JFXColorPicker) pane.getChildren().get(14)).getValue().getRed(), (float) ((JFXColorPicker) pane.getChildren().get(14)).getValue().getGreen(), (float) ((JFXColorPicker) pane.getChildren().get(14)).getValue().getBlue(), (float) ((JFXColorPicker) pane.getChildren().get(14)).getValue().getOpacity());
+        Color dividerContent = new Color((float) ((JFXColorPicker) pane.getChildren().get(15)).getValue().getRed(), (float) ((JFXColorPicker) pane.getChildren().get(15)).getValue().getGreen(), (float) ((JFXColorPicker) pane.getChildren().get(15)).getValue().getBlue(), (float) ((JFXColorPicker) pane.getChildren().get(15)).getValue().getOpacity());
+        logic.saveTheme(menuBar, contentPaneBackground, icons, dividerMenuBar, fontContent, buttonBackground, buttonFont, dividerContent, title);
+    }
 
+    /**
+     * Auswerten des ItemOrderDialog und daten weitergabe an logic
+     * @param pane Anchorpane des dialogs
+     * @param type type des belegs
+     * @author Robin Herder
+     */
+    public void processOrder(AnchorPane pane, InventoryType type) {
+        ArrayList<Item> items = new ArrayList<>();
+        items.addAll(((TableView) pane.getChildren().get(1)).getItems());
+        logic.addOrder(items, type);
     }
 
     //===[CHECKOUT SPECIFIC]==================================================
@@ -972,15 +1100,17 @@ implements Initializable {
      * @author Robin Herder
      */
     private void incAmount() {
-        if(tCheckoutSellingOverview.getSelectionModel().getSelectedItem() != null) {
-            ArrayList<Item> items = new ArrayList<>();
-            items.addAll(tCheckoutSellingOverview.getItems());
-            Item item = (Item) tCheckoutSellingOverview.getSelectionModel().getSelectedItem();
-            tCheckoutSellingOverview.getItems().clear();
-            items.get(items.indexOf(item)).addCheckoutAmount(1);
-            tCheckoutSellingOverview.getItems().addAll(items);
-            tCheckoutSellingOverview.getSelectionModel().select(item);
-            updateCheckoutPrice();
+        if(tCheckoutSellingOverview.getSelectionModel().getSelectedItem() != null && ((Good) tCheckoutSellingOverview.getSelectionModel().getSelectedItem()).getAmount() > ((Good) tCheckoutSellingOverview.getSelectionModel().getSelectedItem()).getCheckoutAmount()) {
+            if((tCheckoutSellingOverview.getSelectionModel().getSelectedItem()) instanceof Good) {
+                ArrayList<Item> items = new ArrayList<>();
+                items.addAll(tCheckoutSellingOverview.getItems());
+                Item item = (Item) tCheckoutSellingOverview.getSelectionModel().getSelectedItem();
+                tCheckoutSellingOverview.getItems().clear();
+                items.get(items.indexOf(item)).addCheckoutAmount(1);
+                tCheckoutSellingOverview.getItems().addAll(items);
+                tCheckoutSellingOverview.getSelectionModel().select(item);
+                updateCheckoutPrice();
+            }
         }
     }
 
@@ -990,18 +1120,20 @@ implements Initializable {
      */
     private void decAmount() {
         if(tCheckoutSellingOverview.getSelectionModel().getSelectedItem() != null) {
-            ArrayList<Item> items = new ArrayList<>();
-            items.addAll(tCheckoutSellingOverview.getItems());
-            Item item = (Item) tCheckoutSellingOverview.getSelectionModel().getSelectedItem();
-            tCheckoutSellingOverview.getItems().clear();
-            if(items.get(items.indexOf(item)).getCheckoutAmount() > 1) {
-                items.get(items.indexOf(item)).addCheckoutAmount(- 1);
-            } else {
-                items.remove(item);
+            if((tCheckoutSellingOverview.getSelectionModel().getSelectedItem()) instanceof Good) {
+                ArrayList<Item> items = new ArrayList<>();
+                items.addAll(tCheckoutSellingOverview.getItems());
+                Item item = (Item) tCheckoutSellingOverview.getSelectionModel().getSelectedItem();
+                tCheckoutSellingOverview.getItems().clear();
+                if(items.get(items.indexOf(item)).getCheckoutAmount() > 1) {
+                    items.get(items.indexOf(item)).addCheckoutAmount(- 1);
+                } else {
+                    items.remove(item);
+                }
+                tCheckoutSellingOverview.getItems().addAll(items);
+                tCheckoutSellingOverview.getSelectionModel().select(item);
+                updateCheckoutPrice();
             }
-            tCheckoutSellingOverview.getItems().addAll(items);
-            tCheckoutSellingOverview.getSelectionModel().select(item);
-            updateCheckoutPrice();
         }
     }
 
@@ -1123,7 +1255,6 @@ implements Initializable {
 
         SortedList<GasPump> gasPumpSortedList = new SortedList<>(filteredGasPumps);
         gasPumpSortedList.comparatorProperty().bind(gasPumpDialog.getTable().comparatorProperty());
-
         gasPumpDialog.getTable().setItems(gasPumpSortedList);
     }
 
@@ -1228,6 +1359,19 @@ implements Initializable {
     }
 
     /**
+     * Gibt einen Pfad als String zurück über einen FileChooser
+     * @param title Title des FileChoosers
+     * @return path
+     * @author Robin Herder
+     */
+    private String getFileSave(String title) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle(title);
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text Files", "*.txt"));
+        return fileChooser.showSaveDialog(rootPane.getScene().getWindow()).getAbsolutePath();
+    }
+
+    /**
      * Loginscreen initialisieren je nach rechterolle
      * @author Robin Herder
      */
@@ -1320,6 +1464,14 @@ implements Initializable {
     public void setProfilePicture(Image image) {
         ivUserMenuBar.setImage(image);
         ivUserProfilePictureUser.setImage(image);
+    }
+
+    public void export(Document doc) throws IOException {
+        WriteFile write = new WriteFile(getFileSave("Exportieren"));
+        for(String line : doc.getLinesForFile()) {
+            write.addLine(line);
+        }
+        write.write();
     }
 
 }

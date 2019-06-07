@@ -1,5 +1,6 @@
 package gasStationSoftware.models;
 
+import gasStationSoftware.controller.Logic;
 import gasStationSoftware.util.Utility;
 
 import java.util.ArrayList;
@@ -45,8 +46,27 @@ extends Document {
      * @return lines
      * @author Robin Herder
      */
-    public String[] getLinesForFile() {
-        return null;
+    public ArrayList<String> getLinesForFile() {
+        ArrayList<String> lines = new ArrayList<>();
+        lines.add(Logic.getInstance().getTitle() + "\n");
+        lines.add("Belegnummer: " + getRECEIPT_NUMBER());
+        lines.add("Datum: " + getDate());
+        lines.add("Mitarbeiter: " + getEMPLOYEE().getFIRST_NAME() + " " + getEMPLOYEE().getSUR_NAME() + "\n");
+        Iterator<Fuel> fuelKey = fuels.keySet().iterator();
+        Iterator<Good> goodKey = goods.keySet().iterator();
+        while (fuelKey.hasNext()) {
+            Fuel fuel = fuelKey.next();
+            lines.add(fuel.getLABEL() + " - " + fuels.get(fuel) + " Liter - " + fuel.getPrice() + " EUR/Liter " +
+            fuel.getPrice() * fuels.get(fuel));
+        }
+        while (goodKey.hasNext()) {
+            Good good = goodKey.next();
+            lines.add(
+            good.getLABEL() + " - " + goods.get(good) + " " + good.getUNIT() + " " + good.getPrice() + " EUR/" +
+            good.getUNIT() + " - " + good.getPrice() * goods.get(good));
+        }
+        lines.add("\nGesamtbetrag: " + getTotal() + " EUR");
+        return lines;
     }
 
     /**

@@ -3,20 +3,20 @@ package gasStationSoftware.models;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class GoodDocument
+public class GoodDeliveryDocument
 extends Document {
 
     private final ArrayList<Good> GOODS;
 
     /**
-     * Constructor GoodDocument
+     * Constructor GoodDeliveryDocument
      * @param docType art des dokuments
      * @param name name des dokuments
      * @param date erstellungsdatum
      * @param goods wahhren im doc
      * @author Robin Herder
      */
-    public GoodDocument(DocumentType docType, String name, Date date, ArrayList<Good> goods) {
+    public GoodDeliveryDocument(DocumentType docType, String name, Date date, ArrayList<Good> goods) {
         super(docType, name, date);
         GOODS = goods;
     }
@@ -26,8 +26,14 @@ extends Document {
      * @return zeilen für datei
      * @author Robin Herder
      */
-    @Override public String[] getLinesForFile() {
-        return new String[0];
+    @Override public ArrayList<String> getLinesForFile() {
+        ArrayList<String> lines = new ArrayList<>();
+        lines.add("Lieferdatum=" + getDATE());
+        lines.add("Warennummer;Bezeichnung;Lagereinheit;Menge;Einkaufspreis");
+        for(Good good : GOODS) {
+            lines.add(good.getINVENTORY_NUMBER() + ";" + good.getLABEL() + ";" + good.getUNIT() + ";" + good.getAmount() + ";" + good.getPrice());
+        }
+        return lines;
     }
 
     /**
