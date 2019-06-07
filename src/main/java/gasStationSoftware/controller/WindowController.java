@@ -141,8 +141,10 @@ implements Initializable {
         addColumnsTCheckoutSellingOverview();
         addColumnsTReportOverview();
         addColumnsTTanksStatus();
-        setDefaultContent();
         addColumnsTSellingReceipt();
+        addColumnsTFuelsFuelOrder();
+        addColumnsTGoodsInventoryOrder();
+        setDefaultContent();
     }
 
     //===[HANDLE EVENT]==================================================
@@ -577,14 +579,33 @@ implements Initializable {
     }
 
     /**
-     * Spalten der Warenlieferungstabelle einfügen
-     *
+     * Spalten der Quittungstabelle
      * @author Robin Herder
      */
     private void addColumnsTSellingReceipt() {
-        TableColumn columnGoodDeliveryName = Dialog.getColumn("Quittung", "NAME", 200, true);
-        TableColumn columnGoodDeliveryDate = Dialog.getColumn("Datum", "DATE", 200, true);
-        tSellingReceipt.getColumns().addAll(columnGoodDeliveryName, columnGoodDeliveryDate);
+        TableColumn columnReceiptName = Dialog.getColumn("Quittung", "NAME", 200, true);
+        TableColumn columnReceiptDate = Dialog.getColumn("Datum", "DATE", 200, true);
+        tSellingReceipt.getColumns().addAll(columnReceiptName, columnReceiptDate);
+    }
+
+    /**
+     * Spalten der Kraftstoffbestellungstabelle
+     * @author Robin Herder
+     */
+    public void addColumnsTFuelsFuelOrder() {
+        TableColumn columnFuelOrderName = Dialog.getColumn("Bestellung", "NAME", 200, true);
+        TableColumn columnFuelOrderDate = Dialog.getColumn("Datum", "DATE", 200, true);
+        tFuelsFuelOrder.getColumns().addAll(columnFuelOrderName, columnFuelOrderDate);
+    }
+
+    /**
+     * Spalten der Produktbestellungstabelle
+     * @author Robin Herder
+     */
+    public void addColumnsTGoodsInventoryOrder() {
+        TableColumn columnGoodOrderName = Dialog.getColumn("Bestellung", "NAME", 200, true);
+        TableColumn columnGoodOrderDate = Dialog.getColumn("Datum", "DATE", 200, true);
+        tGoodsInventoryOrder.getColumns().addAll(columnGoodOrderName, columnGoodOrderDate);
     }
 
     /**
@@ -723,14 +744,33 @@ implements Initializable {
     }
 
     /**
-     * Füllstandmenge
-     *
-     * @param tanks Tank objekt liste
+     * Quittungen zu Quittungstabelle hinzufügen
+     * @param receipt liste der quittungen
      * @author Robin Herder
      */
     public void addRowTSellingReceipt(ArrayList<CustomerOrder> receipt) {
         tSellingReceipt.getItems().clear();
         tSellingReceipt.getItems().addAll(receipt);
+    }
+
+    /**
+     * Bestellung zu Bestellungstabelle hinzufügen
+     * @param fuelOrders liste der quittungen
+     * @author Robin Herder
+     */
+    public void addRowTFuelsFuelOrder(ArrayList<FuelOrderDocument> fuelOrders) {
+        tFuelsFuelOrder.getItems().clear();
+        tFuelsFuelOrder.getItems().addAll(fuelOrders);
+    }
+
+    /**
+     * Bestellung zu Bestellungstabelle hinzufügen
+     * @param goodOrders liste der quittungen
+     * @author Robin Herder
+     */
+    public void addRowTGoodsInventoryOrder(ArrayList<GoodOrderDocument> goodOrders) {
+        tGoodsInventoryOrder.getItems().clear();
+        tGoodsInventoryOrder.getItems().addAll(goodOrders);
     }
 
     //===[LOGIC CALL]==================================================
