@@ -587,24 +587,6 @@
                                         <MaterialDesignIconView fx:id="icoGoodsSettingsOverview" fill="WHITE" glyphName="OPEN_IN_NEW" size="20" smooth="false" />
                                     </graphic>
                                 </JFXButton>
-                                <Label fx:id="subtitleImportExportSettingsOverview" layoutX="65.0" layoutY="460.0" text="Impotieren / Exportieren" textFill="#212121">
-                                    <font>
-                                        <Font name="System Bold" size="15.0" />
-                                    </font>
-                                </Label>
-                                <Separator fx:id="dividerImportExportSettingsOverview" layoutX="65.0" layoutY="485.0" prefWidth="700.0" style="-fx-background-color: #212121;" />
-                                <Label fx:id="lblTypeSettingsOverview" layoutX="65.0" layoutY="505.0" prefHeight="20.0" prefWidth="60.0" text="Type:" textFill="#212121" />
-                                <JFXComboBox fx:id="cbTypeSettingsOverview" layoutX="140.0" layoutY="500.0" prefHeight="30.0" prefWidth="200.0" />
-                                <JFXButton fx:id="btnExportSettingsOverview" buttonType="RAISED" layoutX="615.0" layoutY="500.0" onMouseClicked="#handleSettingsAction" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Exportieren" textFill="WHITE">
-                                    <graphic>
-                                        <MaterialDesignIconView fx:id="icoExportSettingsOverview" fill="WHITE" glyphName="EXPORT" size="20" smooth="false" />
-                                    </graphic>
-                                </JFXButton>
-                                <JFXButton fx:id="btnImportSettingsOverview" buttonType="RAISED" layoutX="455.0" layoutY="500.0" onMouseClicked="#handleSettingsAction" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #607D8B; -jfx-disable-visual-focus: true;" text="Importieren" textFill="WHITE">
-                                    <graphic>
-                                        <MaterialDesignIconView fx:id="icoImportSettingsOverview" fill="WHITE" glyphName="IMPORT" size="20" smooth="false" />
-                                    </graphic>
-                                </JFXButton>
                         <JFXButton layoutX="830.0" layoutY="15.0" onMousePressed="#handleCloseAction" prefHeight="40.0" prefWidth="40.0" style="-jfx-disable-visual-focus: true;">
                            <graphic>
                               <MaterialDesignIconView glyphName="CLOSE" size="24" style="-fx-fill: #607D8B;" />
@@ -771,7 +753,6 @@
         </ArrayList>
         <ArrayList fx:id="allDivider">
             <fx:reference source="dividerGasStationAdministrationSettingsOverview" />
-            <fx:reference source="dividerImportExportSettingsOverview" />
             <fx:reference source="dividerThemesSettingsOverview" />
             <fx:reference source="dividerUser" />
         </ArrayList>
@@ -795,7 +776,6 @@
             <fx:reference source="lblYearlySalesUser" />
             <fx:reference source="lblUserRoleUser" />
             <fx:reference source="lblUserNameUser" />
-            <fx:reference source="lblTypeSettingsOverview" />
             <fx:reference source="lblTotalSalesOverview" />
             <fx:reference source="lblTotalCurrencySalesOverview" />
             <fx:reference source="lblTimespanReportOverview" />
@@ -840,7 +820,6 @@
         </ArrayList>
         <ArrayList fx:id="allSubTitles">
             <fx:reference source="subtitleGasStationAdministrationSettingsOverview" />
-            <fx:reference source="subtitleImportExportSettingsOverview" />
             <fx:reference source="subtitleSalesUser" />
             <fx:reference source="subTitleThemesSettingsOverview" />
         </ArrayList>
@@ -856,7 +835,6 @@
             <fx:reference source="icoEditThemeSettingsOverview" />
             <fx:reference source="icoExportSettingsGasPump" />
             <fx:reference source="icoExportSettingsGood" />
-            <fx:reference source="icoExportSettingsOverview" />
             <fx:reference source="icoFuelsSettingsOverview" />
             <fx:reference source="icoGasPumpsSalesOverview" />
             <fx:reference source="icoGasPumpsSettingsOverview" />
@@ -864,7 +842,6 @@
             <fx:reference source="icoGoodsSettingsOverview" />
             <fx:reference source="icoImportSettingsGasPump" />
             <fx:reference source="icoImportSettingsGood" />
-            <fx:reference source="icoImportSettingsOverview" />
             <fx:reference source="icoNewSettingsFuel" />
             <fx:reference source="icoNewSettingsTank" />
             <fx:reference source="icoOrderInventoryOverview" />
@@ -896,7 +873,6 @@
             <fx:reference source="btnEditSettingsGood" />
             <fx:reference source="btnEditSettingsTank" />
             <fx:reference source="btnEditThemeSettingsOverview" />
-            <fx:reference source="btnExportSettingsOverview" />
             <fx:reference source="btnFuelsSettingsOverview" />
             <fx:reference source="btnGasPumpsSalesOverview" />
             <fx:reference source="btnGasPumpsSettingsOverview" />
@@ -904,7 +880,6 @@
             <fx:reference source="btnGoodsSettingsOverview" />
             <fx:reference source="btnImportFuelDeliveries" />
             <fx:reference source="btnImportInventoryDelivery" />
-            <fx:reference source="btnImportSettingsOverview" />
             <fx:reference source="btnNewSettingsFuel" />
             <fx:reference source="btnNewSettingsGasPump" />
             <fx:reference source="btnNewSettingsGood" />
@@ -922,14 +897,6 @@
             <fx:reference source="btnGoToTanks" />
             <fx:reference source="btnOpenSellingReceipt" />
             <fx:reference source="btnReceiptSalesOverview"/>
-        </ArrayList>
-        <ArrayList fx:id="allCb">
-            <fx:reference source="cbThemeSettingsOverview" />
-            <fx:reference source="cbTypeSettingsOverview" />
-        </ArrayList>
-        <ArrayList fx:id="allIv">
-            <fx:reference source="ivUserMenuBar" />
-            <fx:reference source="ivUserProfilePictureUser" />
         </ArrayList>
     </fx:define>
 </StackPane>
