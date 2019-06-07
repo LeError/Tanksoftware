@@ -9,6 +9,19 @@ extends TableCell<Item, Float> {
     private JFXTextField amount = new JFXTextField();
 
     private float item = -1;
+    private boolean empty;
+
+    public TextFielCustom() {
+        amount.setMinSize(50, 30);
+        amount.setPrefSize(50, 30);
+        amount.setMaxSize(50, 30);
+        amount.textProperty().addListener((observable, oldValue, newValue) -> {
+            Float valueSet = Float.parseFloat(newValue);
+            item = valueSet;
+            updateItem(valueSet, empty);
+            System.out.println(valueSet);
+        });
+    }
 
     /**
      * Setzt grafik und wert
@@ -16,12 +29,14 @@ extends TableCell<Item, Float> {
      */
     @Override protected void updateItem(Float item, boolean empty) {
         super.updateItem(item, empty);
+        this.empty = empty;
         if (!empty) {
             setGraphic(amount);
             if (this.item == -1) {
                 setAmount(item);
             } else {
-                setAmount(this.item);
+                Item rowDataItem = this.getTableView().getItems().get(getIndex());
+                rowDataItem.setCheckoutAmount(this.item);
             }
         }
     }
@@ -32,16 +47,5 @@ extends TableCell<Item, Float> {
      */
     public void setAmount(Float value) {
         amount.setText(String.valueOf(value));
-        amount.setMinSize(50, 30);
-        amount.setPrefSize(50, 30);
-        amount.setMaxSize(50, 30);
-        amount.textProperty().addListener((observable, oldValue, newValue) -> {
-            try {
-                super.updateItem(Float.parseFloat(newValue), true);
-                this.item = Float.parseFloat(newValue);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
     }
 }
