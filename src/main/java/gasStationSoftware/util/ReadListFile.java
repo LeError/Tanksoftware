@@ -13,14 +13,16 @@ public class ReadListFile {
     private final File FILE;
     private String date;
     private final ArrayList<String> LINES = new ArrayList<>();
+    private String split;
 
     /**
      * Constructor ReadListFile
      * @param url pfad der Datei
      * @author Robin Herder
      */
-    public ReadListFile(String url) {
+    public ReadListFile(String url, String split) {
         FILE = new File(url);
+        this.split = split;
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(FILE))) {
             String line;
             boolean firstLine = true;
@@ -53,7 +55,7 @@ public class ReadListFile {
      * @author Robin Herder
      */
     private String[] getLine(String line) {
-        return line.trim().split("=");
+        return line.trim().split(split);
     }
 
     /**
