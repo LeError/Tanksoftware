@@ -239,22 +239,20 @@ public class Logic {
         }
         try {
             loadEmployees();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        } catch (DataFileNotFoundException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            Logic.displayError("Employee Datei beschädigt", e, false);
         }
         try {
             loadInventory();
-        } catch (DataFileNotFoundException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            Logic.displayError("Kann Inventory nicht laden", e, false);
         }
         loadFuelDeliveries();
         loadGoodDeliveries();
         try {
             loadReceipts();
         } catch (DataFileNotFoundException e) {
-            e.printStackTrace();
+            Logic.displayError("Kann Quittungen nicht laden", e, false);
         }
         updateBalance();
         loadFuelOrder();
@@ -277,7 +275,7 @@ public class Logic {
                 write.write(true);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Logic.displayError("Tanksimulationsdatei lässt sich nicht erstellen", e, false);
         }
     }
 
@@ -319,7 +317,7 @@ public class Logic {
 
     /**
      * Lädt Angestellte save datei und json und speißt diese in Objekte ein
-     * @throws ParseException
+     * @throws ParseException Datum
      * @author Robin Herder
      */
     private void loadEmployees() throws ParseException, DataFileNotFoundException {
@@ -459,7 +457,7 @@ public class Logic {
             try {
                 date = new SimpleDateFormat("dd.MM.yyyy").parse(receiptDate[i]);
             } catch (ParseException e) {
-                e.printStackTrace();
+                Logic.displayError("Rechnungsdatum fehlerhaft", e, false);
             }
             ArrayList<Good> goods = new ArrayList<>();
             ArrayList<Fuel> fuels = new ArrayList<>();
@@ -529,7 +527,7 @@ public class Logic {
             try {
                 tanks.add(new FuelTank(tankID[i], tankCapacity[i], tankLevel[i], fuel));
             } catch (NumberOutOfRangeException e) {
-                e.printStackTrace();
+                Logic.displayError("Zuviel Kraftstoff für Tank", e, false);
             }
         }
         Collections.sort(this.tanks, Comparator.comparingInt(tank -> tank.getTANK_NUMBER()));
@@ -689,7 +687,7 @@ public class Logic {
             try {
                 write.write();
             } catch (IOException e) {
-                e.printStackTrace();
+                Logic.displayError("Bestellung lässt sich nicht speichern", e, false);
             }
         } else {
             docType = DocumentType.fuelOrder;
@@ -702,7 +700,7 @@ public class Logic {
             try {
                 write.write();
             } catch (IOException e) {
-                e.printStackTrace();
+                Logic.displayError("Bestellung lässt sich nicht speichern", e, false);
             }
         }
         documents.add(doc);
@@ -728,7 +726,7 @@ public class Logic {
                 try {
                     this.fuels.get(this.fuels.indexOf(fuel)).removeAmount(fuel.getCheckoutAmount(), fuel.getCheckoutTank());
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    Logic.displayError("Zu wenig Kraftstoff im Tank", e, false);
                 }
                 fuels.add(fuel);
             }
@@ -759,7 +757,7 @@ public class Logic {
             write.addItemArray("fuelAmount", fuelAmount);
             write.write(true);
         } catch (Exception e) {
-            e.printStackTrace();
+            Logic.displayError("Kann Quittung nicht speichern", e, false);
         }
     }
 
@@ -794,7 +792,7 @@ public class Logic {
             windowController.addRowTTanksSettingsTank(tanks);
             saveInventory();
         } catch (NumberOutOfRangeException e) {
-            e.printStackTrace();
+            Logic.displayError("Fehler beim anlegen des Tanks", e, false);
         }
     }
 
@@ -832,7 +830,7 @@ public class Logic {
             try {
                 newFuel.addAmount(amount);
             } catch (Exception e) {
-                e.printStackTrace();
+                Logic.displayError("Kann mänge nicht hinzufügen", e, false);
             }
             fuels.add(newFuel);
             Collections.sort(fuels, Comparator.comparingInt(fuel -> fuel.getINVENTORY_NUMBER()));
@@ -947,7 +945,7 @@ public class Logic {
         try {
             writeFile.write();
         } catch (IOException e) {
-            e.printStackTrace();
+            Logic.displayError("Kann Employe Datei nicht schreiben", e, false);
         }
         updateBalance();
     }
@@ -987,7 +985,7 @@ public class Logic {
         try {
             loadSettings();
         } catch (DataFileNotFoundException e) {
-            e.printStackTrace();
+            Logic.displayError("Kann Theme datei nicht erstellen", e, false);
         }
     }
 
@@ -1391,7 +1389,7 @@ public class Logic {
                     try {
                         oDate = format.parse(Utility.getDateFormatted(document.getODATE()));
                     } catch (ParseException e) {
-                        e.printStackTrace();
+                        Logic.displayError("Datum Fehlerhaft", e, false);
                     }
                     if (dates.get(0).compareTo(oDate) <= 0 && dates.get(1).compareTo(oDate) >= 0) {
                         documents.add(document);
@@ -1404,7 +1402,7 @@ public class Logic {
                     try {
                         oDate = format.parse(Utility.getDateFormatted(document.getODATE()));
                     } catch (ParseException e) {
-                        e.printStackTrace();
+                        Logic.displayError("Datum Fehlerhaft", e, false);;
                     }
                     if (dates.get(1).compareTo(oDate) <= 0 && dates.get(0).compareTo(oDate) >= 0) {
                         documents.add(document);
@@ -1606,7 +1604,7 @@ public class Logic {
                 }
             }
         } catch (DataFileNotFoundException e) {
-            e.printStackTrace();
+            Logic.displayError("TanksSimu Satei nicht aufgefallen", e, false);
         }
         return gasPumps;
     }
@@ -1682,7 +1680,7 @@ public class Logic {
                     try {
                         fuels.get(i).addAmount(fuel.getAmountDelivered());
                     } catch(Exception e) {
-                        e.printStackTrace();
+                        Logic.displayError("kann man nicht hinzufügen", e, false);
                     }
                 }
             }
@@ -1950,7 +1948,7 @@ public class Logic {
         try {
             editFuelTank.setLevel(level);
         } catch (NumberOutOfRangeException e) {
-            e.printStackTrace();
+            Logic.displayError("Zu viel für Tank", e, false);
         }
         windowController.addRowTTanksSettingsTank(tanks);
         saveInventory();

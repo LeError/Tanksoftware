@@ -1,5 +1,7 @@
 package gasStationSoftware.util;
 
+import gasStationSoftware.controller.Logic;
+
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -36,7 +38,11 @@ public class WriteFile {
      * @author Robin Herder
      */
     public void write() throws IOException {
-        Files.write(FILE, lines, Charset.forName("UTF-8"));
+        try {
+            Files.write(FILE, lines, Charset.forName("UTF-8"));
+        } catch(Exception e) {
+            Logic.displayError("Kann Datei nicht schreiben!", e, false);
+        }
     }
 
 }

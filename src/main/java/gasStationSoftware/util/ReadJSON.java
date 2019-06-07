@@ -1,5 +1,6 @@
 package gasStationSoftware.util;
 
+import gasStationSoftware.controller.Logic;
 import gasStationSoftware.exceptions.DataFileNotFoundException;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -40,7 +41,7 @@ public class ReadJSON {
             Object obj = parser.parse(fileReader);
             jsonObject = (JSONObject) obj;
         } catch (Exception e) {
-            e.printStackTrace();
+            Logic.displayError("Kann JSON-Datei nicht lesen", e, false);
         }
     }
 

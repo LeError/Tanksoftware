@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXTextArea;
+import gasStationSoftware.controller.Logic;
 import gasStationSoftware.controller.WindowController;
 import gasStationSoftware.models.Document;
 import gasStationSoftware.util.Dialog;
@@ -71,7 +72,7 @@ public class ContentDialog {
             try {
                 windowController.export(doc);
             } catch (IOException e) {
-                e.printStackTrace();
+                Logic.displayError("Kann datei nicht exportieren!", e, false);
             }
         });
 

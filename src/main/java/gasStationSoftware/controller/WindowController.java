@@ -241,7 +241,7 @@ implements Initializable {
             try {
                 logic.importGoodDelivery(logic.importFile(getFile("Lieferung importieren"), 4), true);
             } catch (IOException e) {
-                e.printStackTrace();
+                Logic.displayError("Datei lässt sich nicht importiere", e, false);
             }
         } else if(event.getTarget() == btnOpeInventoryDelivery) {
             if(tGoodsInventoryDelivery.getSelectionModel().getSelectedItem() != null) {
@@ -278,7 +278,7 @@ implements Initializable {
             try {
                 logic.importFuelDelivery(logic.importFile(getFile("Kraftstofflieferung importieren"), 2), true);
             } catch (IOException e) {
-                e.printStackTrace();
+                Logic.displayError("Datei lässt sich nicht importiere", e, false);
             }
         } else if(event.getTarget() == btnGoToTanks) {
             hideSubPanes();
@@ -394,7 +394,7 @@ implements Initializable {
         try {
             logic.setTheme((String) cbThemeSettingsOverview.getSelectionModel().getSelectedItem());
         } catch (DataFileNotFoundException e) {
-            e.printStackTrace();
+            Logic.displayError("Kann theme nicht laden!", e, false);
         }
     }
 

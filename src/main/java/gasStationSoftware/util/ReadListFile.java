@@ -1,5 +1,7 @@
 package gasStationSoftware.util;
 
+import gasStationSoftware.controller.Logic;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -31,7 +33,7 @@ public class ReadListFile {
                 LINES.add(line.toLowerCase());
             }
         }catch(Exception e) {
-            e.printStackTrace();
+            Logic.displayError("Kann Datei nicht Lesen", e, false);
         }
     }
 
@@ -67,7 +69,7 @@ public class ReadListFile {
         try {
             return new SimpleDateFormat("dd.MM.yyyy").parse(date.trim().split("=")[1]);
         } catch (ParseException e) {
-            e.printStackTrace();
+            Logic.displayError("Datum in Speicherdatei fehlerhaft oder nicht vorhanden", e, false);
         }
         return null;
     }
