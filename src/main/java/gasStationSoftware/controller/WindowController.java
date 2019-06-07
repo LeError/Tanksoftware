@@ -12,11 +12,11 @@ import gasStationSoftware.models.CustomerOrder;
 import gasStationSoftware.models.Document;
 import gasStationSoftware.models.Employee;
 import gasStationSoftware.models.Fuel;
-import gasStationSoftware.models.FuelDocument;
+import gasStationSoftware.models.FuelDeliveryDocument;
 import gasStationSoftware.models.FuelTank;
 import gasStationSoftware.models.GasPump;
 import gasStationSoftware.models.Good;
-import gasStationSoftware.models.GoodDocument;
+import gasStationSoftware.models.GoodDeliveryDocument;
 import gasStationSoftware.models.InventoryType;
 import gasStationSoftware.models.Item;
 import gasStationSoftware.models.ItemType;
@@ -693,7 +693,7 @@ implements Initializable {
      * @param deliveries Kraftstofflieferung objekt liste
      * @author Robin Herder
      */
-    public void addRowTFuelsFuelDelivery(ArrayList<FuelDocument> deliveries) {
+    public void addRowTFuelsFuelDelivery(ArrayList<FuelDeliveryDocument> deliveries) {
         tFuelsFuelDeliveries.getItems().clear();
         tFuelsFuelDeliveries.getItems().addAll(deliveries);
     }
@@ -703,7 +703,7 @@ implements Initializable {
      * @param deliveries Produktliefrungd objekt liste
      * @author Robin Herder
      */
-    public void addRowTGoodsInventoryDelivery(ArrayList<GoodDocument> deliveries) {
+    public void addRowTGoodsInventoryDelivery(ArrayList<GoodDeliveryDocument> deliveries) {
         tGoodsInventoryDelivery.getItems().clear();
         tGoodsInventoryDelivery.getItems().addAll(deliveries);
     }
