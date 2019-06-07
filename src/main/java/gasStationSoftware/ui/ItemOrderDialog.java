@@ -34,7 +34,7 @@ public class ItemOrderDialog extends Dialog {
 
     @Override
     protected void processSubmit(AnchorPane pane) {
-
+        windowController.processOrder(pane, type);
     }
 
     public AnchorPane create() {
