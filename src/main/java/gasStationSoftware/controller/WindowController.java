@@ -8,18 +8,7 @@ import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import gasStationSoftware.exceptions.DataFileNotFoundException;
-import gasStationSoftware.models.CustomerOrder;
-import gasStationSoftware.models.Document;
-import gasStationSoftware.models.Employee;
-import gasStationSoftware.models.Fuel;
-import gasStationSoftware.models.FuelDeliveryDocument;
-import gasStationSoftware.models.FuelTank;
-import gasStationSoftware.models.GasPump;
-import gasStationSoftware.models.Good;
-import gasStationSoftware.models.GoodDeliveryDocument;
-import gasStationSoftware.models.InventoryType;
-import gasStationSoftware.models.Item;
-import gasStationSoftware.models.ItemType;
+import gasStationSoftware.models.*;
 import gasStationSoftware.ui.ContentDialog;
 import gasStationSoftware.ui.EmployeeInputDialog;
 import gasStationSoftware.ui.FuelTankInputDialog;
@@ -1045,6 +1034,10 @@ implements Initializable {
         Color buttonFont = new Color((float) ((JFXColorPicker) pane.getChildren().get(14)).getValue().getRed(), (float) ((JFXColorPicker) pane.getChildren().get(14)).getValue().getGreen(), (float) ((JFXColorPicker) pane.getChildren().get(14)).getValue().getBlue(), (float) ((JFXColorPicker) pane.getChildren().get(14)).getValue().getOpacity());
         Color dividerContent = new Color((float) ((JFXColorPicker) pane.getChildren().get(15)).getValue().getRed(), (float) ((JFXColorPicker) pane.getChildren().get(15)).getValue().getGreen(), (float) ((JFXColorPicker) pane.getChildren().get(15)).getValue().getBlue(), (float) ((JFXColorPicker) pane.getChildren().get(15)).getValue().getOpacity());
         logic.saveTheme(menuBar, contentPaneBackground, icons, dividerMenuBar, fontContent, buttonBackground, buttonFont, dividerContent, title);
+    }
+
+    public void processOrder(AnchorPane pane, InventoryType type) {
+
     }
 
     //===[CHECKOUT SPECIFIC]==================================================
