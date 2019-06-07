@@ -2,15 +2,16 @@ package gasStationSoftware.models;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
 
 public class GoodOrderDocument
 extends Document {
 
-    private final ArrayList<Item> GOODS;
+    private HashMap<Item, Float> goods = new HashMap<>();
 
     /**
      * Constructor GoodOrderDocument
-     *
      * @param docType     art des dokuments
      * @param name        name des dokuments
      * @param date        erstellungsdatum
@@ -19,7 +20,10 @@ extends Document {
      */
     public GoodOrderDocument(DocumentType docType, String name, Date date, ArrayList<Item> goods) {
         super(docType, name, date);
-        GOODS = goods;
+        for(Item good : goods) {
+            this.goods.put(good, good.getCheckoutAmount());
+            good.setCheckoutAmount(0);
+        }
     }
 
     /**
@@ -32,8 +36,10 @@ extends Document {
         ArrayList<String> lines = new ArrayList<>();
         lines.add("Bestelldatum=" + getDATE());
         lines.add("Warennummer;Bestellmenge");
-        for (int i = 0; i < GOODS.size(); i++) {
-            lines.add(GOODS.get(i).getINVENTORY_NUMBER() + ";" + GOODS.get(i).getCheckoutAmount());
+        Iterator<Item> goodKey = goods.keySet().iterator();
+        while (goodKey.hasNext()) {
+            Item good = goodKey.next();
+            lines.add(good.getINVENTORY_NUMBER() + ";" + goods.get(good));
         }
         return lines;
     }
