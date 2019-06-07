@@ -1,6 +1,5 @@
 package gasStationSoftware.ui;
 
-import gasStationSoftware.controller.Logic;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -44,5 +43,4 @@ extends Application {
         stage.setScene(scene);
         stage.show();
     }
-
 }

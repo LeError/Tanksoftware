@@ -1,5 +1,6 @@
 package gasStationSoftware.util;
 
+import gasStationSoftware.controller.Logic;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -37,7 +38,7 @@ public class WriteJSON {
     /**
      * Fügt ein array hinzu
      * @param name bezeichner der var
-     * @param item zu schreibendes array
+     * @param items zu schreibendes array
      * @author Robin Herder
      */
     public void addItemArray(String name, String[] items) {
@@ -80,7 +81,7 @@ public class WriteJSON {
                 file.write(obj.toJSONString());
                 file.flush();
             } catch (IOException e) {
-                e.printStackTrace();
+                Logic.displayError("Datei lässt sich nicht schreiben", e, false);
             }
         }
     }
