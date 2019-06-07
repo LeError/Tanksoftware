@@ -16,7 +16,7 @@ public abstract class Document {
      * @param docType Documenttype
      * @param name name des dokuments
      * @param date erstellungsdatum des dokuments
-     * @author Robin Herder
+     * @author Lea Buchhold
      */
     public Document(DocumentType docType, String name, Date date) {
         DOC_TYPE = docType;
@@ -27,7 +27,7 @@ public abstract class Document {
     /**
      * Gibt den Dokumententyp zurück
      * @return DOC_TYPE
-     * @author Robin Herder
+     * @author Lea Buchhold
      */
     public DocumentType getDOC_TYPE() {
         return DOC_TYPE;
@@ -36,7 +36,7 @@ public abstract class Document {
     /**
      * DocType formatiert für tabelle
      * @return
-     * @author Robin Herder
+     * @author Lea Buchhold
      */
     public String getDOC_TYPEForTab() {
         String type = "";
@@ -51,7 +51,7 @@ public abstract class Document {
     /**
      * Gibt den Namen des Dokuments zurück
      * @return NAME
-     * @author Robin Herder
+     * @author Lea Buchhold
      */
     public String getNAME() {
         return NAME;
@@ -60,7 +60,7 @@ public abstract class Document {
     /**
      * Gibt das Datum zurück
      * @return date
-     * @author Robin Herder
+     * @author Lea Buchhold
      */
     public String getDATE() {
         return Utility.getDateFormatted(DATE);
@@ -69,7 +69,7 @@ public abstract class Document {
     /**
      * Gibt das Erstelldatum des Dokuments zurück
      * @return DATE
-     * @author Robin Herder
+     * @author Lea Buchhold
      */
     public Date getODATE() {
         return DATE;
@@ -77,13 +77,13 @@ public abstract class Document {
 
     /**
      * Zeilen für datei returnen
-     * @author Robin Herder
+     * @author Lea Buchhold
      */
     public abstract ArrayList<String> getLinesForFile();
 
     /**
      * Total für tabelle formatieren
-     * @author Robin Herder
+     * @author Lea Buchhold
      */
     public abstract String getTotalForTab();
 }

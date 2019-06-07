@@ -11,7 +11,7 @@ public class ItemType {
      * @param label Bezeichnung des Items
      * @param inventoryNumber Invnummer des Items
      * @param iType abgrenzung fuel / good
-     * @author Robin Herder
+     * @author Lea Buchhold
      */
     public ItemType(String label, int inventoryNumber, InventoryType iType) {
         this.label = label;
@@ -22,7 +22,7 @@ public class ItemType {
     /**
      * Gibt das Label zurück
      * @return label
-     * @author Robin Herder
+     * @author Lea Buchhold
      */
     public String getLABEL() {
         return label;
@@ -35,7 +35,7 @@ public class ItemType {
     /**
      * Gibt die Inventarnummer zurück
      * @return INVENTORY_NUMBER
-     * @author Robin Herder
+     * @author Lea Buchhold
      */
     public int getINVENTORY_NUMBER() {
         return INVENTORY_NUMBER;
@@ -44,7 +44,7 @@ public class ItemType {
     /**
      * gibt den InventoryType zurück good / fuel
      * @return TYPE
-     * @author Robin Herder
+     * @author Lea Buchhold
      */
     public InventoryType getTYPE() {
         return TYPE;
@@ -53,7 +53,7 @@ public class ItemType {
     /**
      * gib die InventoryType bezeichnung zurück
      * @return TYPE_LABEL
-     * @author Robin Herder
+     * @author Lea Buchhold
      */
     public String getTYPE_LABEL() {
         return TYPE.getTYPE();

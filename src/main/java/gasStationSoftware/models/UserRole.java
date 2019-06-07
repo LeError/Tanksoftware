@@ -12,7 +12,7 @@ public enum UserRole {
      * Constructor UserRole
      * @param id id der rolle
      * @param role bezeichnung der rolle
-     * @author Robin Herder
+     * @author Lea Buchhold
      */
     UserRole(int id, String role) {
         this.id = id;
@@ -22,7 +22,7 @@ public enum UserRole {
     /**
      * Gibt die ID zurück
      * @return
-     * @author Robin Herder
+     * @author Lea Buchhold
      */
     public int getId() {
         return id;
@@ -31,7 +31,7 @@ public enum UserRole {
     /**
      * Gibt die Rolle zurück
      * @return
-     * @author Robin Herder
+     * @author Lea Buchhold
      */
     public String getRole() {
         return role;

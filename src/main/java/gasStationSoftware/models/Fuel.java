@@ -13,7 +13,7 @@ public class Fuel extends Item {
      * @param type ItemType des Krafrstoffes
      * @param price Preis des Kraftstoffes
      * @param currency Währung des Preises des Kraftstoffes
-     * @author Robin Herder
+     * @author Lea Buchhold
      */
     public Fuel(ItemType type, float price, String currency) {
         super(type, price, currency);
@@ -22,7 +22,7 @@ public class Fuel extends Item {
     /**
      * Liefert Tanks formatiert für Table
      * @return tanks
-     * @author Robin Herder
+     * @author Lea Buchhold
      */
     public String getTanks() {
         String tanks = "";
@@ -54,7 +54,7 @@ public class Fuel extends Item {
     /**
      * Gibt die aktuelle Menge des Kraftstoffs zurück
      * @return amount
-     * @author Robin Herder
+     * @author Lea Buchhold
      */
     public float getAmount(){
         int amount = 0;
@@ -68,7 +68,7 @@ public class Fuel extends Item {
      * Überprüft die freie Kapazität
      * @param amount menge die in tank soll
      * @return Wahrheitswert
-     * @author Robin Herder
+     * @author Lea Buchhold
      */
     public boolean checkSpace(float amount) {
         int free = 0;
@@ -141,7 +141,7 @@ public class Fuel extends Item {
     /**
      * Gibt den Checkouttank zurück
      * @return pump
-     * @author Robin Herder
+     * @author Lea Buchhold
      */
     public GasPump getCheckoutTank() {
         return checkoutTankNumber;
@@ -150,7 +150,7 @@ public class Fuel extends Item {
     /**
      * Stellt den CheckoutTank ein
      * @param checkoutTankNumber setzten der säule für checkout
-     * @author Robin Herder
+     * @author Lea Buchhold
      */
     public void setCheckoutTank(GasPump checkoutTankNumber) {
         this.checkoutTankNumber = checkoutTankNumber;
