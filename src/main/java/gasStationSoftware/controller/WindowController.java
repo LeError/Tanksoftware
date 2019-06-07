@@ -1036,8 +1036,16 @@ implements Initializable {
         logic.saveTheme(menuBar, contentPaneBackground, icons, dividerMenuBar, fontContent, buttonBackground, buttonFont, dividerContent, title);
     }
 
+    /**
+     * Auswerten des ItemOrderDialog und daten weitergabe an logic
+     * @param pane Anchorpane des dialogs
+     * @param type type des belegs
+     * @author Robin Herder
+     */
     public void processOrder(AnchorPane pane, InventoryType type) {
-
+        ArrayList<Item> items = new ArrayList<>();
+        items.addAll(((TableView) pane.getChildren().get(1)).getItems());
+        logic.addOrder(items, type);
     }
 
     //===[CHECKOUT SPECIFIC]==================================================
@@ -1214,7 +1222,6 @@ implements Initializable {
 
         SortedList<GasPump> gasPumpSortedList = new SortedList<>(filteredGasPumps);
         gasPumpSortedList.comparatorProperty().bind(gasPumpDialog.getTable().comparatorProperty());
-
         gasPumpDialog.getTable().setItems(gasPumpSortedList);
     }
 
