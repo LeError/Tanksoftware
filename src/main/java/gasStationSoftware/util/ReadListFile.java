@@ -65,7 +65,7 @@ public class ReadListFile {
      */
     public Date getDate() {
         try {
-            return new SimpleDateFormat("dd.MM.yyyy").parse(getLine(date)[1]);
+            return new SimpleDateFormat("dd.MM.yyyy").parse(date.trim().split("=")[1]);
         } catch (ParseException e) {
             e.printStackTrace();
         }
