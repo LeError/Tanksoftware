@@ -1647,15 +1647,15 @@ public class Logic {
         for (int i = 0; i < label.size(); i++) {
             int idxItemType = 0;
             for (int ii = 0; ii < types.size(); ii++) {
-                if (types.get(ii).getLABEL().toLowerCase().equals(label.get(i))) {
+                if (types.get(ii).getLABEL().toLowerCase().equals(label.get(i).toLowerCase())) {
                     idxItemType = ii;
                 }
             }
             fuel.add(new DeliveredFuel(types.get(idxItemType), price.get(i), "EUR", amount.get(i)));
         }
         documents.add(new FuelDeliveryDocument(DocumentType.fuelDelivery, filename, read.getDate(), fuel));
-        windowController.addRowTFuelsFuelDelivery(
-        (ArrayList<FuelDeliveryDocument>) Utility.getDocument(documents, DocumentType.fuelDelivery));
+        windowController.addRowTFuelsFuelDelivery((ArrayList<FuelDeliveryDocument>) Utility.getDocument(documents, DocumentType.fuelDelivery));
+        windowController.addRowTTanksSettingsTank(tanks);
         if(newDelivery) {
             addDeliveredFuels(
             (ArrayList<DeliveredFuel>) ((FuelDeliveryDocument) documents.get(documents.size() - 1)).getFuels());
@@ -1675,6 +1675,7 @@ public class Logic {
         int max = fuels.size();
         for(int i = 0; i < max; i++) {
             for(DeliveredFuel fuel : deliveredFuels) {
+                System.out.println(fuel.getINVENTORY_NUMBER());
                 if(fuel.getINVENTORY_NUMBER() == fuels.get(i).getINVENTORY_NUMBER()) {
                     exists[deliveredFuels.indexOf(fuel)] = true;
                     try {
@@ -1798,6 +1799,14 @@ public class Logic {
             break;
         case 2:
             file = "FUEL_DELIVERY_";
+            extension = ".txt";
+            break;
+        case 3:
+            file = "GOOD_ORDER_";
+            extension = ".txt";
+            break;
+        case 4:
+            file = "GOOD_DELIVERY_";
             extension = ".txt";
             break;
         default:

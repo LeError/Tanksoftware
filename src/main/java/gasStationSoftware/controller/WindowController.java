@@ -242,6 +242,7 @@ implements Initializable {
                 logic.importGoodDelivery(logic.importFile(getFile("Lieferung importieren"), 4), true);
             } catch (IOException e) {
                 Logic.displayError("Datei lässt sich nicht importiere", e, false);
+                e.printStackTrace();
             }
         } else if(event.getTarget() == btnOpeInventoryDelivery) {
             if(tGoodsInventoryDelivery.getSelectionModel().getSelectedItem() != null) {
@@ -887,9 +888,13 @@ implements Initializable {
      * @author Robin Herder
      */
     public void processExistingItemTypeInput(AnchorPane pane, InventoryType type) {
-        int id = Integer.parseInt(((JFXTextField) pane.getChildren().get(0)).getText());
-        String label = ((JFXTextField) pane.getChildren().get(1)).getText();
-        logic.editItemType(id, label, type);
+        try {
+            int id = Integer.parseInt(((JFXTextField) pane.getChildren().get(0)).getText());
+            String label = ((JFXTextField) pane.getChildren().get(1)).getText();
+            logic.editItemType(id, label, type);
+        } catch (Exception e) {
+            Logic.displayError("Keine Korrekte ID", e, false);
+        }
     }
 
     /**
@@ -898,10 +903,14 @@ implements Initializable {
      * @author Robin Herder
      */
     public void processFuelTankInput(AnchorPane pane) {
-        float capacity = Float.parseFloat(((JFXTextField) pane.getChildren().get(1)).getText());
-        float level = Float.parseFloat(((JFXTextField) pane.getChildren().get(2)).getText());
-        int index = ((JFXComboBox<String>) pane.getChildren().get(3)).getSelectionModel().getSelectedIndex();
-        logic.addFuelTank(capacity, level, index);
+        try {
+            float capacity = Float.parseFloat(((JFXTextField) pane.getChildren().get(1)).getText());
+            float level = Float.parseFloat(((JFXTextField) pane.getChildren().get(2)).getText());
+            int index = ((JFXComboBox<String>) pane.getChildren().get(3)).getSelectionModel().getSelectedIndex();
+            logic.addFuelTank(capacity, level, index);
+        } catch (Exception e) {
+            Logic.displayError("Zahlenformat FKZ mit \".\" schreiben nicht komma", e, false);
+        }
     }
 
     /**
@@ -910,11 +919,15 @@ implements Initializable {
      * @author Robin Herder
      */
     public void processExistingFuelTank(AnchorPane pane) {
-        int id = Integer.parseInt(((JFXTextField) pane.getChildren().get(0)).getText());
-        float capacity = Float.parseFloat(((JFXTextField) pane.getChildren().get(1)).getText());
-        float level = Float.parseFloat(((JFXTextField) pane.getChildren().get(2)).getText());
-        int index = ((JFXComboBox<String>) pane.getChildren().get(3)).getSelectionModel().getSelectedIndex();
-        logic.editFuelTank(id, capacity, level, index);
+        try {
+            int id = Integer.parseInt(((JFXTextField) pane.getChildren().get(0)).getText());
+            float capacity = Float.parseFloat(((JFXTextField) pane.getChildren().get(1)).getText());
+            float level = Float.parseFloat(((JFXTextField) pane.getChildren().get(2)).getText());
+            int index = ((JFXComboBox<String>) pane.getChildren().get(3)).getSelectionModel().getSelectedIndex();
+            logic.editFuelTank(id, capacity, level, index);
+        } catch (Exception e) {
+            Logic.displayError("Zahlenformat FKZ mit \".\" schreiben nicht komma", e, false);
+        }
     }
 
     /**
@@ -953,10 +966,14 @@ implements Initializable {
      * @author Robin Herder
      */
     public void processFuel(AnchorPane pane, ItemType iType){
-        float amount = Float.parseFloat(((JFXTextField) pane.getChildren().get(1)).getText());
-        float price = Float.parseFloat(((JFXTextField) pane.getChildren().get(2)).getText());
-        String currency = ((JFXTextField) pane.getChildren().get(3)).getText();
-        logic.addFuel(iType, amount, price, currency);
+        try {
+            float amount = Float.parseFloat(((JFXTextField) pane.getChildren().get(1)).getText());
+            float price = Float.parseFloat(((JFXTextField) pane.getChildren().get(2)).getText());
+            String currency = ((JFXTextField) pane.getChildren().get(3)).getText();
+            logic.addFuel(iType, amount, price, currency);
+        } catch (Exception e) {
+            Logic.displayError("Zahlenformat FKZ mit \".\" schreiben nicht komma", e, false);
+        }
     }
 
     /**
@@ -966,11 +983,15 @@ implements Initializable {
      * @author Robin Herder
      */
     public void processGood(AnchorPane pane, ItemType iType) {
-        int amount = Integer.parseInt(((JFXTextField) pane.getChildren().get(1)).getText());
-        String unit = ((JFXTextField) pane.getChildren().get(2)).getText();
-        float price = Float.parseFloat(((JFXTextField) pane.getChildren().get(3)).getText());
-        String currency = ((JFXTextField) pane.getChildren().get(4)).getText();
-        logic.addGood(iType, amount, price, currency, unit);
+        try {
+            int amount = Integer.parseInt(((JFXTextField) pane.getChildren().get(1)).getText());
+            String unit = ((JFXTextField) pane.getChildren().get(2)).getText();
+            float price = Float.parseFloat(((JFXTextField) pane.getChildren().get(3)).getText());
+            String currency = ((JFXTextField) pane.getChildren().get(4)).getText();
+            logic.addGood(iType, amount, price, currency, unit);
+        } catch (Exception e) {
+            Logic.displayError("Zahlenformat FKZ mit \".\" schreiben nicht komma", e, false);
+        }
     }
 
     /**
