@@ -218,7 +218,7 @@ public class Logic {
      * @param end ob es ein Programm kritischer fehler ist true -> Programmende
      * @author Robin Herder
      */
-    public static void displayError(String error, Exception e, boolean end) { // TODO change to errorDialog
+    public static void displayError(String error, Exception e, boolean end) {
         new ErrorDialog(windowController.getRootPane(), error, e.getMessage(), end);
         if(end){
             System.exit(-1);
@@ -873,17 +873,7 @@ public class Logic {
      * @author Robin Herder
      */
     public void addEmployee(String firstName, String surName, Date employeeDate, String userRole, String userPass) {
-        UserRole role = null;
-        switch (userRole) {
-            case "Administrator":
-                role = UserRole.admin;
-                break;
-            case "Angestellter":
-                role = UserRole.employee;
-                break;
-            default:
-                role = UserRole.assistant;
-        }
+        UserRole role = getRole(userRole);
         employees.add(new Employee(getFreeEmployeeNumber(), firstName, surName, employeeDate, role, DigestUtils.sha256Hex(userPass)));
         Collections.sort(employees, Comparator.comparingInt(employee -> employee.getEMPLOYEE_NUMBER()));
         windowController.addRowTEmployeesEmployeeOverview(employees);
@@ -1909,17 +1899,7 @@ public class Logic {
         if(pass != null && !pass.equals("")) {
             editEmployee.setPass(DigestUtils.sha256Hex(userRole));
         }
-        UserRole role = null;
-        switch (userRole) {
-            case "Administrator":
-                role = UserRole.admin;
-                break;
-            case "Angestellter":
-                role = UserRole.employee;
-                break;
-            default:
-                role = UserRole.assistant;
-        }
+        UserRole role = getRole(userRole);
         editEmployee.setRole(role);
         windowController.addRowTEmployeesEmployeeOverview(employees);
         saveEmployees();
@@ -2042,6 +2022,21 @@ public class Logic {
         };
         audio = new Thread(runnableAudio);
         audio.start();
+    }
+
+    private UserRole getRole(String userRole) {
+        UserRole role = null;
+        switch (userRole) {
+            case "Administrator":
+                role = UserRole.admin;
+                break;
+            case "Angestellter":
+                role = UserRole.employee;
+                break;
+            default:
+                role = UserRole.assistant;
+        }
+        return role;
     }
 
 }
