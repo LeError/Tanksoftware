@@ -1,0 +1,5 @@
+LIEFERDATUM=05.04.2019
+Diesel=4000
+Diesel_PREIS=0.82
+Super=233
+Super_PREIS=1.04

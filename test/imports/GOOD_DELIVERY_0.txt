@@ -1,0 +1,7 @@
+Lieferdatum=07.01.2019
+Warennummer;Bezeichnung;Lagereinheit;Menge;Einkaufspreis
+421;Wodka Jelzin;Flasche;30;2.99
+871;Filip Maurice;Packung;100;2.77
+358;Jupiter Schokoriegel;Stück;150;0.19
+992;Sitting Bull;Dose;50;0.29
+101;TK-Pizza Deluxe;Stück;20;0.89
