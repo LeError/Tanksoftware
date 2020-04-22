@@ -1,5 +1,7 @@
 # Tankstellen Software
 
+[![CodeFactor](https://www.codefactor.io/repository/github/leerror/tanksoftware/badge)](https://www.codefactor.io/repository/github/leerror/tanksoftware)
+
 This repository holds the code for Baden-Wuerttemberg Cooperative State University (DHBW) Ravensburg project for the lecture *Programmierung II*.
 
 tbd desc software
